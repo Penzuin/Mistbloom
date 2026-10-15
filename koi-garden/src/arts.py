@@ -137,6 +137,16 @@ def streamer():
                 c.set(x, y, mat=mat, tone=1.7 + 0.5 * ((y // 3) % 2))
     return p
 
+def ribbon():
+    """streamer cloth flying sideways: coloured bands run along its length, ragged tail end"""
+    def p(c):
+        cols = ['korange', 'kwhite', 'water', 'yellow', 'pink']
+        for y in range(c.h):
+            mat = cols[(y * 5) // max(1, c.h)]
+            for x in range(c.w - (2 if y % 2 else 0) - (y % 3)):
+                c.set(x, y, mat=mat, tone=1.7 + 0.5 * ((x // 3) % 2))
+    return p
+
 def sprout():
     def p(c):
         cx = c.w // 2

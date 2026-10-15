@@ -371,7 +371,7 @@ def koi_streamer():
     m.box('pole', (7, 3, 7), (2, 27, 2), WOOD, skip=['down'])
     m.box('cap', (6.5, 30, 6.5), (3, 1.2, 3), CAP)
     m.box('ball', (7.25, 31.2, 7.25), (1.5, 0.75, 1.5), solid('brass', 1.4), res=2)
-    m.plane('cloth', (9, 18.5, 8), 'z', (5, 11), arts.streamer(), res=1, rot=('z', -22.5, (9, 29.5, 8)))
+    m.plane('cloth', (9, 27.6, 8), 'z', (9, 2.2), arts.ribbon(), res=2, rot=('z', -22.5, (9, 28.7, 8)))
     koi3d(m, 'koi_big', 'x', -1, 9, 13, 24, 8, 1.9, 1.9, 'magoi', dorsal=False, pect=False, rot=('z', -22.5, (9, 24, 8)))
     koi3d(m, 'koi_small', 'x', -1, 9, 10, 17, 8, 1.5, 1.5, 'kohaku', dorsal=False, pect=False, rot=('z', -22.5, (9, 17, 8)))
     cross(m, 'moss', 5, 3, 11, 3.5, 2.5, arts.grass(), res=2)

@@ -97,12 +97,12 @@ def koi_streamer_wind():
     m.box('cap', (6.5, 30, 6.5), (3, 1.2, 3), CAP)
     m.box('ball', (7.25, 31.2, 7.25), (1.5, 0.75, 1.5), solid('brass', 1.4), res=2)
     cross(m, 'moss', 5, 3, 11, 3.5, 2.5, arts.grass(), res=2)
-    m.plane('cloth', (9, 18.5, 8), 'z', (5, 11), arts.streamer(), res=1)
+    m.plane('cloth', (9, 27.6, 8), 'z', (9, 2.2), arts.ribbon(), res=2)    # flies above the koi
     koi3d(m, 'koi_big', 'x', -1, 9, 13, 24, 8, 1.9, 1.9, 'magoi', dorsal=False, pect=False)
     koi3d(m, 'koi_small', 'x', -1, 9, 10, 17, 8, 1.5, 1.5, 'kohaku', dorsal=False, pect=False)
     rig = me.Rig(m.name, m, length=4.0)
     rig.bone('base', (0, 0, 0))
-    rig.bone('cloth', (1, 29.5, 0))
+    rig.bone('cloth', (1, 28.7, 0))
     rig.bone('koi_big', (1, 24, 0)); rig.bone('koi_big_tail', (1 + 0.86 * 13, 24, 0), 'koi_big')
     rig.bone('koi_small', (1, 17, 0)); rig.bone('koi_small_tail', (1 + 0.86 * 10, 17, 0), 'koi_small')
     def rule(n):
@@ -110,10 +110,10 @@ def koi_streamer_wind():
         return koi_rule(['koi_big', 'koi_small'])(n)
     rig.assign(rule)
     n = 32
-    rig.bones['cloth'].key('rotation', me.rot_keys(4.0, z=(9, 2, 0.3, -22.5), x=(10, 3, 0, 0), n=n))
+    rig.bones['cloth'].key('rotation', me.rot_keys(4.0, z=(9, 1, 0, -22.5), y=(12, 2, 0.4, 0), x=(8, 5, 0.7, 0), n=n))
     rig.bones['koi_big'].key('rotation', me.rot_keys(4.0, z=(9, 1, 0, -22.5), y=(12, 2, 0.4, 0), x=(6, 3, 0, 0), n=n))
     rig.bones['koi_big_tail'].key('rotation', me.rot_keys(4.0, y=(22, 4, 1.0, 0), z=(6, 2, 0, 0), n=n))
-    rig.bones['koi_small'].key('rotation', me.rot_keys(4.0, z=(11, 1, 1.4, -22.5), y=(14, 2, 2.0, 0), x=(7, 3, 1.0, 0), n=n))
+    rig.bones['koi_small'].key('rotation', me.rot_keys(4.0, z=(9, 1, 0.15, -22.5), y=(12, 2, 0.6, 0), x=(7, 3, 1.0, 0), n=n))
     rig.bones['koi_small_tail'].key('rotation', me.rot_keys(4.0, y=(26, 5, 0.3, 0), z=(7, 2, 1.0, 0), n=n))
     return rig
 
