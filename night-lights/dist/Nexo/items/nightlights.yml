@@ -1,0 +1,98 @@
+# Night Lights v1.0 by Mistbloom Studios - Nexo
+# Minecraft 1.21.4+.
+
+nightlights_star_lamp:
+  itemname: <#c9b8f0>Star Lamp
+  lore:
+  - <gray>A brass lamp with a glowing star on top.
+  - <gray>Right-click to turn the light on and off.
+  - <#9fb3d9>Night Lights
+  material: PAPER
+  Components:
+    item_model: nightlights:star_lamp
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.lantern.place
+        break_sound: block.lantern.break
+        hit_sound: block.lantern.hit
+        step_sound: block.lantern.step
+        fall_sound: block.lantern.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interactions:
+        - 0,0,0 0.8,1.3
+      lights:
+        toggleable: true
+        toggled_item_model: nightlights:star_lamp_lit
+        lights:
+        - 0,0,0 12
+
+nightlights_moon_jelly_jar:
+  itemname: <#c9b8f0>Moon Jelly Jar
+  lore:
+  - <gray>A little moon jelly glowing in a corked jar.
+  - <gray>Right-click to turn the light on and off.
+  - <#9fb3d9>Night Lights
+  material: PAPER
+  Components:
+    item_model: nightlights:moon_jelly_jar
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.lantern.place
+        break_sound: block.lantern.break
+        hit_sound: block.lantern.hit
+        step_sound: block.lantern.step
+        fall_sound: block.lantern.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interactions:
+        - 0,0,0 0.7,0.8
+      lights:
+        toggleable: true
+        toggled_item_model: nightlights:moon_jelly_jar_lit
+        lights:
+        - 0,0,0 11
+
+nightlights_crescent_moon_sconce:
+  itemname: <#c9b8f0>Crescent Moon Sconce
+  lore:
+  - <gray>A crescent moon hanging from a brass bracket.
+  - <gray>Right-click to turn the light on and off.
+  - <#9fb3d9>Night Lights
+  material: PAPER
+  Components:
+    item_model: nightlights:crescent_moon_sconce
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.lantern.place
+        break_sound: block.lantern.break
+        hit_sound: block.lantern.hit
+        step_sound: block.lantern.step
+        fall_sound: block.lantern.fall
+      limited_placing:
+        floor: false
+        wall: true
+        roof: false
+      hitbox:
+        interactions:
+        - 0,0,0 0.8,1.0
+      lights:
+        toggleable: true
+        toggled_item_model: nightlights:crescent_moon_sconce_lit
+        lights:
+        - 0,0,0 12
