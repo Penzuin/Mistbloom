@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mistbloom Studios</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Outfit:wght@400;500;600&display=swap">
+<style>
+/* Layout: one narrow column of night sky; the work gallery breaks out wide in the middle. Single dark look on purpose (the brand is a night sky). */
+:root {
+  --night: #141A33;
+  --night-2: #1C2346;
+  --line: #2E3766;
+  --bloom: #4E3E9A;
+  --petal: #C9B8F0;
+  --mist: #9FB3D9;
+  --gold: #F2C97D;
+  --parch: #F6F1E7;
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Outfit", "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--night);
+  color: var(--parch);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+}
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.narrow { max-width: 640px; }
+section { padding-block: 56px; }
+section + section { border-top: 1px solid var(--line); }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 700; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(28px, 4vw, 36px); line-height: 1.15; color: var(--parch); }
+h3 { font-size: 20px; font-weight: 500; }
+p { margin: 0; }
+.label {
+  font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold);
+}
+.muted { color: var(--mist); }
+a { color: var(--petal); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* hero */
+.hero { padding-block: 56px 48px; display: grid; gap: 28px; }
+.hero img.logo { width: min(560px, 100%); height: auto; display: block; }
+.hero h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.1; max-width: 18ch; }
+.hero p.lead { font-size: 19px; color: var(--mist); max-width: 54ch; }
+.status {
+  display: inline-flex; align-items: center; gap: 10px; font-size: 15px; color: var(--parch);
+  border: 1px solid var(--line); padding: 6px 14px; border-radius: 999px; width: fit-content;
+}
+.status::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: #7FD6A3; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px;
+  font: 600 16px/1 var(--body); text-decoration: none; cursor: pointer; border: 1px solid transparent;
+}
+.btn.primary { background: var(--gold); color: var(--night); }
+.btn.primary:hover { background: #F7D896; }
+.btn.ghost { border-color: var(--line); color: var(--parch); background: transparent; }
+.btn.ghost:hover { border-color: var(--petal); }
+
+/* gallery */
+.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 28px; }
+.gallery figure { margin: 0; display: grid; gap: 8px; }
+.gallery img { width: 100%; height: auto; aspect-ratio: 1; display: block; border-radius: 6px; }
+.gallery figcaption { font-size: 14px; color: var(--mist); }
+.gallery figcaption b { color: var(--parch); font-weight: 600; }
+.wide { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 14px; margin-top: 14px; }
+.wide figure { margin: 0; display: grid; gap: 8px; }
+.wide img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 6px; max-width: 100%; }
+.wide figcaption { font-size: 14px; color: var(--mist); }
+.wide figcaption b { color: var(--parch); font-weight: 600; }
+.shot { background: var(--night-2); border-radius: 6px; overflow: hidden; aspect-ratio: 16 / 10; }
+.shot.pix img { image-rendering: pixelated; object-fit: contain; }
+
+/* services */
+.services { display: grid; gap: 0; margin-top: 24px; }
+.service {
+  display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 24px;
+  padding-block: 22px; border-top: 1px solid var(--line);
+}
+.service:last-child { border-bottom: 1px solid var(--line); }
+.service h3 { color: var(--petal); }
+.service p { color: var(--parch); }
+.service .tags { margin-top: 10px; font-size: 14px; color: var(--mist); }
+
+/* process */
+.steps { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 18px; counter-reset: step; }
+.steps li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: start; counter-increment: step; }
+.steps li::before {
+  content: counter(step); font: 700 20px/1 var(--display); color: var(--night); background: var(--petal);
+  width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center;
+}
+.steps b { display: block; color: var(--parch); font-weight: 600; }
+.steps span { color: var(--mist); }
+
+/* contact */
+.contact { display: grid; gap: 18px; }
+.copyrow { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.code {
+  font: 500 17px/1 var(--body); padding: 12px 16px; border-radius: 10px; background: var(--night-2);
+  border: 1px solid var(--line); user-select: all; color: var(--parch);
+}
+.links { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 16px; }
+footer { padding-block: 32px 48px; display: flex; align-items: center; gap: 12px; color: var(--mist); font-size: 14px; border-top: 1px solid var(--line); }
+footer img { width: 28px; height: 28px; }
+
+@media (max-width: 720px) {
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wide { grid-template-columns: minmax(0, 1fr); }
+  .service { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  section { padding-block: 44px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn { transition: background .15s, border-color .15s; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <img class="logo" src="img/mistbloom-logo.webp" alt="Mistbloom Studios" width="1200" height="332">
+    <span class="status">Commissions open</span>
+    <h1>Custom models and builds for your Minecraft server</h1>
+    <p class="lead">I make animated furniture, wearable cosmetics and showcase builds that drop straight into Nexo, ItemsAdder or Oraxen. Cozy, night-sky fantasy is my home style, but I'll match yours.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://discord.gg/QUJ8ntw7eS" target="_blank" rel="noopener">Open a ticket on Discord</a>
+      <a class="btn ghost" href="#work">See the work</a>
+    </div>
+  </header>
+</div>
+
+<section id="work">
+  <div class="wrap">
+    <p class="label">Recent work</p>
+    <h2>Packs I've made</h2>
+    <div class="gallery">
+      <figure><img src="img/moonlit-ballroom.webp" alt="Moonlit Ballroom furniture pack" loading="lazy"><figcaption><b>Moonlit Ballroom</b> · 6 animated ghost pieces</figcaption></figure>
+      <figure><img src="img/witching-hour.webp" alt="Witching Hour cosmetics" loading="lazy"><figcaption><b>Witching Hour</b> · 6 HMCCosmetics pieces</figcaption></figure>
+      <figure><img src="img/halloween-festival.webp" alt="Halloween Festival furniture" loading="lazy"><figcaption><b>Halloween Festival</b> · 44 furniture pieces</figcaption></figure>
+      <figure><img src="img/waltzing-ghosts.webp" alt="Waltzing Ghosts piece" loading="lazy"><figcaption><b>Waltzing Ghosts</b> · animated furniture</figcaption></figure>
+      <figure><img src="img/witch-hat.webp" alt="Witch Hat cosmetic" loading="lazy"><figcaption><b>Witch Hat</b> · hat cosmetic</figcaption></figure>
+      <figure><img src="img/ghost-pianist.webp" alt="Ghost Pianist piece" loading="lazy"><figcaption><b>Ghost Pianist</b> · animated furniture</figcaption></figure>
+      <figure><img src="img/candle-crown.webp" alt="Candle Crown cosmetic" loading="lazy"><figcaption><b>Candle Crown</b> · flickering flames</figcaption></figure>
+      <figure><img src="img/lady-wispwell.webp" alt="Portrait of Lady Wispwell" loading="lazy"><figcaption><b>Lady Wispwell</b> · wall portrait</figcaption></figure>
+      <figure><img src="img/wisp.webp" alt="Wisp balloon cosmetic" loading="lazy"><figcaption><b>Wisp</b> · balloon cosmetic</figcaption></figure>
+    </div>
+    <div class="wide">
+      <figure><div class="shot"><img src="img/dressing-room.webp" alt="Inside the Witching Hour dressing room build" loading="lazy"></div><figcaption><b>Dressing room</b> · a wardrobe build for trying on cosmetics</figcaption></figure>
+      <figure><div class="shot pix"><img src="img/ballroom-hall.webp" alt="Moonlit Ballroom showcase hall on a floating island" loading="lazy"></div><figcaption><b>Ballroom hall</b> · floating-island showcase build</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="label">What I make</p>
+    <h2>Commission types</h2>
+    <div class="services">
+      <div class="service">
+        <h3>Furniture &amp; decor</h3>
+        <div><p>Placeable 3D furniture with real hitboxes, seats, storage and light toggles. Animated textures for candles, ghosts and glows.</p><p class="tags">Nexo · ItemsAdder · Oraxen</p></div>
+      </div>
+      <div class="service">
+        <h3>Cosmetics</h3>
+        <div><p>Hats, back pieces, off-hand items, balloons and wings, set up with a menu and a permission for each piece so they work as ranks or crate rewards.</p><p class="tags">HMCCosmetics</p></div>
+      </div>
+      <div class="service">
+        <h3>Showcase builds</h3>
+        <div><p>Spawns, store rooms and themed showcases built around your items, delivered as a schematic or a datapack you can paste in one command.</p><p class="tags">WorldEdit schematic · datapack</p></div>
+      </div>
+      <div class="service">
+        <h3>Menus &amp; GUIs</h3>
+        <div><p>Textured inventory menus for plugins like MCPets, BattlePass and casino plugins, drawn to match your server's look.</p><p class="tags">Nexo or a plain resource pack</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <p class="label">How it works</p>
+    <h2>From idea to drop-in files</h2>
+    <ol class="steps">
+      <li><div><b>Open a ticket</b><span>Join the Discord and open a commission ticket.</span></div></li>
+      <li><div><b>Share your idea</b><span>Send references, your server's style, which plugins you use and your budget. I'll reply with a quote and a timeline.</span></div></li>
+      <li><div><b>Preview first</b><span>You see renders of every piece before anything is final, and we tweak until it's right.</span></div></li>
+      <li><div><b>Get your files</b><span>Ready-to-drop folders for your items plugin, plus Blockbench files so you can edit later.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap narrow contact">
+    <p class="label">Get in touch</p>
+    <h2>Start a commission</h2>
+    <p class="muted">The quickest way is a ticket in the Mistbloom Studios Discord.</p>
+    <div class="copyrow">
+      <span class="code" id="invite">discord.gg/QUJ8ntw7eS</span>
+      <button class="btn ghost" id="copy" type="button">Copy link</button>
+      <a class="btn primary" href="https://discord.gg/QUJ8ntw7eS" target="_blank" rel="noopener">Open Discord</a>
+    </div>
+    <div class="links">
+      <a href="https://payhip.com/b/GlHrd" target="_blank" rel="noopener">Free sample pack: Night Lights</a>
+      <a href="https://www.youtube.com/@MistbloomStudios" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <img src="img/mark.png" alt="" width="28" height="28">
+    <span>Mistbloom Studios · original Minecraft models and builds</span>
+  </footer>
+</div>
+
+<script>
+document.getElementById('copy').addEventListener('click', async (e) => {
+  const btn = e.currentTarget;
+  try {
+    await navigator.clipboard.writeText('https://discord.gg/QUJ8ntw7eS');
+    btn.textContent = 'Copied';
+  } catch (err) {
+    const r = document.createRange(); r.selectNodeContents(document.getElementById('invite'));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    btn.textContent = 'Press Ctrl+C';
+  }
+  setTimeout(() => { btn.textContent = 'Copy link'; }, 1800);
+});
+</script>
+</body>
+</html>
