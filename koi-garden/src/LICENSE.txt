@@ -1,0 +1,21 @@
+Koi Garden - License
+Copyright (c) 2026 Mistbloom Studios. All rights reserved.
+
+By purchasing or downloading this pack you get a non-exclusive, non-transferable license to:
+  - use the models, textures and configs on Minecraft servers you own or manage
+    (any number of servers, including networks and monetized servers);
+  - edit, recolor and adapt them for those servers;
+  - show them in screenshots, videos and streams.
+
+You may NOT:
+  - resell, share, leak or redistribute the pack or any part of it, edited or not,
+    including inside another pack, template, map download or "free" bundle;
+  - claim the work as your own or remove this license;
+  - use the assets to train AI models or to build competing asset packs.
+
+Players joining your server receive the resource pack automatically; that is allowed.
+If your license is revoked (for example after a chargeback), you must stop using the pack.
+
+Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.
+
+Questions: message Mistbloom Studios on the store where you bought this pack.

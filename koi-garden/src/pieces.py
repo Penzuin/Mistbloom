@@ -117,7 +117,7 @@ def koi_lilypad():
     m.box('pod', (4.6, 0.15, 4.6), (2, 1.4, 2), {'up': solid('yellow', 1.4), '*': solid('lily', 1.6)}, res=2, skip=['down'])
     cross(m, 'lotus', 5.6, 0.4, 5.6, 6, 5, arts.petal_fan(), res=2)
     m.plane('lotus_ring', (2.6, 0.6, 2.6), 'y', (6, 6), arts.petal_ring(), res=2)
-    koi3d(m, 'koi', 'x', -1, 1.5, 11, 1.6, 12.5, 1.4, 1.7, 'sanke', rot=('y', 22.5, (8, 1.6, 12.5)))
+    koi3d(m, 'koi', 'x', -1, 1.5, 11, 1.85, 12.5, 1.4, 1.7, 'sanke', rot=('y', 22.5, (8, 1.85, 12.5)))
     m.meta = {'hitbox': [], 'size': '1x1 (walk-through)'}
     return m
 
@@ -308,8 +308,10 @@ def table_top():
             if arts.FRAME[0] is not None:
                 arts.ripples(c, [(cx - 6, cy + 5, 3), (cx + 7, cy - 4, 2.5)], tone=1.3)
             rr = R * 0.52
-            arts.koi_field(c, arts.arc(cx, cy, rr, 0.2, 0.2 + 2.4), 2.5, 'kohaku')
-            arts.koi_field(c, arts.arc(cx, cy, rr, 0.2 + math.pi, 0.2 + math.pi + 2.4), 2.5, 'showa')
+            # while baking the animated strip the two koi swim one lap round the pool per loop
+            ph = 0.0 if arts.FRAME[0] is None else -2 * math.pi * arts.FRAME[0][0] / arts.FRAME[0][1]
+            arts.koi_field(c, arts.arc(cx, cy, rr, 0.2 + ph, 0.2 + 2.4 + ph), 2.5, 'kohaku')
+            arts.koi_field(c, arts.arc(cx, cy, rr, 0.2 + math.pi + ph, 0.2 + math.pi + 2.4 + ph), 2.5, 'showa')
     return p
 
 def koi_table():
@@ -369,7 +371,7 @@ def koi_streamer():
     m.box('pole', (7, 3, 7), (2, 27, 2), WOOD, skip=['down'])
     m.box('cap', (6.5, 30, 6.5), (3, 1.2, 3), CAP)
     m.box('ball', (7.25, 31.2, 7.25), (1.5, 0.75, 1.5), solid('brass', 1.4), res=2)
-    m.plane('fukinagashi', (9, 18.5, 8), 'z', (5, 11), arts.streamer(), res=1, rot=('z', -22.5, (9, 29.5, 8)))
+    m.plane('cloth', (9, 18.5, 8), 'z', (5, 11), arts.streamer(), res=1, rot=('z', -22.5, (9, 29.5, 8)))
     koi3d(m, 'koi_big', 'x', -1, 9, 13, 24, 8, 1.9, 1.9, 'magoi', dorsal=False, pect=False, rot=('z', -22.5, (9, 24, 8)))
     koi3d(m, 'koi_small', 'x', -1, 9, 10, 17, 8, 1.5, 1.5, 'kohaku', dorsal=False, pect=False, rot=('z', -22.5, (9, 17, 8)))
     cross(m, 'moss', 5, 3, 11, 3.5, 2.5, arts.grass(), res=2)

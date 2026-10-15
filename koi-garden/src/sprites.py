@@ -213,6 +213,12 @@ def _(s):
     s.P([(4, 8), (12, 10), (13, 12), (11, 12), (4, 11)], 'kwhite')
     s.D(7, 9, 'korange', 1); s.D(8, 10, 'korange', 1); s.D(10, 10, 'korange', 1); s.D(5, 9, 'kblack', 2)
 
+@sp('koi_school')
+def _(s):
+    s.E(8, 8, 7.5, 6.5, 'water')
+    koi(s, 13, 5, 8, 1, 'kohaku')
+    koi(s, 2, 11, 8, -1, 'sanke')
+
 def render_all():
     out = {}
     for k, f in REG.items():

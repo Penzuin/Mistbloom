@@ -1,0 +1,355 @@
+# Koi Garden by Mistbloom Studios
+
+koi_pond:
+  itemname: "<#f2e6cc>Koi Pond"
+  material: PAPER
+  lore:
+    - "<gray>A stone pond with two koi swimming in circles."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_pond
+  Mechanics:
+    furniture:
+      modelengine_id: mistbloom_koi_pond
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.stone.place
+        break_sound: block.stone.break
+        hit_sound: block.stone.hit
+        step_sound: block.stone.step
+        fall_sound: block.stone.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 1,0,0
+          - 0,0,1
+          - 1,0,1
+
+koi_school:
+  itemname: "<#f2e6cc>Koi School"
+  material: PAPER
+  lore:
+    - "<gray>Three koi swimming in a circle."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_school
+  Mechanics:
+    furniture:
+      modelengine_id: mistbloom_koi_school
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.grass.place
+        break_sound: block.grass.break
+        hit_sound: block.grass.hit
+        step_sound: block.grass.step
+        fall_sound: block.grass.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interactions:
+          - 0,0,0 1,0.4
+
+koi_statue:
+  itemname: "<#f2e6cc>Leaping Koi Statue"
+  material: PAPER
+  lore:
+    - "<gray>A koi leaping off a stone plinth, tail swishing."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_statue
+  Mechanics:
+    furniture:
+      modelengine_id: mistbloom_koi_statue
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.stone.place
+        break_sound: block.stone.break
+        hit_sound: block.stone.hit
+        step_sound: block.stone.step
+        fall_sound: block.stone.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 0,1,0
+
+koi_bowl:
+  itemname: "<#f2e6cc>Koi Bowl"
+  material: PAPER
+  lore:
+    - "<gray>Two koi swimming round a glass bowl on a teak stand."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_bowl
+  Mechanics:
+    furniture:
+      modelengine_id: mistbloom_koi_bowl
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+
+koi_and_lily_pad:
+  itemname: "<#f2e6cc>Koi and Lily Pad"
+  material: PAPER
+  lore:
+    - "<gray>A koi resting under a lotus, flicking its tail."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_and_lily_pad
+  Mechanics:
+    furniture:
+      modelengine_id: mistbloom_koi_and_lily_pad
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.grass.place
+        break_sound: block.grass.break
+        hit_sound: block.grass.hit
+        step_sound: block.grass.step
+        fall_sound: block.grass.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interactions:
+          - 0,0,0 1,0.4
+
+koi_lily_pads:
+  itemname: "<#f2e6cc>Lily Pads"
+  material: PAPER
+  lore:
+    - "<gray>Lily pads with a lotus and a bud, bobbing on the water."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_lily_pads
+  Mechanics:
+    furniture:
+      modelengine_id: mistbloom_koi_lily_pads
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.grass.place
+        break_sound: block.grass.break
+        hit_sound: block.grass.hit
+        step_sound: block.grass.step
+        fall_sound: block.grass.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interactions:
+          - 0,0,0 1,0.4
+
+koi_reeds:
+  itemname: "<#f2e6cc>Pond Reeds"
+  material: PAPER
+  lore:
+    - "<gray>Cattails and yellow iris swaying by the water."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_reeds
+  Mechanics:
+    furniture:
+      modelengine_id: mistbloom_koi_reeds
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.grass.place
+        break_sound: block.grass.break
+        hit_sound: block.grass.hit
+        step_sound: block.grass.step
+        fall_sound: block.grass.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interactions:
+          - 0,0,0 1,0.4
+
+koi_streamer:
+  itemname: "<#f2e6cc>Koi Streamer"
+  material: PAPER
+  lore:
+    - "<gray>Two koi windsocks and a cloth streamer flapping on a teak pole."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_streamer
+  Mechanics:
+    furniture:
+      modelengine_id: mistbloom_koi_streamer
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 0,1,0
+
+koi_tea_table:
+  itemname: "<#f2e6cc>Koi Tea Table"
+  material: PAPER
+  lore:
+    - "<gray>A tea table with two koi swimming round the pool on top."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_tea_table
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+
+koi_bench:
+  itemname: "<#f2e6cc>Koi Bench"
+  material: LEATHER_HORSE_ARMOR
+  color: 232,217,184
+  lore:
+    - "<gray>Seats two. Dye it to change the cushions."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_bench
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 1,0,0
+      seats:
+        - 0,0.5,0
+        - 1,0.5,0
+
+koi_folding_screen:
+  itemname: "<#f2e6cc>Koi Folding Screen"
+  material: PAPER
+  lore:
+    - "<gray>A three-panel screen painted with koi."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_folding_screen
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 0,1,0
+
+koi_wall_plaque:
+  itemname: "<#f2e6cc>Koi Wall Plaque"
+  material: PAPER
+  lore:
+    - "<gray>A teak plaque with two carved koi."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_wall_plaque
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: false
+        wall: true
+        roof: false
+      hitbox:
+        interactions:
+          - 0,0,0 1,1.2
+
+koi_stepping_stones:
+  itemname: "<#f2e6cc>Stepping Stones"
+  material: PAPER
+  lore:
+    - "<gray>Two flat stones for a garden path."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_stepping_stones
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      restricted_rotation: VERY_STRICT
+      block_sounds:
+        place_sound: block.stone.place
+        break_sound: block.stone.break
+        hit_sound: block.stone.hit
+        step_sound: block.stone.step
+        fall_sound: block.stone.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interactions:
+          - 0,0,0 1,0.4
