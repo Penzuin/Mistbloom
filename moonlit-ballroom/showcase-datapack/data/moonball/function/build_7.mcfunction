@@ -1848,69 +1848,69 @@ fill 107 218 176 109 218 176 minecraft:dark_oak_stairs[facing=north]
 fill 155 218 176 157 218 176 minecraft:dark_oak_stairs[facing=north]
 fill 107 211 176 109 217 176 minecraft:dark_oak_planks
 fill 155 211 176 157 217 176 minecraft:dark_oak_planks
-fill 132 224 150 132 254 150 minecraft:chain
+fill 132 224 150 132 254 150 minecraft:iron_chain
 setblock 132 223 150 minecraft:soul_lantern[hanging=true]
-setblock 135 225 150 minecraft:chain
+setblock 135 225 150 minecraft:iron_chain
 setblock 135 224 150 minecraft:soul_lantern[hanging=true]
-setblock 134 225 152 minecraft:chain
+setblock 134 225 152 minecraft:iron_chain
 setblock 134 224 152 minecraft:soul_lantern[hanging=true]
-setblock 132 225 153 minecraft:chain
+setblock 132 225 153 minecraft:iron_chain
 setblock 132 224 153 minecraft:soul_lantern[hanging=true]
-setblock 130 225 152 minecraft:chain
+setblock 130 225 152 minecraft:iron_chain
 setblock 130 224 152 minecraft:soul_lantern[hanging=true]
-setblock 129 225 150 minecraft:chain
+setblock 129 225 150 minecraft:iron_chain
 setblock 129 224 150 minecraft:soul_lantern[hanging=true]
-setblock 130 225 148 minecraft:chain
+setblock 130 225 148 minecraft:iron_chain
 setblock 130 224 148 minecraft:soul_lantern[hanging=true]
-setblock 132 225 147 minecraft:chain
+setblock 132 225 147 minecraft:iron_chain
 setblock 132 224 147 minecraft:soul_lantern[hanging=true]
-setblock 134 225 148 minecraft:chain
+setblock 134 225 148 minecraft:iron_chain
 setblock 134 224 148 minecraft:soul_lantern[hanging=true]
 fill 129 226 150 135 226 150 minecraft:dark_oak_fence
 fill 132 226 147 132 226 153 minecraft:dark_oak_fence
-setblock 132 226 150 minecraft:chain
-fill 132 224 164 132 254 164 minecraft:chain
+setblock 132 226 150 minecraft:iron_chain
+fill 132 224 164 132 254 164 minecraft:iron_chain
 setblock 132 223 164 minecraft:soul_lantern[hanging=true]
-setblock 135 225 164 minecraft:chain
+setblock 135 225 164 minecraft:iron_chain
 setblock 135 224 164 minecraft:soul_lantern[hanging=true]
-setblock 134 225 166 minecraft:chain
+setblock 134 225 166 minecraft:iron_chain
 setblock 134 224 166 minecraft:soul_lantern[hanging=true]
-setblock 132 225 167 minecraft:chain
+setblock 132 225 167 minecraft:iron_chain
 setblock 132 224 167 minecraft:soul_lantern[hanging=true]
-setblock 130 225 166 minecraft:chain
+setblock 130 225 166 minecraft:iron_chain
 setblock 130 224 166 minecraft:soul_lantern[hanging=true]
-setblock 129 225 164 minecraft:chain
+setblock 129 225 164 minecraft:iron_chain
 setblock 129 224 164 minecraft:soul_lantern[hanging=true]
-setblock 130 225 162 minecraft:chain
+setblock 130 225 162 minecraft:iron_chain
 setblock 130 224 162 minecraft:soul_lantern[hanging=true]
-setblock 132 225 161 minecraft:chain
+setblock 132 225 161 minecraft:iron_chain
 setblock 132 224 161 minecraft:soul_lantern[hanging=true]
-setblock 134 225 162 minecraft:chain
+setblock 134 225 162 minecraft:iron_chain
 setblock 134 224 162 minecraft:soul_lantern[hanging=true]
 fill 129 226 164 135 226 164 minecraft:dark_oak_fence
 fill 132 226 161 132 226 167 minecraft:dark_oak_fence
-setblock 132 226 164 minecraft:chain
-fill 132 224 178 132 254 178 minecraft:chain
+setblock 132 226 164 minecraft:iron_chain
+fill 132 224 178 132 254 178 minecraft:iron_chain
 setblock 132 223 178 minecraft:soul_lantern[hanging=true]
-setblock 135 225 178 minecraft:chain
+setblock 135 225 178 minecraft:iron_chain
 setblock 135 224 178 minecraft:soul_lantern[hanging=true]
-setblock 134 225 180 minecraft:chain
+setblock 134 225 180 minecraft:iron_chain
 setblock 134 224 180 minecraft:soul_lantern[hanging=true]
-setblock 132 225 181 minecraft:chain
+setblock 132 225 181 minecraft:iron_chain
 setblock 132 224 181 minecraft:soul_lantern[hanging=true]
-setblock 130 225 180 minecraft:chain
+setblock 130 225 180 minecraft:iron_chain
 setblock 130 224 180 minecraft:soul_lantern[hanging=true]
-setblock 129 225 178 minecraft:chain
+setblock 129 225 178 minecraft:iron_chain
 setblock 129 224 178 minecraft:soul_lantern[hanging=true]
-setblock 130 225 176 minecraft:chain
+setblock 130 225 176 minecraft:iron_chain
 setblock 130 224 176 minecraft:soul_lantern[hanging=true]
-setblock 132 225 175 minecraft:chain
+setblock 132 225 175 minecraft:iron_chain
 setblock 132 224 175 minecraft:soul_lantern[hanging=true]
-setblock 134 225 176 minecraft:chain
+setblock 134 225 176 minecraft:iron_chain
 setblock 134 224 176 minecraft:soul_lantern[hanging=true]
 fill 129 226 178 135 226 178 minecraft:dark_oak_fence
 fill 132 226 175 132 226 181 minecraft:dark_oak_fence
-setblock 132 226 178 minecraft:chain
+setblock 132 226 178 minecraft:iron_chain
 fill 116 211 182 148 211 191 minecraft:dark_oak_planks
 fill 116 211 182 148 211 182 minecraft:dark_oak_stairs[facing=north]
 fill 116 212 191 148 219 191 minecraft:purple_wool

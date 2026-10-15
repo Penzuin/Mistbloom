@@ -90,7 +90,7 @@ def gardens():
         setb(x, 8, 6, "minecraft:soul_lantern")
     fill(29, 7, 6, 35, 7, 6, "minecraft:iron_bars")
     fill(30, 8, 6, 34, 8, 6, "minecraft:iron_bars")
-    setb(32, 6, 6, "minecraft:chain")
+    setb(32, 6, 6, "minecraft:iron_chain")
     setb(32, 5, 6, "minecraft:soul_lantern[hanging=true]")
     setb(29, 1, 6, "minecraft:iron_bars"); setb(29, 2, 6, "minecraft:iron_bars")
     setb(35, 1, 6, "minecraft:iron_bars"); setb(35, 2, 6, "minecraft:iron_bars")
@@ -206,7 +206,7 @@ def foyer():
         fill(x, 1, FZ0, x, 3, FZ1, "minecraft:dark_oak_trapdoor[facing=%s,half=bottom,open=true]" % ("east" if x < MIDX else "west"))
     # hanging chandeliers in the foyer
     for x in (20, 44):
-        fill(x, 9, 30, x, 11, 30, "minecraft:chain")
+        fill(x, 9, 30, x, 11, 30, "minecraft:iron_chain")
         setb(x, 8, 30, "minecraft:soul_lantern[hanging=true]")
         for dx, dz in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             setb(x + dx, 9, 30 + dz, "minecraft:end_rod[facing=up]")
@@ -264,16 +264,16 @@ def ballroom():
             fill(X1 - 3, 1, z, X1 - 1, i, z, "minecraft:dark_oak_planks")
     # three chandeliers on long chains from the vault
     for cz in (50, 64, 78):
-        fill(MIDX, 14, cz, MIDX, 44, cz, "minecraft:chain")
+        fill(MIDX, 14, cz, MIDX, 44, cz, "minecraft:iron_chain")
         setb(MIDX, 13, cz, "minecraft:soul_lantern[hanging=true]")
         for k in range(8):
             t = k * math.pi / 4
             x, z = MIDX + round(3 * math.cos(t)), cz + round(3 * math.sin(t))
-            setb(x, 15, z, "minecraft:chain")
+            setb(x, 15, z, "minecraft:iron_chain")
             setb(x, 14, z, "minecraft:soul_lantern[hanging=true]")
         fill(MIDX - 3, 16, cz, MIDX + 3, 16, cz, "minecraft:dark_oak_fence")
         fill(MIDX, 16, cz - 3, MIDX, 16, cz + 3, "minecraft:dark_oak_fence")
-        setb(MIDX, 16, cz, "minecraft:chain")
+        setb(MIDX, 16, cz, "minecraft:iron_chain")
     # stage at the far end
     fill(16, 1, 82, 48, 1, BZ1, "minecraft:dark_oak_planks")
     fill(16, 1, 82, 48, 1, 82, "minecraft:dark_oak_stairs[facing=north]")

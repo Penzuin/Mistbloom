@@ -1143,7 +1143,7 @@ setblock 136 217 106 minecraft:chiseled_deepslate
 setblock 136 218 106 minecraft:soul_lantern
 fill 129 217 106 135 217 106 minecraft:iron_bars
 fill 130 218 106 134 218 106 minecraft:iron_bars
-setblock 132 216 106 minecraft:chain
+setblock 132 216 106 minecraft:iron_chain
 setblock 132 215 106 minecraft:soul_lantern[hanging=true]
 setblock 129 211 106 minecraft:iron_bars
 setblock 129 212 106 minecraft:iron_bars
@@ -1969,13 +1969,13 @@ setblock 136 218 137 minecraft:deepslate_tile_stairs[facing=west,half=top]
 fill 131 211 126 133 211 137 minecraft:purple_carpet
 fill 107 211 125 107 213 136 minecraft:dark_oak_trapdoor[facing=east,half=bottom,open=true]
 fill 157 211 125 157 213 136 minecraft:dark_oak_trapdoor[facing=west,half=bottom,open=true]
-fill 120 219 130 120 221 130 minecraft:chain
+fill 120 219 130 120 221 130 minecraft:iron_chain
 setblock 120 218 130 minecraft:soul_lantern[hanging=true]
 setblock 121 219 130 minecraft:end_rod[facing=up]
 setblock 119 219 130 minecraft:end_rod[facing=up]
 setblock 120 219 131 minecraft:end_rod[facing=up]
 setblock 120 219 129 minecraft:end_rod[facing=up]
-fill 144 219 130 144 221 130 minecraft:chain
+fill 144 219 130 144 221 130 minecraft:iron_chain
 setblock 144 218 130 minecraft:soul_lantern[hanging=true]
 setblock 145 219 130 minecraft:end_rod[facing=up]
 setblock 143 219 130 minecraft:end_rod[facing=up]
