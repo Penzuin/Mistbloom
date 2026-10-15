@@ -122,7 +122,7 @@ INTERACT = {'koi_wall_plaque': '0,0,0 1,1.2'}
 STILL_MODEL = {p.__name__: p for p in pieces.ALL}
 
 # ------------------------------------------------------------------ ModelEngine furniture
-Y_SHIFT = -8   # Nexo centres a floor piece's display entity half a block up
+Y_SHIFT = 0    # Nexo spawns ModelEngine furniture on the block floor (checked in game: entity y = floor top)
 
 def build_rig(rig_fn, furn_fn, off):
     rig = rig_fn(); m = rig.model

@@ -29,12 +29,12 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				-8,
-				6.215,
+				14.215,
 				-1.53
 			],
 			"to": [
 				-4.36,
-				9.785,
+				17.785,
 				1.53
 			],
 			"autouv": 0,
@@ -112,12 +112,12 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				-4.75,
-				5.9,
+				13.9,
 				-1.8
 			],
 			"to": [
 				3.96,
-				10.1,
+				18.1,
 				1.8
 			],
 			"autouv": 0,
@@ -195,12 +195,12 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				3.18,
-				5.27,
+				13.27,
 				0
 			],
 			"to": [
 				9.68,
-				10.73,
+				18.73,
 				0
 			],
 			"autouv": 0,
@@ -278,12 +278,12 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				-3.32,
-				10,
+				18,
 				0
 			],
 			"to": [
 				1.36,
-				11.89,
+				19.89,
 				0
 			],
 			"autouv": 0,
@@ -361,12 +361,12 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				-4.88,
-				6.845,
+				14.845,
 				-3.06
 			],
 			"to": [
 				-2.54,
-				6.845,
+				14.845,
 				3.06
 			],
 			"autouv": 0,
@@ -444,12 +444,12 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				-7,
-				-8,
+				0,
 				-7
 			],
 			"to": [
 				7,
-				-6,
+				2,
 				7
 			],
 			"autouv": 0,
@@ -527,12 +527,12 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				-5,
-				-6,
+				2,
 				-5
 			],
 			"to": [
 				5,
-				-1,
+				7,
 				5
 			],
 			"autouv": 0,
@@ -610,12 +610,12 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				-6,
-				-1,
+				7,
 				-6
 			],
 			"to": [
 				6,
-				0.5,
+				8.5,
 				6
 			],
 			"autouv": 0,
@@ -693,12 +693,12 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				-4,
-				0.5,
+				8.5,
 				-4
 			],
 			"to": [
 				4,
-				3.5,
+				11.5,
 				4
 			],
 			"autouv": 0,
@@ -776,19 +776,19 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				-5.5,
-				1.5,
+				9.5,
 				0
 			],
 			"to": [
 				5.5,
-				7.5,
+				15.5,
 				0
 			],
 			"autouv": 0,
 			"color": 0,
 			"origin": [
 				0,
-				1.5,
+				9.5,
 				0
 			],
 			"faces": {
@@ -864,19 +864,19 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				-5.5,
-				1.5,
+				9.5,
 				0
 			],
 			"to": [
 				5.5,
-				7.5,
+				15.5,
 				0
 			],
 			"autouv": 0,
 			"color": 0,
 			"origin": [
 				0,
-				1.5,
+				9.5,
 				0
 			],
 			"faces": {
@@ -952,19 +952,19 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				3.2,
-				-6,
+				2,
 				-5.2
 			],
 			"to": [
 				7.2,
-				-3,
+				5,
 				-5.2
 			],
 			"autouv": 0,
 			"color": 0,
 			"origin": [
 				5.2,
-				-6,
+				2,
 				-5.2
 			],
 			"faces": {
@@ -1040,19 +1040,19 @@
 			"allow_mirror_modeling": true,
 			"from": [
 				3.2,
-				-6,
+				2,
 				-5.2
 			],
 			"to": [
 				7.2,
-				-3,
+				5,
 				-5.2
 			],
 			"autouv": 0,
 			"color": 0,
 			"origin": [
 				5.2,
-				-6,
+				2,
 				-5.2
 			],
 			"faces": {
@@ -1125,7 +1125,7 @@
 			"name": "base",
 			"origin": [
 				0,
-				-8,
+				0,
 				0
 			],
 			"color": 0,
@@ -1151,7 +1151,7 @@
 			"name": "koi",
 			"origin": [
 				0,
-				8,
+				16,
 				0
 			],
 			"color": 0,
@@ -1171,7 +1171,7 @@
 					"name": "koi_tail",
 					"origin": [
 						3.1799999999999997,
-						8,
+						16,
 						0
 					],
 					"color": 0,
