@@ -107,7 +107,11 @@ class Ctx:
         self.u = (xx + 0.5) / w
         self.v = (yy + 0.5) / h
         # element-space coordinates of every pixel centre
-        P = face_point(face, el.f, el.t, self.u, self.v)
+        f, t = el.f, el.t
+        if getattr(el, 'turned', False):
+            # painters (koi patterns, eyes, ripples) work in the model's original, unturned space
+            f, t = (16 - t[0], f[1], 16 - t[2]), (16 - f[0], t[1], 16 - f[2])
+        P = face_point(face, f, t, self.u, self.v)
         self.P = [np.broadcast_to(np.asarray(c, float), (h, w)) for c in P]
 
     def fill(self, mat, tone=2.0):
