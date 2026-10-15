@@ -722,7 +722,7 @@ def stall(name, ramp="plum", trim="pump"):
     m.box([-16, 20.5, zv - 0.3], [32, round(under(zv) + 0.25, 2), zv + 0.3], scallop(ramp, trim))   # valance, tucked under the eave
     sign = shop_sign("POTIONS")
     wpx = 40 + ((40 - sign.text_width) % 2)                                                   # even margins left and right
-    m.box([8 - wpx / 4, 13, -2.8], [8 + wpx / 4, 18, -1.4], sign, res=2)                      # shop sign, 10 px tall: equal margins
+    m.box([8 - wpx / 4, 19, zv - 1.45], [8 + wpx / 4, 24, zv - 0.35], sign, res=2)          # shop sign, fixed to the front of the awning
     m.box([-4.5, 0, 4.5], [1.5, 7, 10.5], flask(), emit=12)                                  # hero potion
     m.box([-3, 7, 6], [0, 9.5, 9], solid("rust", 2))                                          # cork
     m.box([20, 0, 4], [27, 6, 10], painted_jack(True), emit=10, res=2)                        # glowing jack on the counter
