@@ -27,15 +27,18 @@ def fur(face=False):
         if face and fc == "north" and w >= 12 and h >= 9:
             img[:, :] = T("fur", 2)                                   # clean face, no speckle
             ey, cx = 1, w // 2                                        # w even: mirror line between cx-1 and cx
-            eye = [".111.", "11011", "11011", "11011", ".111."]
+            eye = [".111.", "11111", "11011", "12022", ".222."]        # solid gold eye, shaded lower half
             for side in (-1, 1):
                 x0 = cx - 6 if side < 0 else cx + 1                     # cols 1-5 and 8-12 on a 14px face
                 for yy, row in enumerate(eye):
-                    for xx, ch in enumerate(row):
+                    r = row if side < 0 else row[::-1]
+                    for xx, ch in enumerate(r):
                         if ch == "1":
                             img[ey + yy, x0 + xx] = T("gold", 1)
+                        elif ch == "2":
+                            img[ey + yy, x0 + xx] = T("gold", 3)
                         elif ch == "0":
-                            img[ey + yy, x0 + xx] = T("coal", 6)        # slit pupil
+                            img[ey + yy, x0 + xx] = T("coal", 6)        # small pupil, 1 x 2
                 img[ey + 1, x0 + (1 if side < 0 else 3)] = T("cream", 0)  # glint, mirrored
             img[ey + 5, cx - 1:cx + 1] = T("blush", 2)                  # nose
             img[ey + 6, cx - 1:cx + 1] = T("coal", 5)                   # little mouth
@@ -176,23 +179,55 @@ LEGS = art([
 ], {"a": ("plum", 3)})
 
 
+SKULL_FACE = [            # 16 x 14 (left half shown, mirrored); s socket, g ember, h brow light, d cheek shade, n nose
+    "........",
+    "........",
+    "...hhh..",
+    "...sss..",
+    "..sssss.",
+    "..ssgss.",
+    "..sssss.",
+    "...sss..",
+    "..ddddd.",
+    ".......n",
+    "......nn",
+    "......n.",
+    "........",
+    "........",
+]
+
+
 def skull():
+    """Cranium. Front: two big rounded eye sockets with a tiny ember deep inside, a lit brow above
+    them, soft cheek shadow below, and an upside-down heart nose - drawn from a mirrored mask."""
+    mask = [r + r[::-1] for r in SKULL_FACE]          # force perfect left/right symmetry
     def f(w, h, fc, key):
         rng = random.Random(key)
         img = _blank(w, h)
         img[:, :] = T("bone", 1)
-        for _ in range(w * h // 14):
-            img[rng.randrange(h), rng.randrange(w)] = T("bone", 2)
+        if fc != "north":
+            for _ in range(w * h // 14):
+                img[rng.randrange(h), rng.randrange(w)] = T("bone", 2)
         if fc == "up":
             img[:, :] = T("bone", 0)
-        if fc == "north" and w >= 8 and h >= 6:
-            ey = h // 2 - 1
-            for ex in (w // 4 - 1, w - w // 4 - 2):
-                img[ey:ey + 3, ex:ex + 3] = T("ebony", 5)                         # round sockets
-                img[ey, ex] = img[ey, ex + 2] = T("bone", 2)
-                img[ey + 1, ex + 1] = T("pump", 1)                                # tiny glow inside
-            img[ey + 3:ey + 5, w // 2 - 1:w // 2 + 1] = T("ebony", 4)             # nose
-            img[ey + 3, w // 2 - 1] = T("bone", 2)
+        if fc == "north" and w >= 16 and h >= 14:
+            ox, oy = (w - 16) // 2, (h - 14) // 2
+            img[:, :] = T("bone", 1)
+            img[-2:, :] = T("bone", 2)                                             # under the cheekbones
+            for y, row in enumerate(mask):
+                for x, ch in enumerate(row):
+                    px = (oy + y, ox + x)
+                    if ch == "s":
+                        top = y > 0 and mask[y - 1][x] != "s"
+                        img[px] = T("ebony", 5 if top else 6)                      # deep socket, rim catches a little light
+                    elif ch == "g":
+                        img[px] = T("pump", 1)                                     # ember glint
+                    elif ch == "h":
+                        img[px] = T("bone", 0)
+                    elif ch == "d":
+                        img[px] = T("bone", 2)
+                    elif ch == "n":
+                        img[px] = T("ebony", 5)
         return img
     return f
 
@@ -208,30 +243,45 @@ def jaw():
     return f
 
 
-DRIP = art([
-    "aaaaaaa",
-    "aa.aaa.",
-    "a..a.a.",
-    "a....a.",
-    ".....a.",
+DRIP = art([                 # wax run down the middle of the forehead, stops between the eyes
+    "aaaaaa",
+    "aaaaaa",
+    ".aaa.a",
+    "..a...",
 ], {"a": ("candle", 1)})
 
 
 def cushion():
-    """Tufted cushion: dye-able cloth (non-neutral 'fur' ramp) with cream piping and gold buttons."""
+    """Tufted cushion: dye-able cloth (non-neutral 'fur' ramp) with cream piping and gold buttons.
+    Shaded like a soft pillow: the top domes up (light centre, darker toward the piping), each
+    button sits in a dimple with a shadow below it, the sides roll from a lit shoulder into shade."""
     def f(w, h, fc, key):
         img = _blank(w, h)
         img[:, :] = T("fur", 1)
-        if fc == "up" and w >= 6:
-            for (x, y) in ((w // 3, h // 3), (w - 1 - w // 3, h // 3), (w // 3, h - 1 - h // 3),
-                           (w - 1 - w // 3, h - 1 - h // 3), (w // 2, h // 2)):
-                img[y, x] = T("gold", 1)
-                if x + 1 < w: img[y, x + 1] = T("fur", 3)
-            img[0, :] = img[-1, :] = img[:, 0] = img[:, -1] = T("cream", 1)       # piping
-        if fc in SIDES:
+        if fc == "up":
+            cx, cy = (w - 1) / 2, (h - 1) / 2
+            for y in range(h):
+                for x in range(w):
+                    d = max(abs(x - cx) / max(cx, 1), abs(y - cy) / max(cy, 1))
+                    img[y, x] = T("fur", 0 if d < 0.35 else 1 if d < 0.7 else 2)
+            if w >= 6:
+                for (x, y) in ((w // 3, h // 3), (w - 1 - w // 3, h // 3), (w // 3, h - 1 - h // 3),
+                               (w - 1 - w // 3, h - 1 - h // 3), (w // 2, h // 2)):
+                    img[y, x] = T("gold", 1)                                    # button
+                    if y + 1 < h:
+                        img[y + 1, x] = T("fur", 3)                              # its little dimple shadow
+            img[0, :] = img[:, 0] = T("cream", 0)                                  # piping, lit edges
+            img[-1, :] = img[:, -1] = T("cream", 2)
+        elif fc in SIDES:
+            tones = [1, 2, 3, 4] if h >= 5 else [2, 3]
+            for y in range(1, h - 1):
+                t = tones[min(len(tones) - 1, (y - 1) * len(tones) // max(1, h - 2))]
+                img[y, :] = T("fur", t)
+                img[y, 2::4] = T("fur", t + 1)                                     # gathered folds
             img[0, :] = T("cream", 1)
-            img[-1, :] = T("cream", 2)
-            img[1:-1, :] = T("fur", 2)
+            img[-1, :] = T("cream", 3)
+        elif fc == "down":
+            img[:, :] = T("fur", 4)
         return img
     return f
 
@@ -306,18 +356,58 @@ def owl_perch():
     return m
 
 
+def plumage(sheen=True):
+    """Crow feathers: near-black with a cool violet sheen on the lit rows and overlapping scale rows."""
+    def f(w, h, fc, key):
+        img = _blank(w, h)
+        img[:, :] = T("ebony", 5)
+        for y in range(h):
+            for x in range(w):
+                if (x + (y // 2) * 2) % 4 == 0 and y % 2 == 1:
+                    img[y, x] = T("ebony", 6)                                      # feather edges
+        if fc in SIDES and h >= 3 and sheen:
+            img[0, :] = T("ebony", 4)                                              # lit top edge
+            img[0, ::5] = T("plum", 5)                                             # a hint of violet sheen
+        if fc == "up":
+            img[:, :] = T("ebony", 4)
+        if fc == "down":
+            img[:, :] = T("ebony", 6)
+        return img
+    return f
+
+
+def crow_face():
+    """Crow head (faces east): bright eye with a glint on both sides, near the beak."""
+    base = plumage()
+    def f(w, h, fc, key):
+        img = base(w, h, fc, key)
+        if fc in ("north", "south") and w >= 6 and h >= 6:
+            ex = w - 3 if fc == "south" else 1                                     # toward the beak on both sides
+            ey = h // 2 - 1
+            img[ey:ey + 2, ex:ex + 2] = T("hay", 0)
+            img[ey, ex + (1 if fc == "south" else 0)] = T("cream", 0)               # glint
+            img[ey + 1, ex + (0 if fc == "south" else 1)] = T("ebony", 6)           # pupil
+        return img
+    return f
+
+
 def crow_post():
+    """A single crow perched upright on top of a stick, side-on (faces east), pumpkin at the foot."""
     m = Model("crow_post", floor=0)
-    m.box([6.5, 0, 6.5], [9.5, 18, 9.5], bark("spruce"))                          # post
-    m.box([0, 13, 7], [16, 15, 9], bark("spruce"))                                # cross rail
-    m.box([6, 18, 6], [10, 18.6, 10], solid("ebony", 3))                          # cap
-    m.box([0.5, 15, 6.75], [5, 18, 9.25], crow_body(), rot=("z", 22.5, [2.75, 15, 8]))     # crow one, facing west
-    m.box([0, 17.4, 7], [2.8, 20.2, 9], crow_head())
-    m.box([11, 15, 6.75], [15.5, 18, 9.25], crow_body(), rot=("z", -22.5, [13.25, 15, 8]))  # crow two, facing east
-    m.box([13.6, 17.4, 7], [16.4, 20.2, 9], crow_head())
-    m.box([3, 0, 3], [7.5, 3.5, 7.5], pump_skin())                           # pumpkin at the foot
-    m.box([4.9, 3.5, 4.9], [5.6, 4.6, 5.6], bark("stem"))
-    m.card([9.6, 3, 9.6], [9.6, 11, 13.6], VINE)                                  # ivy up the back
+    m.box([7, 0, 7], [9, 16, 9], bark("spruce"))                                  # the stick
+    m.box([6.4, 16, 6.4], [9.6, 16.8, 9.6], bark("spruce"))                       # little top block it grips
+    m.box([7.3, 16.8, 6.9], [8.6, 17.6, 9.1], solid("iron", 3, bevel=False))      # feet
+    m.box([5.2, 17.6, 6], [10.2, 21.8, 10], plumage())                            # body
+    m.box([9.6, 18.2, 6.5], [11.2, 21.4, 9.5], plumage())                         # full breast
+    m.box([4.8, 18.4, 5.7], [10, 21.6, 6.0], plumage(), rot=("z", 22.5, [10, 21.6, 8]))     # folded wings, tips down and back
+    m.box([4.8, 18.4, 10.0], [10, 21.6, 10.3], plumage(), rot=("z", 22.5, [10, 21.6, 8]))
+    m.box([1.2, 17.6, 7], [5.6, 18.6, 9], plumage(sheen=False), rot=("z", 22.5, [5.6, 18.6, 8]))   # tail, sloping down
+    m.box([8.4, 21.2, 6.25], [12.4, 25.2, 9.75], crow_face(), res=2)              # head
+    m.box([12.4, 22.6, 7.3], [14.8, 23.6, 8.7], solid("iron", 4))                  # beak, upper
+    m.box([12.4, 22.0, 7.5], [14.0, 22.6, 8.5], solid("iron", 5, bevel=False))    # beak, lower
+    m.box([2.5, 0, 2.5], [7, 3.5, 7], pump_skin())                                # pumpkin at the foot
+    m.box([4.4, 3.5, 4.4], [5.1, 4.6, 5.1], bark("stem"))
+    m.card([9.1, 2.5, 9.1], [9.1, 10.5, 12.5], VINE)                              # ivy up the back
     return m
 
 
@@ -352,7 +442,7 @@ def skull_candle():
     m.box([3.6, 4.8, 5.5], [4.2, 7.5, 10], solid("bone", 2))                     # cheek bones
     m.box([11.8, 4.8, 5.5], [12.4, 7.5, 10], solid("bone", 2))
     m.box([6.5, 10, 7], [9.5, 14, 10], wax())                                    # candle on the crown
-    m.card([5.5, 7.6, 4.45], [9.5, 10.4, 4.45], DRIP)                       # wax dripping down the brow
+    m.card([6.5, 8.6, 4.45], [9.5, 10.4, 4.45], DRIP, res=2)                       # wax dripping down the brow
     m.box([5.8, 10, 6.3], [10.2, 10.6, 10.7], solid("candle", 1))                # wax pool
     m.card([6.5, 14, 8.5], [9.5, 17, 8.5], candle_flame(), emit=15, rot=("y", 45, [8, 14, 8.5]))
     m.card([6.5, 14, 8.5], [9.5, 17, 8.5], candle_flame(), emit=15, rot=("y", -45, [8, 14, 8.5]))
@@ -365,7 +455,7 @@ def cushion_stool():
         m.box([x, 0, z], [x + 2, 7, z + 2], wood("ebony", plank=2))               # legs
     m.box([3, 3, 3], [13, 4, 13], bark("ebony"), faces=("north", "south", "east", "west", "up"))   # stretcher shelf
     m.box([2.5, 7, 2.5], [13.5, 8.5, 13.5], wood("ebony", plank=2))               # seat
-    m.dyebox([2.7, 8.5, 2.7], [13.3, 11.5, 13.3], cushion())                      # plump tufted cushion
+    m.dyebox([2.7, 8.5, 2.7], [13.3, 11.5, 13.3], cushion(), res=2)                      # plump tufted cushion
     m.box([3.4, 11.5, 3.4], [12.6, 12.3, 12.6], tinted(cushion()), faces=("up", "north", "south", "east", "west"))
     m.box([2.1, 6.2, 2.1], [3.1, 8.6, 3.1], tassel())                             # corner tassels
     m.box([12.9, 6.2, 2.1], [13.9, 8.6, 3.1], tassel())

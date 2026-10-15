@@ -17,12 +17,29 @@ engine.FONT5.update({
 
 
 def shop_sign(text, ramp="ebony"):
-    """Wooden sign: gold trim, lettering on the front only; the back is plain planks with the trim."""
-    base = engine.board(text, ramp=ramp, ink="cream", trim="gold")
+    """Wooden sign: gold trim, lettering on the front only; the back is plain planks with the trim.
+    The lettering (5 rows plus its 1-row drop shadow) sits dead centre, so the margins above and
+    below match and the left/right margins match (size the box so w - text width is even)."""
     plain = engine.board(None, ramp=ramp, trim="gold")
+    glyphs = [engine.FONT5[c] for c in text]
+    tw = sum(len(g[0]) + 1 for g in glyphs) - 1
     def f(w, h, fc, key):
-        return plain(w, h, fc, key) if fc == "south" else base(w, h, fc, key)
+        img = plain(w, h, fc, key)
+        if fc != "north" or w < 6 or h < 7:
+            return img
+        x, y0 = (w - tw) // 2, (h - 6) // 2
+        for g in glyphs:
+            for gy, row in enumerate(g):
+                for gx, ch in enumerate(row):
+                    if ch == "1":
+                        img[y0 + gy, x + gx] = T("cream", 0)
+                        if gy == 4 or g[gy + 1][gx] == "0":
+                            img[y0 + gy + 1, x + gx] = T(ramp, 5)
+            x += len(g[0]) + 1
+        return img
+    f.text_width = tw
     return f
+
 
 engine.RAMPS.update({k: engine._ramp7(v) for k, v in {
     "jackglow": ["#fff6c2", "#ffd25a", "#ffab3a", "#f07a24"],
@@ -90,24 +107,42 @@ def smooth_rind():
     return f
 
 
-def carved():
+def carved(lit=False):
+    """Carved face, painted solid: no cut-outs and no hollow behind the face, so the face can never
+    look see-through. Unlit: the openings are deep shadow with the cut rind wall catching light at
+    the bottom. Lit: the openings glow and flicker, and the rind is a little deeper so they pop.
+    The mask goes on at a whole-pixel scale, centred, so both halves of the face match exactly
+    (give the face an even pixel width)."""
     base = pump_skin()
     def f(w, h, fc, key):
         img = base(w, h, fc, key)
         if fc != "north":
             return img
+        if lit:
+            img[..., :3] = (img[..., :3].astype(float) * 0.8).astype(img.dtype)
+        s = max(1, min(w // 16, h // 14))
+        ox, oy = (w - 16 * s) // 2, (h - 14 * s) // 2
         hole = np.zeros((h, w), bool)
         for y in range(h):
             for x in range(w):
-                hole[y, x] = FACE[int(y * 14 / h)][int(x * 16 / w)] == "#"
+                fx, fy = (x - ox) // s, (y - oy) // s
+                hole[y, x] = 0 <= fx < 16 and 0 <= fy < 14 and FACE[fy][fx] == "#" and x - ox >= 0 and y - oy >= 0
+        k = fr() if lit else 0
+        inner = (1, 0, 1, 2, 0, 1)[k]
         for y in range(h):
             for x in range(w):
+                nb = [(y + dy, x + dx) for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))]
                 if hole[y, x]:
-                    img[y, x, 3] = 0
-                elif any(0 <= y + dy < h and 0 <= x + dx < w and hole[y + dy, x + dx]
-                         for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))):
-                    img[y, x] = T("pump", 4)         # dark rim around every cut
+                    edge = any(not (0 <= yy < h and 0 <= xx < w and hole[yy, xx]) for yy, xx in nb)
+                    if lit:
+                        img[y, x] = T("jackglow", inner + 1 if edge else inner)
+                    else:
+                        img[y, x] = T("ebony", 6)
+                elif any(0 <= yy < h and 0 <= xx < w and hole[yy, xx] for yy, xx in nb):
+                    img[y, x] = T("pump", 4)                              # dark rim around every cut
         return img
+    if lit:
+        f.animated = True
     return f
 
 
@@ -535,10 +570,10 @@ def jack(m, lo, hi, lit=False, emit=15, stem=True, ribs=True, halo=True, lite=Fa
     X = lambda f: x0 + W * f
     Y = lambda f: y0 + H * f
     Z = lambda f: z0 + D * f
-    m.box([X(.14), Y(.17), Z(.0) + 0.5], [X(.86), Y(.81), Z(.96)], glow_core(lit), emit=emit if lit else 0)   # fills the hollow
-    m.box([X(.10), Y(.14), Z(.0)], [X(.90), Y(.84), Z(1.0)], carved(), res=2)                   # face band
-    m.box([X(.0), Y(.20), Z(.10)], [X(1.0), Y(.78), Z(.90)], pump_skin(), res=2,
-          faces=("east", "west", "south", "up", "down"))                                        # widest band
+    fw = float(int(W * 0.8))                                                                    # whole units -> even px width, symmetric face
+    m.box([X(.5) - fw / 2, Y(.14), Z(.0)], [X(.5) + fw / 2, Y(.84), Z(.5)], carved(lit), res=2,
+          emit=12 if lit else 0)                                                                # face band, solid
+    m.box([X(.0), Y(.20), Z(.10)], [X(1.0), Y(.78), Z(.90)], pump_skin(), res=2)               # widest band, closed all round
     m.box([X(.18), Y(.0), Z(.16)], [X(.82), Y(.16), Z(.84)], pump_skin(), res=2)                 # bottom taper
     if not lite:
         m.box([X(.05), Y(.05), Z(.24)], [X(.95), Y(.21), Z(.76)], pump_skin(), res=2)
@@ -546,8 +581,6 @@ def jack(m, lo, hi, lit=False, emit=15, stem=True, ribs=True, halo=True, lite=Fa
     if not lite:
         m.box([X(.17), Y(.79), Z(.07)], [X(.83), Y(.96), Z(.93)], pump_skin(), res=2)            # crossed: octagon from above
         m.box([X(.28), Y(.92), Z(.28)], [X(.72), Y(1.0), Z(.72)], pump_skin(), res=2)            # low crown
-    if lit and halo and not lite:
-        m.card([X(.02), Y(.02), Z(-.06)], [X(.98), Y(.98), Z(-.06)], halo_card(), emit=15)        # warm glow halo
     if stem:
         cx, cz = X(.5), Z(.5)
         s = max(1.4, W * .14)
@@ -653,24 +686,37 @@ def pumpkin_lamp(lit=False):
     return m
 
 
-def potion_stall():
-    m = Model("potion_stall", floor=-16)
+def stall(name, ramp="plum", trim="pump"):
+    """Market stall. The roof is two mirror-image panels hinged on one ridge line, so both slopes
+    match exactly; the posts stop inside the roof's thickness and never come out through the top."""
+    import math
+    m = Model(name, floor=-16)
     m.box([-14, -16, 2.5], [30, -2, 14], panels())                                            # framed counter
     m.box([-16, -2, 0], [32, 0, 16], wood("ebony", plank=2))                                  # top
+    RY, ZR, L, TH = 31.0, 8.0, 15.0, 1.5                                                      # ridge height/z, panel length, thickness
+    tn, cs = math.tan(math.radians(22.5)), math.cos(math.radians(22.5))
+    under = lambda z: RY - abs(ZR - z) * tn - TH / cs                                         # roof underside at z
     for x in (-15, 29):
         for z in (1, 13):
-            m.box([x, 0, z], [x + 2, 25, z + 2], bark("ebony"))
-    stripe = stripes("plum", "bone", 3)
-    roof = {"up": stripe, "down": stripe, "north": solid("plum", 3), "south": solid("plum", 3)}
-    m.box([-16, 26, -6], [32, 27.5, 8], solid("plum", 3), over=roof, rot=("x", -22.5, [8, 28, 8]))
-    m.box([-16, 26, 8], [32, 27.5, 22], solid("plum", 3), over=roof, rot=("x", 22.5, [8, 28, 8]))
-    m.box([-16, 18.5, -5.4], [32, 22, -4.8], scallop("plum", "pump"))                       # valance
-    m.box([-2, 12, -2.8], [18, 18.5, -1.4], shop_sign("POTIONS"), res=2)                      # shop sign
+            m.box([x, 0, z], [x + 2, round(under(z + 1) + 0.4, 2), z + 2], bark("ebony"))   # posts end inside the roof
+    stripe = stripes(ramp, "bone", 3)
+    roof = {"up": stripe, "down": stripe, "north": solid(ramp, 3), "south": solid(ramp, 3)}
+    m.box([-16, RY - TH, ZR - L], [32, RY, ZR], solid(ramp, 3), over=roof, rot=("x", -22.5, [8, RY, ZR]))
+    m.box([-16, RY - TH, ZR], [32, RY, ZR + L], solid(ramp, 3), over=roof, rot=("x", 22.5, [8, RY, ZR]))
+    zv = -5.1
+    m.box([-16, 20.5, zv - 0.3], [32, round(under(zv) + 0.25, 2), zv + 0.3], scallop(ramp, trim))   # valance, tucked under the eave
+    sign = shop_sign("POTIONS")
+    wpx = 40 + ((40 - sign.text_width) % 2)                                                   # even margins left and right
+    m.box([8 - wpx / 4, 13, -2.8], [8 + wpx / 4, 18, -1.4], sign, res=2)                      # shop sign, 10 px tall: equal margins
     m.box([-4.5, 0, 4.5], [1.5, 7, 10.5], flask(), emit=12)                                  # hero potion
     m.box([-3, 7, 6], [0, 9.5, 9], solid("rust", 2))                                          # cork
-    m.box([20, 0, 4], [27, 6, 10], painted_jack(True), emit=10, res=2)                               # glowing jack on the counter
+    m.box([20, 0, 4], [27, 6, 10], painted_jack(True), emit=10, res=2)                        # glowing jack on the counter
     m.box([23, 6, 6.5], [24, 8, 7.5], bark("stem"), rot=("z", -22.5, [23.5, 6, 7]))           # its stem
     return m
+
+
+def potion_stall():
+    return stall("potion_stall", "plum", "pump")
 
 
 def all_models():

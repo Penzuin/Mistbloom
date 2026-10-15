@@ -41,23 +41,37 @@ def autumn():
     return f
 
 
+PENNANT = [7, 7, 7, 5, 5, 3, 3, 1]     # row widths: a clean, centred point
+
+
 def bunting():
-    """Sagging string with dyeable pennants (non-neutral ramp) and little bat flags (coal, stays dark)."""
+    """Sagging string with dyeable pennants (non-neutral ramp) and little bat flags (coal, stays dark).
+    Every column of every flag starts on the row right under the string at that column, so each
+    flag's top edge follows the rope and sits flush against it - no gaps where the rope slopes."""
     def f(w, h, fc, key):
         img = _blank(w, h)
         sag = lambda x: int(round(1 + 2.2 * math.sin(math.pi * x / (w - 1))))
         n = 0
         for x0 in range(2, w - 6, 8):
-            top = sag(x0 + 3)
             bat = n % 2 == 1
-            for y in range(top + 1, min(h, top + 9)):
-                half = (top + 9 - y) * 3.4 / 8
-                for x in range(x0, x0 + 7):
-                    if abs(x - (x0 + 3)) <= half:
-                        img[y, x] = T("coal", 2 if y < top + 7 else 3) if bat else T("fur", 1 if y < top + 7 else 2)
-            if bat and top + 3 < h:                                               # tiny bat cut-out
-                for (dx, dy) in ((1, 2), (2, 3), (3, 3), (4, 3), (5, 2), (3, 4)):
-                    img[top + dy, x0 + dx] = T("gold", 1)
+            for r, width in enumerate(PENNANT):
+                for x in range(x0 + (7 - width) // 2, x0 + (7 - width) // 2 + width):
+                    y = sag(x) + 1 + r
+                    if y >= h:
+                        continue
+                    edge = x in (x0, x0 + 6) or r >= len(PENNANT) - 2
+                    if bat:
+                        img[y, x] = T("coal", 3 if edge else 2)
+                    else:
+                        img[y, x] = T("fur", 2 if edge else 1)
+                        if x == x0 + (7 - width) // 2 and r < 3:
+                            img[y, x] = T("fur", 0)                               # lit left edge
+            if bat:                                                               # tiny gold bat
+                for (dx, dr) in ((1, 1), (5, 1), (2, 2), (3, 2), (4, 2), (3, 3)):
+                    x = x0 + dx
+                    y = sag(x) + 1 + dr
+                    if y < h:
+                        img[y, x] = T("gold", 1)
             n += 1
         for x in range(w):
             img[sag(x), x] = T("cream", 3)                                        # the string
@@ -146,23 +160,8 @@ def harvest_wreath():
 
 
 def _stall(name, ramp, trim):
-    m = Model(name, floor=-16)
-    m.box([-14, -16, 2.5], [30, -2, 14], panels())                                # framed counter
-    m.box([-16, -2, 0], [32, 0, 16], wood("ebony", plank=2))                      # top
-    for x in (-15, 29):
-        for z in (1, 13):
-            m.box([x, 0, z], [x + 2, 25, z + 2], bark("ebony"))
-    stripe = stripes(ramp, "bone", 3)
-    roof = {"up": stripe, "down": stripe, "north": solid(ramp, 3), "south": solid(ramp, 3)}
-    m.box([-16, 26, -6], [32, 27.5, 8], solid(ramp, 3), over=roof, rot=("x", -22.5, [8, 28, 8]))
-    m.box([-16, 26, 8], [32, 27.5, 22], solid(ramp, 3), over=roof, rot=("x", 22.5, [8, 28, 8]))
-    m.box([-16, 18.5, -5.4], [32, 22, -4.8], scallop(ramp, trim))                 # valance
-    m.box([-2, 12, -2.8], [18, 18.5, -1.4], shop_sign("POTIONS"), res=2)          # shop sign
-    m.box([-4.5, 0, 4.5], [1.5, 7, 10.5], flask(), emit=12)                      # hero potion
-    m.box([-3, 7, 6], [0, 9.5, 9], solid("rust", 2))
-    m.box([20, 0, 4], [27, 6, 10], painted_jack(True), emit=10, res=2)
-    m.box([23, 6, 6.5], [24, 8, 7.5], bark("stem"), rot=("z", -22.5, [23.5, 6, 7]))
-    return m
+    from hero3 import stall
+    return stall(name, ramp, trim)
 
 
 def potion_stall_moss():

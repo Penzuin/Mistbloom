@@ -131,7 +131,6 @@ def iron_fence():
     m.box([2, 12, 7.25], [14, 13, 8.75], iron())
     for x in (3.5, 6.5, 9.5, 12.5):
         m.box([x - 0.4, 0, 7.6], [x + 0.4, 15, 8.4], iron())                      # bars
-    m.box([6.6, 15, 7.2], [9.4, 17, 8.8], solid("iron", 1), rot=("z", 45, [8, 15, 8]))   # centre finial
     m.card([2, 5, 6.8], [6, 11, 6.8], VINE)
     return m
 
