@@ -1,7 +1,7 @@
 # Moonlit Ballroom | Waltzing Ghost Furniture for Nexo
 
 **Short tagline (one line under the title):**
-Friendly ghosts that waltz all night. 6 animated Halloween pieces for plain Nexo.
+Friendly ghosts that waltz all night. 6 animated Halloween pieces for Nexo.
 
 ---
 
@@ -10,8 +10,6 @@ Friendly ghosts that waltz all night. 6 animated Halloween pieces for plain Nexo
 The ballroom is closed, but the guests never left. 👻
 
 **Moonlit Ballroom** is a spooky-cute Halloween starter set from Mistbloom Studios. The ghosts here aren't scary. They waltz, play the piano and peek back at you, all lit by soft moonlight.
-
-Every piece is animated and works in **plain Nexo**. You don't need ModelEngine or any other add-on.
 
 ### What's inside (6 pieces)
 
@@ -24,7 +22,7 @@ Every piece is animated and works in **plain Nexo**. You don't need ModelEngine 
 
 ### Features
 
-- 6 animated pieces, with no add-ons needed
+- 6 animated pieces
 - 2 working light toggles (the candelabra and the lantern)
 - Right-click reactions
 - Clean, readable configs with one items file (`moonball.yml`) and its own namespace (`moonball`), so nothing clashes with your other packs
@@ -33,11 +31,11 @@ Every piece is animated and works in **plain Nexo**. You don't need ModelEngine 
 ### Requirements
 
 - Minecraft **1.21.4 or newer**
-- **Nexo** (no other plugins needed)
+- **Nexo**
 
 ### Good to know
 
-- The animations are hand-drawn animated textures, so each piece faces the direction you place it. Seen from the side they look flat, which is the trade-off for running on plain Nexo with no ModelEngine.
+- The animations are hand-drawn animated textures, so each piece faces the direction you place it. Seen from the side they look flat.
 - The ballroom build in the trailer and screenshots is a **showcase only**. You get the 6 furniture pieces, not the building.
 
 ### License

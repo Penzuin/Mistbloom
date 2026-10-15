@@ -70,7 +70,7 @@ def nexo_yaml():
             "Mechanics": {"furniture": f},
         }
     head = (f"# Moonlit Ballroom v{VERSION} by Mistbloom Studios - Nexo\n"
-            "# Minecraft 1.21.4+. Ghosts are animated textures: no extra plugins needed.\n\n")
+            "# Minecraft 1.21.4+.\n\n")
     txt = yaml.safe_dump(out, sort_keys=False, allow_unicode=True, width=200)
     return head + re.sub(rf"\n({NS}_)", r"\n\n\1", txt)
 
@@ -213,7 +213,7 @@ def cover(frame=0, W=1920, H=1080):
     shadowed(bg, im, ((W - im.width) // 2, H - im.height - 40))
     d = ImageDraw.Draw(bg)
     centered(d, "Moonlit Ballroom", font(104), 40, W, GOLD)
-    centered(d, "Friendly waltzing ghosts  ·  6 animated pieces  ·  plain Nexo, no add-ons", sans(32), 180, W, PARCH)
+    centered(d, "Friendly waltzing ghosts  ·  6 animated Halloween pieces", sans(32), 180, W, PARCH)
     return bg
 
 LABELS = {"waltzing_ghosts": "Waltzing Ghosts", "ghost_piano": "Ghost Pianist", "floating_candelabra_lit": "Floating Candelabra",
