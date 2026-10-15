@@ -13,23 +13,34 @@ EBONY = wood("ebony", plank=2)
 BSILVER = solid("blacksilver", 2)
 
 # ------------------------------------------------------------------ painters
-def gilt():
-    """Gilded frame moulding: bead-and-reel rhythm, light top edge, dark inner lip."""
+def gilt(side="top"):
+    """Gilded moulding lit from the top-left. Front face: outer edge catches light on the top and left
+    bars and falls dark on the right and bottom; the inner lip next to the picture is always the darkest
+    line; a bead row runs along the middle. Edge faces follow the same light (top/left lit, bottom/right dark)."""
+    base = {"top": 1.0, "left": 1.4, "right": 2.3, "bottom": 2.6}[side]
+    outer = {"top": 0.0, "left": 0.4, "right": 2.9, "bottom": 3.0}[side]
+    edge = {"up": 0.6, "west": 1.3, "east": 2.6, "down": 3.0, "south": 2.8}
     def f(w, h, face, key):
         img = _blank(w, h)
-        horiz = w >= h
+        if face != "north":
+            img[:, :] = T("gold", edge.get(face, 2.0))
+            return img
+        horiz = side in ("top", "bottom")
         L, Tn = (w, h) if horiz else (h, w)
         for t in range(Tn):
+            # t runs from the outer edge (0) to the inner lip (Tn-1), whatever the bar
             for l in range(L):
-                tone = 1.5
                 if t == 0:
-                    tone = 0.5
+                    tone = outer
                 elif t == Tn - 1:
-                    tone = 3
+                    tone = 3.0
                 elif Tn > 3 and t == Tn // 2:
-                    tone = 1 if (l % 3) else 2.5          # bead row
-                x, y = (l, t) if horiz else (t, l)
-                img[y, x] = T("gold", tone)
+                    tone = base - 0.6 if (l % 3) else base + 0.6
+                else:
+                    tone = base
+                tt = t if side in ("top", "left") else Tn - 1 - t
+                x, y = (l, tt) if horiz else (tt, l)
+                img[y, x] = T("gold", min(3.0, max(0.0, tone)))
         return img
     return f
 
@@ -136,15 +147,17 @@ def ghost_body(face_sprite=None, alpha=175, rim=True):
         f.animated = True
     return f
 
-SHEET = art([
-    "aaaaaaaaaa",
-    "abbbbbbbba",
-    "ab.b.bb.ba",
-    "abbbbbbbba",
-    "abb.b.b.ba",
-    "abbbbbbbba",
-    "aaaaaaaaaa",
-], {"a": ("parchment", 1), "b": ("parchment", 3), ".": ("soot", 1)})
+SHEET = art([                      # two staves of a little waltz on yellowed paper
+    "aaaaaaaaaaaaa",
+    "abbbbbbbbbbba",
+    "accnccccnccca",
+    "abbbbnbbbbnba",
+    "accccccnccnca",
+    "abbbbbbbbbbba",
+    "acnccnccccnca",
+    "abbbnbbbnbbba",
+    "aaaaaaaaaaaaa",
+], {"a": ("parchment", 2), "b": ("parchment", 0), "c": ("parchment", 3), "n": ("soot", 2)})
 
 CREST = art([
     "....aa....",
@@ -181,7 +194,7 @@ def ghost_piano():
     m.box([2, 0, 2], [4, 10, 4], EBONY)                                         # front legs
     m.box([28, 0, 2], [30, 10, 4], EBONY)
     m.box([13, 0.5, 5], [19, 1.5, 6], solid("gold", 1), res=2)                   # pedals
-    m.card([9, 13, 5.9], [23, 19, 5.9], SHEET, rot=("x", -22.5, [16, 13, 5.9]))  # sheet music
+    m.card([9.5, 12.3, 4.0], [22.5, 17.6, 4.0], SHEET, rot=("x", 22.5, [16, 12.3, 4.0]), res=2)  # sheet music, leaning back
     m.box([8, 0, -7], [24, 5, -1], panel("ebony", front=("north", "east", "west")))   # bench
     m.box([7.5, 5, -7.5], [24.5, 6.5, -0.5], velvet())                          # bench cushion
     m.card([7, 6, -4], [25, 24, -4], sprite(S.pianist), emit=12, res=2)          # the pianist
@@ -214,8 +227,11 @@ def ghost_lantern(lit=False):
     m.box([4.5, 0, 4.5], [11.5, 1, 11.5], BSILVER, res=2)
     m.card([5.25, 1, 8], [10.75, 8.4, 8], sprite(S.lantern_ghost), emit=12 if lit else 6, res=4)
     m.box([4.5, 1, 4.5], [11.5, 10, 11.5], pane_arch(lit), res=2, faces=SIDES + ("up",))
-    top = m.lantern_roof(8, 10, 8, 7)
-    m.box([7.5, top - 0.5, 7.5], [8.5, top + 1.5, 8.5], solid("blacksilver", 1), res=2)
+    m.box([3.75, 10, 3.75], [12.25, 10.75, 12.25], solid("blacksilver", 1), res=2)     # eave with a little overhang
+    m.box([5, 10.75, 5], [11, 12, 11], solid("blacksilver", 2), res=2)                 # cap
+    m.box([6.5, 12, 6.5], [9.5, 12.75, 9.5], solid("blacksilver", 1), res=2)          # crown
+    top = 12.75
+    m.box([7.5, top - 0.25, 7.5], [8.5, top + 1.5, 8.5], solid("blacksilver", 1), res=2)
     m.card([6.75, top + 1, 8], [9.25, top + 3, 8], RING, res=2)
     return m
 
@@ -224,11 +240,11 @@ def ghost_portrait():
     m = Model("ghost_portrait")
     m.box([2, 4, 15], [14, 20, 16], EBONY)                                       # backing board
     m.card([2, 4, 14.6], [14, 20, 14.6], sprite(S.portrait, mirror_back=False), res=3.5)   # the painting
-    G = gilt()
-    m.box([0, 2, 14], [2, 22, 16], G)                                            # frame
-    m.box([14, 2, 14], [16, 22, 16], G)
-    m.box([2, 20, 14], [14, 22, 16], G)
-    m.box([2, 2, 14], [14, 4, 16], G)
+    # frame: north face points out of the wall; viewed from the front the +x bar is on the viewer's left
+    m.box([14, 2, 14], [16, 22, 16], gilt("left"))
+    m.box([0, 2, 14], [2, 22, 16], gilt("right"))
+    m.box([2, 20, 14], [14, 22, 16], gilt("top"))
+    m.box([2, 2, 14], [14, 4, 16], gilt("bottom"))
     m.card([4, 22, 15], [12, 26, 15], CREST, res=2)                              # crest
     m.box([5.5, 2.4, 13.6], [10.5, 3.6, 14], solid("gold", 0), res=2)             # name plate
     return m
