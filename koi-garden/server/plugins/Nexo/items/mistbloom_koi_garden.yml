@@ -1,0 +1,269 @@
+# Mistbloom - Koi Garden
+
+# --- Decor ---
+
+koi_statue:
+  itemname: "<#f2e6cc>Leaping Koi Statue"
+  material: PAPER
+  lore:
+    - "<gray>Caught mid-leap over carved stone waves."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_statue
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 0,1,0
+
+koi_lilypad:
+  itemname: "<#f2e6cc>Koi & Lily Pad"
+  material: PAPER
+  lore:
+    - "<gray>Resting in the shade of a lotus."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_lilypad
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interactions:      # no barrier, you can walk over it
+          - 0,0,0 1,0.3
+
+koi_bowl:
+  itemname: "<#f2e6cc>Koi Bowl on Teak Stand"
+  material: PAPER
+  lore:
+    - "<gray>A little koi in a brass-rimmed bowl."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_bowl
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+
+koi_plaque:
+  itemname: "<#f2e6cc>Twin Koi Wall Plaque"
+  material: PAPER
+  lore:
+    - "<gray>Two koi, forever chasing each other."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_plaque
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        wall: true
+        floor: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+
+# --- Pond ---
+
+koi_pond:
+  itemname: "<#f2e6cc>Koi Pond Basin"
+  material: PAPER
+  lore:
+    - "<gray>A small stone pond. Takes up 2x2."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_pond
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 1,0,0
+          - 0,0,1
+          - 1,0,1
+
+koi_stepping_stone:
+  itemname: "<#f2e6cc>Garden Stepping Stones"
+  material: PAPER
+  lore:
+    - "<gray>For crossing the garden with dry feet."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_stepping_stone
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interactions:      # no barrier, you can walk over it
+          - 0,0,0 1,0.3
+
+koi_lilypads:
+  itemname: "<#f2e6cc>Lily Pad Cluster"
+  material: PAPER
+  lore:
+    - "<gray>Lily pads with an open lotus and a bud."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_lilypads
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interactions:      # no barrier, you can walk over it
+          - 0,0,0 1,0.3
+
+koi_reeds:
+  itemname: "<#f2e6cc>Pond Reeds & Cattails"
+  material: PAPER
+  lore:
+    - "<gray>Reeds and cattails for the pond edge."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_reeds
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interactions:      # no barrier, you can walk over it
+          - 0,0,0 1,0.3
+
+# --- Furniture ---
+
+koi_bench:
+  itemname: "<#f2e6cc>Koi Garden Bench"
+  material: LEATHER_HORSE_ARMOR
+  lore:
+    - "<gray>Seats two. Dye it to change the cushions."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_bench
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 1,0,0
+      seats:
+        - 0,0,0
+        - 1,0,0
+
+koi_table:
+  itemname: "<#f2e6cc>Koi Pool Tea Table"
+  material: PAPER
+  lore:
+    - "<gray>A low tea table with a koi pool inlay."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_table
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+
+koi_screen:
+  itemname: "<#f2e6cc>Koi Folding Screen"
+  material: PAPER
+  lore:
+    - "<gray>A three-panel screen painted with koi."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_screen
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 0,1,0
+
+koi_streamer:
+  itemname: "<#f2e6cc>Koi Streamer Pole"
+  material: PAPER
+  lore:
+    - "<gray>Koi windsocks flying from a teak pole."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_streamer
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 0,1,0

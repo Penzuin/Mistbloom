@@ -1,0 +1,154 @@
+{
+	"credit": "Mistbloom",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "mistbloom:item/koi_garden/koi_stepping_stone",
+		"particle": "mistbloom:item/koi_garden/koi_stepping_stone"
+	},
+	"elements": [
+		{
+			"name": "stone_a",
+			"from": [1, 0, 2],
+			"to": [13, 1.4, 12],
+			"faces": {
+				"north": {"uv": [10, 5, 16, 6], "texture": "#0"},
+				"south": {"uv": [0, 7.5, 6, 8.5], "texture": "#0"},
+				"east": {"uv": [6, 7.5, 11, 8.5], "texture": "#0"},
+				"west": {"uv": [11, 7.5, 16, 8.5], "texture": "#0"},
+				"up": {"uv": [0, 0, 6, 5], "texture": "#0"}
+			},
+			"rotation": {
+				"angle": 22.5,
+				"axis": "y",
+				"origin": [7, 0, 7]
+			}
+		},
+		{
+			"name": "stone_a_top",
+			"from": [2, 1.4, 3],
+			"to": [12, 2.2, 11],
+			"faces": {
+				"north": {"uv": [2, 8.5, 7, 9], "texture": "#0"},
+				"south": {"uv": [7, 8.5, 12, 9], "texture": "#0"},
+				"east": {"uv": [12, 8.5, 16, 9], "texture": "#0"},
+				"west": {"uv": [0, 9.5, 4, 10], "texture": "#0"},
+				"up": {"uv": [6, 0, 11, 4], "texture": "#0"}
+			},
+			"rotation": {
+				"angle": 22.5,
+				"axis": "y",
+				"origin": [7, 0, 7]
+			}
+		},
+		{
+			"name": "stone_b",
+			"from": [10, 0, 11],
+			"to": [15.5, 1, 15.5],
+			"faces": {
+				"north": {"uv": [4, 9.5, 7, 10], "texture": "#0"},
+				"south": {"uv": [7, 9.5, 10, 10], "texture": "#0"},
+				"east": {"uv": [10, 9.5, 12.5, 10], "texture": "#0"},
+				"west": {"uv": [12.5, 9.5, 15, 10], "texture": "#0"},
+				"up": {"uv": [5, 5, 8, 7.5], "texture": "#0"}
+			},
+			"rotation": {
+				"angle": -22.5,
+				"axis": "y",
+				"origin": [12.5, 0, 13]
+			}
+		},
+		{
+			"name": "stone_b_top",
+			"from": [10.75, 1, 11.75],
+			"to": [14.75, 1.5, 14.75],
+			"faces": {
+				"north": {"uv": [0, 10, 2, 10.5], "texture": "#0"},
+				"south": {"uv": [2, 10, 4, 10.5], "texture": "#0"},
+				"east": {"uv": [4, 10, 5.5, 10.5], "texture": "#0"},
+				"west": {"uv": [5.5, 10, 7, 10.5], "texture": "#0"},
+				"up": {"uv": [8, 5, 10, 6.5], "texture": "#0"}
+			},
+			"rotation": {
+				"angle": -22.5,
+				"axis": "y",
+				"origin": [12.5, 0, 13]
+			}
+		},
+		{
+			"name": "pebble_a",
+			"from": [13, 0, 3.5],
+			"to": [14.5, 1, 5],
+			"faces": {
+				"north": {"uv": [7, 10, 8, 10.5], "texture": "#0"},
+				"south": {"uv": [8, 10, 9, 10.5], "texture": "#0"},
+				"east": {"uv": [9, 10, 10, 10.5], "texture": "#0"},
+				"west": {"uv": [10, 10, 11, 10.5], "texture": "#0"},
+				"up": {"uv": [0, 8.5, 1, 9.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "pebble_b",
+			"from": [2, 0, 13],
+			"to": [3.2, 0.8, 14.2],
+			"faces": {
+				"north": {"uv": [11, 10, 12, 10.5], "texture": "#0"},
+				"south": {"uv": [12, 10, 13, 10.5], "texture": "#0"},
+				"east": {"uv": [13, 10, 14, 10.5], "texture": "#0"},
+				"west": {"uv": [14, 10, 15, 10.5], "texture": "#0"},
+				"up": {"uv": [1, 8.5, 2, 9.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "moss_a",
+			"from": [3.5, 0, 13.5],
+			"to": [8.5, 2.5, 13.5],
+			"faces": {
+				"south": {"uv": [11, 0, 16, 2.5], "texture": "#0"},
+				"north": {"uv": [11, 0, 16, 2.5], "texture": "#0"}
+			},
+			"shade": false,
+			"rotation": {
+				"angle": 45,
+				"axis": "y",
+				"origin": [6, 0, 13.5]
+			}
+		},
+		{
+			"name": "moss_b",
+			"from": [3.5, 0, 13.5],
+			"to": [8.5, 2.5, 13.5],
+			"faces": {
+				"south": {"uv": [0, 5, 5, 7.5], "texture": "#0"},
+				"north": {"uv": [0, 5, 5, 7.5], "texture": "#0"}
+			},
+			"shade": false,
+			"rotation": {
+				"angle": -45,
+				"axis": "y",
+				"origin": [6, 0, 13.5]
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"fixed": {
+			"scale": [1, 1, 1]
+		}
+	}
+}

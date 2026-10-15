@@ -1,0 +1,87 @@
+# Mistbloom - Koi Garden, animated koi (ModelEngine)
+# Spawn with: /mm m spawn <name> 1 <world>,<x>,<y>,<z>
+
+mistbloom_koi_pair:
+  Type: ARMOR_STAND
+  # Swimming Koi Pair
+  Health: 1
+  Options:
+    Marker: true
+    Invisible: true
+    Invincible: true
+    NoGravity: true
+    Silent: true
+    Persistent: true
+    Despawn: false
+    PreventOtherDrops: true
+  Skills:
+  - model{m=mistbloom_koi_pair} @self ~onSpawn
+  - model{m=mistbloom_koi_pair} @self ~onLoad
+
+mistbloom_koi_bowl_swim:
+  Type: ARMOR_STAND
+  # Bowl Koi
+  Health: 1
+  Options:
+    Marker: true
+    Invisible: true
+    Invincible: true
+    NoGravity: true
+    Silent: true
+    Persistent: true
+    Despawn: false
+    PreventOtherDrops: true
+  Skills:
+  - model{m=mistbloom_koi_bowl_swim} @self ~onSpawn
+  - model{m=mistbloom_koi_bowl_swim} @self ~onLoad
+
+mistbloom_koi_leap:
+  Type: ARMOR_STAND
+  # Leaping Koi
+  Health: 1
+  Options:
+    Marker: true
+    Invisible: true
+    Invincible: true
+    NoGravity: true
+    Silent: true
+    Persistent: true
+    Despawn: false
+    PreventOtherDrops: true
+  Skills:
+  - model{m=mistbloom_koi_leap} @self ~onSpawn
+  - model{m=mistbloom_koi_leap} @self ~onLoad
+
+mistbloom_koi_streamer_wind:
+  Type: ARMOR_STAND
+  # Koi Streamer (windy)
+  Health: 1
+  Options:
+    Marker: true
+    Invisible: true
+    Invincible: true
+    NoGravity: true
+    Silent: true
+    Persistent: true
+    Despawn: false
+    PreventOtherDrops: true
+  Skills:
+  - model{m=mistbloom_koi_streamer_wind} @self ~onSpawn
+  - model{m=mistbloom_koi_streamer_wind} @self ~onLoad
+
+mistbloom_koi_school:
+  Type: ARMOR_STAND
+  # Koi School
+  Health: 1
+  Options:
+    Marker: true
+    Invisible: true
+    Invincible: true
+    NoGravity: true
+    Silent: true
+    Persistent: true
+    Despawn: false
+    PreventOtherDrops: true
+  Skills:
+  - model{m=mistbloom_koi_school} @self ~onSpawn
+  - model{m=mistbloom_koi_school} @self ~onLoad

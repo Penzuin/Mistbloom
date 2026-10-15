@@ -1,0 +1,90 @@
+# Mistbloom - Koi Garden (animated add-on)
+# Works alongside the base set; nothing here replaces it.
+
+koi_pond_animated:
+  itemname: "<#f2e6cc>Koi Pond Basin (rippling)"
+  material: PAPER
+  lore:
+    - "<gray>Water ripples. Add the Swimming Koi Pair for fish."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden_animated/koi_pond_animated
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 1,0,0
+          - 0,0,1
+          - 1,0,1
+
+koi_bowl_animated:
+  itemname: "<#f2e6cc>Koi Bowl (rippling)"
+  material: PAPER
+  lore:
+    - "<gray>Water ripples. Add the Bowl Koi for fish."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden_animated/koi_bowl_animated
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+
+koi_statue_animated:
+  itemname: "<#f2e6cc>Koi Splash Statue"
+  material: PAPER
+  lore:
+    - "<gray>The splash, waiting for its Leaping Koi."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden_animated/koi_statue_animated
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 0,1,0
+
+koi_table_animated:
+  itemname: "<#f2e6cc>Koi Pool Tea Table (rippling)"
+  material: PAPER
+  lore:
+    - "<gray>The little pool on top ripples."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden_animated/koi_table_animated
+  Mechanics:
+    furniture:
+      properties:
+        display_transform: NONE
+      rotatable: true
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
