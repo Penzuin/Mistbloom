@@ -318,8 +318,18 @@ def gnarl():
         if fc in SIDES:
             for _ in range(max(1, w * h // 60)):
                 img[rng.randrange(h), rng.randrange(w)] = T("moss", 2)
-        if fc == "up":
-            img[:, :] = T("ebony", 2)
+        if fc == "up":                                                    # sawn end: growth rings, a crack,
+            cx, cy = (w - 1) / 2, (h - 1) / 2                             # dark bark round the rim
+            for y in range(h):
+                for x in range(w):
+                    r = max(abs(x - cx), abs(y - cy))
+                    edge = x in (0, w - 1) or y in (0, h - 1)
+                    img[y, x] = T("ebony", 4 if edge else (2 if int(r) % 2 == 0 else 3))
+            if w >= 3 and h >= 3:
+                img[int(cy), int(cx)] = T("ebony", 5)                     # heart
+                for k in range(1, max(2, min(w, h) // 2)):
+                    if int(cx) + k < w - 1:
+                        img[int(cy) - (k % 2 == 0 and int(cy) > 0), int(cx) + k] = T("ebony", 5)   # drying crack
         return img
     return f
 

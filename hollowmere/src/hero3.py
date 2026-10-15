@@ -80,17 +80,25 @@ def pump_skin(top_stem=False):
         if fc == "down":
             img[:, :] = T("pump", 4)
         if fc == "up":
-            # lid: the same rind tone, with rib grooves running in toward a small stem socket
+            # lid: domed, so it is lit in the middle and toward the light (top-left) and rolls into
+            # shadow at the rim; rib grooves run in toward a sunken stem socket
             import math
             cx, cy = (w - 1) / 2, (h - 1) / 2
             for y in range(h):
                 for x in range(w):
+                    dx, dy = (x - cx) / max(cx, 1), (y - cy) / max(cy, 1)
                     a = math.degrees(math.atan2(y - cy, x - cx)) % 45
-                    r = max(abs(x - cx) / max(cx, 1), abs(y - cy) / max(cy, 1))
-                    groove = (a < 7 or a > 38) and r > 0.25
-                    img[y, x] = T("pump", 3 if groove else 2)
+                    r = max(abs(dx), abs(dy))
+                    tone = 1 if r < 0.45 else 2 if r < 0.8 else 3
+                    if dx + dy < -0.5 and r < 0.8:
+                        tone -= 1                                         # sheen on the lit side
+                    if dx + dy > 0.6:
+                        tone += 1                                         # far side falls away
+                    if (a < 7 or a > 38) and r > 0.25:
+                        tone += 1                                         # rib groove
+                    img[y, x] = T("pump", max(0, min(5, tone)))
                     if r <= 0.22:
-                        img[y, x] = T("pump", 3)
+                        img[y, x] = T("pump", 4 if r <= 0.1 else 3)       # stem socket
         return img
     return f
 
