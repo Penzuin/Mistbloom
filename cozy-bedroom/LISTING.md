@@ -15,9 +15,9 @@ It runs on **Nexo**. You can sit on the bed and the cushions, store things in th
 - **Quilted Bed:** a two-block honey oak bed with corner posts, a patchwork quilt, two pillows and a striped throw across the foot. Two players can sit on it.
 - **Bedside Table:** an oak table with two drawers and brass knobs, a stack of two books and a mug on top. Right-click it to open 9 storage slots.
 - **Toadstool Lamp:** a rose toadstool with cream spots on a wooden foot. When it's on, the underside glows warm and lights up the room.
-- **Braided Rug:** a big round braided rug in lilac, cream and sage rings.
 - **Wall Shelf:** an oak shelf on brackets with four books (one leaning) and a little potted pothos that sways.
 - **Cottage Wardrobe:** a two-block-tall oak wardrobe with two panelled doors and brass knobs. Right-click it to open 27 storage slots.
+- **Braided Rug:** a big round braided rug in lilac, cream and sage rings.
 - **Floor Cushions:** a plump lilac cushion with a sage one stacked on top, both button-tufted. One player can sit on them.
 
 ### Features
@@ -55,4 +55,4 @@ Join the Mistbloom Studios Discord and open a ticket: discord.gg/QUJ8ntw7eS
 | Title | Cozy Bedroom \| Free Nexo Bedroom |
 | Price | Pay what you want, $0 minimum, $1 suggested |
 | File | Cozy-Bedroom-v1.0.zip |
-| Images | cozy-bedroom-icon.png (cover), cozy-bedroom-icon-animated.gif, cozy-bedroom-1-quilted-bed.png to cozy-bedroom-7-floor-cushions.png |
+| Images | cozy-bedroom-icon.png (cover), cozy-bedroom-icon-animated.gif, pieces 1 to 7 (bed, bedside table, lamp, wall shelf, wardrobe, rug, cushions) |

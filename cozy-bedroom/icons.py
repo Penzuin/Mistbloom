@@ -87,7 +87,7 @@ def render_piece(m, frame=0):
     if m.name not in NO_SHADOW:
         for e in m.elements:
             a, b = np.array(e["from"]), np.array(e["to"])
-            if (np.abs(b - a) < 1e-6).any():          # flat cards (the plant) cast no box shadow
+            if e.get("noshadow") or (np.abs(b - a) < 1e-6).any():          # flat cards (the plant) cast no box shadow
                 continue
             cs = _rot(e, [np.array([x, y, z]) for x in (a[0], b[0]) for y in (a[1], b[1]) for z in (a[2], b[2])])
             proj = []
@@ -107,6 +107,8 @@ def render_piece(m, frame=0):
             d.polygon([(x + ox, y + oy) for x, y in poly], fill=255)
     model = Image.new("RGBA", (W, H))
     model.alpha_composite(img, (int(round(ox)), int(round(oy))))
+    if m.name == "cozy_room":
+        _cache[("room_off",)] = (int(round(ox)), int(round(oy)))
     return model, sh
 
 
@@ -194,7 +196,116 @@ LAYOUT = [("wardrobe", 175, 455), ("wall_shelf", 400, 230), ("quilted_bed", 690,
 SCALE = 1.6
 
 
+# ---- the main icon is one real room, rendered as a single scene so pieces overlap correctly.
+# World units are model pixels (16 per block). +z is the back wall, +x is screen-left.
+# The bed is turned 90 degrees so its headboard sits against the back wall (players can rotate
+# furniture in game), with the bedside table on one side, the lamp on the other, the shelf on
+# the wall above the headboard, the wardrobe along the back wall, and the rug at the foot of the
+# bed with the floor cushions on it.
+ROOM = [  # (piece, (dx, dy, dz), turned)
+    ("quilted_bed", (0, 0, 0), True),
+    ("bedside_table", (17, 0, 16), False),
+    ("toadstool_lamp", (-16, 0, 16), False),
+    ("wall_shelf", (0, 18, 16), False),
+    ("wardrobe", (36, 0, 16), False),
+    ("braided_rug", (0, 0, -21), False),
+    ("floor_cushions", (-10, 0.3, -23), False),
+]
+_TURN = {"east": "south", "west": "north", "south": "west", "north": "east", "up": "up", "down": "down"}
+_UNTURN = {v: k for k, v in _TURN.items()}
+
+
+def _turned(painter):
+    """Paint a turned face as the face it was before the turn, so panels and shading stay put."""
+    def f(w, h, face, key):
+        return painter(w, h, _UNTURN[face], key)
+    for a in ("animated", "is_animated", "_animated"):
+        if hasattr(painter, a):
+            setattr(f, a, getattr(painter, a))
+    f.__dict__.update(getattr(painter, "__dict__", {}))
+    return f
+
+
+def room_model():
+    room = E.Model("cozy_room")
+    for name, (dx, dy, dz), turned in ROOM:
+        m = MODELS[name]()
+        for e in m.elements:
+            e = dict(e, faces=dict(e["faces"]))
+            a, b = list(e["from"]), list(e["to"])
+            if turned:                       # 90 degrees: old +x (head) becomes +z (back wall)
+                a, b = [16 - b[2], a[1], a[0]], [16 - a[2], b[1], b[0]]
+                e["faces"] = {_TURN[k]: _turned(p) for k, p in e["faces"].items()}
+                assert "rotation" not in e
+            e["from"] = [a[0] + dx, a[1] + dy, a[2] + dz]
+            e["to"] = [b[0] + dx, b[1] + dy, b[2] + dz]
+            if "rotation" in e:
+                r = dict(e["rotation"]); o = r["origin"]
+                r["origin"] = [o[0] + dx, o[1] + dy, o[2] + dz]
+                e["rotation"] = r
+            if name in NO_SHADOW:
+                e["noshadow"] = True
+            room.elements.append(e)
+    return room
+
+
 def main_icon(frame=0):
+    img = background()
+    key = ("room", frame)
+    if key not in _cache:
+        _cache[key] = render_piece(room_model(), frame)
+    m, s = _cache[key]
+    bb = m.getbbox()
+    k = min(900 / (bb[2] - bb[0]), 640 / (bb[3] - bb[1]))
+    m = m.resize((round(m.width * k), round(m.height * k)), Image.LANCZOS)
+    s = s.resize(m.size, Image.LANCZOS)
+    bb = m.getbbox()
+    xy = (round(S / 2 - (bb[0] + bb[2]) / 2), round(690 - bb[3]))
+    sh = Image.new("RGBA", m.size, SHADOW + (0,))
+    sh.putalpha(s.point(lambda v: int(v * SHADOW_A)))
+    img.alpha_composite(sh, xy)
+    _room_glow(img, m, xy, k)
+    img.alpha_composite(m, xy)
+    t = title("cozy", small_w=0.8, overlap=0.3)
+    tw = 520
+    t = t.resize((tw, round(t.height * tw / t.width)), Image.LANCZOS)
+    img.alpha_composite(t, ((S - tw) // 2, S - t.height - 30))
+    return img.convert("RGB")
+
+
+def _room_glow(img, m, xy, k):
+    """Warm pool under the lamp: find the lamp's foot in the scene image by projecting it."""
+    c, fwd, right, up = basis(CAM)
+    room = room_model()
+    pts = []
+    for e in room.elements:
+        for f in e["faces"]:
+            n = E._NORMALS[f]
+            if "rotation" in e:
+                r = e["rotation"]
+                n = {"x": E._rx, "y": E._ry, "z": E._rz}[r["axis"]](r["angle"]) @ n
+            if len(e["faces"]) != 2 and np.dot(n, c) <= 0:
+                continue
+            pts += _rot(e, E._face_corners(e, f))
+    pts = np.array(pts)
+    minx, miny = (pts @ right).min(), (-(pts @ up)).min()
+    foot = np.array([-8.0, 0.0, 24.0])
+    # render_piece pads by its shadow offset; recover it from the size difference
+    px = ((foot @ right - minx) * PPU + 2)
+    py = ((-(foot @ up) - miny) * PPU + 2)
+    off = _cache.get(("room_off",), (0, 0))
+    cx, cy = xy[0] + (px + off[0]) * k, xy[1] + (py + off[1]) * k
+    rx = 150
+    y, x = np.mgrid[0:S, 0:S].astype(float)
+    d = np.sqrt(((x - cx) / rx) ** 2 + ((y - cy) / (rx * 0.5)) ** 2)
+    a = np.clip(1 - d, 0, 1) ** 1.5 * 0.55
+    layer = np.zeros((S, S, 4), np.uint8)
+    layer[..., :3] = (255, 214, 140)
+    layer[..., 3] = (a * 255).astype(np.uint8)
+    img.alpha_composite(Image.fromarray(layer, "RGBA"))
+
+
+def main_icon_old(frame=0):
     img = background()
     items = []
     for name, cx, by in LAYOUT:
@@ -253,7 +364,7 @@ def animate(frames_fn, gif, webp):
     g[0].save(gif, save_all=True, append_images=g[1:], duration=150, loop=0, optimize=False, disposal=1)
 
 
-ORDER = ["quilted_bed", "bedside_table", "toadstool_lamp", "braided_rug", "wall_shelf", "wardrobe", "floor_cushions"]
+ORDER = ["quilted_bed", "bedside_table", "toadstool_lamp", "wall_shelf", "wardrobe", "braided_rug", "floor_cushions"]   # round the room: bed, its sides, the wall, then the floor
 
 if __name__ == "__main__":
     which = sys.argv[1:] or ["main", "pieces", "anim"]
