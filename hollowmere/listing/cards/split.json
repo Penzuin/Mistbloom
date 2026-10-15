@@ -1,0 +1,154 @@
+{
+ "jack_o_lantern": [
+  "jack-o'",
+  "lantern"
+ ],
+ "cauldron": [
+  "witch's",
+  "cauldron"
+ ],
+ "scarecrow": [
+  "scarecrow",
+  null
+ ],
+ "pumpkin_lamp": [
+  "pumpkin",
+  "lamp post"
+ ],
+ "potion_stall": [
+  "potion",
+  "stall"
+ ],
+ "hollow_arch": [
+  "halloween",
+  "arch"
+ ],
+ "dead_tree": [
+  "lantern",
+  "tree"
+ ],
+ "pumpkin_pile": [
+  "pumpkin",
+  "pile"
+ ],
+ "gourd_basket": [
+  "gourd",
+  "basket"
+ ],
+ "hay_bale_seat": [
+  "hay bale",
+  "seat"
+ ],
+ "haystack": [
+  "haystack",
+  null
+ ],
+ "pumpkin_cart": [
+  "pumpkin",
+  "cart"
+ ],
+ "caramel_apple_tray": [
+  "caramel",
+  "apple tray"
+ ],
+ "cider_cask": [
+  "cider",
+  "cask"
+ ],
+ "candy_bucket": [
+  "trick-or-treat",
+  "bucket"
+ ],
+ "spellbook_lectern": [
+  "spellbook",
+  "lectern"
+ ],
+ "crystal_ball": [
+  "crystal",
+  "ball"
+ ],
+ "potion_shelf": [
+  "potion",
+  "shelf"
+ ],
+ "potion_trio": [
+  "potion",
+  "trio"
+ ],
+ "witch_broom": [
+  "witch's",
+  "broom"
+ ],
+ "witch_hat_stand": [
+  "witch hat",
+  "stand"
+ ],
+ "candle_cluster": [
+  "candle",
+  "cluster"
+ ],
+ "tombstone": [
+  "tombstone",
+  null
+ ],
+ "tombstone_cross": [
+  "tombstone",
+  "cross"
+ ],
+ "iron_fence": [
+  "graveyard",
+  "fence"
+ ],
+ "coffin": [
+  "coffin",
+  null
+ ],
+ "ghost_lantern": [
+  "ghost",
+  "lantern"
+ ],
+ "mushroom_ring": [
+  "glowshroom",
+  "ring"
+ ],
+ "black_cat": [
+  "black",
+  "cat"
+ ],
+ "owl_perch": [
+  "owl",
+  "perch"
+ ],
+ "crow_post": [
+  "crow",
+  "post"
+ ],
+ "cobweb_corner": [
+  "cobweb",
+  "corner"
+ ],
+ "hanging_spider": [
+  "hanging",
+  "spider"
+ ],
+ "skull_candle": [
+  "skull",
+  "candle"
+ ],
+ "cushion_stool": [
+  "cushion",
+  "stool"
+ ],
+ "bat_bunting": [
+  "bat",
+  "bunting"
+ ],
+ "welcome_sign": [
+  "welcome",
+  "signpost"
+ ],
+ "harvest_wreath": [
+  "harvest",
+  "wreath"
+ ]
+}

@@ -1,0 +1,1078 @@
+[
+{
+"name": "jack_o_lantern_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "jack-o'",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "jack_o_lantern_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "lantern",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "cauldron_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "cauldron",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "cauldron_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "witch's",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "scarecrow_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "scarecrow",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "pumpkin_lamp_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "pumpkin",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "pumpkin_lamp_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "lamp post",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "potion_stall_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "potion",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "potion_stall_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "stall",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "hollow_arch_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "halloween",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "hollow_arch_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "arch",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "dead_tree_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "lantern",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "dead_tree_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "tree",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "pumpkin_pile_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "pumpkin",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "pumpkin_pile_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "pile",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "gourd_basket_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "gourd",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "gourd_basket_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "basket",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "hay_bale_seat_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "hay bale",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "hay_bale_seat_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "seat",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "haystack_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "haystack",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "pumpkin_cart_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "pumpkin",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "pumpkin_cart_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "cart",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "caramel_apple_tray_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "caramel",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "caramel_apple_tray_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "apple tray",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "cider_cask_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "cider",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "cider_cask_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "cask",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "candy_bucket_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "trick-or-treat",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "candy_bucket_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "bucket",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "spellbook_lectern_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "spellbook",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "spellbook_lectern_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "lectern",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "crystal_ball_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "crystal",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "crystal_ball_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "ball",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "potion_shelf_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "potion",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "potion_shelf_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "shelf",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "potion_trio_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "potion",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "potion_trio_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "trio",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "witch_broom_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "broom",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "witch_broom_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "witch's",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "witch_hat_stand_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "witch hat",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "witch_hat_stand_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "stand",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "candle_cluster_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "candle",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "candle_cluster_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "cluster",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "tombstone_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "tombstone",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "tombstone_cross_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "tombstone",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "tombstone_cross_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "cross",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "iron_fence_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "graveyard",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "iron_fence_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "fence",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "coffin_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "coffin",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "ghost_lantern_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "ghost",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "ghost_lantern_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "lantern",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "mushroom_ring_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "glowshroom",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "mushroom_ring_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "ring",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "black_cat_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "black",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "black_cat_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "cat",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "owl_perch_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "owl",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "owl_perch_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "perch",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "crow_post_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "crow",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "crow_post_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "post",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "cobweb_corner_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "cobweb",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "cobweb_corner_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "corner",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "hanging_spider_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "hanging",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "hanging_spider_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "spider",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "skull_candle_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "skull",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "skull_candle_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "candle",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "cushion_stool_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "cushion",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "cushion_stool_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "stool",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "bat_bunting_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "bat",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "bat_bunting_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "bunting",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "welcome_sign_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "welcome",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "welcome_sign_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "signpost",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+},
+{
+"name": "harvest_wreath_big",
+"w": 3200,
+"dialogDefaults": true,
+"text": "harvest",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#FFE9A8",
+"gradientColour2": "#FF9A3C",
+"gradientColour2Enabled": true,
+"gradientColour4": "#B8401C"
+}
+},
+{
+"name": "harvest_wreath_small",
+"w": 7000,
+"dialogDefaults": true,
+"text": "wreath",
+"args": {
+"textureSource": "gradient",
+"texture": "flat",
+"gradientColour0": "#F6ECFF",
+"gradientColour2": "#C9A8F5",
+"gradientColour2Enabled": true,
+"gradientColour4": "#6E46B8",
+"type": "small",
+"row": 0
+}
+}
+]
