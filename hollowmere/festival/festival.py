@@ -203,14 +203,14 @@ def gate_and_lane():
     # lane dressing: seat + cat, crow post, candy bucket, pumpkins, gourds
     xc = lane_x(-21)
     piece("hay_bale_seat", xc - 3, -21, 270)
-    piece("black_cat", xc - 3, -21, 250, y=1 + 11.5 / 16)
+    piece("black_cat", xc - 3, -22, 250)                   # on the ground beside the bale
     piece("crow_post", lane_x(-22) + 3, -22, 90)
     piece("candy_bucket", lane_x(-28) + 3, -28, 120)
     piece("pumpkin_pile", lane_x(-12) - 3, -12, 300)
     piece("gourd_basket", lane_x(-31) - 3, -31, 230)
     piece("jack_o_lantern_lit", lane_x(-17) + 3, -17, 110)
-    piece("caramel_apple_tray", lane_x(-23) - 3, -23, 270, y=2)
-    put(lane_x(-23) - 3, 1, -23, M + "barrel[facing=up]", "furniture")
+    piece("caramel_apple_tray", lane_x(-25) - 3, -25, 270, y=2)
+    put(lane_x(-25) - 3, 1, -25, M + "barrel[facing=up]", "furniture")
     # spooky tree by the gate with the hanging spider on its branch
     bare_tree(7, -28, 7, lean=-1)
     piece("hanging_spider", 5, -28, 0, y=4)      # hangs from the branch log at y5

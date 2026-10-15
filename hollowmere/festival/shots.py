@@ -14,7 +14,7 @@ def shot(name, pts, purpose, look=None, closed=False):
     SHOTS.append(dict(name=name, pts=pts, purpose=purpose, look=look, closed=closed))
 
 lx = F.lane_x
-cat = (lx(-21) - 3 + 0.5, 1.95, -21 + 0.5)
+cat = (lx(-21) - 3 + 0.5, 1.45, -22 + 0.5)
 BFX, BFZ = F.BF
 
 shot("hf-01-arrival", [((-46, 30, -78), 4.5, "ease-in", None), ((-30, 20, -64), 4.5, "ease-out", None), ((-16, 12, -56), 1, "linear", None)],
@@ -31,7 +31,7 @@ shot("hf-03-lane", lane, "Dolly down the lantern lane under the bat bunting, bet
 arc = []
 for k, a in enumerate((-65, -35, -5, 25)):
     r = math.radians(a)
-    arc.append(((cat[0] + 2.4 * math.cos(r), 2.2, cat[2] + 2.4 * math.sin(r)), 1.7 if k < 3 else 1, "linear", None))
+    arc.append(((cat[0] + 2.4 * math.cos(r), 1.8, cat[2] + 2.4 * math.sin(r)), 1.7 if k < 3 else 1, "linear", None))
 shot("hf-04-cat", arc, "Slow arc round the black cat on the hay bale seat (product close-up)", look=cat)
 orb = []
 for k in range(7):

@@ -148,6 +148,7 @@ setblock -1447 130 -585 minecraft:pointed_dripstone[vertical_direction=down,thic
 setblock -1447 131 -585 minecraft:pointed_dripstone[vertical_direction=down,thickness=frustum] strict
 setblock -1466 136 -585 minecraft:hanging_roots strict
 setblock -1443 137 -585 minecraft:hanging_roots strict
+setblock -1451 151 -585 minecraft:barrel[facing=up] strict
 setblock -1467 151 -585 minecraft:dark_oak_fence[north=false,south=false,west=false,east=false] strict
 setblock -1463 151 -585 minecraft:dark_oak_fence[north=false,south=false,west=false,east=false] strict
 setblock -1425 151 -585 minecraft:leaf_litter[facing=east,segment_amount=3] strict
@@ -192,7 +193,6 @@ fill -1474 155 -584 -1474 159 -584 minecraft:pale_oak_leaves[persistent=true] st
 setblock -1473 157 -584 minecraft:pale_oak_leaves[persistent=true] strict
 fill -1476 158 -584 -1475 159 -584 minecraft:pale_oak_leaves[persistent=true] strict
 setblock -1450 131 -583 minecraft:hanging_roots strict
-setblock -1451 151 -583 minecraft:barrel[facing=up] strict
 setblock -1433 151 -583 minecraft:campfire[lit=true] strict
 setblock -1435 151 -583 minecraft:cobblestone_slab[type=bottom] strict
 setblock -1431 151 -583 minecraft:cobblestone_slab[type=bottom] strict
