@@ -68,18 +68,44 @@ def hills(im, base, amp, color, seed, trees=0, blur=0):
     for _ in range(trees):                                   # bare crooked trees on the ridge
         x = rng.uniform(40, W - 40)
         y = min(p[1] for p in pts if abs(p[0] - x) < 12) + 4
-        h = rng.uniform(70, 150)
+        h = rng.uniform(80, 170)
         tree(d, x, y, h, color, rng)
     im.alpha_composite(L.filter(ImageFilter.GaussianBlur(blur)) if blur else L)
 
 
-def tree(d, x, y, h, color, rng, depth=0, ang=-90, w=None):
-    w = w or max(2, h / 9)
-    x2 = x + h * math.cos(math.radians(ang)); y2 = y + h * math.sin(math.radians(ang))
-    d.line((x, y, x2, y2), fill=color, width=int(w))
-    if depth < 3:
-        for da in (-28 - rng.uniform(0, 14), 24 + rng.uniform(0, 16)):
-            tree(d, x2, y2, h * rng.uniform(0.55, 0.7), color, rng, depth + 1, ang + da, w * 0.62)
+def tree(d, x, y, h, color, rng):
+    """Hand-drawn style bare tree: leaning, tapered trunk that wobbles as it rises, uneven limbs
+    (never mirrored pairs), a broken stub or two, and thin curling twigs at the tips."""
+    lean = rng.uniform(-14, 14)
+    _limb(d, x, y, h, -90 + lean, max(4, h / 7), color, rng, 0)
+    d.polygon([(x - h / 9, y + 3), (x - h / 22, y - h / 12), (x + h / 22, y - h / 12), (x + h / 7, y + 3)], fill=color)   # root flare
+
+
+def _limb(d, x, y, length, ang, w, color, rng, depth):
+    steps = max(3, int(length / 9))
+    pts_l, pts_r = [], []
+    a = ang
+    for k in range(steps + 1):
+        t = k / steps
+        ww = w * (1 - 0.75 * t) / 2
+        nx, ny = math.cos(math.radians(a + 90)), math.sin(math.radians(a + 90))
+        pts_l.append((x + nx * ww, y + ny * ww)); pts_r.append((x - nx * ww, y - ny * ww))
+        if k < steps:
+            a += rng.uniform(-9, 9) + (2.5 if depth else 0) * (1 if ang > -90 else -1)   # wobble, outer limbs droop
+            x += math.cos(math.radians(a)) * length / steps
+            y += math.sin(math.radians(a)) * length / steps
+            if depth < 3 and k >= 1 and rng.random() < (0.42 if depth == 0 else 0.3):
+                side = rng.choice((-1, 1))
+                _limb(d, x, y, length * rng.uniform(0.35, 0.62), a + side * rng.uniform(22, 55), ww * 1.5,
+                      color, rng, depth + 1)
+    d.polygon(pts_l + pts_r[::-1], fill=color)
+    if depth >= 2 or length < 18:                          # curling twig at the tip
+        tw = [(x, y)]
+        for _ in range(4):
+            a += rng.choice((-1, 1)) * rng.uniform(15, 35)
+            x += math.cos(math.radians(a)) * length * 0.12; y += math.sin(math.radians(a)) * length * 0.12
+            tw.append((x, y))
+        d.line(tw, fill=color, width=2)
 
 
 def mist(im, y, strength=70):
@@ -246,7 +272,7 @@ def compose():
     title(im, 300, 560)
     d = ImageDraw.Draw(im)
     spaced(d, "MISTBLOOM STUDIOS PRESENTS", inter(28, "SemiBold"), 205, (255, 205, 130), 8)
-    tag = "A cozy-spooky Halloween market for Nexo  ·  38 furniture pieces"
+    tag = "A Spooky-Cozy Halloween market for Nexo  ·  38 furniture pieces"
     f = inter(30, "Medium"); tw = d.textlength(tag, font=f)
     d.text(((W - tw) / 2 + 2, 700 + 2), tag, font=f, fill=(8, 4, 16)); d.text(((W - tw) / 2, 700), tag, font=f, fill=LILAC)
     mark = Image.open("/home/claude/mistbloom/brand/logo-v2/mistbloom-mark-transparent.png").convert("RGBA")

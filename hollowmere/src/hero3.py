@@ -535,16 +535,16 @@ def jack(m, lo, hi, lit=False, emit=15, stem=True, ribs=True, halo=True, lite=Fa
     X = lambda f: x0 + W * f
     Y = lambda f: y0 + H * f
     Z = lambda f: z0 + D * f
-    m.box([X(.12), Y(.16), Z(.0) + 0.6], [X(.88), Y(.82), Z(.98)], glow_core(lit), emit=emit if lit else 0)   # fills the hollow
+    m.box([X(.14), Y(.17), Z(.0) + 0.5], [X(.86), Y(.81), Z(.96)], glow_core(lit), emit=emit if lit else 0)   # fills the hollow
     m.box([X(.10), Y(.14), Z(.0)], [X(.90), Y(.84), Z(1.0)], carved(), res=2)                   # face band
     m.box([X(.0), Y(.20), Z(.10)], [X(1.0), Y(.78), Z(.90)], pump_skin(), res=2,
           faces=("east", "west", "south", "up", "down"))                                        # widest band
     m.box([X(.18), Y(.0), Z(.16)], [X(.82), Y(.16), Z(.84)], pump_skin(), res=2)                 # bottom taper
     if not lite:
-        m.box([X(.08), Y(.05), Z(.24)], [X(.92), Y(.21), Z(.76)], pump_skin(), res=2)
-    m.box([X(.09), Y(.82), Z(.17)], [X(.91), Y(.93), Z(.83)], pump_skin(), res=2)                # shoulder
+        m.box([X(.05), Y(.05), Z(.24)], [X(.95), Y(.21), Z(.76)], pump_skin(), res=2)
+    m.box([X(.07), Y(.82), Z(.17)], [X(.93), Y(.93), Z(.83)], pump_skin(), res=2)                # shoulder
     if not lite:
-        m.box([X(.17), Y(.80), Z(.09)], [X(.83), Y(.95), Z(.91)], pump_skin(), res=2)            # crossed: octagon from above
+        m.box([X(.17), Y(.79), Z(.07)], [X(.83), Y(.96), Z(.93)], pump_skin(), res=2)            # crossed: octagon from above
         m.box([X(.28), Y(.92), Z(.28)], [X(.72), Y(1.0), Z(.72)], pump_skin(), res=2)            # low crown
     if lit and halo and not lite:
         m.card([X(.02), Y(.02), Z(-.06)], [X(.98), Y(.98), Z(-.06)], halo_card(), emit=15)        # warm glow halo

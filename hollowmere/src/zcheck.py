@@ -88,9 +88,11 @@ def _candidates(m, c):
                              (c["b"], c["fb"], c["ab"], c["a"], c["fa"])
     if c["area"] >= 0.9 * sa and len(m.elements[small]["faces"]) > 1:
         out.append((f"drop el{small}.{sf}", lambda mm, i=small, f=sf: mm.elements[i]["faces"].pop(f)))
+    # growing a face never opens a see-through seam, so try that before shrinking anything
+    for i, f in ((small, sf), (big, bf)):
+        out.append((f"grow el{i}.{f}", lambda mm, i=i, f=f: _inset(mm.elements[i], f, -MOVE)))
     for i, f in ((small, sf), (big, bf)):
         out.append((f"inset el{i}.{f}", lambda mm, i=i, f=f: _inset(mm.elements[i], f, MOVE)))
-        out.append((f"grow el{i}.{f}", lambda mm, i=i, f=f: _inset(mm.elements[i], f, -MOVE)))
     return out
 
 

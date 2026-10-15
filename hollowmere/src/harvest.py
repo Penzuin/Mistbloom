@@ -170,8 +170,9 @@ def pumpkin(m, lo, hi, stem=True, ramp_skin=None):
     (x0, y0, z0), (x1, y1, z1) = lo, hi
     W, H, D = x1 - x0, y1 - y0, z1 - z0
     sk = ramp_skin or pump_skin()
-    m.box([x0, y0 + H * .1, z0 + D * .12], [x1, y1 - H * .14, z1 - D * .12], sk, res=2)
-    m.box([x0 + W * .12, y0, z0], [x1 - W * .12, y1 - H * .08, z1], sk, res=2)
+    top2 = y1 - H * .04                                       # the two crossed halves keep >= 0.4px apart
+    m.box([x0, y0 + max(H * .1, .4), z0 + D * .12], [x1, top2 - max(H * .1, .4), z1 - D * .12], sk, res=2)
+    m.box([x0 + W * .12, y0, z0], [x1 - W * .12, top2, z1], sk, res=2)
     if stem:
         cx, cz = (x0 + x1) / 2, (z0 + z1) / 2
         s = max(0.8, W * .14)
@@ -186,7 +187,6 @@ def pumpkin_pile():
     pumpkin(m, [8.5, 0, 1.5], [15, 5, 7.5])                                       # medium, front right
     pumpkin(m, [9, 0, 9], [14.5, 4.5, 14.5], stem=False)                          # small, back
     pumpkin(m, [9.5, 4.5, 9.5], [13.5, 7.5, 13.5], ramp_skin=gourd_skin("squash"))  # green squash on top
-    m.card([2, 6.6, 6], [6, 10, 6], LEAF, rot=("y", 22.5, [4, 7, 6]))
     return m
 
 

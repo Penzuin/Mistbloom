@@ -101,7 +101,7 @@ def tombstone():
     m.box([3, 2, 7.5], [13, 13, 10.5], headstone(), res=2)                        # engraved slab
     m.box([4, 13, 7.5], [12, 15, 10.5], stone("slate", moss=False))               # rounded top, stepped
     m.box([5.5, 15, 7.5], [10.5, 16, 10.5], stone("slate", moss=False))
-    m.card([10.5, 2, 7.4], [14, 8, 7.4], VINE)                                    # ivy creeping up
+    m.card([10, 2, 7.0], [12.8, 8, 7.0], VINE)                                    # ivy creeping up
     m.box([1.5, 2, 3], [5.5, 5, 7], pump_skin())                             # pumpkin offering
     m.box([3.1, 5, 4.6], [3.9, 6, 5.4], bark("stem"))
     m.box([11, 2, 3.5], [12.5, 5, 5], wax())
