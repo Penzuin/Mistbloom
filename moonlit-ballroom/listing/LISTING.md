@@ -1,23 +1,28 @@
-# Moonlit Ballroom | Waltzing Ghost Furniture for Nexo
+# Moonlit Ballroom | Waltzing Ghosts
 
-**Short tagline (one line under the title):**
-Friendly ghosts that waltz all night. 6 animated Halloween pieces for Nexo.
+**Tagline:** 6 animated Halloween ghost furniture pieces for Nexo, with light toggles
+
+(This is the user's own edited copy from the BuiltByBit draft, Oct 15 2026. Use it as the wording reference.)
 
 ---
 
 ## Description
 
-The ballroom is closed, but the guests never left. 👻
+The ballroom is closed, but the guests never left.
 
-**Moonlit Ballroom** is a spooky-cute Halloween starter set from Mistbloom Studios. The ghosts here aren't scary. They waltz, play the piano and peek back at you, all lit by soft moonlight.
+**Moonlit Ballroom** is a spooky Halloween set from Mistbloom Studios.
+
+The ghosts here aren't scary. They waltz, play the piano and peek back at you, all lit by soft moonlight.
+
+Every piece is animated and runs on **Nexo**.
 
 ### What's inside (6 pieces)
 
 - **Waltzing Ghosts:** a ghost couple turning a full waltz on a little moonlit dance floor. He wears a tiny top hat and she has a violet flower.
-- **Ghost Pianist:** an upright piano with a cheerful ghost at the keys and music notes drifting up. It's 2 blocks wide.
-- **Floating Candelabra:** three moonfire candles held up by a curl of ghost mist. Right-click to turn the light on and off.
+- **Ghost Pianist:** an upright piano with a cheerful ghost at the keys and music notes drifting up.
+- **Floating Candelabra:** three candles held up by a curl of ghost mist. Right-click to turn the light on and off.
 - **Ghost Lantern:** a tiny ghost living inside a lantern. Right-click to turn the light on and off.
-- **Portrait of Lady Wispwell:** a wall portrait in a gilt frame, with flickering candlelight across the canvas.
+- **Portrait of Lady Wispwell:** a wall portrait in a gilt frame drinking her tea
 - **Wisp:** a small floating ghost that blinks.
 
 ### Features
@@ -25,18 +30,12 @@ The ballroom is closed, but the guests never left. 👻
 - 6 animated pieces
 - 2 working light toggles (the candelabra and the lantern)
 - Right-click reactions
-- Clean, readable configs with one items file (`moonball.yml`) and its own namespace (`moonball`), so nothing clashes with your other packs
-- Easy install: copy two folders and run `/nexo reload all`
+- Drag and Drop Easy install
 
 ### Requirements
 
-- Minecraft **1.21.4 or newer**
+- Minecraft **1.21.4 to 1.26.2**
 - **Nexo**
-
-### Good to know
-
-- The animations are hand-drawn animated textures, so each piece faces the direction you place it. Seen from the side they look flat.
-- The ballroom build in the trailer and screenshots is a **showcase only**. You get the 6 furniture pieces, not the building.
 
 ### License
 
@@ -44,7 +43,7 @@ You can use it on **one** server network that you own or run, and you can edit t
 
 ### Support
 
-Join the Mistbloom Studios Discord and open a ticket: https://discord.com/invite/QUJ8ntw7eS
+Join the Mistbloom Studios Discord and open a ticket: discord.gg/QUJ8ntw7eS
 
 ---
 
@@ -52,11 +51,11 @@ Join the Mistbloom Studios Discord and open a ticket: https://discord.com/invite
 
 | Field | Value |
 |---|---|
-| Title | Moonlit Ballroom \| Waltzing Ghost Furniture for Nexo |
+| Title | Moonlit Ballroom \| Waltzing Ghosts |
 | Category | Minecraft > Resource packs / Models (furniture) |
 | Tags | halloween, ghost, furniture, nexo, animated, spooky, cute, ballroom, decoration |
 | Version | 0.1 (starter set) |
-| Supported versions | 1.21.4+ |
+| Supported versions | 1.21.4 to 1.26.2 |
 | Price | [YOUR PRICE]. My suggestion is $5.99, since it's a 6-piece starter set priced below Witching Hour's $8.99. Raise it if more ballroom pieces are added later. |
 
 ## Gallery (upload in this order)
