@@ -96,13 +96,13 @@ def spellbook_lectern():
     m.box([3, 0, 4], [13, 1.5, 12], bark("ebony"))                                # foot
     m.box([6.5, 1.5, 6.5], [9.5, 10, 9.5], bark("ebony"))                         # carved column
     m.box([5.5, 4, 5.5], [10.5, 5.2, 10.5], solid("gold", 2))                     # brass ring
-    m.box([2, 10, 3], [14, 11.2, 13], wood("ebony", plank=2), rot=("x", -22.5, [8, 10.6, 8]))   # slanted desk
-    m.box([2.6, 11.2, 4], [7.9, 12.4, 12], pages(), rot=("x", -22.5, [8, 10.6, 8]))           # open book
-    m.box([8.1, 11.2, 4], [13.4, 12.4, 12], pages(), rot=("x", -22.5, [8, 10.6, 8]))
-    m.box([2.3, 10.9, 3.6], [13.7, 11.3, 12.4], solid("plum", 3), rot=("x", -22.5, [8, 10.6, 8]))  # cover
+    m.box([2, 10, 2.5], [14, 11.2, 13], wood("ebony", plank=2), rot=("x", -22.5, [8, 10.6, 8]))   # slanted desk
+    m.box([2.3, 11.2, 3.6], [13.7, 11.7, 12.4], solid("plum", 3), rot=("x", -22.5, [8, 10.6, 8]))  # cover, resting on the desk
+    m.box([2.6, 11.7, 4], [7.9, 12.9, 12], pages(), rot=("x", -22.5, [8, 10.6, 8]))           # open book
+    m.box([8.1, 11.7, 4], [13.4, 12.9, 12], pages(), rot=("x", -22.5, [8, 10.6, 8]))
     R = solid("pump", 1, bevel=False)
-    m.box([7.8, 12.35, 2.75], [8.2, 12.55, 6.5], R, rot=("x", -22.5, [8, 10.6, 8]))   # bookmark ribbon lying in the gutter...
-    m.box([7.8, 9.6, 2.75], [8.2, 12.35, 2.95], R, rot=("x", -22.5, [8, 10.6, 8]))    # ...and draping over the front edge
+    m.box([7.8, 12.9, 3.3], [8.2, 13.25, 6.5], R, rot=("x", -22.5, [8, 10.6, 8]))      # bookmark ribbon lying in the gutter...
+    m.box([7.8, 10.4, 2.95], [8.2, 13.25, 3.3], R, rot=("x", -22.5, [8, 10.6, 8]))     # ...and draping over the front edge
     m.box([12, 1.5, 9.5], [13.5, 4.5, 11], wax())                                 # candle stub on the foot
     m.card([12, 4.5, 10.25], [13.5, 6.5, 10.25], candle_flame(), emit=15)
     return m

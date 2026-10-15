@@ -342,8 +342,6 @@ def gnarl():
                     if b in (0, n - 1) and n > 2:
                         tone += 1                                         # edges roll away
                     img[y, x] = T("ebony", tone)
-            for _ in range(max(1, w * h // 30)):
-                img[rng.randrange(h), rng.randrange(w)] = T("moss", 1)
             return img
         if fc == "up":                                                    # sawn end: growth rings, a crack,
             cx, cy = (w - 1) / 2, (h - 1) / 2                             # dark bark round the rim

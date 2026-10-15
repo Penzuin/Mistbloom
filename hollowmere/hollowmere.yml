@@ -299,7 +299,8 @@ hollowmere_gourd_basket:
         step_sound: block.wood.step
         fall_sound: block.wood.fall
       hitbox:
-        interaction: 0,0,0 0.8,0.8
+        interactions:
+        - 0,0,0 0.75,0.75
 
 hollowmere_hay_bale_seat:
   itemname: <#ffb15c>Hay Bale Seat
@@ -328,7 +329,7 @@ hollowmere_hay_bale_seat:
         barriers:
         - 0,0,0
       seats:
-      - 0,0.4,0
+      - 0,-0.08,0
 
 hollowmere_haystack:
   itemname: <#ffb15c>Haystack
@@ -382,7 +383,9 @@ hollowmere_pumpkin_cart:
         wall: false
         roof: false
       hitbox:
-        interaction: 0,0,0 2.4,1
+        barriers:
+        - 0,0,0
+        - 1,0,0
 
 hollowmere_caramel_apple_tray:
   itemname: <#ffb15c>Caramel Apple Tray
@@ -403,7 +406,8 @@ hollowmere_caramel_apple_tray:
         step_sound: block.wood.step
         fall_sound: block.wood.fall
       hitbox:
-        interaction: 0,0,0 0.9,0.5
+        interactions:
+        - 0,0,0 0.85,0.5
       clickActions:
       - conditions: []
         actions:
@@ -462,7 +466,8 @@ hollowmere_candy_bucket:
         step_sound: block.wood.step
         fall_sound: block.wood.fall
       hitbox:
-        interaction: 0,0,0 0.9,0.8
+        interactions:
+        - 0,0,0 0.9,0.8
       storage:
         type: STORAGE
         rows: 1
@@ -524,7 +529,8 @@ hollowmere_crystal_ball:
         step_sound: block.glass.step
         fall_sound: block.glass.fall
       hitbox:
-        interaction: 0,0,0 0.6,0.7
+        interactions:
+        - 0,0,0 0.65,0.65
       lights:
         toggleable: false
         lights:
@@ -559,7 +565,8 @@ hollowmere_potion_shelf:
         wall: true
         roof: false
       hitbox:
-        interaction: 0,0,0 1,1
+        interactions:
+        - 0,0,0 1,1
       storage:
         type: STORAGE
         rows: 2
@@ -586,7 +593,8 @@ hollowmere_potion_trio:
         step_sound: block.glass.step
         fall_sound: block.glass.fall
       hitbox:
-        interaction: 0,0,0 0.8,0.6
+        interactions:
+        - 0,0,0 0.75,0.55
       lights:
         toggleable: false
         lights:
@@ -617,7 +625,8 @@ hollowmere_witch_broom:
         wall: false
         roof: false
       hitbox:
-        interaction: 0,0,0 0.8,2
+        interactions:
+        - 0,0,0 0.75,2.2
 
 hollowmere_witch_hat_stand:
   itemname: <#ffb15c>Witch Hat Stand
@@ -666,7 +675,8 @@ hollowmere_candle_cluster:
         step_sound: block.wood.step
         fall_sound: block.wood.fall
       hitbox:
-        interaction: 0,0,0 0.7,0.8
+        interactions:
+        - 0,0,0 0.65,0.75
       lights:
         toggleable: false
         lights:
@@ -808,7 +818,8 @@ hollowmere_ghost_lantern:
         step_sound: block.lantern.step
         fall_sound: block.lantern.fall
       hitbox:
-        interaction: 0,0,0 0.5,1
+        interactions:
+        - 0,0,0 0.45,0.9
       lights:
         toggleable: true
         toggled_item_model: hollowmere:ghost_lantern_lit
@@ -838,7 +849,8 @@ hollowmere_mushroom_ring:
         wall: false
         roof: false
       hitbox:
-        interaction: 0,0,0 1,0.4
+        interactions:
+        - 0,0,0 0.9,0.4
       lights:
         toggleable: false
         lights:
@@ -865,7 +877,8 @@ hollowmere_black_cat:
         step_sound: block.wood.step
         fall_sound: block.wood.fall
       hitbox:
-        interaction: 0,0,0 0.7,0.9
+        interactions:
+        - 0,0,0 0.65,0.95
       clickActions:
       - conditions: []
         actions:
@@ -907,7 +920,7 @@ hollowmere_owl_perch:
 hollowmere_crow_post:
   itemname: <#ffb15c>Crow Post
   lore:
-  - <gray>Two crows on a fence post.
+  - <gray>A crow perched on a post.
   - <dark_gray>Halloween
   material: PAPER
   Components:
@@ -959,7 +972,8 @@ hollowmere_cobweb_corner:
         wall: true
         roof: false
       hitbox:
-        interaction: 0,0,0 1,1
+        interactions:
+        - 0,0,0 1,1
 
 hollowmere_hanging_spider:
   itemname: <#ffb15c>Hanging Spider
@@ -985,7 +999,8 @@ hollowmere_hanging_spider:
         wall: false
         roof: true
       hitbox:
-        interaction: 0,0,0 0.6,0.8
+        interactions:
+        - 0,0,0 0.6,0.85
 
 hollowmere_skull_candle:
   itemname: <#ffb15c>Skull Candle
@@ -1006,7 +1021,8 @@ hollowmere_skull_candle:
         step_sound: block.stone.step
         fall_sound: block.stone.fall
       hitbox:
-        interaction: 0,0,0 0.6,1
+        interactions:
+        - 0,0,0 0.65,1.05
       lights:
         toggleable: false
         lights:
@@ -1040,7 +1056,7 @@ hollowmere_cushion_stool:
         barriers:
         - 0,0,0
       seats:
-      - 0,0.4,0
+      - 0,0.16,0
 
 hollowmere_bat_bunting:
   itemname: <#ffb15c>Bat Bunting
@@ -1063,7 +1079,10 @@ hollowmere_bat_bunting:
         step_sound: block.wood.step
         fall_sound: block.wood.fall
       hitbox:
-        interaction: 0,0,0 3,1
+        interactions:
+        - -1,0.25,0 1,0.75
+        - 0,0.25,0 1,0.75
+        - 1,0.25,0 1,0.75
 
 hollowmere_welcome_sign:
   itemname: <#ffb15c>Welcome Signpost
@@ -1123,4 +1142,5 @@ hollowmere_harvest_wreath:
         wall: true
         roof: false
       hitbox:
-        interaction: 0,0,0 0.9,0.9
+        interactions:
+        - 0,0,0 0.9,0.9

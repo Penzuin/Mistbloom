@@ -46,14 +46,16 @@ def bunting():
     def f(w, h, fc, key):
         img = _blank(w, h)
         curve = lambda x: int(round(1 + 2.2 * math.sin(math.pi * x / (w - 1))))
-        spans = [(x0, x0 + 6) for x0 in range(2, w - 6, 8)]
+        nflags = (w - 3) // 8
+        first = (w - (nflags * 8 - 1)) // 2                                       # equal margin at both ends
+        spans = [(x0, x0 + 6) for x0 in range(first, first + nflags * 8, 8)]
         def sag(x):                                                               # flat across each flag's top
             for a, b in spans:
                 if a <= x <= b:
                     return curve(a + 3)
             return curve(x)
         n = 0
-        for x0 in range(2, w - 6, 8):
+        for x0, _ in spans:
             top = sag(x0 + 3)
             bat = n % 2 == 1
             for y in range(top + 1, min(h, top + 9)):
@@ -146,9 +148,13 @@ def harvest_wreath():
         m.box([cx - 2.6, cy - 1.25, z0 + 0.1], [cx + 2.6, cy + 1.25, z1 - 0.1], autumn(), rot=("z", a, [cx, cy, 15]))
     m.box([3, 1.2, 12.5], [6, 4.2, 14], pump_skin())                         # little pumpkin
     m.box([10.5, 1.5, 12.8], [12.5, 3.8, 14], solid("gourd", 1))                  # gourd
-    m.box([7, 12.5, 13.2], [9, 14.5, 14], solid("plum", 2))                       # bow knot
-    m.card([5, 10, 13.1], [11, 14.5, 13.1], art(["aa....aa", "aaa..aaa", "aaa..aaa", "...bb...", "..b..b..", ".b....b."],
-                                              {"a": ("plum", 2), "b": ("plum", 3)}), res=2)   # bow loops & tails
+    BOW = solid("plum", 2)
+    m.box([7.2, 12.6, 12.8], [8.8, 14.4, 13.8], BOW)                              # bow knot, centred on the top
+    m.box([4.0, 12.9, 13.0], [7.2, 14.9, 13.6], BOW, rot=("z", -22.5, [7.2, 13.5, 13.3]))   # left loop, tilted up
+    m.box([8.8, 12.9, 13.0], [12.0, 14.9, 13.6], BOW, rot=("z", 22.5, [8.8, 13.5, 13.3]))    # right loop, mirrored
+    m.card([6, 9.0, 13.45], [10, 12.6, 13.45], art([                                # two ribbon tails
+        "..aaaa..", "..a..a..", ".aa..aa.", ".a....a.", "aa....aa", "a......a", "a......a"],
+        {"a": ("plum", 3)}), res=2)
     return m
 
 

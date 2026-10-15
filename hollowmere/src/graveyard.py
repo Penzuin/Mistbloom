@@ -86,9 +86,9 @@ def coffin_wood():
         if fc == "up" and w >= 10 and h >= 6:
             cx, cy = w // 2, h // 2
             for x in range(cx - 3, cx + 4):
-                img[cy, x] = T("plum", 1)                                # little lavender cross inlay
+                img[cy, x] = T("plum", 4)                                # little cross inlay, dark and subtle
             for y in range(cy - 2, cy + 3):
-                img[y, cx - 1] = T("plum", 1)
+                img[y, cx - 1] = T("plum", 4)
             img[0, :] = img[-1, :] = img[:, 0] = img[:, -1] = T("ebony", 1)
         return img
     return f
@@ -147,7 +147,7 @@ def coffin():
     m.box([12, 2, 3.1], [16, 3, 3.5], solid("gold", 2, bevel=False))
     m.box([16, 6.4, 6], [20, 9.4, 10], pump_skin())                          # pumpkin resting on the lid
     m.box([17.6, 9.4, 7.6], [18.4, 10.4, 8.4], bark("stem"))
-    m.box([0.5, 6.4, 6.5], [4.5, 7.4, 9.5], solid("lilac", 2))                    # posy of flowers
+    m.box([1.2, 6.4, 6.8], [3.8, 7.0, 9.2], art(["cbcb", "bcbc", "cbcb"], {"b": ("plum", 4), "c": ("moss", 3)}), res=1)  # small dried posy
     return m
 
 
