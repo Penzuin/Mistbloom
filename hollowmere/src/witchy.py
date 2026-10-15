@@ -2,7 +2,7 @@
 import random
 import engine
 from engine import Model, wood, solid, T, _blank, fr, animated, SIDES, art, tinted
-from hero3 import bark, iron, candle_flame, wax
+from hero3 import bark, iron, candle_flame, wax, pump_skin
 from harvest import loose_hay, apple, pumpkin
 from spooky import COBWEB
 
@@ -111,14 +111,15 @@ def crystal_ball():
     m.box([4, 0, 4], [12, 1.5, 12], bark("ebony"))                               # base, crossed
     m.box([5, 0.2, 3], [11, 1.3, 13], bark("ebony"))
     m.box([6, 1.5, 6], [10, 3.2, 10], solid("gold", 2))                           # brass cup
-    m.box([5.2, 3.2, 7.4], [6.2, 5.6, 8.6], solid("gold", 1))                     # claws gripping the orb
-    m.box([9.8, 3.2, 7.4], [10.8, 5.6, 8.6], solid("gold", 1))
-    m.box([7.4, 3.2, 5.2], [8.6, 5.6, 6.2], solid("gold", 1))
-    m.box([7.4, 3.2, 9.8], [8.6, 5.6, 10.8], solid("gold", 1))
-    m.box([5, 3.6, 5.6], [11, 9.6, 10.4], crystal(), emit=10)                     # round orb: crossed + a 45 turn
-    m.box([5.6, 3.6, 5], [10.4, 9.6, 11], crystal(), emit=10)
-    m.box([5.4, 4.0, 5.4], [10.6, 9.2, 10.6], crystal(), emit=10, rot=("y", 45, [8, 4, 8]))
-    m.box([6, 3.2, 6], [10, 10.2, 10], crystal(), emit=10)                        # top and bottom curve
+    m.box([4.6, 3.2, 7.4], [5.6, 5.4, 8.6], solid("gold", 1))                     # claws gripping the orb
+    m.box([10.4, 3.2, 7.4], [11.4, 5.4, 8.6], solid("gold", 1))
+    m.box([7.4, 3.2, 4.6], [8.6, 5.4, 5.6], solid("gold", 1))
+    m.box([7.4, 3.2, 10.4], [8.6, 5.4, 11.4], solid("gold", 1))
+    # round orb from stepped boxes; every pair of parallel faces is at least 0.4 apart (no z-fighting)
+    m.box([5, 4.4, 5.6], [11, 8.8, 10.4], crystal(), emit=10)
+    m.box([5.6, 4.0, 5], [10.4, 9.2, 11], crystal(), emit=10)
+    m.box([5.4, 3.6, 5.4], [10.6, 9.6, 10.6], crystal(), emit=10, rot=("y", 45, [8, 4, 8]))
+    m.box([6, 3.2, 6], [10, 10.2, 10], crystal(), emit=10)
     return m
 
 
@@ -162,7 +163,7 @@ def witch_broom():
     m.box([5.8, -7.5, 6.8], [10.2, -4.5, 10.2], broom_bristles())                 # bound top
     m.box([5.4, -8, 6.4], [10.6, -6.8, 10.6], solid("plum", 2, bevel=False))      # ribbon tie
     m.box([7.4, -6.8, 6.4], [8.6, -9.5, 6.6], solid("plum", 1, bevel=False)) if False else None
-    m.box([0.5, -16, 1.5], [5, -12, 6], solid("pump", 2))                         # tiny pumpkin by the bristles
+    m.box([0.5, -16, 1.5], [5, -12, 6], pump_skin())                         # tiny pumpkin by the bristles
     m.box([2.4, -12, 3.4], [3.2, -11, 4.2], bark("stem"))
     return m
 

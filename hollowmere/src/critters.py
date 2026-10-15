@@ -14,7 +14,8 @@ engine.RAMPS.update({k: engine._ramp7(v) for k, v in {
 
 # ------------------------------------------------------------------ painters
 def fur(face=False):
-    """Soft fur; the north face of the head gets gold eyes, a blush nose and a little 'w' mouth."""
+    """Soft fur. With face=True the north face gets a calm cat face: two round gold eyes with
+    centred slit pupils and matching glints, a small pink nose and a tiny mouth - all mirrored."""
     def f(w, h, fc, key):
         rng = random.Random(key)
         img = _blank(w, h)
@@ -23,16 +24,24 @@ def fur(face=False):
             img[rng.randrange(h), rng.randrange(w)] = T("fur", rng.choice((1, 3)))
         if fc == "up":
             img[:, :] = T("fur", 1)
-        if face and fc == "north" and w >= 6 and h >= 5:
-            ey = h // 3
-            for ex in (w // 4 - 1 + 1, w - w // 4 - 2):
-                img[ey:ey + 2, ex:ex + 2] = T("gold", 1)
-                img[ey:ey + 2, ex + 1 - (ex > w // 2)] = T("coal", 6)          # slit pupils
-            cx = w // 2
-            img[ey + 2, cx - 1:cx + 1] = T("blush", 2)                           # nose
-            img[ey + 3, cx - 2] = img[ey + 3, cx + 1] = T("coal", 5)              # 'w' mouth
-            img[ey + 4 if ey + 4 < h else ey + 3, cx - 1:cx + 1] = T("coal", 5)
-            img[ey + 2, 0] = img[ey + 2, w - 1] = T("cream", 0)                   # whisker tips
+        if face and fc == "north" and w >= 12 and h >= 9:
+            img[:, :] = T("fur", 2)                                   # clean face, no speckle
+            ey, cx = 1, w // 2                                        # w even: mirror line between cx-1 and cx
+            eye = [".111.", "11011", "11011", "11011", ".111."]
+            for side in (-1, 1):
+                x0 = cx - 6 if side < 0 else cx + 1                     # cols 1-5 and 8-12 on a 14px face
+                for yy, row in enumerate(eye):
+                    for xx, ch in enumerate(row):
+                        if ch == "1":
+                            img[ey + yy, x0 + xx] = T("gold", 1)
+                        elif ch == "0":
+                            img[ey + yy, x0 + xx] = T("coal", 6)        # slit pupil
+                img[ey + 1, x0 + (1 if side < 0 else 3)] = T("cream", 0)  # glint, mirrored
+            img[ey + 5, cx - 1:cx + 1] = T("blush", 2)                  # nose
+            img[ey + 6, cx - 1:cx + 1] = T("coal", 5)                   # little mouth
+            img[ey + 7, cx - 2] = img[ey + 7, cx + 1] = T("coal", 5)
+            for yy in (ey + 5, ey + 7):                                 # whiskers
+                img[yy, 0:2] = T("cream", 1); img[yy, w - 2:w] = T("cream", 1)
         return img
     return f
 
@@ -68,27 +77,30 @@ def feathers():
 
 
 def owl_face():
+    """Owl head: pale facial disc around each eye, big gold eyes, pupils and glints mirrored
+    exactly about the centre line, small orange beak between them."""
     def f(w, h, fc, key):
         img = _blank(w, h)
         img[:, :] = T("owl", 2)
         if fc == "up":
             img[:, :] = T("owl", 3)
         if fc == "north" and w >= 8 and h >= 6:
-            ey = h // 2 - 1
-            for cx in (w // 4 + 0.5, w - w // 4 - 0.5):
-                for y in range(h):
-                    for x in range(w):
-                        d = math.hypot(x + .5 - cx - .5, y + .5 - ey - 1)
-                        if d < 2.6:
-                            img[y, x] = T("owl", 0)                              # facial disc
-                        if d < 1.7:
-                            img[y, x] = T("gold", 1)
-                        if d < 0.8:
-                            img[y, x] = T("coal", 6)
-                ix, iy = int(cx) - 1, ey
-                if 0 <= ix < w and 0 <= iy < h:
-                    img[iy, ix] = T("snow", 0)                                    # glint
-            img[ey + 2:ey + 4, w // 2 - 1:w // 2 + 1] = T("pump", 1)              # beak
+            mid = (w - 1) / 2
+            off = w * 0.24
+            ey = h * 0.45
+            for y in range(h):
+                for x in range(w):
+                    d = min(math.hypot(x - (mid - off), y - ey), math.hypot(x - (mid + off), y - ey))
+                    if d < 3.0:
+                        img[y, x] = T("owl", 0)                          # facial discs
+                    if d < 2.1:
+                        img[y, x] = T("gold", 1)
+                    if d < 1.3:
+                        img[y, x] = T("coal", 6)
+            L = int(mid - off) - 1                                        # mirrored glints
+            img[int(ey) - 1, L] = img[int(ey) - 1, w - 1 - L] = T("snow", 0)
+            c0 = int(mid)                                                 # beak on the centre line
+            img[int(ey) + 1:int(ey) + 3, c0:c0 + (2 if w % 2 == 0 else 1)] = T("pump", 1)
         return img
     return f
 
@@ -264,7 +276,7 @@ def black_cat():
     m = Model("black_cat", dye=(58, 52, 72))
     m.box([4.5, 0, 7], [11.5, 6, 13], tinted(fur()))                             # haunches
     m.box([5.5, 0, 5], [10.5, 8.5, 9], tinted(fur()))                             # chest, sitting up
-    m.dyebox([4.5, 8, 4], [11.5, 13, 9], fur(face=True))                          # head (eyes stay gold)
+    m.dyebox([4.5, 8, 4], [11.5, 13, 9], fur(face=True), res=2)                          # head (eyes stay gold)
     m.box([4.8, 12.4, 5.5], [7, 15, 7], tinted(ear()), rot=("z", 22.5, [5.9, 13, 6.25]))     # ears
     m.box([9, 12.4, 5.5], [11.2, 15, 7], tinted(ear()), rot=("z", -22.5, [10.1, 13, 6.25]))
     m.box([5.6, 0, 3.4], [7.6, 1.6, 5.2], tinted(fur()))                          # front paws
@@ -303,22 +315,20 @@ def crow_post():
     m.box([0, 17.4, 7], [2.8, 20.2, 9], crow_head())
     m.box([11, 15, 6.75], [15.5, 18, 9.25], crow_body(), rot=("z", -22.5, [13.25, 15, 8]))  # crow two, facing east
     m.box([13.6, 17.4, 7], [16.4, 20.2, 9], crow_head())
-    m.box([3, 0, 3], [7.5, 3.5, 7.5], solid("pump", 2))                           # pumpkin at the foot
+    m.box([3, 0, 3], [7.5, 3.5, 7.5], pump_skin())                           # pumpkin at the foot
     m.box([4.9, 3.5, 4.9], [5.6, 4.6, 5.6], bark("stem"))
     m.card([9.6, 3, 9.6], [9.6, 11, 13.6], VINE)                                  # ivy up the back
-    m.card([7, 9, 6.4], [12, 12.5, 6.4], art(["aaaaaaaaaa", "a.b.b.b..a", "a.bb.b.b.a", "aaaaaaaaaa"],
-                                           {"a": ("ebony", 2), "b": ("bone", 1)}), res=2)   # tiny "SHOO" tag
     return m
 
 
 def cobweb_corner():
     m = Model("cobweb_corner")
-    m.card([0, 0, 15.95], [16, 16, 15.95], web("tr"), res=2)                      # big web on the wall
-    m.card([0.05, 0, 0], [0.05, 16, 16], web("tl"), res=2)                        # and wrapping the side
-    m.card([10.75, 5.5, 15.9], [11.25, 13, 15.9], thread())                         # tiny spider on its thread
-    m.box([9.8, 4, 14.4], [12.2, 6, 15.6], spider_body())
-    m.box([10.3, 3.2, 14.2], [11.7, 4.2, 15.2], spider_head())
-    m.card([8.5, 3, 14.9], [13.5, 6.5, 14.9], LEGS)
+    m.card([0, 0, 15.9], [16, 16, 15.9], web("tr"), res=2)                      # big web on the wall
+    m.card([0.1, 0, 0], [0.1, 16, 16], web("tl"), res=2)                        # and wrapping the side
+    m.card([10.75, 5.5, 15.3], [11.25, 13, 15.3], thread())                       # tiny spider on its thread
+    m.box([9.8, 4, 13.6], [12.2, 6, 14.8], spider_body())
+    m.box([10.3, 2.8, 13.2], [11.7, 3.9, 13.8], spider_head())
+    m.card([8.5, 3, 14.2], [13.5, 6.5, 14.2], LEGS)
     return m
 
 
@@ -359,7 +369,7 @@ def cushion_stool():
     m.box([3.4, 11.5, 3.4], [12.6, 12.3, 12.6], tinted(cushion()), faces=("up", "north", "south", "east", "west"))
     m.box([2.1, 6.2, 2.1], [3.1, 8.6, 3.1], tassel())                             # corner tassels
     m.box([12.9, 6.2, 2.1], [13.9, 8.6, 3.1], tassel())
-    m.box([4, 4, 6], [7, 6.5, 9], solid("pump", 2))                               # tiny pumpkin on the shelf
+    m.box([4, 4, 6], [7, 6.5, 9], pump_skin())                               # tiny pumpkin on the shelf
     return m
 
 
@@ -376,7 +386,7 @@ def dead_tree():
     m.box([15, 4.5, 6.5], [19, 8.5, 10.5], painted_jack(True), emit=15, res=4)           # ...and little lit jacks
     m.card([-2.5, 10.5, 8], [-1.5, 17, 8], chain(), res=3)
     m.box([-4, 7, 6.5], [0, 11, 10.5], painted_jack(True), emit=15, res=4)
-    m.box([1, 2, 1], [4.5, 5, 4.5], solid("pump", 2))                             # pumpkin among the roots
+    m.box([1, 2, 1], [4.5, 5, 4.5], pump_skin())                             # pumpkin among the roots
     return m
 
 

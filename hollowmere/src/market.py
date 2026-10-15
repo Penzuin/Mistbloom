@@ -2,7 +2,7 @@
 import math, random
 import engine
 from engine import Model, wood, solid, T, _blank, SIDES, art, tinted, stripes, scallop, board, FONT5
-from hero3 import bark, iron, painted_jack, panels, flask, pump_skin
+from hero3 import bark, iron, painted_jack, panels, flask, pump_skin, shop_sign
 from hero2 import moon_board
 from spooky import VINE
 from hero3 import BAT
@@ -66,13 +66,17 @@ def bunting():
 
 
 def big_sign(text):
+    """Name board: lettering on the front, plain planks on the back, little pumpkin dots if there is room."""
     b = board(text, ramp="ebony", ink="cream", trim="gold")
+    plain = board(None, ramp="ebony", trim="gold")
+    tw = sum(len(FONT5[c][0]) + 1 for c in text) - 1
     def f(w, h, fc, key):
+        if fc == "south":
+            return plain(w, h, fc, key)
         img = b(w, h, fc, key)
-        tw = sum(len(FONT5[c][0]) + 1 for c in text) - 1
-        if fc in ("north", "south") and w - tw >= 14:
+        if fc == "north" and w - tw >= 14:
             for (x, y) in ((3, h // 2), (w - 4, h // 2)):
-                img[y - 1:y + 1, x - 1:x + 1] = T("pump", 1)                       # little pumpkin dots
+                img[y - 1:y + 1, x - 1:x + 1] = T("pump", 1)
         return img
     return f
 
@@ -133,7 +137,7 @@ def harvest_wreath():
     m.box([12.5, 5, z0], [15, 11, z1], autumn())
     for (cx, cy, a) in ((3.6, 12.4, 45), (12.4, 12.4, -45), (3.6, 3.6, -45), (12.4, 3.6, 45)):
         m.box([cx - 2.6, cy - 1.25, z0 + 0.1], [cx + 2.6, cy + 1.25, z1 - 0.1], autumn(), rot=("z", a, [cx, cy, 15]))
-    m.box([3, 1.2, 12.5], [6, 4.2, 14], solid("pump", 2))                         # little pumpkin
+    m.box([3, 1.2, 12.5], [6, 4.2, 14], pump_skin())                         # little pumpkin
     m.box([10.5, 1.5, 12.8], [12.5, 3.8, 14], solid("gourd", 1))                  # gourd
     m.box([7, 12.5, 13.2], [9, 14.5, 14], solid("plum", 2))                       # bow knot
     m.card([5, 10, 13.1], [11, 14.5, 13.1], art(["aa....aa", "aaa..aaa", "aaa..aaa", "...bb...", "..b..b..", ".b....b."],
@@ -153,10 +157,11 @@ def _stall(name, ramp, trim):
     m.box([-16, 26, -6], [32, 27.5, 8], solid(ramp, 3), over=roof, rot=("x", -22.5, [8, 28, 8]))
     m.box([-16, 26, 8], [32, 27.5, 22], solid(ramp, 3), over=roof, rot=("x", 22.5, [8, 28, 8]))
     m.box([-16, 18.5, -5.4], [32, 22, -4.8], scallop(ramp, trim))                 # valance
-    m.box([-1, 12.5, -2.6], [17, 18.0, -1.6], moon_board())                       # shop sign
+    m.box([-2, 12, -2.8], [18, 18.5, -1.4], shop_sign("POTIONS"), res=2)          # shop sign
     m.box([-4.5, 0, 4.5], [1.5, 7, 10.5], flask(), emit=12)                      # hero potion
     m.box([-3, 7, 6], [0, 9.5, 9], solid("rust", 2))
     m.box([20, 0, 4], [27, 6, 10], painted_jack(True), emit=10, res=2)
+    m.box([23, 6, 6.5], [24, 8, 7.5], bark("stem"), rot=("z", -22.5, [23.5, 6, 7]))
     return m
 
 

@@ -2,7 +2,7 @@
 import random
 import engine
 from engine import Model, wood, solid, T, _blank, fr, animated, SIDES, art
-from hero3 import bark, iron, candle_flame, wax
+from hero3 import bark, iron, candle_flame, wax, pump_skin
 from spooky import stone, VINE
 from harvest import pumpkin
 
@@ -102,7 +102,7 @@ def tombstone():
     m.box([4, 13, 7.5], [12, 15, 10.5], stone("slate", moss=False))               # rounded top, stepped
     m.box([5.5, 15, 7.5], [10.5, 16, 10.5], stone("slate", moss=False))
     m.card([10.5, 2, 7.4], [14, 8, 7.4], VINE)                                    # ivy creeping up
-    m.box([1.5, 2, 3], [5.5, 5, 7], solid("pump", 2))                             # pumpkin offering
+    m.box([1.5, 2, 3], [5.5, 5, 7], pump_skin())                             # pumpkin offering
     m.box([3.1, 5, 4.6], [3.9, 6, 5.4], bark("stem"))
     m.box([11, 2, 3.5], [12.5, 5, 5], wax())
     m.card([11, 5, 4.25], [12.5, 7, 4.25], candle_flame(), emit=15)
@@ -127,12 +127,12 @@ def iron_fence():
     for x in (0, 14):
         m.box([x, 0, 7], [x + 2, 16, 9], iron())                                  # posts
         m.box([x + 0.4, 16, 7.4], [x + 1.6, 18, 8.6], solid("iron", 1), rot=("y", 45, [x + 1, 16, 8]))   # spear tips
-    m.box([0, 3, 7.5], [16, 4, 8.5], iron())                                      # rails
-    m.box([0, 12, 7.5], [16, 13, 8.5], iron())
+    m.box([2, 3, 7.25], [14, 4, 8.75], iron())                                      # rails
+    m.box([2, 12, 7.25], [14, 13, 8.75], iron())
     for x in (3.5, 6.5, 9.5, 12.5):
         m.box([x - 0.4, 0, 7.6], [x + 0.4, 15, 8.4], iron())                      # bars
-    m.box([6.6, 15, 7.6], [9.4, 17, 8.4], solid("iron", 1), rot=("z", 45, [8, 15, 8]))   # centre finial
-    m.card([2, 6, 7.4], [6, 12, 7.4], VINE)
+    m.box([6.6, 15, 7.2], [9.4, 17, 8.8], solid("iron", 1), rot=("z", 45, [8, 15, 8]))   # centre finial
+    m.card([2, 5, 6.8], [6, 11, 6.8], VINE)
     return m
 
 
@@ -146,7 +146,7 @@ def coffin():
     m.box([6, 5, 3.1], [22.4, 6.4, 12.9], coffin_wood())
     m.box([1, 2, 2.1], [5, 3, 2.5], solid("gold", 2, bevel=False))               # brass handles
     m.box([12, 2, 3.1], [16, 3, 3.5], solid("gold", 2, bevel=False))
-    m.box([16, 6.4, 6], [20, 9.4, 10], solid("pump", 2))                          # pumpkin resting on the lid
+    m.box([16, 6.4, 6], [20, 9.4, 10], pump_skin())                          # pumpkin resting on the lid
     m.box([17.6, 9.4, 7.6], [18.4, 10.4, 8.4], bark("stem"))
     m.box([0.5, 6.4, 6.5], [4.5, 7.4, 9.5], solid("lilac", 2))                    # posy of flowers
     return m
@@ -168,7 +168,6 @@ def ghost_lantern(lit=False):
 
 def mushroom_ring():
     m = Model("mushroom_ring")
-    m.box([0.5, 0, 0.5], [15.5, 0.4, 15.5], solid("moss", 3), faces=("up",))     # mossy patch
     for (x, z, s, hgt, r) in ((2, 3, 3, 4, "shroom"), (10, 2, 2.4, 3, "lilac"), (12, 9, 3.2, 5, "shroom"),
                                (5, 11, 2.4, 3.5, "lilac"), (7.5, 6.5, 1.8, 2.5, "shroom"), (1.5, 9, 1.8, 2, "shroom")):
         m.box([x + s * .35, 0, z + s * .35], [x + s * .65, hgt, z + s * .65], solid("bone", 1))   # stems

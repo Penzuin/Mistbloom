@@ -825,22 +825,22 @@ class Model:
         self.elements.append(e)
         return e
 
-    def dyebox(self, frm, to, painter, rot=None, neutral=None, card=False):
+    def dyebox(self, frm, to, painter, rot=None, neutral=None, card=False, res=1):
         """Dyeable part with a neutral base: a tinted element plus an untinted overlay
-        (0.06 px larger) that keeps ribbons, cuffs and cream stripes their own color."""
+        (0.15 px larger) that keeps ribbons, cuffs and cream stripes their own color."""
         kw = {"neutral": neutral} if neutral else {}
         ov = neutral_overlay(painter, **kw)
         base_p = _fill_neutral(painter, **kw)
         if card:
-            self.card(frm, to, tinted(base_p), rot=rot)
+            self.card(frm, to, tinted(base_p), rot=rot, res=res)
             flat = [i for i in range(3) if frm[i] == to[i]][0]
             f2, t2 = list(frm), list(to)
-            f2[flat] -= 0.06; t2[flat] -= 0.06
-            self.card(f2, t2, ov, rot=rot)["overlay"] = True
+            f2[flat] -= 0.15; t2[flat] -= 0.15
+            self.card(f2, t2, ov, rot=rot, res=res)["overlay"] = True
         else:
-            self.box(frm, to, tinted(base_p), rot=rot)
-            d = 0.06
-            self.box([v - d for v in frm], [v + d for v in to], ov, rot=rot)["overlay"] = True
+            self.box(frm, to, tinted(base_p), rot=rot, res=res)
+            d = 0.15
+            self.box([v - d for v in frm], [v + d for v in to], ov, rot=rot, res=res)["overlay"] = True
 
     def lantern(self, lo, hi, lit, candle_w=None):
         """Glass lantern body with a candle and (when lit) a crossed, flickering flame.

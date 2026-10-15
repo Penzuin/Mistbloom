@@ -6,6 +6,24 @@ from engine import Model, wood, solid, stripes, scallop, T, _blank, fr, animated
 from spooky import hay, stone, sack, candle_flame, wax, STRAW, COBWEB
 from hero2 import moon_board
 
+engine.FONT5.update({
+    "H": ["1001", "1001", "1111", "1001", "1001"], "O": ["0110", "1001", "1001", "1001", "0110"],
+    "L": ["100", "100", "100", "100", "111"], "W": ["10001", "10001", "10101", "11011", "10001"],
+    "C": ["0111", "1000", "1000", "1000", "0111"], "N": ["1001", "1101", "1011", "1001", "1001"],
+    "D": ["1110", "1001", "1001", "1001", "1110"], "S": ["0111", "1000", "0110", "0001", "1110"],
+    "Y": ["10001", "01010", "00100", "00100", "00100"], "P": ["1110", "1001", "1110", "1000", "1000"],
+    "I": ["111", "010", "010", "010", "111"], "G": ["0111", "1000", "1011", "1001", "0111"],
+})
+
+
+def shop_sign(text, ramp="ebony"):
+    """Wooden sign: gold trim, lettering on the front only; the back is plain planks with the trim."""
+    base = engine.board(text, ramp=ramp, ink="cream", trim="gold")
+    plain = engine.board(None, ramp=ramp, trim="gold")
+    def f(w, h, fc, key):
+        return plain(w, h, fc, key) if fc == "south" else base(w, h, fc, key)
+    return f
+
 engine.RAMPS.update({k: engine._ramp7(v) for k, v in {
     "jackglow": ["#fff6c2", "#ffd25a", "#ffab3a", "#f07a24"],
     "pump":     ["#ffcf7a", "#ffa040", "#e0702a", "#a84722"],
@@ -42,16 +60,20 @@ def pump_skin(top_stem=False):
                 p = x % rib
                 tone = 1 if p == rib // 2 else (3 if p == 0 else 2)
                 img[y, x] = T("pump", tone)
-        if fc in SIDES and h > 4:
-            img[0, :] = T("pump", 1)
         if fc == "down":
             img[:, :] = T("pump", 4)
         if fc == "up":
-            cx, cy = w / 2, h / 2
+            # lid: the same rind tone, with rib grooves running in toward a small stem socket
+            import math
+            cx, cy = (w - 1) / 2, (h - 1) / 2
             for y in range(h):
                 for x in range(w):
-                    d = max(abs(x + 0.5 - cx) / cx, abs(y + 0.5 - cy) / cy)
-                    img[y, x] = T("pump", 1 if d > 0.55 else 2 if d > 0.3 else 3)
+                    a = math.degrees(math.atan2(y - cy, x - cx)) % 45
+                    r = max(abs(x - cx) / max(cx, 1), abs(y - cy) / max(cy, 1))
+                    groove = (a < 7 or a > 38) and r > 0.25
+                    img[y, x] = T("pump", 3 if groove else 2)
+                    if r <= 0.22:
+                        img[y, x] = T("pump", 3)
         return img
     return f
 
@@ -513,7 +535,7 @@ def jack(m, lo, hi, lit=False, emit=15, stem=True, ribs=True, halo=True, lite=Fa
     X = lambda f: x0 + W * f
     Y = lambda f: y0 + H * f
     Z = lambda f: z0 + D * f
-    m.box([X(.16), Y(.22), Z(.10)], [X(.84), Y(.80), Z(.86)], glow_core(lit), emit=emit if lit else 0)
+    m.box([X(.12), Y(.16), Z(.0) + 0.6], [X(.88), Y(.82), Z(.98)], glow_core(lit), emit=emit if lit else 0)   # fills the hollow
     m.box([X(.10), Y(.14), Z(.0)], [X(.90), Y(.84), Z(1.0)], carved(), res=2)                   # face band
     m.box([X(.0), Y(.20), Z(.10)], [X(1.0), Y(.78), Z(.90)], pump_skin(), res=2,
           faces=("east", "west", "south", "up", "down"))                                        # widest band
@@ -643,10 +665,11 @@ def potion_stall():
     m.box([-16, 26, -6], [32, 27.5, 8], solid("plum", 3), over=roof, rot=("x", -22.5, [8, 28, 8]))
     m.box([-16, 26, 8], [32, 27.5, 22], solid("plum", 3), over=roof, rot=("x", 22.5, [8, 28, 8]))
     m.box([-16, 18.5, -5.4], [32, 22, -4.8], scallop("plum", "pump"))                       # valance
-    m.box([-1, 12.5, -2.6], [17, 18.0, -1.6], moon_board())                                   # shop sign
+    m.box([-2, 12, -2.8], [18, 18.5, -1.4], shop_sign("POTIONS"), res=2)                      # shop sign
     m.box([-4.5, 0, 4.5], [1.5, 7, 10.5], flask(), emit=12)                                  # hero potion
     m.box([-3, 7, 6], [0, 9.5, 9], solid("rust", 2))                                          # cork
     m.box([20, 0, 4], [27, 6, 10], painted_jack(True), emit=10, res=2)                               # glowing jack on the counter
+    m.box([23, 6, 6.5], [24, 8, 7.5], bark("stem"), rot=("z", -22.5, [23.5, 6, 7]))           # its stem
     return m
 
 
