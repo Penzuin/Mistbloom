@@ -49,11 +49,19 @@ LAYOUT = [
 
 def main(out="/root/thumb/moonlit-ballroom-thumbnail-hibiscus.png"):
     img = background()
+    # centre the group of pieces on the canvas (shadows ignored: they trail off to the right)
+    boxes = []
+    for name, cx, by in LAYOUT:
+        m, s = piece(name)
+        x0, y0 = int(cx - m.width / 2), int(by - m.height)
+        bb = m.getbbox()
+        boxes.append((x0 + bb[0], x0 + bb[2]))
+    dx = round(S / 2 - (min(b[0] for b in boxes) + max(b[1] for b in boxes)) / 2)
     # every shadow first, so no shadow falls on top of a piece
     placed = []
     for name, cx, by in LAYOUT:
         m, s = piece(name)
-        xy = (int(cx - m.width / 2), int(by - m.height))
+        xy = (int(cx - m.width / 2) + dx, int(by - m.height))
         placed.append((m, xy))
         if name in NO_SHADOW:
             continue
@@ -67,6 +75,7 @@ def main(out="/root/thumb/moonlit-ballroom-thumbnail-hibiscus.png"):
     tw = 780
     t = t.resize((tw, round(t.height * tw / t.width)), Image.LANCZOS)
     img.alpha_composite(t, ((S - tw) // 2, S - t.height - 34))
+    print("shifted right by", dx, "px")
     img.convert("RGB").save(out)
     return out
 
