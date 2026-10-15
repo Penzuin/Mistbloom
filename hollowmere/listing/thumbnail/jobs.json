@@ -1,0 +1,4 @@
+[
+ {"name":"w_halloween","w":3200,"dialogDefaults":true,"text":"halloween","args":{"textureSource":"gradient","texture":"flat","gradientColour0":"#FFE9A8","gradientColour2":"#FF9A3C","gradientColour2Enabled":true,"gradientColour4":"#B8401C"}},
+ {"name":"w_festival_small","w":7000,"dialogDefaults":true,"text":"festival","args":{"textureSource":"gradient","texture":"flat","gradientColour0":"#F6ECFF","gradientColour2":"#C9A8F5","gradientColour2Enabled":true,"gradientColour4":"#6E46B8","type":"small","row":0}}
+]
