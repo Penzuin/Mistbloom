@@ -492,11 +492,11 @@ def wisp(im, x, y, s, seed, flip=1, peek=False):
     wash(im, p, (247, 246, 255), 255, edge=0.1, tw=0.0)
     ink(d, wobble(p, 0.3, seed), 2.6, seed=seed, closed=True)
     look = -5 * S * s if peek else 0
-    for k, ex in enumerate((x - 10 * S * s, x + 7 * S * s)):
-        e = ellipse_pts(ex + look, y - 3 * S * s + k * 2 * S, (3.6 - 0.5 * k) * S * s, (4.8 - 0.5 * k) * S * s)
+    for ex in (x - 9 * S * s, x + 9 * S * s):
+        e = ellipse_pts(ex + look, y - 3 * S * s, 3.4 * S * s, 4.6 * S * s)
         wash(im, e, INK, 255, edge=0, blur=0.5, tw=0)
-        wash(im, ellipse_pts(ex + look - 1.2 * S, y - 5 * S * s + k * 2 * S, 1.2 * S, 1.2 * S, 8), (255, 255, 255), 255, edge=0, tw=0)
-    mo = ellipse_pts(x - 3 * S * s + look, y + 9 * S * s, 3.4 * S * s, 4.4 * S * s, 14)        # a small "oh!"
+        wash(im, ellipse_pts(ex + look - 1.2 * S, y - 5 * S * s, 1.2 * S, 1.2 * S, 8), (255, 255, 255), 255, edge=0, tw=0)
+    mo = ellipse_pts(x + look, y + 9 * S * s, 3.4 * S * s, 4.4 * S * s, 14)        # a small "oh!"
     wash(im, mo, (120, 60, 90), 255, edge=0, tw=0)
     for bx in (x - 19 * S * s, x + 15 * S * s):
         wash(im, ellipse_pts(bx, y + 8 * S * s, 5 * S * s, 3 * S * s), (244, 150, 178), 150, edge=0, blur=2, tw=0)
