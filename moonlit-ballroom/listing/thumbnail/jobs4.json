@@ -1,0 +1,1 @@
+[{"name": "w_ballroom_big", "w": 7000, "dialogDefaults": true, "text": "ballroom", "args": {"textureSource": "gradient", "texture": "flat", "gradientColour0": "#FFF6D8", "gradientColour2": "#F2C97D", "gradientColour2Enabled": true, "gradientColour4": "#C8903F", "type": "small", "row": 0}}]

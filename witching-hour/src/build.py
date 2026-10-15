@@ -120,11 +120,9 @@ def main():
         bbmodel(os.path.join(assets, "assets", NS, "models", "cosmetics", m.name + ".json"),
                 os.path.join(assets, "assets", NS, "textures", "cosmetics", m.name + ".png"),
                 os.path.join(root, "Blockbench", m.name + ".bbmodel"), m.name)
-    shutil.copytree("preview", os.path.join(root, "Previews"))
-    for f in (os.listdir("listing") if os.path.isdir("listing") else []):
-        shutil.copy(os.path.join("listing", f), os.path.join(root, "Previews", f))
-    w(os.path.join(root, "README.md"), readme(entries, VERSION))
-    shutil.copy("LICENSE.txt", root)
+    crlf = lambda t: t.replace("\r\n", "\n").replace("\n", "\r\n")
+    open(os.path.join(root, "README.txt"), "w", newline="").write(crlf(readme(entries, VERSION)))
+    open(os.path.join(root, "LICENSE.txt"), "w", newline="").write(crlf(open("LICENSE.txt").read()))
     zipdir(root, os.path.abspath(f"dist/{PACK}_v{VERSION}.zip"), PACK)
     shutil.rmtree(assets)
     print("built", len(entries), "cosmetics")

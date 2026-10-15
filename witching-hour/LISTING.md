@@ -1,48 +1,64 @@
-# Witching Hour - store listing
+# Witching Hour | Witchy Cosmetics
 
-**Title (max 40 characters):** Witching Hour | 6 Witchy Cosmetics
-**Tagline:** Witchy cosmetics your players will wear all year, not just in October
-**Price:** your call (I'd do $8.99 for launch week, then $11.99)
-**Tags:** halloween, witch, cosmetics, HMCCosmetics, hats, balloon, Nexo, ItemsAdder, Oraxen, animated
+**Payhip price:** $10 (animated pack, rounded to the nearest $10)
 
-## Images (upload in this order)
-1. `witching-hour-thumbnail.png` - resource icon
-2. `witching-hour-cover.png` - cover / first gallery image
-3. `witching-hour-1-witch-hat.png`
-4. `witching-hour-2-candle-crown.png`
-5. `witching-hour-3-ghostlight-lantern.png`
-6. `witching-hour-4-grimoire.png`
-7. `witching-hour-5-wisp.png`
-8. `witching-hour-6-moonlit-broom.png`
-9. `witching-hour-features.png`
-10. The `*-spin.gif` files, if the store takes GIFs (the outfit spin is the best one if you can only add one)
+---
 
 ## Description
 
-**Witching Hour** is a set of six witchy cosmetics for HMCCosmetics. They aren't costumes.
-They're the things a witch would actually own, so players keep wearing them long after
-October, and they still feel right at home when Halloween comes round.
+**Witching Hour** is a set of six witchy cosmetics for HMCCosmetics from Mistbloom Studios.
 
-**The cosmetics**
-- **Moonlit Witch Hat** (hat) - a tall, wide-brimmed witch hat with a glowing crescent pin and a little star hanging off the bent tip.
-- **Candle Crown** (hat) - a brass circlet of five dripping candles with flickering flames.
-- **Ghostlight Lantern** (off-hand) - a sleepy little ghost glowing inside an iron lantern.
-- **Moon Grimoire** (back) - a spellbook that hangs from the side of a leather belt, with brass corners and a glowing moon clasp.
-- **Wisp** (balloon) - a soft, glowing ghost that floats beside you. No lead, and no ModelEngine needed.
-- **Moonlit Broom** (back) - a broom strapped across your back with a lantern hanging off the end.
+They aren't costumes. They're the things a witch would actually own, so players keep wearing them long after October.
 
-**What's in the download**
-- Ready-to-drop folders for **Nexo, ItemsAdder and Oraxen**, plus a plain resource pack if you don't use an items plugin
-- HMCCosmetics cosmetics file and a menu (`/cosmetic menu witching_hour`)
-- A permission per cosmetic, like `hmccosmetics.witch_hat`, so they're easy to use as rank perks, crate rewards or an October event prize
-- Blockbench files with named parts, if you want to move or resize anything
-- A README with install steps for each plugin
+Every piece is animated and works with **Nexo**, ItemsAdder or Oraxen.
 
-**Performance:** 14 cubes or fewer per model and one texture each. The flames and glows are
-all texture animation, so your server doesn't do any extra work.
+### What's inside (6 cosmetics)
 
-**Requirements:** Paper or Purpur 1.21.4+, HMCCosmetics 2.9+, and Nexo, ItemsAdder 4 or
-Oraxen (or none of them, using the included resource pack).
+- **Moonlit Witch Hat:** a tall, wide-brimmed witch hat with a glowing crescent pin and a little star hanging off the bent tip.
+- **Candle Crown:** a brass circlet with five white candles and flickering flames.
+- **Ghostlight Lantern:** an iron lantern with a sleepy ghost glowing inside, held in the off-hand.
+- **Moon Grimoire:** a spellbook with brass corners and a glowing moon clasp, hanging from a belt at the hip.
+- **Wisp:** a little glowing ghost that floats beside you.
+- **Moonlit Broom:** a broom worn across the back with a small lantern hanging off the end.
 
-**Support:** send me a message with your server version, HMCCosmetics version, which
-items plugin you use and a screenshot, and I'll sort it out.
+### Features
+
+- 6 animated cosmetics: 2 hats, an off-hand lantern, a hip book, a balloon and a back piece
+- A ready-made menu to pick them from
+- A permission for each one, so they work as rank perks or crate rewards
+- Drag and Drop Easy install
+
+### Requirements
+
+- Minecraft **1.21.4 to 1.26.2**
+- HMCCosmetics 2.9+
+- **Nexo**, ItemsAdder or Oraxen
+
+### License
+
+You can use it on **one** server network that you own or run, and you can edit the files for your own server. You may not resell, share or redistribute it, or claim it as your own, whether original or edited.
+
+### Support
+
+Join the Mistbloom Studios Discord and open a ticket: discord.gg/QUJ8ntw7eS
+
+---
+
+## Store fields
+
+| Field | Value |
+|---|---|
+| Title | Witching Hour \| Witchy Cosmetics |
+| Price | $10 |
+| File | Mistbloom_Witching_Hour_v1.0.zip |
+
+## Images (upload in this order)
+
+1. `witching-hour-icon.png`: main image (1024 x 1024)
+2. `witching-hour-icon.gif`: the same icon animated
+3. `witching-hour-1-witch-hat.png`
+4. `witching-hour-2-candle-crown.png`
+5. `witching-hour-3-ghostlight-lantern.png`
+6. `witching-hour-4-moon-grimoire.png`
+7. `witching-hour-5-wisp.png`
+8. `witching-hour-6-moonlit-broom.png`

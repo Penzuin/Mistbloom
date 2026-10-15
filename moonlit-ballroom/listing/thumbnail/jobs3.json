@@ -1,0 +1,4 @@
+[
+ {"name":"w_moonlit","w":3200,"dialogDefaults":true,"text":"moonlit","args":{"textureSource":"gradient","texture":"flat","gradientColour0":"#FFF8E6","gradientColour2":"#C9B8F0","gradientColour2Enabled":true,"gradientColour4":"#5B45B0"}},
+ {"name":"w_ballroom_small","w":3200,"dialogDefaults":true,"text":"ballroom","args":{"textureSource":"gradient","texture":"flat","gradientColour0":"#FFF6D8","gradientColour2":"#F2C97D","gradientColour2Enabled":true,"gradientColour4":"#C8903F","type":"small","row":0}}
+]

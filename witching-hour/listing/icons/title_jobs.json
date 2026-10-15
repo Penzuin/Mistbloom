@@ -1,0 +1,196 @@
+[
+ {
+  "name": "t_witching",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "witching",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_witch",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "witch",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_candle",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "candle",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_ghostlight",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "ghostlight",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_moon",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "moon",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_wisp",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "wisp",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_moonlit",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "moonlit",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "s_hour",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "hour",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_hat",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "hat",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_crown",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "crown",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_lantern",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "lantern",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_grimoire",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "grimoire",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_broom",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "broom",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ }
+]
