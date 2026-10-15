@@ -178,6 +178,18 @@ LEGS = art([
     "a...aaa...a",
 ], {"a": ("plum", 3)})
 
+WALL_LEGS = art([                 # 4 jointed legs a side, all meeting under the body (centre)
+    "a..........a",
+    ".a........a.",
+    "..a......a..",
+    "aa.aaaaaa.aa",
+    "..aaaaaaaa..",
+    "aa.aaaaaa.aa",
+    "..a......a..",
+    ".a........a.",
+    "a..........a",
+], {"a": ("plum", 3)})
+
 
 SKULL_FACE = [            # 16 x 14 (left half shown, mirrored); s socket, g ember, h brow light, d cheek shade, n nose
     "........",
@@ -318,6 +330,21 @@ def gnarl():
         if fc in SIDES:
             for _ in range(max(1, w * h // 60)):
                 img[rng.randrange(h), rng.randrange(w)] = T("moss", 2)
+        if fc == "up" and max(w, h) >= 2.5 * min(w, h):                   # top of a long branch: lit bark
+            along_x = w >= h
+            for y in range(h):
+                for x in range(w):
+                    a, b = (x, y) if along_x else (y, x)
+                    n = min(w, h)
+                    tone = 1 if b < n / 2 else 2                          # lit half / turning half
+                    if (a + 3 * b) % 7 == 0:
+                        tone += 1                                         # grain streaks
+                    if b in (0, n - 1) and n > 2:
+                        tone += 1                                         # edges roll away
+                    img[y, x] = T("ebony", tone)
+            for _ in range(max(1, w * h // 30)):
+                img[rng.randrange(h), rng.randrange(w)] = T("moss", 1)
+            return img
         if fc == "up":                                                    # sawn end: growth rings, a crack,
             cx, cy = (w - 1) / 2, (h - 1) / 2                             # dark bark round the rim
             for y in range(h):
@@ -432,10 +459,10 @@ def cobweb_corner():
     m = Model("cobweb_corner")
     m.card([0, 0, 15.9], [16, 16, 15.9], web("tr"), res=2)                      # big web on the wall
     m.card([0.1, 0, 0], [0.1, 16, 16], web("tl"), res=2)                        # and wrapping the side
-    m.card([10.75, 5.5, 15.3], [11.25, 13, 15.3], thread())                       # tiny spider on its thread
-    m.box([9.8, 4, 13.6], [12.2, 6, 14.8], spider_body())
-    m.box([10.3, 2.8, 13.2], [11.7, 3.9, 13.8], spider_head())
-    m.card([8.5, 3, 14.2], [13.5, 6.5, 14.2], LEGS)
+    m.card([10.75, 6, 15.4], [11.25, 13, 15.4], thread())                         # tiny spider on its thread
+    m.card([8, 1.75, 14.95], [14, 6.25, 14.95], WALL_LEGS, res=2)                 # legs flat on the web, under the body
+    m.box([9.8, 3.5, 13.6], [12.2, 5.5, 14.6], spider_body())
+    m.box([10.3, 2.4, 13.1], [11.7, 3.6, 13.7], spider_head())
     return m
 
 

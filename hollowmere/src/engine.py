@@ -524,6 +524,21 @@ def _fill_neutral(p, neutral=("cream", "snow", "gold", "coal", "blush", "iron"))
         return img
     return f
 
+def _clear_neutral(p, neutral=("cream", "snow", "gold", "coal", "blush", "iron")):
+    """Painter output with the neutral pixels removed (for a flat card whose overlay card carries them,
+    so no dyed copy of a neutral detail can peek out from behind it)."""
+    keep = {RAMPS[r][t] for r in neutral for t in range(7)}
+    def f(w, h, face, key):
+        img = p(w, h, face, key).copy()
+        mask = np.zeros((h, w), bool)
+        for c in keep:
+            mask |= np.all(img[..., :3] == np.array(c, np.uint8), axis=-1)
+        img[mask, 3] = 0
+        return img
+    if getattr(p, "animated", False):
+        f.animated = True
+    return f
+
 def tinted(p):
     """Grayscale version of a painter, tinted in game by the item's dye color."""
     def f(w, h, face, key):
@@ -832,7 +847,7 @@ class Model:
         ov = neutral_overlay(painter, **kw)
         base_p = _fill_neutral(painter, **kw)
         if card:
-            self.card(frm, to, tinted(base_p), rot=rot, res=res)
+            self.card(frm, to, tinted(_clear_neutral(painter, **kw)), rot=rot, res=res)   # overlay card draws the neutral bits
             flat = [i for i in range(3) if frm[i] == to[i]][0]
             f2, t2 = list(frm), list(to)
             f2[flat] -= 0.15; t2[flat] -= 0.15
@@ -840,7 +855,9 @@ class Model:
         else:
             self.box(frm, to, tinted(base_p), rot=rot, res=res)
             d = 0.15
-            self.box([v - d for v in frm], [v + d for v in to], ov, rot=rot, res=res)["overlay"] = True
+            o = self.box([v - d for v in frm], [v + d for v in to], ov, rot=rot, res=res)
+            o["overlay"] = True
+            o["grow"] = d
 
     def lantern(self, lo, hi, lit, candle_w=None):
         """Glass lantern body with a candle and (when lit) a crossed, flickering flame.
@@ -894,6 +911,9 @@ class Model:
         w, h = {"north": (d[0], d[1]), "south": (d[0], d[1]), "east": (d[2], d[1]),
                 "west": (d[2], d[1]), "up": (d[0], d[2]), "down": (d[0], d[2])}[f]
         r = e.get("res", 1)
+        g = 2 * e.get("grow", 0)                     # dyebox overlays: same pixel grid as the part they cover
+        w = w - g if w > g else w
+        h = h - g if h > g else h
         return max(1, int(math.ceil(w * r - 1e-6))), max(1, int(math.ceil(h * r - 1e-6)))
 
     def is_animated(self):

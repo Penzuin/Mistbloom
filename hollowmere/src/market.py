@@ -45,7 +45,13 @@ def bunting():
     """Sagging string with dyeable pennants (non-neutral ramp) and little bat flags (coal, stays dark)."""
     def f(w, h, fc, key):
         img = _blank(w, h)
-        sag = lambda x: int(round(1 + 2.2 * math.sin(math.pi * x / (w - 1))))
+        curve = lambda x: int(round(1 + 2.2 * math.sin(math.pi * x / (w - 1))))
+        spans = [(x0, x0 + 6) for x0 in range(2, w - 6, 8)]
+        def sag(x):                                                               # flat across each flag's top
+            for a, b in spans:
+                if a <= x <= b:
+                    return curve(a + 3)
+            return curve(x)
         n = 0
         for x0 in range(2, w - 6, 8):
             top = sag(x0 + 3)

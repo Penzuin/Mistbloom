@@ -89,7 +89,7 @@ def pump_skin(top_stem=False):
                     dx, dy = (x - cx) / max(cx, 1), (y - cy) / max(cy, 1)
                     a = math.degrees(math.atan2(y - cy, x - cx)) % 45
                     r = max(abs(dx), abs(dy))
-                    tone = 1 if r < 0.45 else 2 if r < 0.8 else 3
+                    tone = 0 if r < 0.3 else 1 if r < 0.55 else 2 if r < 0.8 else 3
                     if dx + dy < -0.5 and r < 0.8:
                         tone -= 1                                         # sheen on the lit side
                     if dx + dy > 0.6:
@@ -215,7 +215,14 @@ def iron():
             img[0, :] = T("iron", 0)
             img[1, :] = T("iron", 1)
         if fc == "up":
-            img[:, :] = T("iron", 1)
+            img[:, :] = T("iron", 1)                                     # bevelled lid: lit near edges,
+            if w >= 3 and h >= 3:                                         # shadowed far edges
+                img[0, :] = img[:, 0] = T("iron", 0)
+                img[-1, :] = img[:, -1] = T("iron", 3)
+                img[0, -1] = img[-1, 0] = T("iron", 2)
+                if w >= 5 and h >= 5:
+                    img[1:-1, 1:-1] = T("iron", 2)
+                    img[1, 1:-1] = img[1:-1, 1] = T("iron", 1)
         if fc == "down":
             img[:, :] = T("iron", 4)
         return img
@@ -684,7 +691,7 @@ def pumpkin_lamp(lit=False):
     m.box([6, -13, 6], [10, 26, 10], fluted())                                                # fluted post
     m.box([5.2, 0.5, 5.2], [10.8, 2.2, 10.8], solid("pump", 2))                              # painted collar
     m.box([5, 25, 5], [11, 27, 11], iron())                                                   # flared cap
-    m.box([6.6, 27, 6.6], [9.4, 29.6, 9.4], solid("pump", 1))                                 # finial ball
+    m.box([6.6, 27, 6.6], [9.4, 29.6, 9.4], pump_skin(), res=2)                               # finial: a tiny pumpkin, domed top
     m.box([9, 24, 7], [24.5, 25.6, 9], iron())                                                # arm
     m.box([22.9, 21.5, 7], [24.5, 24, 9], iron())                                             # hook
     m.card([-6, 21, 8], [6, 26, 8], BAT, rot=("y", -22.5, [0, 23.5, 8]))
