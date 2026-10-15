@@ -9,17 +9,10 @@ INSTALL - Drag and Drop (Nexo)
 2. Copy the Nexo/pack/assets/ folder into plugins/Nexo/pack/assets/
 3. Run /nexo reload all, then /nexo inventory to grab the pieces.
 
-SWIMMING KOI (ModelEngine + MythicMobs)
+ANIMATED KOI (ModelEngine)
 --------------
-The rippling pond, bowl, statue and table work on their own. To add the swimming fish on top:
+The animated pond, bowl, statue, streamer and koi school swim on their own once placed.
 1. Copy ModelEngine/blueprints/mistbloom/ into plugins/ModelEngine/blueprints/
-2. Copy MythicMobs/mobs/mistbloom_koi_animated.yml into plugins/MythicMobs/mobs/
-3. Run /meg reload, /mm reload, then /nexo reload all.
-4. Stand where you want them and run /mm m spawn <name>
-   mistbloom_koi_pair - in the Koi Pond Basin (rippling)
-   mistbloom_koi_bowl_swim - in the Koi Bowl (rippling)
-   mistbloom_koi_leap - on the Koi Splash Statue
-   mistbloom_koi_streamer_wind - koi streamers in the wind
-   mistbloom_koi_school - a small school of koi
+2. Run /meg reload, then /nexo reload all.
 
 Requires Minecraft 1.21.4 or newer
