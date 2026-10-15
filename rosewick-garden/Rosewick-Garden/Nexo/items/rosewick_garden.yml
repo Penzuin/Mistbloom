@@ -1,0 +1,380 @@
+# Rosewick Garden by Mistbloom Studios
+# Nexo 1.28+ (light lists, seats, storage).
+# Dyeable pieces (bench, chair, picnic blanket): dye them like leather in a crafting table before placing, or change `color`.
+
+rosewick_garden_bench:
+  itemname: "<#e6cd8c>Garden Bench"
+  material: LEATHER_HORSE_ARMOR
+  color: 143,176,106
+  lore:
+    - "<!i><gray>Two-seat birch bench with a lattice back."
+    - "<!i><gray>Dyeable cushions."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:garden_bench
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        barriers:
+          - 0,0,0
+        interactions:
+          - 0,0,0 2,1.4
+      seats:
+        - -0.5,0.5,0
+        - 0.5,0.5,0
+
+rosewick_garden_chair:
+  itemname: "<#e6cd8c>Garden Chair"
+  material: LEATHER_HORSE_ARMOR
+  color: 143,176,106
+  lore:
+    - "<!i><gray>Lattice-back chair with a soft cushion."
+    - "<!i><gray>Dyeable cushion."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:garden_chair
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        barriers:
+          - 0,0,0
+      seats:
+        - 0,0.5,0
+
+rosewick_tea_table:
+  itemname: "<#e6cd8c>Garden Tea Table"
+  material: PAPER
+  lore:
+    - "<!i><gray>A pedestal table set for afternoon tea."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:tea_table
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        barriers:
+          - 0,0,0
+
+rosewick_potting_table:
+  itemname: "<#e6cd8c>Potting Table"
+  material: PAPER
+  lore:
+    - "<!i><gray>Seedlings above, storage below."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:potting_table
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        barriers:
+          - 0,0,0
+      storage:
+        type: STORAGE
+        rows: 2
+        title: "<#6f5a33>Potting Table"
+        open_sound: block.barrel.open
+        close_sound: block.barrel.close
+
+rosewick_seed_cabinet:
+  itemname: "<#e6cd8c>Seed Cabinet"
+  material: PAPER
+  lore:
+    - "<!i><gray>Nine little drawers for seeds and bulbs."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:seed_cabinet
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        barriers:
+          - 0,0,0
+      storage:
+        type: STORAGE
+        rows: 3
+        title: "<#6f5a33>Seed Cabinet"
+        open_sound: block.barrel.open
+        close_sound: block.barrel.close
+
+rosewick_tool_rack:
+  itemname: "<#e6cd8c>Garden Tool Rack"
+  material: PAPER
+  lore:
+    - "<!i><gray>Rake, spade and shears, always to hand."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:tool_rack
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        barriers:
+          - 0,0,0
+      storage:
+        type: STORAGE
+        rows: 1
+        title: "<#6f5a33>Tool Rack"
+        open_sound: block.barrel.open
+        close_sound: block.barrel.close
+
+rosewick_rose_trellis:
+  itemname: "<#e6cd8c>Rose Trellis"
+  material: PAPER
+  lore:
+    - "<!i><gray>Climbing roses on a birch lattice."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:rose_trellis
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 0,1,0
+
+rosewick_arbor_arch:
+  itemname: "<#e6cd8c>Rose Arbor"
+  material: PAPER
+  lore:
+    - "<!i><gray>A rose-covered arch to walk through."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:arbor_arch
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+        translation: 0,1,0
+      hitbox:
+        interactions:
+          - -0.84,0,0 0.45,3
+          - 0.84,0,0 0.45,3
+
+rosewick_birdbath:
+  itemname: "<#e6cd8c>Copper Birdbath"
+  material: PAPER
+  lore:
+    - "<!i><gray>A bluebird stops by for a drink."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:birdbath
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.stone.place
+        break_sound: block.stone.break
+        hit_sound: block.stone.hit
+        step_sound: block.stone.step
+        fall_sound: block.stone.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        barriers:
+          - 0,0,0
+
+rosewick_flower_box:
+  itemname: "<#e6cd8c>Flower Box"
+  material: PAPER
+  lore:
+    - "<!i><gray>Roses, lavender and daisies."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:flower_box
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        barriers:
+          - 0,0,0
+
+rosewick_wheelbarrow:
+  itemname: "<#e6cd8c>Wheelbarrow of Blooms"
+  material: PAPER
+  lore:
+    - "<!i><gray>Overflowing with sunflowers and roses."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:wheelbarrow
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        barriers:
+          - 0,0,0
+
+rosewick_sundial:
+  itemname: "<#e6cd8c>Sundial"
+  material: PAPER
+  lore:
+    - "<!i><gray>A copper dial on a stone pillar."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:sundial
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.stone.place
+        break_sound: block.stone.break
+        hit_sound: block.stone.hit
+        step_sound: block.stone.step
+        fall_sound: block.stone.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        barriers:
+          - 0,0,0
+
+rosewick_picnic_blanket:
+  itemname: "<#e6cd8c>Picnic Blanket"
+  material: LEATHER_HORSE_ARMOR
+  color: 200,70,85
+  lore:
+    - "<!i><gray>Gingham blanket with a basket for two."
+    - "<!i><gray>Dyeable blanket."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:picnic_blanket
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        interactions:
+          - 0,0,0 1.5,0.2
+
+rosewick_stake_lantern:
+  itemname: "<#e6cd8c>Stake Lantern"
+  material: PAPER
+  lore:
+    - "<!i><gray>Right-click to light the candle."
+    - "<!i><#8fb06a>Rosewick Garden"
+  Components:
+    item_model: rosewick:stake_lantern
+  Mechanics:
+    furniture:
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      rotatable: true
+      restricted_rotation: VERY_STRICT
+      properties:
+        display_transform: NONE
+      hitbox:
+        barriers:
+          - 0,0,0
+        interactions:
+          - 0,1,0 0.5,0.9
+      lights:
+        toggleable: true
+        toggled_item_model: rosewick:stake_lantern_lit
+        lights:
+          - 0,1,0 13

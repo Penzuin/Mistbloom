@@ -1,0 +1,214 @@
+# Rosewick Garden crafting recipes (vanilla ingredients). Delete this file if you sell the items instead.
+
+rosewick_garden_bench:
+  result:
+    nexo_item: rosewick_garden_bench
+  shape:
+  - 'F F'
+  - 'MMM'
+  - 'S S'
+  ingredients:
+    F:
+      minecraft_type: BIRCH_FENCE
+    M:
+      minecraft_type: MOSS_CARPET
+    S:
+      minecraft_type: BIRCH_SLAB
+
+rosewick_garden_chair:
+  result:
+    nexo_item: rosewick_garden_chair
+  shape:
+  - 'F'
+  - 'M'
+  - 'S'
+  ingredients:
+    F:
+      minecraft_type: BIRCH_FENCE
+    M:
+      minecraft_type: MOSS_CARPET
+    S:
+      minecraft_type: BIRCH_SLAB
+
+rosewick_tea_table:
+  result:
+    nexo_item: rosewick_tea_table
+  shape:
+  - 'SSS'
+  - ' F '
+  - ' S '
+  ingredients:
+    S:
+      minecraft_type: BIRCH_SLAB
+    F:
+      minecraft_type: BIRCH_FENCE
+
+rosewick_potting_table:
+  result:
+    nexo_item: rosewick_potting_table
+  shape:
+  - 'PDP'
+  - 'SSS'
+  - 'F F'
+  ingredients:
+    P:
+      minecraft_type: FLOWER_POT
+    D:
+      minecraft_type: DIRT
+    S:
+      minecraft_type: BIRCH_SLAB
+    F:
+      minecraft_type: BIRCH_FENCE
+
+rosewick_seed_cabinet:
+  result:
+    nexo_item: rosewick_seed_cabinet
+  shape:
+  - 'SSS'
+  - 'WCW'
+  - 'SSS'
+  ingredients:
+    S:
+      minecraft_type: BIRCH_SLAB
+    W:
+      minecraft_type: WHEAT_SEEDS
+    C:
+      minecraft_type: CHEST
+
+rosewick_tool_rack:
+  result:
+    nexo_item: rosewick_tool_rack
+  shape:
+  - 'FSF'
+  - 'FNF'
+  ingredients:
+    F:
+      minecraft_type: BIRCH_FENCE
+    S:
+      minecraft_type: BIRCH_SLAB
+    N:
+      minecraft_type: IRON_NUGGET
+
+rosewick_rose_trellis:
+  result:
+    nexo_item: rosewick_rose_trellis
+  shape:
+  - 'FRF'
+  - 'FRF'
+  - 'SDS'
+  ingredients:
+    F:
+      minecraft_type: BIRCH_FENCE
+    R:
+      minecraft_type: ROSE_BUSH
+    S:
+      minecraft_type: BIRCH_SLAB
+    D:
+      minecraft_type: DIRT
+
+rosewick_arbor_arch:
+  result:
+    nexo_item: rosewick_arbor_arch
+  shape:
+  - 'SSS'
+  - 'FRF'
+  - 'F F'
+  ingredients:
+    S:
+      minecraft_type: BIRCH_SLAB
+    F:
+      minecraft_type: BIRCH_FENCE
+    R:
+      minecraft_type: ROSE_BUSH
+
+rosewick_birdbath:
+  result:
+    nexo_item: rosewick_birdbath
+  shape:
+  - 'C C'
+  - 'CCC'
+  - 'SWS'
+  ingredients:
+    C:
+      minecraft_type: COPPER_INGOT
+    S:
+      minecraft_type: STONE_BRICK_SLAB
+    W:
+      minecraft_type: STONE_BRICK_WALL
+
+rosewick_flower_box:
+  result:
+    nexo_item: rosewick_flower_box
+  shape:
+  - 'PAO'
+  - 'SDS'
+  ingredients:
+    P:
+      minecraft_type: PINK_TULIP
+    A:
+      minecraft_type: ALLIUM
+    O:
+      minecraft_type: OXEYE_DAISY
+    S:
+      minecraft_type: BIRCH_SLAB
+    D:
+      minecraft_type: DIRT
+
+rosewick_wheelbarrow:
+  result:
+    nexo_item: rosewick_wheelbarrow
+  shape:
+  - 'PDP'
+  - 'PPP'
+  - 'I F'
+  ingredients:
+    P:
+      minecraft_type: BIRCH_PLANKS
+    D:
+      minecraft_type: SUNFLOWER
+    I:
+      minecraft_type: IRON_INGOT
+    F:
+      minecraft_type: STICK
+
+rosewick_sundial:
+  result:
+    nexo_item: rosewick_sundial
+  shape:
+  - ' K '
+  - 'CCC'
+  - ' W '
+  ingredients:
+    K:
+      minecraft_type: CLOCK
+    C:
+      minecraft_type: COPPER_INGOT
+    W:
+      minecraft_type: STONE_BRICK_WALL
+
+rosewick_picnic_blanket:
+  result:
+    nexo_item: rosewick_picnic_blanket
+  shape:
+  - 'RWR'
+  - 'WAW'
+  ingredients:
+    R:
+      minecraft_type: RED_CARPET
+    W:
+      minecraft_type: WHITE_CARPET
+    A:
+      minecraft_type: APPLE
+
+rosewick_stake_lantern:
+  result:
+    nexo_item: rosewick_stake_lantern
+  shape:
+  - 'L'
+  - 'F'
+  - 'F'
+  ingredients:
+    L:
+      minecraft_type: LANTERN
+    F:
+      minecraft_type: DARK_OAK_FENCE

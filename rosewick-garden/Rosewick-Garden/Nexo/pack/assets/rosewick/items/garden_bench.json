@@ -1,0 +1,32 @@
+{
+ "model": {
+  "type": "minecraft:select",
+  "property": "minecraft:display_context",
+  "cases": [
+   {
+    "when": [
+     "gui",
+     "firstperson_lefthand",
+     "firstperson_righthand",
+     "thirdperson_lefthand",
+     "thirdperson_righthand",
+     "head"
+    ],
+    "model": {
+     "type": "minecraft:model",
+     "model": "rosewick:item/garden_bench"
+    }
+   }
+  ],
+  "fallback": {
+   "type": "minecraft:model",
+   "model": "rosewick:furniture/garden_bench",
+   "tints": [
+    {
+     "type": "minecraft:dye",
+     "default": 9416810
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "model": {
+  "type": "minecraft:select",
+  "property": "minecraft:display_context",
+  "cases": [
+   {
+    "when": [
+     "gui",
+     "firstperson_lefthand",
+     "firstperson_righthand",
+     "thirdperson_lefthand",
+     "thirdperson_righthand",
+     "head"
+    ],
+    "model": {
+     "type": "minecraft:model",
+     "model": "rosewick:item/flower_box"
+    }
+   }
+  ],
+  "fallback": {
+   "type": "minecraft:model",
+   "model": "rosewick:furniture/flower_box"
+  }
+ }
+}
