@@ -152,16 +152,18 @@ def coffin():
 
 
 def ghost_lantern(lit=False):
+    """Floor lantern: sits flat on the ground on a wide iron foot (no hanging drop finial)."""
     m = Model("ghost_lantern_lit" if lit else "ghost_lantern")
-    m.card([7.5, 12.5, 8], [8.5, 16, 8], art([".a.", "a.a", ".a.", ".b.", "b.b", ".b."],
-                                            {"a": ("iron", 1), "b": ("iron", 3)}), res=3)   # chain
-    m.box([5, 11, 5], [11, 12.5, 11], iron())                                     # cap
-    m.box([6, 12.5, 6], [10, 13, 10], iron())
-    m.box([6, 4.5, 6.2], [10, 9.5, 9.8], ghost(lit), emit=15 if lit else 0, res=3)   # little ghost inside
-    m.box([6.8, 3.2, 7], [9.2, 4.5, 9], ghost(lit), emit=15 if lit else 0, res=3)     # wisp tail
-    m.box([5.5, 3, 5.5], [10.5, 11, 10.5], mesh_glass(lit))                       # glass cage
-    m.box([5, 2, 5], [11, 3, 11], iron())                                         # base
-    m.box([7.25, 0.5, 7.25], [8.75, 2, 8.75], solid("lilac", 1))                  # drop finial
+    d = -1.5                                                                      # whole lantern lowered onto its foot
+    m.card([7.5, 11 , 8], [8.5, 14.5, 8], art([".a.", "a.a", ".a.", ".b.", "b.b", ".b."],
+                                            {"a": ("iron", 1), "b": ("iron", 3)}), res=3)   # carry ring
+    m.box([5, 11 + d, 5], [11, 12.5 + d, 11], iron())                             # cap
+    m.box([6, 12.5 + d, 6], [10, 13 + d, 10], iron())
+    m.box([6, 4.5 + d, 6.2], [10, 9.5 + d, 9.8], ghost(lit), emit=15 if lit else 0, res=3)   # little ghost inside
+    m.box([6.8, 3.2 + d, 7], [9.2, 4.5 + d, 9], ghost(lit), emit=15 if lit else 0, res=3)     # wisp tail
+    m.box([5.5, 3 + d, 5.5], [10.5, 11 + d, 10.5], mesh_glass(lit))               # glass cage
+    m.box([5, 2 + d, 5], [11, 3 + d, 11], iron())                                 # base
+    m.box([4.5, 0, 4.5], [11.5, 0.5, 11.5], iron())                               # wide foot, flat on the ground
     return m
 
 
