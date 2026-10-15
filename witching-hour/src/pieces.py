@@ -368,8 +368,8 @@ def ghostlight_lantern():
     m.b((6.4, 9.0, 4.7), (6.9, 11.2, 5.3), iron, tpp=K)
     m.b((3.1, 11.2, 4.7), (6.9, 11.7, 5.3), iron, tpp=K)
     nm(m, "handle_left", "handle_right", "handle_top")
-    # handle sits in the fist, the lantern hangs below it
-    m.hand = {"rotation": [90, 0, 0], "translation": [0, 0.5, -4.0], "scale": [0.375] * 3}
+    # the handle bar sits inside the closed hand, centred on the arm; the lantern hangs below
+    m.hand = {"rotation": [90, 0, 0], "translation": [0, -2.0, -2.9], "scale": [0.375] * 3}
     return m
 
 
@@ -389,33 +389,34 @@ COVER = ["gggggggggggg",
 
 
 def grimoire():
+    """Carried at your side: covers face left/right, spine faces forward, gripped at the top edge."""
     m = Model("grimoire", "hand")
     cov = art(COVER, {"g": ("brass", 2), "s": ("brass", 1)}, back=fabric("cover", 2, seed=21, rim=False))
-    side = fabric("cover", 2, seed=22)
-    m.b((2.3, 0.6, 3.5), (7.7, 7.9, 4.0), cov, tpp=K)
-    m.b((2.3, 0.6, 6.0), (7.7, 7.9, 6.5), cov, tpp=K)
-    m.b((2.3, 0.6, 3.5), (2.9, 7.9, 6.5), side, tpp=K)
-    nm(m, "cover_front", "cover_back", "spine")
+    m.b((3.5, 0.6, 2.3), (4.0, 7.9, 7.7), cov, tpp=K)
+    m.b((6.0, 0.6, 2.3), (6.5, 7.9, 7.7), cov, tpp=K)
+    m.b((3.5, 0.6, 2.3), (6.5, 7.9, 2.9), fabric("cover", 2, seed=22), tpp=K)
+    nm(m, "cover_left", "cover_right", "spine")
 
     def pages(W, H, face, key):
         img = _blank(W, H)
         for y in range(H):
             for x in range(W):
                 t = face_tone(face, 1)
-                if face in ("east", "up", "down") and (x if face == "east" else y) % 2 == 1:
+                if face in ("south", "up", "down") and (x if face == "south" else y) % 2 == 1:
                     t += 1
                 img[y, x] = T("page", t)
         return img
-    m.b((2.9, 0.85, 4.0), (7.45, 7.65, 6.0), pages, tpp=K)
+    m.b((4.0, 0.85, 2.9), (6.0, 7.65, 7.45), pages, tpp=K)
     nm(m, "pages")
     c = metal("brass", 1)
     for (y0, n) in ((7.1, "top"), (0.4, "bottom")):
-        m.b((7.0, y0 + 0.1, 3.35), (7.85, y0 + 0.9, 6.65), c, tpp=K)
+        m.b((3.35, y0 + 0.1, 7.0), (6.65, y0 + 0.9, 7.85), c, tpp=K)
         nm(m, f"corner_{n}")
-    m.b((7.45, 3.5, 3.35), (8.05, 5.0, 6.65), fabric("band", 3, seed=25), tpp=K)
+    m.b((3.35, 3.5, 7.45), (6.65, 5.0, 8.05), fabric("band", 3, seed=25), tpp=K)
     nm(m, "strap")
-    m.c((3.6, 2.9, 3.42), (6.6, 5.9, 3.42), moon_card(), emit=12, tpp=K)
-    nm(m, "moon_clasp")
+    m.c((3.42, 2.9, 3.5), (3.42, 5.9, 6.5), moon_card(), emit=12, tpp=K)
+    m.c((6.58, 2.9, 3.5), (6.58, 5.9, 6.5), moon_card(), emit=12, tpp=K)
+    nm(m, "moon_clasp_left", "moon_clasp_right")
 
     def ribbon(W, H, face, key):
         img = _blank(W, H)
@@ -425,10 +426,10 @@ def grimoire():
                     continue
                 img[y, x] = T("band", 2 + (1 if x == 0 else 0))
         return img
-    m.c((5.2, -1.2, 5.0), (5.9, 0.9, 5.0), ribbon, tpp=K)
+    m.c((5.0, -1.2, 5.2), (5.0, 0.9, 5.9), ribbon, tpp=K)
     nm(m, "bookmark")
-    # held by the spine edge, cover facing forward
-    m.hand = {"rotation": [90, 0, 0], "translation": [1.0, 1.0, 0.5], "scale": [0.45] * 3}
+    # gripped at the top edge, just behind the spine, inside the closed hand
+    m.hand = {"rotation": [90, 0, 0], "translation": [0, -2.4, -0.7], "scale": [0.45] * 3}
     return m
 
 
