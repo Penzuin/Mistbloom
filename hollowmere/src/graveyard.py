@@ -114,11 +114,11 @@ def tombstone_cross():
     m.box([3, 0, 5.5], [13, 1.5, 12.5], stone("slate", moss=True))                # stepped base
     m.box([4.5, 1.5, 6.5], [11.5, 3.5, 11.5], stone("slate", moss=False))
     m.box([6.5, 3.5, 7.5], [9.5, 18, 10.5], stone("slate", moss=False))           # upright
-    m.box([2.5, 11, 7.5], [13.5, 14, 10.5], stone("slate", moss=False))           # arms
-    m.box([5.5, 10, 7.2], [10.5, 15, 7.5], stone("slate", moss=False))            # centre boss
+    m.box([2.5, 11, 7.85], [13.5, 14, 10.15], stone("slate", moss=False))         # arms, centred on the upright (a touch thinner)
+    m.box([5.5, 10, 7.1], [10.5, 15, 7.5], stone("slate", moss=False))            # centre boss, on the front of the crossing
     m.card([1, 1.5, 5.4], [6, 6, 5.4], art(["..a.b..", ".aaabb.", "..ab...", "..c....", ".cc....", "..c...."],
                                           {"a": ("lilac", 1), "b": ("blush", 1), "c": ("moss", 2)}))   # flowers
-    m.card([7, 13.5, 7.3], [13, 19.5, 7.3], VINE)
+    m.card([6.6, 3.5, 7.1], [9.4, 9.8, 7.1], VINE)                                 # ivy climbing the front of the upright
     return m
 
 

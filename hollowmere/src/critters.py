@@ -501,12 +501,12 @@ def hanging_spider():
     m.card([7.75, 9, 9.5], [8.25, 16, 9.5], thread())                              # silk thread from the ceiling
     m.box([5.5, 5.5, 7.6], [10.5, 9.5, 12.4], spider_body(), res=2)               # plump abdomen
     m.box([6.3, 5.0, 4.4], [9.7, 7.8, 7.8], spider_head(), res=2)                 # head with eyes
-    for z in (5.0, 6.2, 7.4, 8.6):                                                 # 4 legs a side, rooted inside head/body
-        a = 45 if z in (5.0, 8.6) else 22.5
-        m.box([1.4, 5.9, z - 0.3], [7.0, 6.5, z + 0.3], spider_leg(True), res=2,
-              rot=("z", a, [6.6, 6.2, z]))                                         # left legs, tips down
-        m.box([9.0, 5.9, z - 0.3], [14.6, 6.5, z + 0.3], spider_leg(False), res=2,
-              rot=("z", -a, [9.4, 6.2, z]))                                        # right legs, mirrored
+    for z in (8.3, 9.5, 10.7, 11.9):                                               # 4 legs a side, all from the big body
+        a = 45 if z in (8.3, 11.9) else 22.5
+        m.box([1.0, 6.6, z - 0.3], [6.4, 7.2, z + 0.3], spider_leg(True), res=2,
+              rot=("z", a, [6.0, 6.9, z]))                                         # left legs, rooted inside the body
+        m.box([9.6, 6.6, z - 0.3], [15.0, 7.2, z + 0.3], spider_leg(False), res=2,
+              rot=("z", -a, [10.0, 6.9, z]))                                       # right legs, mirrored
     m.box([7.1, 4.3, 4.1], [7.7, 5.0, 4.6], solid("bone", 1))                      # tiny fangs
     m.box([8.3, 4.3, 4.1], [8.9, 5.0, 4.6], solid("bone", 1))
     return m
