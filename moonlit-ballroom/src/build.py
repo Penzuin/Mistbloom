@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 import pieces as P
 from engine import NS, Model, NFRAMES, FRAMETIMES, wood
 
-VERSION = "0.1"
+VERSION = "1.0"
 NAMEC, TAGC, GOLDC = "#c9b8f0", "#9fb3d9", "#f2c97d"
 
 
@@ -51,7 +51,7 @@ def nexo_yaml():
         if s["place"] != "any":
             f["limited_placing"] = {"floor": s["place"] == "floor", "wall": s["place"] == "wall", "roof": s["place"] == "roof"}
         f["hitbox"] = {"barriers": [_off(b) for b in s["barriers"]]} if s["barriers"] else \
-                      {"interaction": f"0,0,0 {s['interaction'][0]},{s['interaction'][1]}"}
+                      {"interactions": [f"0,0,0 {s['interaction'][0]},{s['interaction'][1]}"]}   # Nexo key is `interactions` (a list)
         if s["light"]:
             l = {"toggleable": bool(s["toggle"])}
             if s["toggle"]:

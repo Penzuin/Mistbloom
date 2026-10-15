@@ -1,4 +1,4 @@
-# Moonlit Ballroom v0.1 by Mistbloom Studios - Nexo
+# Moonlit Ballroom v1.0 by Mistbloom Studios - Nexo
 # Minecraft 1.21.4+.
 
 moonball_waltzing_ghosts:
@@ -25,7 +25,8 @@ moonball_waltzing_ghosts:
         wall: false
         roof: false
       hitbox:
-        interaction: 0,0,0 1.4,1.8
+        interactions:
+        - 0,0,0 1.4,1.8
       lights:
         toggleable: false
         lights:
@@ -94,7 +95,8 @@ moonball_floating_candelabra:
         step_sound: block.lantern.step
         fall_sound: block.lantern.fall
       hitbox:
-        interaction: 0,0,0 0.6,1.5
+        interactions:
+        - 0,0,0 0.6,1.5
       lights:
         toggleable: true
         toggled_item_model: moonball:floating_candelabra_lit
@@ -121,7 +123,8 @@ moonball_ghost_lantern:
         step_sound: block.lantern.step
         fall_sound: block.lantern.fall
       hitbox:
-        interaction: 0,0,0 0.5,0.9
+        interactions:
+        - 0,0,0 0.5,0.9
       lights:
         toggleable: true
         toggled_item_model: moonball:ghost_lantern_lit
@@ -152,7 +155,8 @@ moonball_ghost_portrait:
         wall: true
         roof: false
       hitbox:
-        interaction: 0,0,0 1,1.6
+        interactions:
+        - 0,0,0 1,1.6
       clickActions:
       - conditions: []
         actions:
@@ -177,7 +181,8 @@ moonball_wisp:
         step_sound: block.wool.step
         fall_sound: block.wool.fall
       hitbox:
-        interaction: 0,0,0 0.6,0.9
+        interactions:
+        - 0,0,0 0.6,0.9
       lights:
         toggleable: false
         lights:
