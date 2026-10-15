@@ -494,7 +494,7 @@ def spider_leg(tip_at_start=True):
     return f
 
 
-def leg_card():
+def leg_card(variant=0):
     """Flat spider legs, drawn pixel-exact and mirrored: on each side two jointed legs leave the
     body, rise to a knee and come down to a violet foot. The middle is hidden behind the body."""
     def line(img, p, q, col):
@@ -502,14 +502,16 @@ def leg_card():
         n = max(abs(x1 - x0), abs(y1 - y0), 1)
         for i in range(n + 1):
             x = round(x0 + (x1 - x0) * i / n); y = round(y0 + (y1 - y0) * i / n)
-            for dx in (0, 1):                                            # 2 px thick so it reads in game
+            for dx in (0,):                                              # 1 px: keeps the 8 legs separate
                 if 0 <= y < img.shape[0] and 0 <= x + dx < img.shape[1]:
                     img[y, x + dx] = col
     def f(w, h, fc, key):
         img = _blank(w, h)
         half = w // 2
-        legs = [((half - 4, 5), (half - 9, 0), (half - 13, 11)),        # (root, knee, foot) for the left side
-                ((half - 4, 7), (half - 11, 3), (half - 15, 13))]
+        legs = [[((half - 4, 4), (half - 8, 0), (half - 11, 10)),       # (root, knee, foot) for the left side
+                 ((half - 4, 7), (half - 12, 3), (half - 15, 13))],      # card A: front pair
+                [((half - 4, 5), (half - 10, 1), (half - 13, 12)),
+                 ((half - 4, 8), (half - 13, 5), (half - 15, 13))]][variant]   # card B: back pair
         for root, knee, foot in legs:
             for mirror in (False, True):
                 mx = (lambda x: w - 1 - x) if mirror else (lambda x: x)
@@ -533,8 +535,8 @@ def hanging_spider():
     m.card([7.75, 9, 9.5], [8.25, 16, 9.5], thread())                              # silk thread from the ceiling
     m.box([5.5, 5.5, 7.6], [10.5, 9.5, 12.4], spider_body(), res=2)               # plump body
     m.box([6.3, 5.0, 4.4], [9.7, 7.8, 7.8], spider_head(), res=2)                 # head with eyes
-    for a in (45, -45):                                                            # legs: two crossed flat cards
-        m.card([0.5, 2.5, 10], [15.5, 9.5, 10], leg_card(), res=2, rot=("y", a, [8, 6, 10]))
+    for v, a in ((0, 22.5), (1, -22.5)):                                           # 8 legs: 2 cards x 2 sides x 2 legs,
+        m.card([0.5, 2.5, 10], [15.5, 9.5, 10], leg_card(v), res=2, rot=("y", a, [8, 6, 10]))   # all 4 a side visible
     m.box([7.1, 4.3, 4.1], [7.7, 5.0, 4.6], solid("bone", 1))                      # tiny fangs
     m.box([8.3, 4.3, 4.1], [8.9, 5.0, 4.6], solid("bone", 1))
     return m
