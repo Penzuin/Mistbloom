@@ -70,7 +70,7 @@ moonball_ghost_piano:
       lights:
         toggleable: false
         lights:
-        - 0,1,0 6
+        - 0,2,0 6
       clickActions:
       - conditions: []
         actions:
