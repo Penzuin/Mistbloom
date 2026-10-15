@@ -164,8 +164,6 @@ def wax(ramp="candle"):
             for x in range(0, w, 2):
                 img[min(h - 1, 1 + (x % 3 == 0)), x] = T(ramp, 0)        # drips
             img[-1, :] = T(ramp, 3)
-        if fc == "up":
-            img[h // 2, w // 2] = T("ebony", 5)
         return img
     return f
 

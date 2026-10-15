@@ -120,9 +120,9 @@ def welcome_sign():
     m.box([4, -16, 4], [12, -14, 12], solid("slate", 3))                          # stone at the base
     m.box([-5, 2, 5], [21, 10, 6.5], big_sign("WELCOME"), res=2)                  # main board, in front of the post
     m.box([-4, -6, 5], [12, -1, 6.5], big_sign("CANDY"), res=2)                    # arrow boards
-    m.box([10.25, -5.25, 5.1], [13.75, -1.75, 6.4], solid("ebony", 2), rot=("z", 45, [12, -3.5, 5.75]))
+    m.box([11.25, -5.25, 5.1], [14.75, -1.75, 6.4], solid("ebony", 2), rot=("z", 45, [13, -3.5, 5.75]))   # arrow tip, clear of the text
     m.box([4, -14, 5], [22, -9, 6.5], big_sign("SPOOKS"), res=2)
-    m.box([2.25, -13.25, 5.1], [5.75, -9.75, 6.4], solid("ebony", 2), rot=("z", 45, [4, -11.5, 5.75]))
+    m.box([1.25, -13.25, 5.1], [4.75, -9.75, 6.4], solid("ebony", 2), rot=("z", 45, [3, -11.5, 5.75]))
     m.box([4.5, 16, 4.5], [11.5, 22, 11.5], painted_jack(True), emit=15, res=2)          # jack on top
     m.box([7.6, 22, 7.6], [8.4, 23.4, 8.4], bark("stem"))
     m.card([2, 10, 7.4], [8, 15, 7.4], VINE)

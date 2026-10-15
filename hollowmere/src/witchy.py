@@ -100,7 +100,9 @@ def spellbook_lectern():
     m.box([2.6, 11.2, 4], [7.9, 12.4, 12], pages(), rot=("x", -22.5, [8, 10.6, 8]))           # open book
     m.box([8.1, 11.2, 4], [13.4, 12.4, 12], pages(), rot=("x", -22.5, [8, 10.6, 8]))
     m.box([2.3, 10.9, 3.6], [13.7, 11.3, 12.4], solid("plum", 3), rot=("x", -22.5, [8, 10.6, 8]))  # cover
-    m.box([7.7, 6, 13.4], [8.3, 11.2, 13.8], solid("pump", 1, bevel=False), rot=("x", -22.5, [8, 10.6, 8]))   # ribbon
+    R = solid("pump", 1, bevel=False)
+    m.box([7.8, 12.35, 2.75], [8.2, 12.55, 6.5], R, rot=("x", -22.5, [8, 10.6, 8]))   # bookmark ribbon lying in the gutter...
+    m.box([7.8, 9.6, 2.75], [8.2, 12.35, 2.95], R, rot=("x", -22.5, [8, 10.6, 8]))    # ...and draping over the front edge
     m.box([12, 1.5, 9.5], [13.5, 4.5, 11], wax())                                 # candle stub on the foot
     m.card([12, 4.5, 10.25], [13.5, 6.5, 10.25], candle_flame(), emit=15)
     return m

@@ -193,7 +193,11 @@ def pumpkin_pile():
 def gourd_basket():
     m = Model("gourd_basket")
     m.box([3, 0, 4], [13, 5, 12], wicker())                                       # basket
-    m.box([2.5, 5, 3.5], [13.5, 6, 12.5], solid("wicker", 3), faces=SIDES + ("down",))   # rim
+    RIM = solid("wicker", 3)                                                       # rim: four solid strips, so there is
+    m.box([2.5, 4.6, 3.5], [13.5, 6, 4.5], RIM)                                    # no hollow to see through
+    m.box([2.5, 4.6, 11.5], [13.5, 6, 12.5], RIM)
+    m.box([2.5, 4.6, 4.5], [3.5, 6, 11.5], RIM)
+    m.box([12.5, 4.6, 4.5], [13.5, 6, 11.5], RIM)
     m.box([2.6, 5, 7.4], [3.6, 11, 8.6], solid("wicker", 2))                      # arched handle
     m.box([12.4, 5, 7.4], [13.4, 11, 8.6], solid("wicker", 2))
     m.box([2.6, 10.6, 7.4], [13.4, 11.6, 8.6], solid("wicker", 2))
@@ -207,8 +211,9 @@ def gourd_basket():
 def hay_bale_seat():
     m = Model("hay_bale_seat")
     m.box([1, 0, 3], [15, 8, 13], hay())                                          # bale
-    m.box([3, 7.9, 2.5], [11, 8.4, 13.5], blanket(), faces=("up", "north", "south"))   # folded blanket over the top
-    m.box([3, 4.5, 2.4], [11, 8.4, 2.5], blanket(), faces=("north",))
+    m.box([3.5, 7.9, 2.5], [12.5, 8.4, 13.5], blanket(), faces=("up", "north", "south"))   # blanket, centred on the bale
+    m.box([3.5, 4.5, 2.4], [12.5, 8.4, 2.5], blanket(), faces=("north",))          # hangs down the front...
+    m.box([3.5, 4.5, 13.5], [12.5, 8.4, 13.6], blanket(), faces=("south",))        # ...and the back, the same
     pumpkin(m, [11, 8, 9], [14.5, 11, 12.5])                                      # little pumpkin on the corner
     m.card([0, 6, 8], [3, 10, 8], STRAW, rot=("y", 22.5, [1.5, 8, 8]))
     m.card([13, 6, 4], [16, 10, 4], STRAW, rot=("y", -22.5, [14.5, 8, 4]))
