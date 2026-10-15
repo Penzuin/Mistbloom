@@ -1,0 +1,56 @@
+# Witching Hour - Nexo items
+# These are only used by HMCCosmetics, you don't need to give them out.
+
+witch_hat:
+  itemname: <#c9b8ff>Moonlit Witch Hat
+  lore:
+    - <gray>A tall witch hat with a glowing crescent pin.
+    - <dark_gray>Hat
+  material: PAPER
+  Components:
+    item_model: mistbloom:witch_hat
+
+candle_crown:
+  itemname: <#c9b8ff>Candle Crown
+  lore:
+    - <gray>A brass circlet of dripping candles.
+    - <dark_gray>Hat
+  material: PAPER
+  Components:
+    item_model: mistbloom:candle_crown
+
+ghostlight_lantern:
+  itemname: <#c9b8ff>Ghostlight Lantern
+  lore:
+    - <gray>A sleepy ghost glowing in a lantern.
+    - <dark_gray>Off-hand cosmetic
+  material: PAPER
+  Components:
+    item_model: mistbloom:ghostlight_lantern
+
+grimoire:
+  itemname: <#c9b8ff>Moon Grimoire
+  lore:
+    - <gray>A spellbook that hangs at your hip.
+    - <dark_gray>Back cosmetic
+  material: PAPER
+  Components:
+    item_model: mistbloom:grimoire
+
+wisp:
+  itemname: <#c9b8ff>Wisp
+  lore:
+    - <gray>A little ghost that floats beside you.
+    - <dark_gray>Balloon
+  material: PAPER
+  Components:
+    item_model: mistbloom:wisp
+
+moonlit_broom:
+  itemname: <#c9b8ff>Moonlit Broom
+  lore:
+    - <gray>A broom with a lantern hanging off the end.
+    - <dark_gray>Back cosmetic
+  material: PAPER
+  Components:
+    item_model: mistbloom:moonlit_broom
