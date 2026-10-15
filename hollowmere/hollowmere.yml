@@ -1,0 +1,1126 @@
+# Hollowmere - Halloween market set by Mistbloom Studios
+# Nexo 1.28+ (furniture states, light lists and click actions).
+# Dyeable pieces: dye them like leather in a crafting table before placing, or change `color`.
+
+hollowmere_jack_o_lantern:
+  itemname: <#ffb15c>Jack-o'-Lantern
+  lore:
+  - <gray>A big carved pumpkin.
+  - <gray>Right-click to light the candle.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:jack_o_lantern
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      hitbox:
+        barriers:
+        - 0,0,0
+      lights:
+        toggleable: true
+        toggled_item_model: hollowmere:jack_o_lantern_lit
+        lights:
+        - 0,1,0 14
+
+hollowmere_cauldron:
+  itemname: <#ffb15c>Witch's Cauldron
+  lore:
+  - <gray>An iron pot of bubbling brew.
+  - <gray>Right-click to light the fire.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:cauldron
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.lantern.place
+        break_sound: block.lantern.break
+        hit_sound: block.lantern.hit
+        step_sound: block.lantern.step
+        fall_sound: block.lantern.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+      lights:
+        toggleable: true
+        toggled_item_model: hollowmere:cauldron_lit
+        lights:
+        - 0,1,0 12
+      clickActions:
+      - conditions: []
+        actions:
+        - '{source=BLOCKS volume=0.6 pitch=0.8} [sound] minecraft:block.brewing_stand.brew'
+        - '[actionbar] <#ffb15c>The brew bubbles and hisses...'
+
+hollowmere_scarecrow:
+  itemname: <#ffb15c>Scarecrow
+  lore:
+  - <gray>A patched scarecrow with a crow friend.
+  - <gray>Three blocks tall.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:scarecrow
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      properties:
+        translation: 0,1,0
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+        - 0,1,0
+        - 0,2,0
+      clickActions:
+      - conditions: []
+        actions:
+        - '{source=BLOCKS volume=0.6 pitch=1.4} [sound] minecraft:entity.parrot.imitate.ravager'
+        - '[actionbar] <#ffb15c>Caw!'
+
+hollowmere_pumpkin_lamp:
+  itemname: <#ffb15c>Pumpkin Lamp Post
+  lore:
+  - <gray>A street lamp with a hanging jack-o'-lantern.
+  - <gray>Right-click to switch it on or off.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:pumpkin_lamp
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.lantern.place
+        break_sound: block.lantern.break
+        hit_sound: block.lantern.hit
+        step_sound: block.lantern.step
+        fall_sound: block.lantern.fall
+      properties:
+        translation: 0,1,0
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+        - 0,1,0
+        - 0,2,0
+      lights:
+        toggleable: true
+        toggled_item_model: hollowmere:pumpkin_lamp_lit
+        lights:
+        - 0,3,0 15
+
+hollowmere_potion_stall:
+  itemname: <#ffb15c>Potion Stall
+  lore:
+  - <gray>A 3-wide market stall for brews and charms.
+  - <gray>Sneak + right-click to change the awning.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:potion_stall
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      properties:
+        translation: 0,1,0
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - -1,0,0
+        - 0,0,0
+        - 1,0,0
+      lights:
+        toggleable: false
+        lights:
+        - 0,1,0 10
+      states:
+        condition: isSneaking()
+        plum_awning:
+          type: ITEM_MODEL
+          item_model: hollowmere:potion_stall
+        moss_awning:
+          type: ITEM_MODEL
+          item_model: hollowmere:potion_stall_moss
+        pumpkin_awning:
+          type: ITEM_MODEL
+          item_model: hollowmere:potion_stall_ember
+
+hollowmere_hollow_arch:
+  itemname: <#ffb15c>Hollowmere Arch
+  lore:
+  - <gray>A gnarled entrance arch with a hanging sign.
+  - <gray>Three wide, three tall.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:hollow_arch
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      properties:
+        translation: 0,1,0
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - -1,0,0
+        - -1,1,0
+        - -1,2,0
+        - 1,0,0
+        - 1,1,0
+        - 1,2,0
+      lights:
+        toggleable: false
+        lights:
+        - 0,2,0 13
+
+hollowmere_dead_tree:
+  itemname: <#ffb15c>Lantern Tree
+  lore:
+  - <gray>A spooky old tree hung with jack-o'-lanterns.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:dead_tree
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+        - 0,1,0
+      lights:
+        toggleable: false
+        lights:
+        - 0,2,0 12
+
+hollowmere_pumpkin_pile:
+  itemname: <#ffb15c>Pumpkin Pile
+  lore:
+  - <gray>A heap of pumpkins in every size.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:pumpkin_pile
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+
+hollowmere_gourd_basket:
+  itemname: <#ffb15c>Gourd Basket
+  lore:
+  - <gray>A wicker basket of autumn gourds.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:gourd_basket
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      hitbox:
+        interaction: 0,0,0 0.8,0.8
+
+hollowmere_hay_bale_seat:
+  itemname: <#ffb15c>Hay Bale Seat
+  lore:
+  - <gray>A hay bale with a plaid blanket.
+  - <gray>Sit down and rest.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:hay_bale_seat
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.grass.place
+        break_sound: block.grass.break
+        hit_sound: block.grass.hit
+        step_sound: block.grass.step
+        fall_sound: block.grass.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+      seats:
+      - 0,0.4,0
+
+hollowmere_haystack:
+  itemname: <#ffb15c>Haystack
+  lore:
+  - <gray>A big pile of hay with a pitchfork.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:haystack
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.grass.place
+        break_sound: block.grass.break
+        hit_sound: block.grass.hit
+        step_sound: block.grass.step
+        fall_sound: block.grass.fall
+      properties:
+        translation: 0,1,0
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+        - 0,1,0
+
+hollowmere_pumpkin_cart:
+  itemname: <#ffb15c>Pumpkin Cart
+  lore:
+  - <gray>A wooden hand cart full of pumpkins.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:pumpkin_cart
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interaction: 0,0,0 2.4,1
+
+hollowmere_caramel_apple_tray:
+  itemname: <#ffb15c>Caramel Apple Tray
+  lore:
+  - <gray>Sticky caramel apples on a tray.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:caramel_apple_tray
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      hitbox:
+        interaction: 0,0,0 0.9,0.5
+      clickActions:
+      - conditions: []
+        actions:
+        - '{source=BLOCKS volume=0.6 pitch=1.2} [sound] minecraft:entity.generic.eat'
+        - '[actionbar] <#ffb15c>Sweet, sticky and crunchy.'
+
+hollowmere_cider_cask:
+  itemname: <#ffb15c>Cider Cask
+  lore:
+  - <gray>A barrel of hot apple cider.
+  - <gray>Right-click to pour a cup.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:cider_cask
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+      clickActions:
+      - conditions: []
+        actions:
+        - '{source=BLOCKS volume=0.6 pitch=1.0} [sound] minecraft:item.bottle.fill'
+        - '[actionbar] <#ffb15c>You pour a cup of hot apple cider.'
+
+hollowmere_candy_bucket:
+  itemname: <#ffb15c>Trick-or-Treat Bucket
+  lore:
+  - <gray>A jack-o'-lantern bucket full of sweets.
+  - <gray>Right-click to open (9 slots).
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:candy_bucket
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      hitbox:
+        interaction: 0,0,0 0.9,0.8
+      storage:
+        type: STORAGE
+        rows: 1
+        title: <#ffb15c>Trick-or-Treat Bucket
+        open_sound: block.barrel.open
+        close_sound: block.barrel.close
+
+hollowmere_spellbook_lectern:
+  itemname: <#ffb15c>Spellbook Lectern
+  lore:
+  - <gray>An open book of spells on a carved stand.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:spellbook_lectern
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+      lights:
+        toggleable: false
+        lights:
+        - 0,1,0 8
+      clickActions:
+      - conditions: []
+        actions:
+        - '{source=BLOCKS volume=0.6 pitch=1.0} [sound] minecraft:item.book.page_turn'
+        - '[actionbar] <#ffb15c>The pages turn on their own...'
+
+hollowmere_crystal_ball:
+  itemname: <#ffb15c>Crystal Ball
+  lore:
+  - <gray>A swirling orb on a brass stand.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:crystal_ball
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.glass.place
+        break_sound: block.glass.break
+        hit_sound: block.glass.hit
+        step_sound: block.glass.step
+        fall_sound: block.glass.fall
+      hitbox:
+        interaction: 0,0,0 0.6,0.7
+      lights:
+        toggleable: false
+        lights:
+        - 0,0,0 9
+      clickActions:
+      - conditions: []
+        actions:
+        - '{source=BLOCKS volume=0.6 pitch=0.9} [sound] minecraft:block.amethyst_block.chime'
+        - '[actionbar] <#ffb15c>You see... more candy in your future.'
+
+hollowmere_potion_shelf:
+  itemname: <#ffb15c>Potion Shelf
+  lore:
+  - <gray>A wall shelf of bottles and jars.
+  - <gray>Place it on a wall. Right-click to open (18 slots).
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:potion_shelf
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.glass.place
+        break_sound: block.glass.break
+        hit_sound: block.glass.hit
+        step_sound: block.glass.step
+        fall_sound: block.glass.fall
+      limited_placing:
+        floor: false
+        wall: true
+        roof: false
+      hitbox:
+        interaction: 0,0,0 1,1
+      storage:
+        type: STORAGE
+        rows: 2
+        title: <#ffb15c>Potion Shelf
+        open_sound: block.barrel.open
+        close_sound: block.barrel.close
+
+hollowmere_potion_trio:
+  itemname: <#ffb15c>Potion Trio
+  lore:
+  - <gray>Three brews for your counter.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:potion_trio
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.glass.place
+        break_sound: block.glass.break
+        hit_sound: block.glass.hit
+        step_sound: block.glass.step
+        fall_sound: block.glass.fall
+      hitbox:
+        interaction: 0,0,0 0.8,0.6
+      lights:
+        toggleable: false
+        lights:
+        - 0,0,0 6
+
+hollowmere_witch_broom:
+  itemname: <#ffb15c>Witch's Broom
+  lore:
+  - <gray>A broom leaning against the wall.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:witch_broom
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      properties:
+        translation: 0,1,0
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interaction: 0,0,0 0.8,2
+
+hollowmere_witch_hat_stand:
+  itemname: <#ffb15c>Witch Hat Stand
+  lore:
+  - <gray>A pointy hat on a stand.
+  - <gray>Dyeable hat.
+  - <dark_gray>Hollowmere
+  material: LEATHER_HORSE_ARMOR
+  color: 110,70,160
+  Components:
+    item_model: hollowmere:witch_hat_stand
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+
+hollowmere_candle_cluster:
+  itemname: <#ffb15c>Candle Cluster
+  lore:
+  - <gray>A puddle of candles in a cosy group.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:candle_cluster
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      hitbox:
+        interaction: 0,0,0 0.7,0.8
+      lights:
+        toggleable: false
+        lights:
+        - 0,0,0 12
+
+hollowmere_tombstone:
+  itemname: <#ffb15c>Tombstone
+  lore:
+  - <gray>A mossy headstone with a candle and a pumpkin.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:tombstone
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.stone.place
+        break_sound: block.stone.break
+        hit_sound: block.stone.hit
+        step_sound: block.stone.step
+        fall_sound: block.stone.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+      lights:
+        toggleable: false
+        lights:
+        - 0,1,0 8
+
+hollowmere_tombstone_cross:
+  itemname: <#ffb15c>Cross Tombstone
+  lore:
+  - <gray>A stone cross with ivy and flowers.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:tombstone_cross
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.stone.place
+        break_sound: block.stone.break
+        hit_sound: block.stone.hit
+        step_sound: block.stone.step
+        fall_sound: block.stone.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+
+hollowmere_iron_fence:
+  itemname: <#ffb15c>Graveyard Fence
+  lore:
+  - <gray>A spiked iron fence panel.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:iron_fence
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.lantern.place
+        break_sound: block.lantern.break
+        hit_sound: block.lantern.hit
+        step_sound: block.lantern.step
+        fall_sound: block.lantern.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+
+hollowmere_coffin:
+  itemname: <#ffb15c>Coffin
+  lore:
+  - <gray>A lidded coffin with a pumpkin on top.
+  - <gray>Right-click to open (27 slots).
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:coffin
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+        - 1,0,0
+      storage:
+        type: STORAGE
+        rows: 3
+        title: <#ffb15c>Coffin
+        open_sound: block.barrel.open
+        close_sound: block.barrel.close
+
+hollowmere_ghost_lantern:
+  itemname: <#ffb15c>Ghost Lantern
+  lore:
+  - <gray>A little ghost trapped in a lantern.
+  - <gray>Right-click to switch it on or off.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:ghost_lantern
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.lantern.place
+        break_sound: block.lantern.break
+        hit_sound: block.lantern.hit
+        step_sound: block.lantern.step
+        fall_sound: block.lantern.fall
+      hitbox:
+        interaction: 0,0,0 0.5,1
+      lights:
+        toggleable: true
+        toggled_item_model: hollowmere:ghost_lantern_lit
+        lights:
+        - 0,0,0 13
+
+hollowmere_mushroom_ring:
+  itemname: <#ffb15c>Glowshroom Ring
+  lore:
+  - <gray>A fairy ring of glowing mushrooms.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:mushroom_ring
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.grass.place
+        break_sound: block.grass.break
+        hit_sound: block.grass.hit
+        step_sound: block.grass.step
+        fall_sound: block.grass.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interaction: 0,0,0 1,0.4
+      lights:
+        toggleable: false
+        lights:
+        - 0,0,0 7
+
+hollowmere_black_cat:
+  itemname: <#ffb15c>Black Cat
+  lore:
+  - <gray>A cat with a bell collar.
+  - <gray>Dyeable fur.
+  - <dark_gray>Hollowmere
+  material: LEATHER_HORSE_ARMOR
+  color: 58,52,72
+  Components:
+    item_model: hollowmere:black_cat
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      hitbox:
+        interaction: 0,0,0 0.7,0.9
+      clickActions:
+      - conditions: []
+        actions:
+        - '{source=BLOCKS volume=0.6 pitch=1.0} [sound] minecraft:entity.cat.purr'
+        - '[actionbar] <#ffb15c>Purrrr...'
+
+hollowmere_owl_perch:
+  itemname: <#ffb15c>Owl Perch
+  lore:
+  - <gray>A sleepy-eyed owl on its perch.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:owl_perch
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+        - 0,1,0
+      clickActions:
+      - conditions: []
+        actions:
+        - '{source=BLOCKS volume=0.6 pitch=0.6} [sound] minecraft:entity.parrot.ambient'
+        - '[actionbar] <#ffb15c>Hoo!'
+
+hollowmere_crow_post:
+  itemname: <#ffb15c>Crow Post
+  lore:
+  - <gray>Two crows on a fence post.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:crow_post
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+      clickActions:
+      - conditions: []
+        actions:
+        - '{source=BLOCKS volume=0.6 pitch=1.4} [sound] minecraft:entity.parrot.imitate.ravager'
+        - '[actionbar] <#ffb15c>Caw! Caw!'
+
+hollowmere_cobweb_corner:
+  itemname: <#ffb15c>Corner Cobweb
+  lore:
+  - <gray>A dusty web for a corner.
+  - <gray>Place it on a wall.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:cobweb_corner
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: false
+        wall: true
+        roof: false
+      hitbox:
+        interaction: 0,0,0 1,1
+
+hollowmere_hanging_spider:
+  itemname: <#ffb15c>Hanging Spider
+  lore:
+  - <gray>A friendly spider on a silk thread.
+  - <gray>Hangs from a ceiling.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:hanging_spider
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: false
+        wall: false
+        roof: true
+      hitbox:
+        interaction: 0,0,0 0.6,0.8
+
+hollowmere_skull_candle:
+  itemname: <#ffb15c>Skull Candle
+  lore:
+  - <gray>A melting candle on a skull.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:skull_candle
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.stone.place
+        break_sound: block.stone.break
+        hit_sound: block.stone.hit
+        step_sound: block.stone.step
+        fall_sound: block.stone.fall
+      hitbox:
+        interaction: 0,0,0 0.6,1
+      lights:
+        toggleable: false
+        lights:
+        - 0,0,0 12
+
+hollowmere_cushion_stool:
+  itemname: <#ffb15c>Cushion Stool
+  lore:
+  - <gray>A tufted stool with tassels.
+  - <gray>Dyeable cushion.
+  - <dark_gray>Hollowmere
+  material: LEATHER_HORSE_ARMOR
+  color: 150,72,170
+  Components:
+    item_model: hollowmere:cushion_stool
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+      seats:
+      - 0,0.4,0
+
+hollowmere_bat_bunting:
+  itemname: <#ffb15c>Bat Bunting
+  lore:
+  - <gray>A 3-wide string of pennants and bats.
+  - <gray>Dyeable pennants.
+  - <dark_gray>Hollowmere
+  material: LEATHER_HORSE_ARMOR
+  color: 235,120,40
+  Components:
+    item_model: hollowmere:bat_bunting
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      hitbox:
+        interaction: 0,0,0 3,1
+
+hollowmere_welcome_sign:
+  itemname: <#ffb15c>Welcome Signpost
+  lore:
+  - <gray>A signpost pointing to candy and spooks.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:welcome_sign
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.wood.place
+        break_sound: block.wood.break
+        hit_sound: block.wood.hit
+        step_sound: block.wood.step
+        fall_sound: block.wood.fall
+      properties:
+        translation: 0,1,0
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+        - 0,0,0
+        - 0,1,0
+        - 0,2,0
+      lights:
+        toggleable: false
+        lights:
+        - 0,3,0 10
+
+hollowmere_harvest_wreath:
+  itemname: <#ffb15c>Harvest Wreath
+  lore:
+  - <gray>An autumn leaf wreath with a bow.
+  - <gray>Place it on a wall.
+  - <dark_gray>Hollowmere
+  material: PAPER
+  Components:
+    item_model: hollowmere:harvest_wreath
+  Mechanics:
+    furniture:
+      restricted_rotation: VERY_STRICT
+      preview_placement: true
+      block_sounds:
+        place_sound: block.grass.place
+        break_sound: block.grass.break
+        hit_sound: block.grass.hit
+        step_sound: block.grass.step
+        fall_sound: block.grass.fall
+      limited_placing:
+        floor: false
+        wall: true
+        roof: false
+      hitbox:
+        interaction: 0,0,0 0.9,0.9

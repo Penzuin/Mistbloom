@@ -17,7 +17,7 @@ def S(name, lore, **kw):
 SPEC = {
     # centrepieces
     "jack_o_lantern": S("Jack-o'-Lantern", ["A big carved pumpkin.", "Right-click to light the candle."],
-        barriers=[(0, 0, 0)], light=((0, 0, 0), 14), toggle="jack_o_lantern_lit", place="any"),
+        barriers=[(0, 0, 0)], light=((0, 1, 0), 14), toggle="jack_o_lantern_lit", place="any"),
     "cauldron": S("Witch's Cauldron", ["An iron pot of bubbling brew.", "Right-click to light the fire."],
         barriers=[(0, 0, 0)], light=((0, 1, 0), 12), toggle="cauldron_lit", sound="metal",
         click=("minecraft:block.brewing_stand.brew", 0.8, "The brew bubbles and hisses...")),
@@ -25,7 +25,7 @@ SPEC = {
         tall=True, barriers=[(0, 0, 0), (0, 1, 0), (0, 2, 0)],
         click=("minecraft:entity.parrot.imitate.ravager", 1.4, "Caw!")),
     "pumpkin_lamp": S("Pumpkin Lamp Post", ["A street lamp with a hanging jack-o'-lantern.", "Right-click to switch it on or off."],
-        tall=True, barriers=[(0, 0, 0), (0, 1, 0), (0, 2, 0)], light=((0, 2, 0), 15), toggle="pumpkin_lamp_lit",
+        tall=True, barriers=[(0, 0, 0), (0, 1, 0), (0, 2, 0)], light=((0, 3, 0), 15), toggle="pumpkin_lamp_lit",
         sound="metal"),
     "potion_stall": S("Potion Stall", ["A 3-wide market stall for brews and charms.", "Sneak + right-click to change the awning."],
         tall=True, barriers=[(-1, 0, 0), (0, 0, 0), (1, 0, 0)], light=((0, 1, 0), 10),
@@ -35,7 +35,7 @@ SPEC = {
         tall=True, barriers=[(-1, 0, 0), (-1, 1, 0), (-1, 2, 0), (1, 0, 0), (1, 1, 0), (1, 2, 0)],
         light=((0, 2, 0), 13)),
     "dead_tree": S("Lantern Tree", ["A spooky old tree hung with jack-o'-lanterns."],
-        barriers=[(0, 0, 0), (0, 1, 0)], light=((0, 0, 0), 12)),
+        barriers=[(0, 0, 0), (0, 1, 0)], light=((0, 2, 0), 12)),
 
     # harvest
     "pumpkin_pile": S("Pumpkin Pile", ["A heap of pumpkins in every size."], barriers=[(0, 0, 0)]),
@@ -53,7 +53,7 @@ SPEC = {
 
     # witchy
     "spellbook_lectern": S("Spellbook Lectern", ["An open book of spells on a carved stand."], barriers=[(0, 0, 0)],
-        light=((0, 0, 0), 8), click=("minecraft:item.book.page_turn", 1.0, "The pages turn on their own...")),
+        light=((0, 1, 0), 8), click=("minecraft:item.book.page_turn", 1.0, "The pages turn on their own...")),
     "crystal_ball": S("Crystal Ball", ["A swirling orb on a brass stand."], interaction=(0.6, 0.7), place="any",
         light=((0, 0, 0), 9), sound="glass",
         click=("minecraft:block.amethyst_block.chime", 0.9, "You see... more candy in your future.")),
@@ -68,7 +68,7 @@ SPEC = {
 
     # graveyard
     "tombstone": S("Tombstone", ["A mossy headstone with a candle and a pumpkin."], barriers=[(0, 0, 0)], sound="stone",
-        light=((0, 0, 0), 8)),
+        light=((0, 1, 0), 8)),
     "tombstone_cross": S("Cross Tombstone", ["A stone cross with ivy and flowers."], barriers=[(0, 0, 0)], sound="stone"),
     "iron_fence": S("Graveyard Fence", ["A spiked iron fence panel."], barriers=[(0, 0, 0)], sound="metal"),
     "coffin": S("Coffin", ["A lidded coffin with a pumpkin on top.", "Right-click to open (27 slots)."],
@@ -95,7 +95,7 @@ SPEC = {
     "bat_bunting": S("Bat Bunting", ["A 3-wide string of pennants and bats.", "Dyeable pennants."], interaction=(3, 1),
         place="any", dye=(235, 120, 40)),
     "welcome_sign": S("Welcome Signpost", ["A signpost pointing to candy and spooks."], tall=True,
-        barriers=[(0, 0, 0), (0, 1, 0), (0, 2, 0)], light=((0, 2, 0), 10)),
+        barriers=[(0, 0, 0), (0, 1, 0), (0, 2, 0)], light=((0, 3, 0), 10)),
     "harvest_wreath": S("Harvest Wreath", ["An autumn leaf wreath with a bow.", "Place it on a wall."], interaction=(0.9, 0.9),
         place="wall", sound="grass"),
 }
