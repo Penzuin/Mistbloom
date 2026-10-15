@@ -190,12 +190,12 @@ def card(key, f=None, cache={}):
 # ------------------------------------------------------------------ main store icon (full set)
 SCALE_PPU = 13.0                                       # one scale for every piece
 LAYOUT = [  # key, x of piece centre, y of piece bottom   (back row first)
-    ("moonlit_broom",      235, 545),
-    ("witch_hat",          540, 450),
-    ("wisp",               840, 360),
-    ("candle_crown",       330, 715),
-    ("ghostlight_lantern", 600, 715),
-    ("grimoire",           810, 690),
+    ("moonlit_broom",      205, 610),           # the broom got longer (Oct 15): bottom lowered so the top stays in frame
+    ("witch_hat",          520, 450),
+    ("wisp",               830, 360),
+    ("candle_crown",       390, 718),
+    ("ghostlight_lantern", 640, 715),
+    ("grimoire",           830, 690),
 ]
 
 

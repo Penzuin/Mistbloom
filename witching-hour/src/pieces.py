@@ -283,7 +283,7 @@ def candle_crown():
     m.b((8.8, 7.9, 1.2), (9.45, 9.2, 8.8), ring, tpp=K)
     nm(m, "band_front", "band_back", "band_left", "band_right")
     candles = [  # x0, z0, size, height  (front centre tallest, then sides, then back)
-        (4.3, 0.5, 1.4, 4.4, "middle"), (1.5, 1.4, 1.2, 3.1, "front_left"), (7.3, 1.4, 1.2, 3.1, "front_right"),
+        (4.3, 0.35, 1.4, 4.4, "middle"), (1.5, 1.4, 1.2, 3.1, "front_left"), (7.3, 1.4, 1.2, 3.1, "front_right"),
         (2.2, 6.4, 1.1, 2.3, "back_left"), (6.7, 6.4, 1.1, 2.3, "back_right")]
     for i, (x, z, s, h, n) in enumerate(candles):
         y0 = 8.4 if z < 1 else 9.0
@@ -418,9 +418,10 @@ def grimoire():
     rot = ("x", 22.5, hook)
     cov = art(COVER, {"g": ("brass", 2), "s": ("brass", 1)}, back=fabric("cover", 2, seed=21, rim=False))
     z0, z1, y0, y1 = 4.4, 8.0, -17.9 + Y, -12.9 + Y
-    m.b((-0.9, y0, z0), (-0.55, y1, z1), cov, rot=rot, tpp=K)      # outer cover
-    m.b((0.15, y0, z0), (0.5, y1, z1), cov, rot=rot, tpp=K)        # cover against the leg
-    m.b((-0.9, y0, z1 - 0.4), (0.5, y1, z1), fabric("cover", 2, seed=22), rot=rot, tpp=K)
+    sp = z1 - 0.4                                # covers end where the spine starts (no shared faces)
+    m.b((-0.9, y0, z0), (-0.55, y1, sp), cov, rot=rot, tpp=K)      # outer cover
+    m.b((0.15, y0, z0), (0.5, y1, sp), cov, rot=rot, tpp=K)        # cover against the leg
+    m.b((-0.9, y0, sp), (0.5, y1, z1), fabric("cover", 2, seed=22), rot=rot, tpp=K)
     nm(m, "cover_outer", "cover_inner", "spine")
 
     def pages(W, H, face, key):
@@ -442,7 +443,7 @@ def grimoire():
         fabric("band", 3, seed=25), rot=rot, tpp=K)
     nm(m, "clasp_strap")
     mz, my = (z0 + z1) / 2 - 0.15, (y0 + y1) / 2
-    m.c((-0.95, my - 1.25, mz - 1.25), (-0.95, my + 1.25, mz + 1.25), moon_card(), emit=12, rot=rot, tpp=K)
+    m.c((-1.0, my - 1.25, mz - 1.25), (-1.0, my + 1.25, mz + 1.25), moon_card(), emit=12, rot=rot, tpp=K)
     nm(m, "moon_clasp")
     # strap from the side of the belt down to the book, and the belt itself
     m.b((-0.45, -13.2 + Y, 5.95), (0.35, -10.6 + Y, 6.45), metal("leather", 1), tpp=K)
@@ -526,29 +527,35 @@ def wood_grain(seed=0):
 
 
 def moonlit_broom():
+    """A long witch's broom strapped steeply across the back: handle up past the shoulder, bristles
+    down past the hip. Tapered bristles in three flush tiers, dark twine binding with a violet bow
+    on the back, and a little lantern hanging near the top of the handle. No shared faces."""
     m = Model("moonlit_broom", "back", scale=1.0)
-    A = 45
-    O = (5.0, 4.5, 8.0)
+    A = 22.5
+    O = (4.0, 6.0, 8.0)
     rot = ("z", A, O)
-    m.b((4.55, 0.0, 7.55), (5.45, 17.0, 8.45), wood_grain(1), rot=rot, tpp=K)
-    m.b((4.4, 16.6, 7.4), (5.6, 18.0, 8.6), wood_grain(2), rot=rot, tpp=K)
+    m.b((3.55, 0.0, 7.55), (4.45, 19.0, 8.45), wood_grain(1), rot=rot, tpp=K)
+    m.b((3.35, 19.0, 7.35), (4.65, 20.0, 8.65), wood_grain(2), rot=rot, tpp=K)
     nm(m, "handle", "handle_knob")
-    m.b((3.4, -0.6, 7.1), (6.6, 0.5, 8.9), fabric("band", 2, seed=31), rot=rot, tpp=K)
-    m.b((3.3, -5.2, 7.05), (6.7, -0.6, 8.95), straw(1, ragged=False), rot=rot, tpp=4)
-    m.b((2.5, -7.6, 6.6), (7.5, -5.0, 9.4), straw(2, flare=True), rot=rot, tpp=4)
-    nm(m, "binding", "bristles", "bristles_tip")
-    # a ribbon bow on the binding (faces the back, where people see it)
+    tw = metal("leather", 2)
+    m.b((2.2, -1.0, 6.85), (5.8, 0.6, 9.15), tw, rot=rot, tpp=K)                       # twine binding
+    m.b((2.4, -3.8, 7.05), (5.6, -1.0, 8.95), straw(1, ragged=False), rot=rot, tpp=4)
+    m.b((2.0, -6.4, 6.75), (6.0, -3.8, 9.25), straw(2, ragged=False, flare=True), rot=rot, tpp=4)
+    m.b((1.6, -9.4, 6.45), (6.4, -6.4, 9.55), straw(3, flare=True), rot=rot, tpp=4)
+    nm(m, "binding", "bristles", "bristles_mid", "bristles_tip")
+    # a violet ribbon bow on the binding, facing out from the back
     bow = ["aa..aa",
            "abbbba",
            "aabbaa",
            "..ab..",
            ".a..a."]
-    m.c((3.6, -1.8, 9.0), (6.4, 0.6, 9.0), art(bow, {"a": ("band", 2), "b": ("band", 1)}), rot=rot, tpp=K)
+    m.c((2.4, -2.0, 9.4), (5.6, 0.8, 9.4), art(bow, {"a": ("violet", 2), "b": ("violet", 1)}), rot=rot, tpp=K)
     nm(m, "bow")
-    # little lantern hanging from the top of the handle
-    s, c = math.sin(math.radians(A)), math.cos(math.radians(A))
-    hx, hy = O[0] - (15.6 - O[1]) * s, O[1] + (15.6 - O[1]) * c
-    m.c((hx, hy - 1.4, 8.0), (hx, hy, 8.12), art(["a"], {"a": ("iron", 2)}), tpp=K)
+    # little lantern hanging from near the top of the handle
+    s_, c_ = math.sin(math.radians(A)), math.cos(math.radians(A))
+    L = 17.0
+    hx, hy = O[0] - (L - O[1]) * s_, O[1] + (L - O[1]) * c_
+    m.c((hx, hy - 1.4, 7.94), (hx, hy, 8.06), art(["a"], {"a": ("iron", 2)}), tpp=K)
     m.b((hx - 0.9, hy - 1.9, 7.1), (hx + 0.9, hy - 1.4, 8.9), metal("iron", 1), tpp=K)
     m.b((hx - 0.7, hy - 3.8, 7.3), (hx + 0.7, hy - 1.9, 8.7), mini_lantern(), emit=15, tpp=4)
     m.b((hx - 0.9, hy - 4.2, 7.1), (hx + 0.9, hy - 3.8, 8.9), metal("iron", 1), tpp=K)
