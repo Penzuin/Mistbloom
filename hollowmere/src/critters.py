@@ -464,15 +464,32 @@ def cobweb_corner():
     return m
 
 
-def spider_leg():
-    """Thin dark leg with a lit top edge and a pale tip at the outer end."""
+def spider_leg(tip_at_start=True):
+    """Shaded leg: lit top, dark underside, a sheen line along the upper edge of the sides,
+    a lighter knee band in the middle and a violet tip at the outer end."""
     def f(w, h, fc, key):
         img = _blank(w, h)
-        img[:, :] = T("ebony", 5)
-        if fc == "up":
-            img[:, :] = T("ebony", 4)
-        if fc in ("north", "south", "up", "down") and w >= 4:
-            img[:, :1] = T("plum", 4)                                   # one end tinted (the knee/tip)
+        along_x = w >= h
+        L = w if along_x else h
+        for y in range(h):
+            for x in range(w):
+                t = x if along_x else y
+                tone = 5
+                if fc == "up":
+                    tone = 3
+                elif fc == "down":
+                    tone = 6
+                elif fc in SIDES:
+                    across = y if along_x else x
+                    n = h if along_x else w
+                    tone = 4 if across == 0 else (6 if across == n - 1 else 5)
+                if L >= 6 and abs(t - L // 2) == 0:
+                    tone -= 1                                          # knee
+                img[y, x] = T("ebony", tone)
+                start = tip_at_start != (fc == "north")                  # north faces run east-to-west
+                tip = t < 2 if start else t >= L - 2
+                if tip and L >= 6:
+                    img[y, x] = T("plum", 3 if fc == "up" else 4)
         return img
     return f
 
@@ -484,11 +501,12 @@ def hanging_spider():
     m.card([7.75, 9, 9.5], [8.25, 16, 9.5], thread())                              # silk thread from the ceiling
     m.box([5.5, 5.5, 7.6], [10.5, 9.5, 12.4], spider_body(), res=2)               # plump abdomen
     m.box([6.3, 5.0, 4.4], [9.7, 7.8, 7.8], spider_head(), res=2)                 # head with eyes
-    LEG = spider_leg()
-    for z in (4.6, 5.7, 6.8, 7.9):                                                 # 4 legs a side, fanned front to back
-        a = 45 if z in (4.6, 7.9) else 22.5
-        m.box([1.4, 5.9, z - 0.3], [6.4, 6.5, z + 0.3], LEG, rot=("z", a, [6.4, 6.2, z]))         # left legs, tips down
-        m.box([9.6, 5.9, z - 0.3], [14.6, 6.5, z + 0.3], LEG, rot=("z", -a, [9.6, 6.2, z]))       # right legs, mirrored
+    for z in (5.0, 6.2, 7.4, 8.6):                                                 # 4 legs a side, rooted inside head/body
+        a = 45 if z in (5.0, 8.6) else 22.5
+        m.box([1.4, 5.9, z - 0.3], [7.0, 6.5, z + 0.3], spider_leg(True), res=2,
+              rot=("z", a, [6.6, 6.2, z]))                                         # left legs, tips down
+        m.box([9.0, 5.9, z - 0.3], [14.6, 6.5, z + 0.3], spider_leg(False), res=2,
+              rot=("z", -a, [9.4, 6.2, z]))                                        # right legs, mirrored
     m.box([7.1, 4.3, 4.1], [7.7, 5.0, 4.6], solid("bone", 1))                      # tiny fangs
     m.box([8.3, 4.3, 4.1], [8.9, 5.0, 4.6], solid("bone", 1))
     return m
