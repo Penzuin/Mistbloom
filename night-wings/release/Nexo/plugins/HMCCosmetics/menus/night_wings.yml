@@ -1,0 +1,122 @@
+# Night Wings menu - open it with /cosmetic menu night_wings
+# The back button goes to defaultmenu_backpacks, change it if your menu is called something else.
+
+title: <#c9b8ff>Night Wings
+rows: 5
+
+items:
+  title_icon:
+    slots: [4]
+    type: empty
+    item:
+      material: PHANTOM_MEMBRANE
+      name: <#c9b8ff><b>Night Wings</b>
+      lore:
+        - <gray>Pick a pair to wear.
+
+  starfeather_wings:
+    slots: [19]
+    type: cosmetic
+    cosmetic: starfeather_wings
+    item:
+      material: hmccosmetics:starfeather_wings
+      lore:
+        - ''
+        - <yellow>Click to wear
+    locked-item:
+      material: GRAY_STAINED_GLASS_PANE
+      name: <gray>Starfeather Wings
+      lore:
+        - ''
+        - <red>Locked
+
+  duskbat_wings:
+    slots: [20]
+    type: cosmetic
+    cosmetic: duskbat_wings
+    item:
+      material: hmccosmetics:duskbat_wings
+      lore:
+        - ''
+        - <yellow>Click to wear
+    locked-item:
+      material: GRAY_STAINED_GLASS_PANE
+      name: <gray>Duskbat Wings
+      lore:
+        - ''
+        - <red>Locked
+
+  frostlight_wings:
+    slots: [21]
+    type: cosmetic
+    cosmetic: frostlight_wings
+    item:
+      material: hmccosmetics:frostlight_wings
+      lore:
+        - ''
+        - <yellow>Click to wear
+    locked-item:
+      material: GRAY_STAINED_GLASS_PANE
+      name: <gray>Frostlight Wings
+      lore:
+        - ''
+        - <red>Locked
+
+  bloomfairy_wings:
+    slots: [23]
+    type: cosmetic
+    cosmetic: bloomfairy_wings
+    item:
+      material: hmccosmetics:bloomfairy_wings
+      lore:
+        - ''
+        - <yellow>Click to wear
+    locked-item:
+      material: GRAY_STAINED_GLASS_PANE
+      name: <gray>Bloomfairy Wings
+      lore:
+        - ''
+        - <red>Locked
+
+  nightwyrm_wings:
+    slots: [24]
+    type: cosmetic
+    cosmetic: nightwyrm_wings
+    item:
+      material: hmccosmetics:nightwyrm_wings
+      lore:
+        - ''
+        - <yellow>Click to wear
+    locked-item:
+      material: GRAY_STAINED_GLASS_PANE
+      name: <gray>Nightwyrm Wings
+      lore:
+        - ''
+        - <red>Locked
+
+  petal_wings:
+    slots: [25]
+    type: cosmetic
+    cosmetic: petal_wings
+    item:
+      material: hmccosmetics:petal_wings
+      lore:
+        - ''
+        - <yellow>Click to wear
+    locked-item:
+      material: GRAY_STAINED_GLASS_PANE
+      name: <gray>Mistbloom Petal Wings
+      lore:
+        - ''
+        - <red>Locked
+
+  back_button:
+    slots: [40]
+    type: empty
+    item:
+      material: ARROW
+      name: <gray>Back
+    actions:
+      any:
+        - '[MENU] defaultmenu_backpacks'
+        - '[SOUND] minecraft:ui.button.click 1 1'

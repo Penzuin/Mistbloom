@@ -1,0 +1,71 @@
+# Night Wings - HMCCosmetics
+# Uses the resource pack in this folder, no items plugin needed.
+# Permission for each one is hmccosmetics.<id>, e.g. hmccosmetics.starfeather_wings
+
+starfeather_wings:
+  slot: BACKPACK
+  permission: hmccosmetics.starfeather_wings
+  dyeable: true
+  item:
+    material: LEATHER_HORSE_ARMOR
+    model-id: mistbloom:starfeather_wings
+    color: '#fcf8ff'
+    name: <#c9b8ff>Starfeather Wings
+    lore:
+      - <gray>Soft pearl feathers with gold trim.
+      - <dark_gray>Back cosmetic, dyeable
+
+duskbat_wings:
+  slot: BACKPACK
+  permission: hmccosmetics.duskbat_wings
+  item:
+    material: PAPER
+    model-id: mistbloom:duskbat_wings
+    name: <#c9b8ff>Duskbat Wings
+    lore:
+      - <gray>Leathery bat wings with a red glow.
+      - <dark_gray>Back cosmetic
+
+frostlight_wings:
+  slot: BACKPACK
+  permission: hmccosmetics.frostlight_wings
+  item:
+    material: PAPER
+    model-id: mistbloom:frostlight_wings
+    name: <#c9b8ff>Frostlight Wings
+    lore:
+      - <gray>Wings made of glowing ice.
+      - <dark_gray>Back cosmetic
+
+bloomfairy_wings:
+  slot: BACKPACK
+  permission: hmccosmetics.bloomfairy_wings
+  item:
+    material: PAPER
+    model-id: mistbloom:bloomfairy_wings
+    name: <#c9b8ff>Bloomfairy Wings
+    lore:
+      - <gray>Shimmery fairy wings.
+      - <dark_gray>Back cosmetic
+
+nightwyrm_wings:
+  slot: BACKPACK
+  permission: hmccosmetics.nightwyrm_wings
+  item:
+    material: PAPER
+    model-id: mistbloom:nightwyrm_wings
+    name: <#c9b8ff>Nightwyrm Wings
+    lore:
+      - <gray>Dragon wings with green veins.
+      - <dark_gray>Back cosmetic
+
+petal_wings:
+  slot: BACKPACK
+  permission: hmccosmetics.petal_wings
+  item:
+    material: PAPER
+    model-id: mistbloom:petal_wings
+    name: <#c9b8ff>Mistbloom Petal Wings
+    lore:
+      - <gray>Night flower petals that softly glow.
+      - <dark_gray>Back cosmetic

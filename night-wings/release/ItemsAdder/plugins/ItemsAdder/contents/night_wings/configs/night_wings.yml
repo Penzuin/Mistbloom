@@ -1,0 +1,68 @@
+# Night Wings - ItemsAdder items
+
+info:
+  namespace: mistbloom
+
+items:
+  starfeather_wings:
+    display_name: '&dStarfeather Wings'
+    lore:
+      - '&7Soft pearl feathers with gold trim.'
+      - '&8Back cosmetic'
+    resource:
+      material: LEATHER_HORSE_ARMOR
+      generate: false
+      model_path: cosmetics/starfeather_wings
+    specific_properties:
+      leather_horse_armor:
+        color: 252,248,255
+
+  duskbat_wings:
+    display_name: '&dDuskbat Wings'
+    lore:
+      - '&7Leathery bat wings with a red glow.'
+      - '&8Back cosmetic'
+    resource:
+      material: PAPER
+      generate: false
+      model_path: cosmetics/duskbat_wings
+
+  frostlight_wings:
+    display_name: '&dFrostlight Wings'
+    lore:
+      - '&7Wings made of glowing ice.'
+      - '&8Back cosmetic'
+    resource:
+      material: PAPER
+      generate: false
+      model_path: cosmetics/frostlight_wings
+
+  bloomfairy_wings:
+    display_name: '&dBloomfairy Wings'
+    lore:
+      - '&7Shimmery fairy wings.'
+      - '&8Back cosmetic'
+    resource:
+      material: PAPER
+      generate: false
+      model_path: cosmetics/bloomfairy_wings
+
+  nightwyrm_wings:
+    display_name: '&dNightwyrm Wings'
+    lore:
+      - '&7Dragon wings with green veins.'
+      - '&8Back cosmetic'
+    resource:
+      material: PAPER
+      generate: false
+      model_path: cosmetics/nightwyrm_wings
+
+  petal_wings:
+    display_name: '&dMistbloom Petal Wings'
+    lore:
+      - '&7Night flower petals that softly glow.'
+      - '&8Back cosmetic'
+    resource:
+      material: PAPER
+      generate: false
+      model_path: cosmetics/petal_wings

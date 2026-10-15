@@ -1,0 +1,57 @@
+# Night Wings - Nexo items
+# These are only used by HMCCosmetics, you don't need to give them out.
+
+starfeather_wings:
+  itemname: <#c9b8ff>Starfeather Wings
+  lore:
+    - <gray>Soft pearl feathers with gold trim.
+    - <dark_gray>Back cosmetic, dyeable
+  material: LEATHER_HORSE_ARMOR
+  color: 252,248,255
+  Components:
+    item_model: mistbloom:starfeather_wings
+
+duskbat_wings:
+  itemname: <#c9b8ff>Duskbat Wings
+  lore:
+    - <gray>Leathery bat wings with a red glow.
+    - <dark_gray>Back cosmetic
+  material: PAPER
+  Components:
+    item_model: mistbloom:duskbat_wings
+
+frostlight_wings:
+  itemname: <#c9b8ff>Frostlight Wings
+  lore:
+    - <gray>Wings made of glowing ice.
+    - <dark_gray>Back cosmetic
+  material: PAPER
+  Components:
+    item_model: mistbloom:frostlight_wings
+
+bloomfairy_wings:
+  itemname: <#c9b8ff>Bloomfairy Wings
+  lore:
+    - <gray>Shimmery fairy wings.
+    - <dark_gray>Back cosmetic
+  material: PAPER
+  Components:
+    item_model: mistbloom:bloomfairy_wings
+
+nightwyrm_wings:
+  itemname: <#c9b8ff>Nightwyrm Wings
+  lore:
+    - <gray>Dragon wings with green veins.
+    - <dark_gray>Back cosmetic
+  material: PAPER
+  Components:
+    item_model: mistbloom:nightwyrm_wings
+
+petal_wings:
+  itemname: <#c9b8ff>Mistbloom Petal Wings
+  lore:
+    - <gray>Night flower petals that softly glow.
+    - <dark_gray>Back cosmetic
+  material: PAPER
+  Components:
+    item_model: mistbloom:petal_wings

@@ -1,0 +1,12 @@
+{
+ "model": {
+  "type": "minecraft:model",
+  "model": "mistbloom:cosmetics/starfeather_wings",
+  "tints": [
+   {
+    "type": "minecraft:dye",
+    "default": 16578815
+   }
+  ]
+ }
+}
