@@ -41,40 +41,27 @@ def autumn():
     return f
 
 
-PENNANT = [7, 7, 7, 5, 5, 3, 3, 1]     # row widths: a clean, centred point
-
-
 def bunting():
-    """Sagging string with dyeable pennants (non-neutral ramp) and little bat flags (coal, stays dark).
-    Every column of every flag starts on the row right under the string at that column, so each
-    flag's top edge follows the rope and sits flush against it - no gaps where the rope slopes."""
+    """Sagging string with dyeable pennants (non-neutral ramp) and little bat flags (coal, stays dark)."""
     def f(w, h, fc, key):
         img = _blank(w, h)
         sag = lambda x: int(round(1 + 2.2 * math.sin(math.pi * x / (w - 1))))
         n = 0
         for x0 in range(2, w - 6, 8):
+            top = sag(x0 + 3)
             bat = n % 2 == 1
-            for r, width in enumerate(PENNANT):
-                for x in range(x0 + (7 - width) // 2, x0 + (7 - width) // 2 + width):
-                    y = sag(x) + 1 + r
-                    if y >= h:
-                        continue
-                    edge = x in (x0, x0 + 6) or r >= len(PENNANT) - 2
-                    if bat:
-                        img[y, x] = T("coal", 3 if edge else 2)
-                    else:
-                        img[y, x] = T("fur", 2 if edge else 1)
-                        if x == x0 + (7 - width) // 2 and r < 3:
-                            img[y, x] = T("fur", 0)                               # lit left edge
-            if bat:                                                               # tiny gold bat
-                for (dx, dr) in ((1, 1), (5, 1), (2, 2), (3, 2), (4, 2), (3, 3)):
-                    x = x0 + dx
-                    y = sag(x) + 1 + dr
-                    if y < h:
-                        img[y, x] = T("gold", 1)
+            for y in range(top + 1, min(h, top + 9)):
+                half = (top + 9 - y) * 3.4 / 8
+                for x in range(x0, x0 + 7):
+                    if abs(x - (x0 + 3)) <= half:
+                        img[y, x] = T("coal", 2 if y < top + 7 else 3) if bat else T("fur", 1 if y < top + 7 else 2)
+            if bat and top + 3 < h:                                               # tiny bat cut-out
+                for (dx, dy) in ((1, 2), (2, 3), (3, 3), (4, 3), (5, 2), (3, 4)):
+                    img[top + dy, x0 + dx] = T("gold", 1)
             n += 1
-        for x in range(w):
-            img[sag(x), x] = T("cream", 3)                                        # the string
+        for x in range(w):                                                        # the string, one unbroken line:
+            a, b = sorted((sag(x), sag(max(0, x - 1))))                           # where it steps down a row, both
+            img[a:b + 1, x] = T("cream", 3)                                       # rows are filled so the pieces join
         return img
     return f
 

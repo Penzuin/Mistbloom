@@ -233,12 +233,19 @@ def skull():
 
 
 def jaw():
+    """Lower jaw: a soft shadow line where it meets the skull, then three neat teeth with thin
+    grey gaps (no black holes), mirrored so the middle tooth sits dead centre."""
     def f(w, h, fc, key):
         img = _blank(w, h)
         img[:, :] = T("bone", 2)
-        if fc == "north" and w >= 5:
-            img[0, :] = T("bone", 0)
-            img[0, 1:w - 1:2] = T("ebony", 4)                                     # teeth gaps
+        if fc == "north" and w >= 12 and h >= 4:
+            img[0, :] = T("bone", 3)                                              # where the jaw tucks under
+            img[1:3, 1:w - 1] = T("bone", 0)                                      # tooth row
+            for x in (1, 4, 7, 10):
+                img[1:3, x] = T("bone", 3)                                        # gaps between teeth
+            img[3, 1:w - 1] = T("bone", 3)                                        # shadow under the teeth
+        if fc == "up":
+            img[:, :] = T("bone", 1)
         return img
     return f
 
@@ -438,7 +445,7 @@ def skull_candle():
     m = Model("skull_candle")
     m.box([3, 0, 3], [13, 0.8, 13], solid("iron", 2))                            # iron dish
     m.box([4, 3, 4.5], [12, 10, 12], skull(), res=2)                             # cranium
-    m.box([5, 0.8, 4.2], [11, 3.4, 10], jaw())                                   # jaw
+    m.box([5, 0.8, 4.2], [11, 3.4, 10], jaw(), res=2)                                   # jaw
     m.box([3.6, 4.8, 5.5], [4.2, 7.5, 10], solid("bone", 2))                     # cheek bones
     m.box([11.8, 4.8, 5.5], [12.4, 7.5, 10], solid("bone", 2))
     m.box([6.5, 10, 7], [9.5, 14, 10], wax())                                    # candle on the crown
