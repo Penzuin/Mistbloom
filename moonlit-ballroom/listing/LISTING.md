@@ -44,7 +44,7 @@ You can use it on **one** server network that you own or run, and you can edit t
 
 ### Support
 
-Join the Mistbloom Studios Discord and open a ticket. [DISCORD LINK]
+Join the Mistbloom Studios Discord and open a ticket: https://discord.com/invite/QUJ8ntw7eS
 
 ---
 

@@ -17,7 +17,7 @@
 - [ ] Breaking a piece drops the piece back
 
 ## Listing
-- [ ] Read through LISTING.md. Fill in **[YOUR PRICE]** and **[DISCORD LINK]**.
+- [ ] Read through LISTING.md. Fill in **[YOUR PRICE]**.
 - [ ] Look at the thumbnail at small size and check the title is still readable
 - [ ] Trailer uploaded to YouTube (unlisted is fine) and linked
 - [ ] Seller name shows as "Mistbloom Studios"
