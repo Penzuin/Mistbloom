@@ -494,19 +494,47 @@ def spider_leg(tip_at_start=True):
     return f
 
 
+def leg_card():
+    """Flat spider legs, drawn pixel-exact and mirrored: on each side two jointed legs leave the
+    body, rise to a knee and come down to a violet foot. The middle is hidden behind the body."""
+    def line(img, p, q, col):
+        (x0, y0), (x1, y1) = p, q
+        n = max(abs(x1 - x0), abs(y1 - y0), 1)
+        for i in range(n + 1):
+            x = round(x0 + (x1 - x0) * i / n); y = round(y0 + (y1 - y0) * i / n)
+            for dx in (0, 1):                                            # 2 px thick so it reads in game
+                if 0 <= y < img.shape[0] and 0 <= x + dx < img.shape[1]:
+                    img[y, x + dx] = col
+    def f(w, h, fc, key):
+        img = _blank(w, h)
+        half = w // 2
+        legs = [((half - 4, 5), (half - 9, 0), (half - 13, 11)),        # (root, knee, foot) for the left side
+                ((half - 4, 7), (half - 11, 3), (half - 15, 13))]
+        for root, knee, foot in legs:
+            for mirror in (False, True):
+                mx = (lambda x: w - 1 - x) if mirror else (lambda x: x)
+                r, k, ft = [(mx(x), y) for x, y in (root, knee, foot)]
+                line(img, r, k, T("ebony", 4))                           # upper leg, catching light
+                line(img, k, ft, T("ebony", 5))                          # lower leg
+                img[k[1], k[0]] = T("ebony", 3)                          # knee
+                img[ft[1], ft[0]] = T("plum", 3)                         # violet foot
+                y2 = ft[1] - 1
+                x2 = ft[0] + (1 if not mirror else -1)
+                if 0 <= y2 < h and 0 <= x2 < w:
+                    img[y2, x2] = T("plum", 4)
+        return img
+    return f
+
+
 def hanging_spider():
-    """A round spider dangling on its thread: plump abdomen, head with eyes, eight legs fanned out
-    and angled down from the sides of the head (four each side, mirrored), two little fangs."""
+    """A round spider dangling on its thread: plump body with flat, crossed leg cards through it
+    (legs read from every side), a head with eyes in front and two little fangs."""
     m = Model("hanging_spider")
     m.card([7.75, 9, 9.5], [8.25, 16, 9.5], thread())                              # silk thread from the ceiling
-    m.box([5.5, 5.5, 7.6], [10.5, 9.5, 12.4], spider_body(), res=2)               # plump abdomen
+    m.box([5.5, 5.5, 7.6], [10.5, 9.5, 12.4], spider_body(), res=2)               # plump body
     m.box([6.3, 5.0, 4.4], [9.7, 7.8, 7.8], spider_head(), res=2)                 # head with eyes
-    for z in (8.3, 9.5, 10.7, 11.9):                                               # 4 legs a side, all from the big body
-        a = 45 if z in (8.3, 11.9) else 22.5
-        m.box([1.0, 6.6, z - 0.3], [6.4, 7.2, z + 0.3], spider_leg(True), res=2,
-              rot=("z", a, [6.0, 6.9, z]))                                         # left legs, rooted inside the body
-        m.box([9.6, 6.6, z - 0.3], [15.0, 7.2, z + 0.3], spider_leg(False), res=2,
-              rot=("z", -a, [10.0, 6.9, z]))                                       # right legs, mirrored
+    for a in (45, -45):                                                            # legs: two crossed flat cards
+        m.card([0.5, 2.5, 10], [15.5, 9.5, 10], leg_card(), res=2, rot=("y", a, [8, 6, 10]))
     m.box([7.1, 4.3, 4.1], [7.7, 5.0, 4.6], solid("bone", 1))                      # tiny fangs
     m.box([8.3, 4.3, 4.1], [8.9, 5.0, 4.6], solid("bone", 1))
     return m
