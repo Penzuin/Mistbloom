@@ -1,0 +1,280 @@
+[
+ {
+  "name": "t_koi",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "koi",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_leaping",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "leaping",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_lily",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "lily",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_pond",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "pond",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_stepping",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "stepping",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "s_pond",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "pond",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_school",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "school",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_koi_statue",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "koi statue",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_bowl",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "bowl",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_and_lily_pad",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "and lily pad",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_pads",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "pads",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_reeds",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "reeds",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_streamer",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "streamer",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_tea_table",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "tea table",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_bench",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "bench",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_folding_screen",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "folding screen",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_wall_plaque",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "wall plaque",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_stones",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "stones",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ }
+]
