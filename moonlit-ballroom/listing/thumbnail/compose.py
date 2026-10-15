@@ -15,6 +15,7 @@ FLOOR_EDGE = np.array([60, 42, 122])     # deeper violet towards the corners
 BAND = np.array([140, 122, 208])         # moonlight band
 SHADOW = (34, 22, 80)                    # shadows: floor colour pushed dark and cool
 SHADOW_A = 0.55
+NO_SHADOW = {"floating_candelabra_lit", "waltzing_ghosts"}   # user: these read better without one
 
 def background():
     y, x = np.mgrid[0:S, 0:S].astype(float)
@@ -54,6 +55,8 @@ def main(out="/root/thumb/moonlit-ballroom-thumbnail-hibiscus.png"):
         m, s = piece(name)
         xy = (int(cx - m.width / 2), int(by - m.height))
         placed.append((m, xy))
+        if name in NO_SHADOW:
+            continue
         sh = Image.new("RGBA", m.size, SHADOW + (0,))
         sh.putalpha(s.point(lambda v: int(v * SHADOW_A)))
         img.alpha_composite(sh, xy)
