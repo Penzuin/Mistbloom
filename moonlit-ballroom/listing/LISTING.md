@@ -1,46 +1,52 @@
 # Moonlit Ballroom | Waltzing Ghost Furniture for Nexo
 
 **Short tagline (one line under the title):**
-Six animated Halloween pieces for Nexo, led by a ghost couple who waltz all night.
+Friendly ghosts that waltz all night. 6 animated Halloween pieces for plain Nexo.
 
 ---
 
 ## Description
 
-Moonlit Ballroom is a Halloween starter set from Mistbloom Studios. The ghosts are friendly, with soft faces and a faint moonlit glow. A couple waltzes on a small dance floor, a pianist sways at the keys, and a little wisp floats nearby and blinks.
+The ballroom is closed, but the guests never left. 👻
 
-Every piece animates in plain Nexo, so you don't need ModelEngine or any other add-on.
+**Moonlit Ballroom** is a spooky-cute Halloween starter set from Mistbloom Studios. The ghosts here aren't scary. They waltz, play the piano and peek back at you, all lit by soft moonlight.
 
-### What's in the set
+Every piece is animated and works in **plain Nexo**. You don't need ModelEngine or any other add-on.
 
-- Waltzing Ghosts: a ghost couple turning a full waltz on a round dance floor. He wears a top hat and she has a violet flower in her hair.
-- Ghost Pianist: an upright piano, two blocks wide, with a ghost at the keys and music notes drifting up.
-- Floating Candelabra: three blue-flamed candles held up by a curl of ghost mist. Right-click to light or snuff it.
-- Ghost Lantern: a lantern with a small ghost living inside. Right-click to turn its glow on or off.
-- Portrait of Lady Wispwell: a wall portrait in a gilt frame, with candlelight flickering across the canvas.
-- Wisp: a small floating ghost that blinks.
+### What's inside (6 pieces)
 
-### Install
+- **Waltzing Ghosts:** a ghost couple turning a full waltz on a little moonlit dance floor. He wears a tiny top hat and she has a violet flower.
+- **Ghost Pianist:** an upright piano with a cheerful ghost at the keys and music notes drifting up. It's 2 blocks wide.
+- **Floating Candelabra:** three moonfire candles held up by a curl of ghost mist. Right-click to turn the light on and off.
+- **Ghost Lantern:** a tiny ghost living inside a lantern. Right-click to turn the light on and off.
+- **Portrait of Lady Wispwell:** a wall portrait in a gilt frame, with flickering candlelight across the canvas.
+- **Wisp:** a small floating ghost that blinks.
 
-Copy two folders into your Nexo plugin folder and run `/nexo reload all`. The README in the download has the exact paths. The pack uses its own `moonball` namespace and a single items file, so it won't clash with your other packs.
+### Features
+
+- 6 animated pieces, with no add-ons needed
+- 2 working light toggles (the candelabra and the lantern)
+- Right-click reactions
+- Clean, readable configs with one items file (`moonball.yml`) and its own namespace (`moonball`), so nothing clashes with your other packs
+- Easy install: copy two folders and run `/nexo reload all`
 
 ### Requirements
 
-Minecraft 1.21.4 or newer and Nexo. Nothing else.
+- Minecraft **1.21.4 or newer**
+- **Nexo** (no other plugins needed)
 
-### Before you buy
+### Good to know
 
-The animations are animated textures, so each piece always faces the way you placed it and looks flat from the side. That's how it runs without ModelEngine.
-
-The ballroom building in the trailer and screenshots was built for display and isn't part of the download. You get the six furniture pieces.
+- The animations are hand-drawn animated textures, so each piece faces the direction you place it. Seen from the side they look flat, which is the trade-off for running on plain Nexo with no ModelEngine.
+- The ballroom build in the trailer and screenshots is a **showcase only**. You get the 6 furniture pieces, not the building.
 
 ### License
 
-You can use it on one server network that you own or run, and you can edit the files for that server. You can't resell, share or redistribute it, or claim it as your own, edited or not.
+You can use it on **one** server network that you own or run, and you can edit the files for your own server. You may not resell, share or redistribute it, or claim it as your own, whether original or edited.
 
 ### Support
 
-Open a ticket in the Mistbloom Studios Discord: [DISCORD LINK]
+Join the Mistbloom Studios Discord and open a ticket. [DISCORD LINK]
 
 ---
 
@@ -53,7 +59,7 @@ Open a ticket in the Mistbloom Studios Discord: [DISCORD LINK]
 | Tags | halloween, ghost, furniture, nexo, animated, spooky, cute, ballroom, decoration |
 | Version | 0.1 (starter set) |
 | Supported versions | 1.21.4+ |
-| Price | [YOUR PRICE]. Suggested $5.99: it's a six-piece starter set, priced under Witching Hour's $8.99. Raise it if more ballroom pieces are added later. |
+| Price | [YOUR PRICE]. My suggestion is $5.99, since it's a 6-piece starter set priced below Witching Hour's $8.99. Raise it if more ballroom pieces are added later. |
 
 ## Gallery (upload in this order)
 
