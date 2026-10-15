@@ -1,4 +1,4 @@
-# Halloween market set by Mistbloom Studios
+# Halloween Festival by Mistbloom Studios
 # Nexo 1.28+ (furniture states, light lists and click actions).
 # Dyeable pieces: dye them like leather in a crafting table before placing, or change `color`.
 
@@ -65,13 +65,11 @@ hollowmere_cauldron:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=0.8} [sound] minecraft:block.brewing_stand.brew'
-        - '[actionbar] <#ffb15c>The brew bubbles and hisses...'
 
 hollowmere_scarecrow:
   itemname: <#ffb15c>Scarecrow
   lore:
   - <gray>A patched scarecrow with a crow friend.
-  - <gray>Three blocks tall.
   - <dark_gray>Halloween
   material: PAPER
   Components:
@@ -101,7 +99,6 @@ hollowmere_scarecrow:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=1.4} [sound] minecraft:entity.parrot.imitate.ravager'
-        - '[actionbar] <#ffb15c>Caw!'
 
 hollowmere_pumpkin_lamp:
   itemname: <#ffb15c>Pumpkin Lamp Post
@@ -142,7 +139,7 @@ hollowmere_pumpkin_lamp:
 hollowmere_potion_stall:
   itemname: <#ffb15c>Potion Stall
   lore:
-  - <gray>A 3-wide market stall for brews and charms.
+  - <gray>A market stall for brews and charms.
   - <gray>Sneak + right-click to change the awning.
   - <dark_gray>Halloween
   material: PAPER
@@ -189,7 +186,6 @@ hollowmere_hollow_arch:
   itemname: <#ffb15c>Halloween Arch
   lore:
   - <gray>A gnarled entrance arch with a hanging sign.
-  - <gray>Three wide, three tall.
   - <dark_gray>Halloween
   material: PAPER
   Components:
@@ -299,7 +295,8 @@ hollowmere_gourd_basket:
         step_sound: block.wood.step
         fall_sound: block.wood.fall
       hitbox:
-        interaction: 0,0,0 0.8,0.8
+        interactions:
+        - 0,0,0 0.75,0.75
 
 hollowmere_hay_bale_seat:
   itemname: <#ffb15c>Hay Bale Seat
@@ -328,7 +325,7 @@ hollowmere_hay_bale_seat:
         barriers:
         - 0,0,0
       seats:
-      - 0,0.4,0
+      - 0,-0.08,0
 
 hollowmere_haystack:
   itemname: <#ffb15c>Haystack
@@ -382,7 +379,9 @@ hollowmere_pumpkin_cart:
         wall: false
         roof: false
       hitbox:
-        interaction: 0,0,0 2.4,1
+        barriers:
+        - 0,0,0
+        - 1,0,0
 
 hollowmere_caramel_apple_tray:
   itemname: <#ffb15c>Caramel Apple Tray
@@ -403,18 +402,17 @@ hollowmere_caramel_apple_tray:
         step_sound: block.wood.step
         fall_sound: block.wood.fall
       hitbox:
-        interaction: 0,0,0 0.9,0.5
+        interactions:
+        - 0,0,0 0.85,0.5
       clickActions:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=1.2} [sound] minecraft:entity.generic.eat'
-        - '[actionbar] <#ffb15c>Sweet, sticky and crunchy.'
 
 hollowmere_cider_cask:
   itemname: <#ffb15c>Cider Cask
   lore:
   - <gray>A barrel of hot apple cider.
-  - <gray>Right-click to pour a cup.
   - <dark_gray>Halloween
   material: PAPER
   Components:
@@ -440,13 +438,12 @@ hollowmere_cider_cask:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=1.0} [sound] minecraft:item.bottle.fill'
-        - '[actionbar] <#ffb15c>You pour a cup of hot apple cider.'
 
 hollowmere_candy_bucket:
   itemname: <#ffb15c>Trick-or-Treat Bucket
   lore:
   - <gray>A jack-o'-lantern bucket full of sweets.
-  - <gray>Right-click to open (9 slots).
+  - <gray>Holds 9 items.
   - <dark_gray>Halloween
   material: PAPER
   Components:
@@ -462,7 +459,8 @@ hollowmere_candy_bucket:
         step_sound: block.wood.step
         fall_sound: block.wood.fall
       hitbox:
-        interaction: 0,0,0 0.9,0.8
+        interactions:
+        - 0,0,0 0.9,0.8
       storage:
         type: STORAGE
         rows: 1
@@ -503,7 +501,6 @@ hollowmere_spellbook_lectern:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=1.0} [sound] minecraft:item.book.page_turn'
-        - '[actionbar] <#ffb15c>The pages turn on their own...'
 
 hollowmere_crystal_ball:
   itemname: <#ffb15c>Crystal Ball
@@ -524,7 +521,8 @@ hollowmere_crystal_ball:
         step_sound: block.glass.step
         fall_sound: block.glass.fall
       hitbox:
-        interaction: 0,0,0 0.6,0.7
+        interactions:
+        - 0,0,0 0.65,0.65
       lights:
         toggleable: false
         lights:
@@ -533,13 +531,12 @@ hollowmere_crystal_ball:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=0.9} [sound] minecraft:block.amethyst_block.chime'
-        - '[actionbar] <#ffb15c>You see... more candy in your future.'
 
 hollowmere_potion_shelf:
   itemname: <#ffb15c>Potion Shelf
   lore:
   - <gray>A wall shelf of bottles and jars.
-  - <gray>Place it on a wall. Right-click to open (18 slots).
+  - <gray>Holds 18 items. Place it on a wall.
   - <dark_gray>Halloween
   material: PAPER
   Components:
@@ -559,7 +556,8 @@ hollowmere_potion_shelf:
         wall: true
         roof: false
       hitbox:
-        interaction: 0,0,0 1,1
+        interactions:
+        - 0,0,0 1,1
       storage:
         type: STORAGE
         rows: 2
@@ -586,7 +584,8 @@ hollowmere_potion_trio:
         step_sound: block.glass.step
         fall_sound: block.glass.fall
       hitbox:
-        interaction: 0,0,0 0.8,0.6
+        interactions:
+        - 0,0,0 0.75,0.55
       lights:
         toggleable: false
         lights:
@@ -617,7 +616,8 @@ hollowmere_witch_broom:
         wall: false
         roof: false
       hitbox:
-        interaction: 0,0,0 0.8,2
+        interactions:
+        - 0,0,0 0.75,2.2
 
 hollowmere_witch_hat_stand:
   itemname: <#ffb15c>Witch Hat Stand
@@ -666,7 +666,8 @@ hollowmere_candle_cluster:
         step_sound: block.wood.step
         fall_sound: block.wood.fall
       hitbox:
-        interaction: 0,0,0 0.7,0.8
+        interactions:
+        - 0,0,0 0.65,0.75
       lights:
         toggleable: false
         lights:
@@ -758,7 +759,7 @@ hollowmere_coffin:
   itemname: <#ffb15c>Coffin
   lore:
   - <gray>A lidded coffin with a pumpkin on top.
-  - <gray>Right-click to open (27 slots).
+  - <gray>Holds 27 items.
   - <dark_gray>Halloween
   material: PAPER
   Components:
@@ -808,7 +809,8 @@ hollowmere_ghost_lantern:
         step_sound: block.lantern.step
         fall_sound: block.lantern.fall
       hitbox:
-        interaction: 0,0,0 0.5,1
+        interactions:
+        - 0,0,0 0.45,0.9
       lights:
         toggleable: true
         toggled_item_model: hollowmere:ghost_lantern_lit
@@ -838,7 +840,8 @@ hollowmere_mushroom_ring:
         wall: false
         roof: false
       hitbox:
-        interaction: 0,0,0 1,0.4
+        interactions:
+        - 0,0,0 0.9,0.4
       lights:
         toggleable: false
         lights:
@@ -865,12 +868,12 @@ hollowmere_black_cat:
         step_sound: block.wood.step
         fall_sound: block.wood.fall
       hitbox:
-        interaction: 0,0,0 0.7,0.9
+        interactions:
+        - 0,0,0 0.65,0.95
       clickActions:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=1.0} [sound] minecraft:entity.cat.purr'
-        - '[actionbar] <#ffb15c>Purrrr...'
 
 hollowmere_owl_perch:
   itemname: <#ffb15c>Owl Perch
@@ -902,12 +905,11 @@ hollowmere_owl_perch:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=0.6} [sound] minecraft:entity.parrot.ambient'
-        - '[actionbar] <#ffb15c>Hoo!'
 
 hollowmere_crow_post:
   itemname: <#ffb15c>Crow Post
   lore:
-  - <gray>Two crows on a fence post.
+  - <gray>A crow perched on a post.
   - <dark_gray>Halloween
   material: PAPER
   Components:
@@ -933,7 +935,6 @@ hollowmere_crow_post:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=1.4} [sound] minecraft:entity.parrot.imitate.ravager'
-        - '[actionbar] <#ffb15c>Caw! Caw!'
 
 hollowmere_cobweb_corner:
   itemname: <#ffb15c>Corner Cobweb
@@ -959,7 +960,8 @@ hollowmere_cobweb_corner:
         wall: true
         roof: false
       hitbox:
-        interaction: 0,0,0 1,1
+        interactions:
+        - 0,0,0 1,1
 
 hollowmere_hanging_spider:
   itemname: <#ffb15c>Hanging Spider
@@ -985,7 +987,8 @@ hollowmere_hanging_spider:
         wall: false
         roof: true
       hitbox:
-        interaction: 0,0,0 0.6,0.8
+        interactions:
+        - 0,0,0 0.6,0.85
 
 hollowmere_skull_candle:
   itemname: <#ffb15c>Skull Candle
@@ -1006,7 +1009,8 @@ hollowmere_skull_candle:
         step_sound: block.stone.step
         fall_sound: block.stone.fall
       hitbox:
-        interaction: 0,0,0 0.6,1
+        interactions:
+        - 0,0,0 0.65,1.05
       lights:
         toggleable: false
         lights:
@@ -1040,12 +1044,12 @@ hollowmere_cushion_stool:
         barriers:
         - 0,0,0
       seats:
-      - 0,0.4,0
+      - 0,0.16,0
 
 hollowmere_bat_bunting:
   itemname: <#ffb15c>Bat Bunting
   lore:
-  - <gray>A 3-wide string of pennants and bats.
+  - <gray>A string of pennants and bats.
   - <gray>Dyeable pennants.
   - <dark_gray>Halloween
   material: LEATHER_HORSE_ARMOR
@@ -1063,7 +1067,10 @@ hollowmere_bat_bunting:
         step_sound: block.wood.step
         fall_sound: block.wood.fall
       hitbox:
-        interaction: 0,0,0 3,1
+        interactions:
+        - -1,0.25,0 1,0.75
+        - 0,0.25,0 1,0.75
+        - 1,0.25,0 1,0.75
 
 hollowmere_welcome_sign:
   itemname: <#ffb15c>Welcome Signpost
@@ -1123,4 +1130,5 @@ hollowmere_harvest_wreath:
         wall: true
         roof: false
       hitbox:
-        interaction: 0,0,0 0.9,0.9
+        interactions:
+        - 0,0,0 0.9,0.9
