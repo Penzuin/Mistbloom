@@ -27,7 +27,9 @@ moonball_waltzing_ghosts:
       hitbox:
         interaction: 0,0,0 1.4,1.8
       lights:
-        light: 0,0,0 8
+        toggleable: false
+        lights:
+        - 0,0,0 8
       clickActions:
       - conditions: []
         actions:
@@ -62,7 +64,9 @@ moonball_ghost_piano:
         - 0,0,0
         - 1,0,0
       lights:
-        light: 0,0,0 6
+        toggleable: false
+        lights:
+        - 0,1,0 6
       clickActions:
       - conditions: []
         actions:
@@ -94,7 +98,8 @@ moonball_floating_candelabra:
       lights:
         toggleable: true
         toggled_item_model: moonball:floating_candelabra_lit
-        light: 0,1,0 13
+        lights:
+        - 0,1,0 13
 
 moonball_ghost_lantern:
   itemname: <#c9b8f0>Ghost Lantern
@@ -120,7 +125,8 @@ moonball_ghost_lantern:
       lights:
         toggleable: true
         toggled_item_model: moonball:ghost_lantern_lit
-        light: 0,0,0 12
+        lights:
+        - 0,0,0 12
 
 moonball_ghost_portrait:
   itemname: <#c9b8f0>Portrait of Lady Wispwell
@@ -175,7 +181,9 @@ moonball_wisp:
       hitbox:
         interaction: 0,0,0 0.6,0.9
       lights:
-        light: 0,0,0 6
+        toggleable: false
+        lights:
+        - 0,0,0 6
       clickActions:
       - conditions: []
         actions:

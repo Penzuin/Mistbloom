@@ -432,7 +432,10 @@ def write_datapack(root):
                         "min_format": 1, "max_format": 9999, "supported_formats": [1, 9999]}},
               open(os.path.join(root, "pack.mcmeta"), "w"), indent=1)
     island(); gardens(); manor_shell(); foyer(); ballroom(); furniture()
-    open(os.path.join(fdir, "build.mcfunction"), "w").write("\n".join(cmds) + "\n")
+    parts = [cmds[i:i + 3000] for i in range(0, len(cmds), 3000)]     # panel upload limit ~1 MB per file
+    for k, part in enumerate(parts):
+        open(os.path.join(fdir, f"build_{k}.mcfunction"), "w").write("\n".join(part) + "\n")
+    open(os.path.join(fdir, "build.mcfunction"), "w").write("\n".join(f"function moonball:build_{k}" for k in range(len(parts))) + "\n")
     open(os.path.join(fdir, "furniture.mcfunction"), "w").write("\n".join(place) + "\n")
     open(os.path.join(fdir, "tick.mcfunction"), "w").write("\n".join(tick_function()) + "\n")
     open(os.path.join(fdir, "load.mcfunction"), "w").write("scoreboard objectives add moonball dummy\n")

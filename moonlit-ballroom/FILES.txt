@@ -36,6 +36,14 @@ pack/README.md
 showcase-datapack/data/minecraft/tags/function/load.json
 showcase-datapack/data/minecraft/tags/function/tick.json
 showcase-datapack/data/moonball/function/build.mcfunction
+showcase-datapack/data/moonball/function/build_0.mcfunction
+showcase-datapack/data/moonball/function/build_1.mcfunction
+showcase-datapack/data/moonball/function/build_2.mcfunction
+showcase-datapack/data/moonball/function/build_3.mcfunction
+showcase-datapack/data/moonball/function/build_4.mcfunction
+showcase-datapack/data/moonball/function/build_5.mcfunction
+showcase-datapack/data/moonball/function/build_6.mcfunction
+showcase-datapack/data/moonball/function/build_7.mcfunction
 showcase-datapack/data/moonball/function/furniture.mcfunction
 showcase-datapack/data/moonball/function/load.mcfunction
 showcase-datapack/data/moonball/function/music/b0.mcfunction

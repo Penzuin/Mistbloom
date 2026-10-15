@@ -22,7 +22,7 @@ SPEC = {
         interaction=(1.4, 1.8), light=((0, 0, 0), 8),
         click=("minecraft:block.amethyst_block.chime", 1.2, "The ghosts give you a little bow and keep on dancing.")),
     "ghost_piano": S("Ghost Pianist", ["An upright piano with a cheerful", "ghost at the keys. Right-click to listen."],
-        barriers=[(0, 0, 0), (1, 0, 0)], light=((0, 0, 0), 6),
+        barriers=[(0, 0, 0), (1, 0, 0)], light=((0, 1, 0), 6),
         click=("minecraft:block.note_block.harp", 0.8, "A soft waltz drifts through the hall.")),
     "floating_candelabra": S("Floating Candelabra", ["Three moonfire candles held up", "by a curl of ghost mist.", "Right-click to light or snuff."],
         interaction=(0.6, 1.5), light=((0, 1, 0), 13), toggle="floating_candelabra_lit", sound="metal", place="any"),
@@ -53,9 +53,10 @@ def nexo_yaml():
         f["hitbox"] = {"barriers": [_off(b) for b in s["barriers"]]} if s["barriers"] else \
                       {"interaction": f"0,0,0 {s['interaction'][0]},{s['interaction'][1]}"}
         if s["light"]:
-            l = {"light": f"{_off(s['light'][0])} {s['light'][1]}"}
+            l = {"toggleable": bool(s["toggle"])}
             if s["toggle"]:
-                l = {"toggleable": True, "toggled_item_model": f"{NS}:{s['toggle']}", **l}
+                l["toggled_item_model"] = f"{NS}:{s['toggle']}"
+            l["lights"] = [f"{_off(s['light'][0])} {s['light'][1]}"]
             f["lights"] = l
         if s["click"]:
             snd, pitch, msg = s["click"]
