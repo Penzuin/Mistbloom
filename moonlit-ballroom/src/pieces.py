@@ -177,6 +177,26 @@ RING = art([
 
 
 # ------------------------------------------------------------------ pieces
+def _clean_waltz(w, h, k):
+    """The waltz sprite with its glow kept off the card's edges: the faint glow wash used to reach
+    the bottom edge, and where the card met the floor it drew a straight pale line in game.
+    Very faint wash is dropped, and the bottom rows and side columns fade to fully clear."""
+    img = S.waltz(w, h, k).copy()
+    a = img[..., 3].astype(float)
+    a[a < 14] = 0                                   # stray wash, invisible anyway except as a line
+    fade = np.ones(h)
+    rows = 5
+    fade[h - rows:] = np.linspace(1, 0, rows + 1)[1:]   # bottom edge fades out
+    a *= fade[:, None]
+    cols = 2
+    side = np.ones(w)
+    side[:cols] = np.linspace(0, 1, cols + 1)[:-1]
+    side[w - cols:] = np.linspace(1, 0, cols + 1)[1:]
+    a *= side[None, :]
+    img[..., 3] = a.astype(np.uint8)
+    return img
+
+
 def waltzing_ghosts():
     m = Model("waltzing_ghosts")
     # round-ish dance floor: three flush boxes at one height, no overlap (an overlapping second slab
@@ -185,7 +205,7 @@ def waltzing_ghosts():
     m.box([0, 0, -3], [16, 1, 0], parquet(0, -3), faces=("north", "east", "west", "up", "down"))
     m.box([0, 0, 16], [16, 1, 19], parquet(0, 16), faces=("south", "east", "west", "up", "down"))
     m.card([-2, 1.15, -2], [18, 1.15, 18], sprite(S.wisp_ring), emit=10, res=2) # sparkle circle
-    m.card([-3, 0.6, 8], [19, 28.6, 8], sprite(S.waltz), emit=12, res=2.25)     # the dancing couple
+    m.card([-3, 1.2, 8], [19, 29.2, 8], sprite(_clean_waltz), emit=12, res=2.25)  # the dancing couple, standing just above the floor
     return m
 
 
