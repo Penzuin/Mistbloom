@@ -14,33 +14,29 @@ BSILVER = solid("blacksilver", 2)
 
 # ------------------------------------------------------------------ painters
 def gilt(side="top"):
-    """Gilded moulding lit from the top-left. Front face: outer edge catches light on the top and left
-    bars and falls dark on the right and bottom; the inner lip next to the picture is always the darkest
-    line; a bead row runs along the middle. Edge faces follow the same light (top/left lit, bottom/right dark)."""
-    base = {"top": 1.0, "left": 1.4, "right": 2.3, "bottom": 2.6}[side]
-    outer = {"top": 0.0, "left": 0.4, "right": 2.9, "bottom": 3.0}[side]
-    edge = {"up": 0.6, "west": 1.3, "east": 2.6, "down": 3.0, "south": 2.8}
+    """Gilded moulding with the same bevel on all four sides, so the frame reads symmetrical:
+    a bright outer edge, the gold field with a bead row down the middle, and a dark inner lip."""
+    edge = {"up": 1.0, "down": 2.6, "east": 1.8, "west": 1.8, "south": 2.6}
     def f(w, h, face, key):
         img = _blank(w, h)
         if face != "north":
-            img[:, :] = T("gold", edge.get(face, 2.0))
+            img[:, :] = T("gold", edge.get(face, 1.8))
             return img
         horiz = side in ("top", "bottom")
         L, Tn = (w, h) if horiz else (h, w)
         for t in range(Tn):
-            # t runs from the outer edge (0) to the inner lip (Tn-1), whatever the bar
             for l in range(L):
                 if t == 0:
-                    tone = outer
+                    tone = 0.3
                 elif t == Tn - 1:
                     tone = 3.0
                 elif Tn > 3 and t == Tn // 2:
-                    tone = base - 0.6 if (l % 3) else base + 0.6
+                    tone = 1.0 if (l % 3) else 2.2
                 else:
-                    tone = base
+                    tone = 1.6
                 tt = t if side in ("top", "left") else Tn - 1 - t
                 x, y = (l, tt) if horiz else (tt, l)
-                img[y, x] = T("gold", min(3.0, max(0.0, tone)))
+                img[y, x] = T("gold", tone)
         return img
     return f
 
@@ -193,8 +189,8 @@ def ghost_piano():
     m.box([1, 10, 1.5], [31, 12, 6], wood("ebony"), over={"up": keys()}, res=1) # keybed + keys
     m.box([2, 0, 2], [4, 10, 4], EBONY)                                         # front legs
     m.box([28, 0, 2], [30, 10, 4], EBONY)
-    m.box([8, 13, 3.4], [24, 13.75, 6], wood("ebony"), res=2)                        # music rest ledge above the keys
-    m.card([9.5, 13.75, 4.0], [22.5, 19.0, 4.0], SHEET, rot=("x", 22.5, [16, 13.75, 4.0]), res=2)  # sheet music, leaning back
+    m.box([9, 13, 5.1], [23, 13.6, 6], wood("ebony"), res=2)                         # slim music rest against the case
+    m.card([9.5, 13.6, 5.5], [22.5, 18.6, 5.5], SHEET, res=2)                         # sheet music standing on the rest  # sheet music, leaning back
     m.box([8, 0, -7], [24, 5, -1], panel("ebony", front=("north", "east", "west")))   # bench
     m.box([7.5, 5, -7.5], [24.5, 6.5, -0.5], velvet())                          # bench cushion
     m.card([7, 6, -4], [25, 24, -4], sprite(S.pianist), emit=12, res=2)          # the pianist
@@ -250,13 +246,26 @@ def ghost_portrait():
     return m
 
 
-HEM = art([
+HEM_ROWS = [
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     ".aa..aaa..aaa.aa",
     "..a...a....a..a.",
-], {"a": ("ivory", 0, 228)})
+]
+
+def HEM(w, h, face, key):
+    """Scalloped hem painted in the same moonlit body colour as the wisp (matches the bottom of the body)."""
+    img = _blank(w, h)
+    col = (np.array(S.BODY) * 0.85 + np.array(S.SHADE) * 0.15).astype(int)
+    ah, aw = len(HEM_ROWS), len(HEM_ROWS[0])
+    mirror = face in ("south", "west", "down")
+    for y in range(h):
+        for x in range(w):
+            sx = int(x * aw / w)
+            if HEM_ROWS[int(y * ah / h)][aw - 1 - sx if mirror else sx] != ".":
+                img[y, x] = (*col, 228)
+    return img
 
 
 def wisp():
