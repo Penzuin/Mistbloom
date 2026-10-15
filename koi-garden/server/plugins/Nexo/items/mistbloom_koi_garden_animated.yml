@@ -1,19 +1,16 @@
-# Mistbloom - Koi Garden (animated add-on)
-# Works alongside the base set; nothing here replaces it.
+# Mistbloom - Koi Garden, animated pieces (ModelEngine)
 
 koi_pond_animated:
-  itemname: "<#f2e6cc>Koi Pond Basin (rippling)"
+  itemname: "<#f2e6cc>Koi Pond Basin (animated)"
   material: PAPER
   lore:
-    - "<gray>Water ripples. Add the Swimming Koi Pair for fish."
+    - "<gray>Two koi circle under the rippling water."
     - "<#9fb3d9>Koi Garden"
   Components:
     item_model: mistbloom:koi_garden_animated/koi_pond_animated
   Mechanics:
     furniture:
-      properties:
-        display_transform: NONE
-      rotatable: true
+      modelengine_id: mistbloom_koi_pond_animated
       limited_placing:
         floor: true
         wall: false
@@ -26,18 +23,16 @@ koi_pond_animated:
           - 1,0,1
 
 koi_bowl_animated:
-  itemname: "<#f2e6cc>Koi Bowl (rippling)"
+  itemname: "<#f2e6cc>Koi Bowl (animated)"
   material: PAPER
   lore:
-    - "<gray>Water ripples. Add the Bowl Koi for fish."
+    - "<gray>Two little koi swim round the bowl."
     - "<#9fb3d9>Koi Garden"
   Components:
     item_model: mistbloom:koi_garden_animated/koi_bowl_animated
   Mechanics:
     furniture:
-      properties:
-        display_transform: NONE
-      rotatable: true
+      modelengine_id: mistbloom_koi_bowl_animated
       limited_placing:
         floor: true
         wall: false
@@ -47,18 +42,16 @@ koi_bowl_animated:
           - 0,0,0
 
 koi_statue_animated:
-  itemname: "<#f2e6cc>Koi Splash Statue"
+  itemname: "<#f2e6cc>Leaping Koi Statue (animated)"
   material: PAPER
   lore:
-    - "<gray>The splash, waiting for its Leaping Koi."
+    - "<gray>The koi rocks on its splash, tail swishing."
     - "<#9fb3d9>Koi Garden"
   Components:
     item_model: mistbloom:koi_garden_animated/koi_statue_animated
   Mechanics:
     furniture:
-      properties:
-        display_transform: NONE
-      rotatable: true
+      modelengine_id: mistbloom_koi_statue_animated
       limited_placing:
         floor: true
         wall: false
@@ -67,6 +60,45 @@ koi_statue_animated:
         barriers:
           - 0,0,0
           - 0,1,0
+
+koi_streamer_animated:
+  itemname: "<#f2e6cc>Koi Streamer (animated)"
+  material: PAPER
+  lore:
+    - "<gray>Koi windsocks flapping in the wind."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden/koi_streamer
+  Mechanics:
+    furniture:
+      modelengine_id: mistbloom_koi_streamer_animated
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        barriers:
+          - 0,0,0
+          - 0,1,0
+
+koi_school:
+  itemname: "<#f2e6cc>Koi School"
+  material: PAPER
+  lore:
+    - "<gray>Three koi swimming in a slow circle. Set it in any pond."
+    - "<#9fb3d9>Koi Garden"
+  Components:
+    item_model: mistbloom:koi_garden_animated/koi_school
+  Mechanics:
+    furniture:
+      modelengine_id: mistbloom_koi_school
+      limited_placing:
+        floor: true
+        wall: false
+        roof: false
+      hitbox:
+        interactions:
+          - 0,0,0 1,0.4
 
 koi_table_animated:
   itemname: "<#f2e6cc>Koi Pool Tea Table (rippling)"
