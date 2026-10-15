@@ -30,8 +30,8 @@ def background():
         img = np.where(m, img * (1 - a) + BAND * a, img)
     return Image.fromarray(img.astype(np.uint8)).convert("RGBA")
 
-def piece(name):
-    m = Image.open(f"{R}/{name}.png")
+def piece(name, frame=None):
+    m = Image.open(f"{R}/{name}.png" if frame is None else f"{R}/{name}_f{frame}.png")
     s = Image.open(f"{R}/{name}_shadow.png")
     f = SCALE / SS
     size = (round(m.width * f), round(m.height * f))
@@ -47,7 +47,7 @@ LAYOUT = [
     ("wisp",                    742, 712),
 ]
 
-def main(out="/root/thumb/moonlit-ballroom-thumbnail-hibiscus.png"):
+def main(out="/root/thumb/moonlit-ballroom-thumbnail-hibiscus.png", frame=None):
     img = background()
     # centre the group of pieces on the canvas (shadows ignored: they trail off to the right)
     boxes = []
@@ -60,7 +60,7 @@ def main(out="/root/thumb/moonlit-ballroom-thumbnail-hibiscus.png"):
     # every shadow first, so no shadow falls on top of a piece
     placed = []
     for name, cx, by in LAYOUT:
-        m, s = piece(name)
+        m, s = piece(name, frame)
         xy = (int(cx - m.width / 2) + dx, int(by - m.height))
         placed.append((m, xy))
         if name in NO_SHADOW:
@@ -75,9 +75,34 @@ def main(out="/root/thumb/moonlit-ballroom-thumbnail-hibiscus.png"):
     tw = 780
     t = t.resize((tw, round(t.height * tw / t.width)), Image.LANCZOS)
     img.alpha_composite(t, ((S - tw) // 2, S - t.height - 34))
+    if out is None:
+        return img.convert("RGB")
     print("shifted right by", dx, "px")
     img.convert("RGB").save(out)
     return out
 
+def animate(gif="/root/thumb/moonlit-ballroom-thumbnail-animated.gif", webp="/root/thumb/moonlit-ballroom-thumbnail-animated.webp"):
+    """8-frame loop at the in-game speed (3 ticks = 150 ms a frame)."""
+    frames = [main(out=None, frame=k) for k in range(8)]
+    frames[0].save(webp, save_all=True, append_images=frames[1:], duration=150, loop=0, lossless=False, quality=92, method=6)
+    # one shared palette for every frame so the background doesn't shimmer
+    strip = Image.new("RGB", (S, S * 8))
+    for k, f in enumerate(frames):
+        strip.paste(f, (0, S * k))
+    pal = strip.quantize(colors=256, method=Image.Quantize.MEDIANCUT)
+    g = [f.quantize(palette=pal, dither=Image.Dither.FLOYDSTEINBERG) for f in frames]
+    # pixels that don't really change keep frame 0's exact palette index, so dither can't shimmer
+    import numpy as np
+    base_rgb, base_idx = np.array(frames[0]).astype(int), np.array(g[0])
+    for k in range(1, len(g)):
+        same = np.abs(np.array(frames[k]).astype(int) - base_rgb).sum(2) == 0
+        idx = np.array(g[k]); idx[same] = base_idx[same]
+        im = Image.fromarray(idx, "P"); im.putpalette(g[0].getpalette()); g[k] = im
+    g[0].save(gif, save_all=True, append_images=g[1:], duration=150, loop=0, optimize=False, disposal=1)
+    return gif, webp
+
 if __name__ == "__main__":
+    import sys
     print(main())
+    if "--animate" in sys.argv:
+        print(animate())

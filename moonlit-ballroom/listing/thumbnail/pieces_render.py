@@ -107,6 +107,9 @@ if __name__ == "__main__":
     for name, m in picks.items():
         floor = min(min(e["from"][1], e["to"][1]) for e in m.elements)
         floor = min(floor, 0.0)
-        mod, sh = render_piece(m, frame=0, floor=floor)
-        mod.save(f"{out}/{name}.png"); sh.save(f"{out}/{name}_shadow.png")
+        for k in range(E.NFRAMES):                      # every animation frame (geometry is fixed, textures move)
+            mod, sh = render_piece(m, frame=k, floor=floor)
+            mod.save(f"{out}/{name}_f{k}.png")
+            if k == 0:
+                mod.save(f"{out}/{name}.png"); sh.save(f"{out}/{name}_shadow.png")
         print(name, mod.size, "floor", floor)
