@@ -409,42 +409,43 @@ def belt():
 
 
 def grimoire():
-    """Hangs from a belt on the front-left of the thigh, tilted on its strap. Back slot, so it
-    follows the body and not the arm. Authored in player pixels; the back slot sits 10 px lower."""
+    """Hangs from the side of a belt on the left hip, cover facing out, tilted back on its strap.
+    Back slot, so it follows the body and not the arm. Authored in player pixels; the back slot
+    sits 10 px lower. The arm ends at y -11, so the book starts below it and never touches it."""
     m = Model("grimoire", "back", scale=1.0)
     Y = 10.0                                     # player y -> back-slot model y
-    hook = (3.0, -11.1 + Y, 1.6)
-    rot = ("z", 22.5, hook)
+    hook = (-0.2, -12.9 + Y, 6.2)
+    rot = ("x", 22.5, hook)
     cov = art(COVER, {"g": ("brass", 2), "s": ("brass", 1)}, back=fabric("cover", 2, seed=21, rim=False))
-    x0, x1, y0, y1 = 1.2, 4.8, -16.4 + Y, -11.4 + Y
-    m.b((x0, y0, 1.0), (x1, y1, 1.35), cov, rot=rot, tpp=K)
-    m.b((x0, y0, 1.85), (x1, y1, 2.2), cov, rot=rot, tpp=K)
-    m.b((x0, y0, 1.0), (x0 + 0.4, y1, 2.2), fabric("cover", 2, seed=22), rot=rot, tpp=K)
-    nm(m, "cover_front", "cover_back", "spine")
+    z0, z1, y0, y1 = 4.4, 8.0, -17.9 + Y, -12.9 + Y
+    m.b((-0.9, y0, z0), (-0.55, y1, z1), cov, rot=rot, tpp=K)      # outer cover
+    m.b((0.15, y0, z0), (0.5, y1, z1), cov, rot=rot, tpp=K)        # cover against the leg
+    m.b((-0.9, y0, z1 - 0.4), (0.5, y1, z1), fabric("cover", 2, seed=22), rot=rot, tpp=K)
+    nm(m, "cover_outer", "cover_inner", "spine")
 
     def pages(W, H, face, key):
         img = _blank(W, H)
         for yy in range(H):
             for xx in range(W):
                 t = face_tone(face, 1)
-                if face in ("east", "up", "down") and (xx if face == "east" else yy) % 2 == 1:
+                if face in ("north", "up", "down") and (xx if face == "north" else yy) % 2 == 1:
                     t += 1
                 img[yy, xx] = T("page", t)
         return img
-    m.b((x0 + 0.4, y0 + 0.2, 1.35), (x1 - 0.15, y1 - 0.2, 1.85), pages, rot=rot, tpp=K)
+    m.b((-0.55, y0 + 0.2, z0 + 0.15), (0.15, y1 - 0.2, z1 - 0.4), pages, rot=rot, tpp=K)
     nm(m, "pages")
     c = metal("brass", 1)
-    m.b((x1 - 0.7, y1 - 0.6, 0.9), (x1 + 0.1, y1 + 0.1, 2.3), c, rot=rot, tpp=K)
-    m.b((x1 - 0.7, y0 - 0.1, 0.9), (x1 + 0.1, y0 + 0.6, 2.3), c, rot=rot, tpp=K)
+    m.b((-1.05, y1 - 0.6, z0 - 0.1), (0.65, y1 + 0.1, z0 + 0.7), c, rot=rot, tpp=K)
+    m.b((-1.05, y0 - 0.1, z0 - 0.1), (0.65, y0 + 0.6, z0 + 0.7), c, rot=rot, tpp=K)
     nm(m, "corner_top", "corner_bottom")
-    m.b((x1 - 0.2, (y0 + y1) / 2 - 0.55, 0.95), (x1 + 0.25, (y0 + y1) / 2 + 0.55, 2.25),
+    m.b((-1.0, (y0 + y1) / 2 - 0.55, z0 - 0.25), (0.6, (y0 + y1) / 2 + 0.55, z0 + 0.2),
         fabric("band", 3, seed=25), rot=rot, tpp=K)
     nm(m, "clasp_strap")
-    mx, my = (x0 + x1) / 2 - 0.15, (y0 + y1) / 2
-    m.c((mx - 1.25, my - 1.25, 0.95), (mx + 1.25, my + 1.25, 0.95), moon_card(), emit=12, rot=rot, tpp=K)
+    mz, my = (z0 + z1) / 2 - 0.15, (y0 + y1) / 2
+    m.c((-0.95, my - 1.25, mz - 1.25), (-0.95, my + 1.25, mz + 1.25), moon_card(), emit=12, rot=rot, tpp=K)
     nm(m, "moon_clasp")
-    # strap from the book up to the belt, and the belt itself
-    m.b((2.7, -11.5 + Y, 1.55), (3.3, -10.5 + Y, 2.0), metal("leather", 1), tpp=K)
+    # strap from the side of the belt down to the book, and the belt itself
+    m.b((-0.45, -13.2 + Y, 5.95), (0.35, -10.6 + Y, 6.45), metal("leather", 1), tpp=K)
     m.b((0.6, -11.3 + Y, 2.55), (9.4, -10.5 + Y, 7.45), belt(), tpp=K)
     nm(m, "belt_strap", "belt")
     return m
@@ -559,7 +560,7 @@ PIECES = [
     ("witch_hat", "Moonlit Witch Hat", "HELMET", "A tall witch hat with a glowing crescent pin.", witch_hat),
     ("candle_crown", "Candle Crown", "HELMET", "A brass circlet of dripping candles.", candle_crown),
     ("ghostlight_lantern", "Ghostlight Lantern", "OFFHAND", "A sleepy ghost glowing in a lantern.", ghostlight_lantern),
-    ("grimoire", "Moon Grimoire", "BACKPACK", "A spellbook that hangs from your belt.", grimoire),
+    ("grimoire", "Moon Grimoire", "BACKPACK", "A spellbook that hangs at your hip.", grimoire),
     ("wisp", "Wisp", "BALLOON", "A little ghost that floats beside you.", wisp),
     ("moonlit_broom", "Moonlit Broom", "BACKPACK", "A broom with a lantern hanging off the end.", moonlit_broom),
 ]

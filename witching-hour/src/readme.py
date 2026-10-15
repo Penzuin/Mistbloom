@@ -53,7 +53,7 @@ into your server's `plugins` folder. Let it merge with what's already there.
   Head and change the Y translation.
 - **The lantern sits oddly in the hand:** same place, but pick Third Person Left Hand. It ships
   with the handle in the fist; move it with the translation values.
-- **The grimoire:** it hangs from a belt on the left thigh using the back slot, so it moves with
+- **The grimoire:** it hangs from the side of a belt on the left hip using the back slot, so it moves with
   the body, not the arm. Legs can brush through it a little mid-stride, like any hip cosmetic.
 - **Still stuck?** Message me with your server version, HMCCosmetics version, which items
   plugin you use and a screenshot, and I'll help you out.

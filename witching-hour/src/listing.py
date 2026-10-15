@@ -14,7 +14,7 @@ CHIPS = {
     "witch_hat": ["Glowing moon pin", "Twinkling star charm", "Wide brim"],
     "candle_crown": ["5 flickering candles", "Amethyst studs"],
     "ghostlight_lantern": ["Glowing ghost", "Hangs from your hand"],
-    "grimoire": ["Hangs from a belt", "Glowing moon clasp"],
+    "grimoire": ["Hangs at your hip", "Glowing moon clasp"],
     "wisp": ["Floats beside you", "No ModelEngine needed"],
     "moonlit_broom": ["Glowing lantern", "Ribbon bow"],
 }
