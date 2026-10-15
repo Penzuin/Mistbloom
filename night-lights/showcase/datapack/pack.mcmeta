@@ -1,0 +1,12 @@
+{
+ "pack": {
+  "description": "Night Lights showcase - Mistbloom Studios",
+  "pack_format": 94,
+  "min_format": 1,
+  "max_format": 9999,
+  "supported_formats": [
+   1,
+   9999
+  ]
+ }
+}

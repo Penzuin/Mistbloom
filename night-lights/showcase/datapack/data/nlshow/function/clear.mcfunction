@@ -1,0 +1,26 @@
+kill @e[type=item_display,tag=nl_show]
+fill 187 160 385 213 160 414 minecraft:air strict
+fill 187 159 385 213 159 414 minecraft:air strict
+fill 187 158 385 213 158 414 minecraft:air strict
+fill 187 157 385 213 157 414 minecraft:air strict
+fill 187 156 385 213 156 414 minecraft:air strict
+fill 187 155 385 213 155 414 minecraft:air strict
+fill 187 154 385 213 154 414 minecraft:air strict
+fill 187 153 385 213 153 414 minecraft:air strict
+fill 187 152 385 213 152 414 minecraft:air strict
+fill 187 151 385 213 151 414 minecraft:air strict
+fill 187 150 385 213 150 414 minecraft:air strict
+fill 187 149 385 213 149 414 minecraft:air strict
+fill 187 148 385 213 148 414 minecraft:air strict
+fill 187 147 385 213 147 414 minecraft:air strict
+fill 187 146 385 213 146 414 minecraft:air strict
+fill 187 145 385 213 145 414 minecraft:air strict
+fill 187 144 385 213 144 414 minecraft:air strict
+fill 187 143 385 213 143 414 minecraft:air strict
+fill 187 142 385 213 142 414 minecraft:air strict
+fill 187 141 385 213 141 414 minecraft:air strict
+fill 187 140 385 213 140 414 minecraft:air strict
+fill 187 139 385 213 139 414 minecraft:air strict
+fill 187 138 385 213 138 414 minecraft:air strict
+fill 187 137 385 213 137 414 minecraft:air strict
+fill 187 136 385 213 136 414 minecraft:air strict
