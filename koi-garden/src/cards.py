@@ -195,7 +195,7 @@ def save_gif(frames_rgb, path, size=512):
     strip = Image.new('RGB', (size, size * len(frames_rgb)))
     for k, f in enumerate(frames_rgb): strip.paste(f, (0, size * k))
     pal = strip.quantize(colors=256, method=Image.Quantize.MEDIANCUT)
-    g = [f.quantize(palette=pal, dither=Image.Dither.NONE) for f in frames_rgb]
+    g = [f.quantize(palette=pal, dither=Image.Dither.FLOYDSTEINBERG) for f in frames_rgb]   # dither the floor gradient; still pixels are locked below
     base_rgb, base_idx = np.array(frames_rgb[0]).astype(int), np.array(g[0])
     for k in range(1, len(g)):                      # unchanged pixels keep frame 0's index: no shimmer
         same = np.abs(np.array(frames_rgb[k]).astype(int) - base_rgb).sum(2) == 0
