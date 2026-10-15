@@ -1,4 +1,4 @@
-# Hollowmere - Halloween market set by Mistbloom Studios
+# Halloween market set by Mistbloom Studios
 # Nexo 1.28+ (furniture states, light lists and click actions).
 # Dyeable pieces: dye them like leather in a crafting table before placing, or change `color`.
 
@@ -7,7 +7,7 @@ hollowmere_jack_o_lantern:
   lore:
   - <gray>A big carved pumpkin.
   - <gray>Right-click to light the candle.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:jack_o_lantern
@@ -35,7 +35,7 @@ hollowmere_cauldron:
   lore:
   - <gray>An iron pot of bubbling brew.
   - <gray>Right-click to light the fire.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:cauldron
@@ -72,7 +72,7 @@ hollowmere_scarecrow:
   lore:
   - <gray>A patched scarecrow with a crow friend.
   - <gray>Three blocks tall.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:scarecrow
@@ -108,7 +108,7 @@ hollowmere_pumpkin_lamp:
   lore:
   - <gray>A street lamp with a hanging jack-o'-lantern.
   - <gray>Right-click to switch it on or off.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:pumpkin_lamp
@@ -144,7 +144,7 @@ hollowmere_potion_stall:
   lore:
   - <gray>A 3-wide market stall for brews and charms.
   - <gray>Sneak + right-click to change the awning.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:potion_stall
@@ -186,11 +186,11 @@ hollowmere_potion_stall:
           item_model: hollowmere:potion_stall_ember
 
 hollowmere_hollow_arch:
-  itemname: <#ffb15c>Hollowmere Arch
+  itemname: <#ffb15c>Halloween Arch
   lore:
   - <gray>A gnarled entrance arch with a hanging sign.
   - <gray>Three wide, three tall.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:hollow_arch
@@ -227,7 +227,7 @@ hollowmere_dead_tree:
   itemname: <#ffb15c>Lantern Tree
   lore:
   - <gray>A spooky old tree hung with jack-o'-lanterns.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:dead_tree
@@ -258,7 +258,7 @@ hollowmere_pumpkin_pile:
   itemname: <#ffb15c>Pumpkin Pile
   lore:
   - <gray>A heap of pumpkins in every size.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:pumpkin_pile
@@ -284,7 +284,7 @@ hollowmere_gourd_basket:
   itemname: <#ffb15c>Gourd Basket
   lore:
   - <gray>A wicker basket of autumn gourds.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:gourd_basket
@@ -306,7 +306,7 @@ hollowmere_hay_bale_seat:
   lore:
   - <gray>A hay bale with a plaid blanket.
   - <gray>Sit down and rest.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:hay_bale_seat
@@ -334,7 +334,7 @@ hollowmere_haystack:
   itemname: <#ffb15c>Haystack
   lore:
   - <gray>A big pile of hay with a pitchfork.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:haystack
@@ -363,7 +363,7 @@ hollowmere_pumpkin_cart:
   itemname: <#ffb15c>Pumpkin Cart
   lore:
   - <gray>A wooden hand cart full of pumpkins.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:pumpkin_cart
@@ -388,7 +388,7 @@ hollowmere_caramel_apple_tray:
   itemname: <#ffb15c>Caramel Apple Tray
   lore:
   - <gray>Sticky caramel apples on a tray.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:caramel_apple_tray
@@ -415,7 +415,7 @@ hollowmere_cider_cask:
   lore:
   - <gray>A barrel of hot apple cider.
   - <gray>Right-click to pour a cup.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:cider_cask
@@ -447,7 +447,7 @@ hollowmere_candy_bucket:
   lore:
   - <gray>A jack-o'-lantern bucket full of sweets.
   - <gray>Right-click to open (9 slots).
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:candy_bucket
@@ -474,7 +474,7 @@ hollowmere_spellbook_lectern:
   itemname: <#ffb15c>Spellbook Lectern
   lore:
   - <gray>An open book of spells on a carved stand.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:spellbook_lectern
@@ -509,7 +509,7 @@ hollowmere_crystal_ball:
   itemname: <#ffb15c>Crystal Ball
   lore:
   - <gray>A swirling orb on a brass stand.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:crystal_ball
@@ -540,7 +540,7 @@ hollowmere_potion_shelf:
   lore:
   - <gray>A wall shelf of bottles and jars.
   - <gray>Place it on a wall. Right-click to open (18 slots).
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:potion_shelf
@@ -571,7 +571,7 @@ hollowmere_potion_trio:
   itemname: <#ffb15c>Potion Trio
   lore:
   - <gray>Three brews for your counter.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:potion_trio
@@ -596,7 +596,7 @@ hollowmere_witch_broom:
   itemname: <#ffb15c>Witch's Broom
   lore:
   - <gray>A broom leaning against the wall.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:witch_broom
@@ -624,7 +624,7 @@ hollowmere_witch_hat_stand:
   lore:
   - <gray>A pointy hat on a stand.
   - <gray>Dyeable hat.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: LEATHER_HORSE_ARMOR
   color: 110,70,160
   Components:
@@ -651,7 +651,7 @@ hollowmere_candle_cluster:
   itemname: <#ffb15c>Candle Cluster
   lore:
   - <gray>A puddle of candles in a cosy group.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:candle_cluster
@@ -676,7 +676,7 @@ hollowmere_tombstone:
   itemname: <#ffb15c>Tombstone
   lore:
   - <gray>A mossy headstone with a candle and a pumpkin.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:tombstone
@@ -706,7 +706,7 @@ hollowmere_tombstone_cross:
   itemname: <#ffb15c>Cross Tombstone
   lore:
   - <gray>A stone cross with ivy and flowers.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:tombstone_cross
@@ -732,7 +732,7 @@ hollowmere_iron_fence:
   itemname: <#ffb15c>Graveyard Fence
   lore:
   - <gray>A spiked iron fence panel.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:iron_fence
@@ -759,7 +759,7 @@ hollowmere_coffin:
   lore:
   - <gray>A lidded coffin with a pumpkin on top.
   - <gray>Right-click to open (27 slots).
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:coffin
@@ -793,7 +793,7 @@ hollowmere_ghost_lantern:
   lore:
   - <gray>A little ghost trapped in a lantern.
   - <gray>Right-click to switch it on or off.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:ghost_lantern
@@ -819,7 +819,7 @@ hollowmere_mushroom_ring:
   itemname: <#ffb15c>Glowshroom Ring
   lore:
   - <gray>A fairy ring of glowing mushrooms.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:mushroom_ring
@@ -849,7 +849,7 @@ hollowmere_black_cat:
   lore:
   - <gray>A cat with a bell collar.
   - <gray>Dyeable fur.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: LEATHER_HORSE_ARMOR
   color: 58,52,72
   Components:
@@ -876,7 +876,7 @@ hollowmere_owl_perch:
   itemname: <#ffb15c>Owl Perch
   lore:
   - <gray>A sleepy-eyed owl on its perch.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:owl_perch
@@ -908,7 +908,7 @@ hollowmere_crow_post:
   itemname: <#ffb15c>Crow Post
   lore:
   - <gray>Two crows on a fence post.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:crow_post
@@ -940,7 +940,7 @@ hollowmere_cobweb_corner:
   lore:
   - <gray>A dusty web for a corner.
   - <gray>Place it on a wall.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:cobweb_corner
@@ -966,7 +966,7 @@ hollowmere_hanging_spider:
   lore:
   - <gray>A friendly spider on a silk thread.
   - <gray>Hangs from a ceiling.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:hanging_spider
@@ -991,7 +991,7 @@ hollowmere_skull_candle:
   itemname: <#ffb15c>Skull Candle
   lore:
   - <gray>A melting candle on a skull.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:skull_candle
@@ -1017,7 +1017,7 @@ hollowmere_cushion_stool:
   lore:
   - <gray>A tufted stool with tassels.
   - <gray>Dyeable cushion.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: LEATHER_HORSE_ARMOR
   color: 150,72,170
   Components:
@@ -1047,7 +1047,7 @@ hollowmere_bat_bunting:
   lore:
   - <gray>A 3-wide string of pennants and bats.
   - <gray>Dyeable pennants.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: LEATHER_HORSE_ARMOR
   color: 235,120,40
   Components:
@@ -1069,7 +1069,7 @@ hollowmere_welcome_sign:
   itemname: <#ffb15c>Welcome Signpost
   lore:
   - <gray>A signpost pointing to candy and spooks.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:welcome_sign
@@ -1104,7 +1104,7 @@ hollowmere_harvest_wreath:
   lore:
   - <gray>An autumn leaf wreath with a bow.
   - <gray>Place it on a wall.
-  - <dark_gray>Hollowmere
+  - <dark_gray>Halloween
   material: PAPER
   Components:
     item_model: hollowmere:harvest_wreath

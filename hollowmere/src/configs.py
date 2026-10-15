@@ -31,7 +31,7 @@ SPEC = {
         tall=True, barriers=[(-1, 0, 0), (0, 0, 0), (1, 0, 0)], light=((0, 1, 0), 10),
         states=[("plum_awning", "potion_stall"), ("moss_awning", "potion_stall_moss"),
                 ("pumpkin_awning", "potion_stall_ember")]),
-    "hollow_arch": S("Hollowmere Arch", ["A gnarled entrance arch with a hanging sign.", "Three wide, three tall."],
+    "hollow_arch": S("Halloween Arch", ["A gnarled entrance arch with a hanging sign.", "Three wide, three tall."],
         tall=True, barriers=[(-1, 0, 0), (-1, 1, 0), (-1, 2, 0), (1, 0, 0), (1, 1, 0), (1, 2, 0)],
         light=((0, 2, 0), 13)),
     "dead_tree": S("Lantern Tree", ["A spooky old tree hung with jack-o'-lanterns."],
@@ -138,14 +138,14 @@ def nexo():
             snd, pitch, msg = s["click"]
             f["clickActions"] = [{"conditions": [], "actions": [
                 f"{{source=BLOCKS volume=0.6 pitch={pitch}}} [sound] {snd}", f"[actionbar] <{INK}>{msg}"]}]
-        item = {"itemname": f"<{INK}>{s['name']}", "lore": [f"<gray>{l}" for l in s["lore"]] + ["<dark_gray>Hollowmere"],
+        item = {"itemname": f"<{INK}>{s['name']}", "lore": [f"<gray>{l}" for l in s["lore"]] + ["<dark_gray>Halloween"],
                 "material": "LEATHER_HORSE_ARMOR" if s["dye"] else "PAPER"}
         if s["dye"]:
             item["color"] = ",".join(map(str, s["dye"]))
         item["Components"] = {"item_model": f"{NS}:{iid}"}
         item["Mechanics"] = {"furniture": f}
         out[f"{NS}_{iid}"] = item
-    head = ("# Hollowmere - Halloween market set by Mistbloom Studios\n"
+    head = ("# Halloween market set by Mistbloom Studios\n"
             "# Nexo 1.28+ (furniture states, light lists and click actions).\n"
             "# Dyeable pieces: dye them like leather in a crafting table before placing, or change `color`.\n\n")
     txt = yaml.safe_dump(out, sort_keys=False, allow_unicode=True, width=200)

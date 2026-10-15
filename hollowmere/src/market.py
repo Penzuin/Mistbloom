@@ -94,7 +94,7 @@ def hollow_arch():
     m.box([-16, 22, 4.5], [32, 25, 11.5], gnarl())                                # crossbeam
     m.box([-11, 15, 7], [-3, 17, 9], gnarl(), rot=("z", -45, [-10, 16, 8]))       # knee braces
     m.box([19, 15, 7], [27, 17, 9], gnarl(), rot=("z", 45, [26, 16, 8]))
-    m.box([-6, 13, 7], [22, 20, 8], big_sign("HOLLOWMERE"), res=2)                # hanging name board
+    m.box([-6, 13, 7], [22, 20, 8], big_sign("HALLOWEEN"), res=2)                # hanging name board
     m.card([-4, 20, 7.5], [-2, 22, 7.5], chain(), res=3)                          # board chains
     m.card([18, 20, 7.5], [20, 22, 7.5], chain(), res=3)
     m.box([-16, 25, 4], [-9, 31, 11], painted_jack(True), emit=15, res=2)                # jack lanterns on the posts
