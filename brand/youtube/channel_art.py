@@ -56,19 +56,6 @@ def banner():
     tw = d.textlength(txt, font=f)
     d.text(((W - tw) / 2 + 2, ly + logo.height + 22 + 2), txt, font=f, fill=(8, 6, 24))
     d.text(((W - tw) / 2, ly + logo.height + 22), txt, font=f, fill=(214, 204, 240))
-    # pack pieces at the desktop edges (outside the phone crop, inside the desktop band)
-    ms = {m.name: m for m in P.all_models()}
-    left = [("floating_candelabra_lit", 260), ("ghost_lantern_lit", 170), ("wisp", 170)]
-    right = [("ghost_piano", 270), ("waltzing_ghosts", 230)]
-    x = 70
-    for name, h in left:
-        r = fit(crop(ms[name].render(ppu=14, frame=1)), h=h)
-        im.alpha_composite(r, (x, SAFE[3] - r.height - 30)); x += r.width + 20
-    x = W - 70
-    for name, h in right:
-        r = fit(crop(ms[name].render(ppu=14, frame=1)), h=h)
-        x -= r.width
-        im.alpha_composite(r, (x, SAFE[3] - r.height - 30)); x -= 20
     return im.convert("RGB")
 
 def avatar():
