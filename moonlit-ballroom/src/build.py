@@ -20,7 +20,7 @@ def S(name, lore, **kw):
 SPEC = {
     "waltzing_ghosts": S("Waltzing Ghosts", ["A friendly ghost couple who never", "stop waltzing."],
         interaction=(1.4, 1.8), light=((0, 0, 0), 8),
-        click=("minecraft:block.amethyst_block.chime", 1.2, "The ghosts give you a little bow and keep on dancing.")),
+        click=("minecraft:block.amethyst_block.chime", 1.2, "The ghosts keep on dancing.")),
     "ghost_piano": S("Ghost Pianist", ["An upright piano with a cheerful", "ghost at the keys."],
         barriers=[(0, 0, 0), (-1, 0, 0), (0, 1, 0), (-1, 1, 0)], light=((0, 2, 0), 6),
         click=("minecraft:block.note_block.harp", 0.8, "A soft waltz drifts through the hall.")),

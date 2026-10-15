@@ -13,7 +13,7 @@ Every piece animates in plain Nexo, so you don't need ModelEngine or any other a
 
 ### What's in the set
 
-- Waltzing Ghosts: a ghost couple turning a full waltz on a round dance floor. He wears a top hat and she has a violet flower in her hair. They bow when you right-click them.
+- Waltzing Ghosts: a ghost couple turning a full waltz on a round dance floor. He wears a top hat and she has a violet flower in her hair.
 - Ghost Pianist: an upright piano, two blocks wide, with a ghost at the keys and music notes drifting up.
 - Floating Candelabra: three blue-flamed candles held up by a curl of ghost mist. Right-click to light or snuff it.
 - Ghost Lantern: a lantern with a small ghost living inside. Right-click to turn its glow on or off.

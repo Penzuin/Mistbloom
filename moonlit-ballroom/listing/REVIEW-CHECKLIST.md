@@ -11,7 +11,7 @@
 - [ ] All 6 pieces show up in `/nexo inventory` with the right names and icons
 - [ ] Each piece faces you when placed (the portrait isn't flipped, and nothing faces the wall)
 - [ ] Ghost Pianist: you can't walk through either half of the piano, and its barrier doesn't block more than it should
-- [ ] Right-clicking the Waltzing Ghosts makes them bow, and right-clicking the Ghost Pianist works too
+- [ ] Right-clicking the Waltzing Ghosts plays a soft chime, and the Ghost Pianist plays a harp note
 - [ ] The candelabra and lantern turn their light on and off, and the light really glows at night
 - [ ] Animations play smoothly (the waltz, the notes, the wisp blinking, the candle flicker)
 - [ ] Breaking a piece drops the piece back
