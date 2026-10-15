@@ -83,7 +83,6 @@ def tick():
         f"execute if entity {sel(ISLE)} positioned {OX} {OY + 8} {OZ + 4} run particle minecraft:white_ash ~ ~ ~ 12 6 18 0 3",
         f"execute if entity {sel(BALL)} positioned {OX} {OY + 3} {OZ + 13} run particle minecraft:end_rod ~ ~ ~ 3 1.5 3 0.003 1",
         f"execute if entity {sel(BALL)} positioned {OX} {OY + 7} {OZ + 12} run particle minecraft:soul ~ ~ ~ 4 2 10 0.002 1",
-        f"execute if score #t moonball matches 0 if score #beat moonball matches 0 run title {sel(BALL)} actionbar {{\"text\":\"Right-click the ghosts. They're friendly!\",\"color\":\"#c9b8f0\"}}",
     ]
 
 def write(fdir):

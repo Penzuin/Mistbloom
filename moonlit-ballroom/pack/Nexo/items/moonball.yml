@@ -34,7 +34,6 @@ moonball_waltzing_ghosts:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=1.2} [sound] minecraft:block.amethyst_block.chime'
-        - '[actionbar] <#f2c97d>The ghosts give you a little bow and keep on dancing.'
 
 moonball_ghost_piano:
   itemname: <#c9b8f0>Ghost Pianist
@@ -73,7 +72,6 @@ moonball_ghost_piano:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=0.8} [sound] minecraft:block.note_block.harp'
-        - '[actionbar] <#f2c97d>A soft waltz drifts through the hall.'
 
 moonball_floating_candelabra:
   itemname: <#c9b8f0>Floating Candelabra
@@ -159,7 +157,6 @@ moonball_ghost_portrait:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=1.0} [sound] minecraft:entity.allay.ambient_without_item'
-        - '[actionbar] <#f2c97d>Lady Wispwell gives you a gracious nod.'
 
 moonball_wisp:
   itemname: <#c9b8f0>Wisp
@@ -190,4 +187,3 @@ moonball_wisp:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=1.2} [sound] minecraft:entity.allay.item_given'
-        - '[actionbar] <#f2c97d>The wisp does a happy little twirl.'

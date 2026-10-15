@@ -10,4 +10,3 @@ execute if entity @a[x=114,y=185,z=103,dx=36,dy=60,dz=56] positioned 132 211 126
 execute if entity @a[x=114,y=185,z=103,dx=36,dy=60,dz=56] positioned 132 218 134 run particle minecraft:white_ash ~ ~ ~ 12 6 18 0 3
 execute if entity @a[x=126,y=209,z=130,dx=12,dy=22,dz=24] positioned 132 213 143 run particle minecraft:end_rod ~ ~ ~ 3 1.5 3 0.003 1
 execute if entity @a[x=126,y=209,z=130,dx=12,dy=22,dz=24] positioned 132 217 142 run particle minecraft:soul ~ ~ ~ 4 2 10 0.002 1
-execute if score #t moonball matches 0 if score #beat moonball matches 0 run title @a[x=126,y=209,z=130,dx=12,dy=22,dz=24] actionbar {"text":"Right-click the ghosts. They're friendly!","color":"#c9b8f0"}

@@ -61,7 +61,7 @@ def nexo_yaml():
         if s["click"]:
             snd, pitch, msg = s["click"]
             f["clickActions"] = [{"conditions": [], "actions": [
-                f"{{source=BLOCKS volume=0.6 pitch={pitch}}} [sound] {snd}", f"[actionbar] <{GOLDC}>{msg}"]}]
+                f"{{source=BLOCKS volume=0.6 pitch={pitch}}} [sound] {snd}"]}]
         out[f"{NS}_{iid}"] = {
             "itemname": f"<{NAMEC}>{s['name']}",
             "lore": [f"<gray>{l}" for l in s["lore"]] + [f"<{TAGC}>Moonlit Ballroom"],
