@@ -1,0 +1,8 @@
+setblock -1458 152 -760 minecraft:dark_oak_wall_sign[facing=east]{is_waxed:1b,front_text:{has_glowing_text:1b,color:"white",messages:["Moonlit","Witch Hat","",""]}} replace
+setblock -1458 152 -756 minecraft:dark_oak_wall_sign[facing=east]{is_waxed:1b,front_text:{has_glowing_text:1b,color:"white",messages:["Candle","Crown","",""]}} replace
+setblock -1458 152 -750 minecraft:dark_oak_wall_sign[facing=east]{is_waxed:1b,front_text:{has_glowing_text:1b,color:"white",messages:["Moonlit","Broom","",""]}} replace
+setblock -1442 152 -760 minecraft:dark_oak_wall_sign[facing=west]{is_waxed:1b,front_text:{has_glowing_text:1b,color:"white",messages:["Ghostlight","Lantern","",""]}} replace
+setblock -1442 152 -756 minecraft:dark_oak_wall_sign[facing=west]{is_waxed:1b,front_text:{has_glowing_text:1b,color:"white",messages:["Moon","Grimoire","",""]}} replace
+setblock -1442 152 -752 minecraft:dark_oak_wall_sign[facing=west]{is_waxed:1b,front_text:{has_glowing_text:1b,color:"white",messages:["","Wisp","",""]}} replace
+setblock -1452 151 -753 minecraft:dark_oak_sign[rotation=8]{is_waxed:1b,front_text:{has_glowing_text:1b,color:"white",messages:[{text:"Witching Hour",click_event:{action:"run_command",command:"cosmetics wardrobes witching_hour"}},{text:"~ try it on ~",click_event:{action:"run_command",command:"cosmetics wardrobes witching_hour"}},"",{text:"click me",click_event:{action:"run_command",command:"cosmetics wardrobes witching_hour"}}]}} replace
+setblock -1452 152 -760 minecraft:dark_oak_wall_sign[facing=south]{is_waxed:1b,front_text:{has_glowing_text:1b,color:"white",messages:["Witching Hour","dressing room","","Mistbloom Studios"]}} replace

@@ -1,0 +1,31 @@
+# Witching Hour dressing room (Selling Test). Open it with /cosmetics wardrobes witching_hour
+# or click the "try it on" sign by the runner.
+witching_hour:
+  # only works from inside the room
+  distance: 14
+  permission: "hmccosmetics.wardrobe.witching_hour"
+  default-menu: witching_hour
+  # the clone stands on the dais facing the door
+  npc-location:
+    world: "world"
+    x: -1449.5
+    y: 152.0
+    z: -747.5
+    yaw: 180
+    pitch: 0
+  # the camera floats over the runner, 4 blocks back
+  viewer-location:
+    world: "world"
+    x: -1449.5
+    y: 151.6
+    z: -751.5
+    yaw: 0
+    pitch: 6
+  # you step back onto the runner when you leave
+  leave-location:
+    world: "world"
+    x: -1449.5
+    y: 151.0
+    z: -757.5
+    yaw: 0
+    pitch: 0
