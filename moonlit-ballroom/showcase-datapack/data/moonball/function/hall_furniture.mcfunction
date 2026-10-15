@@ -21,5 +21,3 @@ setblock 131 212 152 minecraft:barrier
 setblock 132 212 152 minecraft:barrier
 setblock 131 213 152 minecraft:barrier
 setblock 132 213 152 minecraft:barrier
-setblock 131 212 151 minecraft:barrier
-setblock 132 212 151 minecraft:barrier

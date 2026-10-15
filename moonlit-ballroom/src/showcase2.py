@@ -58,8 +58,8 @@ def furniture():
         furn("ghost_portrait", 5, 4, z, 90)
     furn("ghost_lantern", -5, 2, 12, 270, "ghost_lantern_lit")  # side tables
     furn("ghost_lantern", 5, 2, 12, 90, "ghost_lantern_lit")
-    # piano hitbox (Nexo barriers 0,0,0 / -1,0,0 / 0,1,0 / -1,1,0 / 0,0,1 / -1,0,1 turned to yaw 180)
-    for x, y, z in ((0, 0, 0), (-1, 0, 0), (0, 1, 0), (-1, 1, 0), (0, 0, 1), (-1, 0, 1)):
+    # piano hitbox (Nexo barriers 0,0,0 / -1,0,0 / 0,1,0 / -1,1,0 turned to yaw 180)
+    for x, y, z in ((0, 0, 0), (-1, 0, 0), (0, 1, 0), (-1, 1, 0)):
         place.append(f"setblock {OX - 1 - x} {OY + 2 + y} {OZ + 22 - z} minecraft:barrier")
     return place
 
