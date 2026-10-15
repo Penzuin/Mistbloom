@@ -202,14 +202,14 @@ SCALE = 1.6
 # furniture in game), with the bedside table on one side, the lamp on the other, the shelf on
 # the wall above the headboard, the wardrobe along the back wall, and the rug at the foot of the
 # bed with the floor cushions on it.
-ROOM = [  # (piece, (dx, dy, dz), turned)
+ROOM = [  # (piece, (dx, dy, dz), turned) -- spaced so nothing overlaps on screen (checked with a mask test)
     ("quilted_bed", (0, 0, 0), True),
-    ("bedside_table", (17, 0, 16), False),
-    ("toadstool_lamp", (-16, 0, 16), False),
-    ("wall_shelf", (0, 18, 16), False),
-    ("wardrobe", (36, 0, 16), False),
-    ("braided_rug", (0, 0, -21), False),
-    ("floor_cushions", (-10, 0.3, -23), False),
+    ("bedside_table", (26, 0, 16), False),
+    ("toadstool_lamp", (-24, 0, 16), False),
+    ("wall_shelf", (0, 22, 16), False),
+    ("wardrobe", (52, 0, 16), False),
+    ("braided_rug", (6, 0, -34), False),
+    ("floor_cushions", (-36, 0, -26), False),
 ]
 _TURN = {"east": "south", "west": "north", "south": "west", "north": "east", "up": "up", "down": "down"}
 _UNTURN = {v: k for k, v in _TURN.items()}
@@ -256,11 +256,11 @@ def main_icon(frame=0):
         _cache[key] = render_piece(room_model(), frame)
     m, s = _cache[key]
     bb = m.getbbox()
-    k = min(900 / (bb[2] - bb[0]), 640 / (bb[3] - bb[1]))
+    k = min(940 / (bb[2] - bb[0]), 690 / (bb[3] - bb[1]))
     m = m.resize((round(m.width * k), round(m.height * k)), Image.LANCZOS)
     s = s.resize(m.size, Image.LANCZOS)
     bb = m.getbbox()
-    xy = (round(S / 2 - (bb[0] + bb[2]) / 2), round(690 - bb[3]))
+    xy = (round(S / 2 - (bb[0] + bb[2]) / 2), round(735 - bb[3]))
     sh = Image.new("RGBA", m.size, SHADOW + (0,))
     sh.putalpha(s.point(lambda v: int(v * SHADOW_A)))
     img.alpha_composite(sh, xy)
@@ -289,7 +289,7 @@ def _room_glow(img, m, xy, k):
             pts += _rot(e, E._face_corners(e, f))
     pts = np.array(pts)
     minx, miny = (pts @ right).min(), (-(pts @ up)).min()
-    foot = np.array([-8.0, 0.0, 24.0])
+    foot = np.array([-16.0, 0.0, 24.0])
     # render_piece pads by its shadow offset; recover it from the size difference
     px = ((foot @ right - minx) * PPU + 2)
     py = ((-(foot @ up) - miny) * PPU + 2)
