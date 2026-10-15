@@ -11,6 +11,7 @@ import base64, io, json, math, os, shutil
 import numpy as np
 from PIL import Image
 import arts, pieces, sprites, me, addon
+from engine import turn
 from build import dump, HAND, CUSHION_DEFAULT
 from addon import without, pond_open_middle, koi_pair, koi_bowl_swim, koi_leap, koi_streamer_wind, koi_school, swim
 
@@ -139,6 +140,18 @@ def build_rig(rig_fn, furn_fn, off):
     rig.shift = (rig.shift[0], rig.shift[1] + Y_SHIFT, rig.shift[2])
     for b in rig.bones.values():
         b.origin = (b.origin[0], b.origin[1] + Y_SHIFT, b.origin[2])
+    return turn_rig(rig)
+
+def turn_rig(rig):
+    """half turn the whole rig (geometry, pivots, keyframes) so its front faces -z"""
+    turn(rig.model)
+    sx, sy, sz = rig.shift
+    # turn() mirrors about model x=z=8; entity space is model + shift, so keep shift = (-8, y, -8)
+    assert (sx, sz) == (-8, -8)
+    for b in rig.bones.values():
+        b.origin = (-b.origin[0], b.origin[1], -b.origin[2])
+        for ch, frames in b.anim.items():
+            b.anim[ch] = [(t, (-x, y, -z)) for t, (x, y, z) in frames]
     return rig
 
 def has_water(rig):
@@ -199,7 +212,7 @@ def table_strip():
     strips, layout, m = [], None, None
     for f in range(TABLE_FRAMES):
         arts.FRAME[0] = (f, TABLE_FRAMES)
-        m = pieces.koi_table(); m.bake()
+        m = turn(pieces.koi_table()); m.bake()
         lay = [(e.name, tuple(sorted(e.uv.items()))) for e in m.els]
         assert layout is None or lay == layout
         layout = lay; strips.append(m.atlas)
@@ -213,6 +226,12 @@ SOUNDS = {'wood': ['koi_bench', 'koi_tea_table', 'koi_folding_screen', 'koi_wall
 
 def sound(iid):
     return next(k for k, v in SOUNDS.items() if iid in v)
+
+def flipz(b, y=None):
+    """pieces.py hitboxes were written for the unturned model: the half turn moves +z parts to -z"""
+    bx, by, bz = b.split(',')
+    bz = str(-int(bz)) if int(bz) else '0'
+    return f'{bx},{y or by},{bz}'
 
 def yml_entry(iid, title, lore, kind, meta, dyeable):
     y = [f'{iid}:', f'  itemname: "<#f2e6cc>{title}"']
@@ -233,11 +252,11 @@ def yml_entry(iid, title, lore, kind, meta, dyeable):
     if iid in INTERACT:
         y += ['        interactions:', f'          - {INTERACT[iid]}']
     elif meta['hitbox']:
-        y += ['        barriers:'] + [f'          - {b}' for b in meta['hitbox']]
+        y += ['        barriers:'] + [f'          - {flipz(b)}' for b in meta['hitbox']]
     else:
         y += ['        interactions:', '          - 0,0,0 1,0.4']
     if meta.get('seats'):
-        y += ['      seats:'] + [f'        - {s.split(",")[0]},0.5,{s.split(",")[2]}' for s in meta['seats']]
+        y += ['      seats:'] + [f'        - {flipz(s, y="0.5")}' for s in meta['seats']]
     return y + ['']
 
 # ------------------------------------------------------------------ main
@@ -248,7 +267,7 @@ def main():
     for iid, src, title, lore, kind, extra in PIECES:
         still = STILL_MODEL.get(src)
         if still:
-            m = still(); m.check(); meta = m.meta
+            m = turn(still()); m.check(); meta = m.meta
         else:
             m, meta = None, {'hitbox': []}
         if kind == 'me':

@@ -28,8 +28,8 @@ koi_pond:
         barriers:
           - 0,0,0
           - 1,0,0
-          - 0,0,1
-          - 1,0,1
+          - 0,0,-1
+          - 1,0,-1
 
 koi_school:
   itemname: "<#f2e6cc>Koi School"

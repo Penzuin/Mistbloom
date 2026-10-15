@@ -60,6 +60,19 @@ def seed(*k):
 
 # --------------------------------------------------------------- faces
 FACES = ['north', 'south', 'east', 'west', 'up', 'down']
+OPP = {'north': 'south', 'south': 'north', 'east': 'west', 'west': 'east'}
+
+def turn(model):
+    """Half turn about the block centre so the piece's front faces -z, the way Nexo and
+    ModelEngine show furniture facing the player. Faces keep their painted look."""
+    for e in model.els:
+        (fx, fy, fz), (tx, ty, tz) = e.f, e.t
+        e.f, e.t = (16 - tx, fy, 16 - tz), (16 - fx, ty, 16 - fz)
+        if e.rot:
+            ax, ang, (ox, oy, oz) = e.rot
+            e.rot = (ax, ang if ax == 'y' else -ang, (16 - ox, oy, 16 - oz))
+        e.turned = not getattr(e, 'turned', False)
+    return model
 SHADE = {'up': -0.6, 'north': 0.0, 'south': 0.0, 'east': 0.5, 'west': 0.5, 'down': 1.0}
 
 def face_point(face, f, t, u, v):
@@ -186,11 +199,15 @@ class Model:
                 fw, fh = face_dims(fc, e.f, e.t)
                 w = max(1, math.ceil(round(fw * e.res, 3)))
                 h = max(1, math.ceil(round(fh * e.res, 3)))
-                c = Ctx(e, fc, w, h)
+                # a turned element (see turn()) is painted as the face it was before the half turn
+                pf = OPP[fc] if getattr(e, 'turned', False) and not e.plane and fc in OPP else fc
+                c = Ctx(e, pf, w, h)
                 p = e.paint
                 if isinstance(p, dict):
-                    p = p.get(fc, p.get('*'))
+                    p = p.get(pf, p.get('*'))
                 p(c)
+                if getattr(e, 'turned', False) and fc in ('up', 'down'):
+                    c.M[:] = c.M[::-1, ::-1].copy(); c.T[:] = c.T[::-1, ::-1].copy(); c.A[:] = c.A[::-1, ::-1].copy()
                 if e.shade:
                     c.T += SHADE[fc]
                 rgbv = colour(np.clip(c.M, 0, None), c.T)
