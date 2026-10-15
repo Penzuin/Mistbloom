@@ -201,7 +201,7 @@ def notes(w, h, k, n=8):
 # --------------------------------------------------------------- portrait
 def portrait(w, h, k, n=8):
     """An original painted portrait: a gracious ghost lady with a lace collar, pearls and a teacup.
-    She winks once per loop; candlelight flickers across the varnish."""
+    Candlelight flickers across the varnish."""
     im = Image.new("RGBA", (w * SS, h * SS), (0, 0, 0, 255))
     d = ImageDraw.Draw(im)
     W, H = w * SS, h * SS
@@ -214,7 +214,7 @@ def portrait(w, h, k, n=8):
     s = W / 44
     cx, top = W / 2, H * 0.20
     ghost(d, cx, top, s, alpha=215, face="front", height=40 * s, hem=1.35,
-          eyes="wink" if k in (5, 6) else "happy")
+          eyes="happy")
     # lace collar + pearls
     cy = top + 20 * s
     for i in range(7):

@@ -22,15 +22,15 @@ SPEC = {
         interaction=(1.4, 1.8), light=((0, 0, 0), 8),
         click=("minecraft:block.amethyst_block.chime", 1.2, "The ghosts give you a little bow and keep on dancing.")),
     "ghost_piano": S("Ghost Pianist", ["An upright piano with a cheerful", "ghost at the keys. Right-click to listen."],
-        barriers=[(0, 0, 0), (1, 0, 0)], light=((0, 1, 0), 6),
+        barriers=[(0, 0, 0), (-1, 0, 0), (0, 1, 0), (-1, 1, 0), (0, 0, 1), (-1, 0, 1)], light=((0, 1, 0), 6),
         click=("minecraft:block.note_block.harp", 0.8, "A soft waltz drifts through the hall.")),
     "floating_candelabra": S("Floating Candelabra", ["Three moonfire candles held up", "by a curl of ghost mist.", "Right-click to light or snuff."],
         interaction=(0.6, 1.5), light=((0, 1, 0), 13), toggle="floating_candelabra_lit", sound="metal", place="any"),
     "ghost_lantern": S("Ghost Lantern", ["A little ghost living in a lantern.", "Right-click to wake its glow."],
         interaction=(0.5, 0.9), light=((0, 0, 0), 12), toggle="ghost_lantern_lit", sound="metal", place="any"),
-    "ghost_portrait": S("Portrait of Lady Wispwell", ["She was the life of every ball.", "Watch closely: she winks."],
+    "ghost_portrait": S("Portrait of Lady Wispwell", ["She was the life of every ball.", "Candlelight dances across the canvas."],
         interaction=(1, 1.6), place="wall",
-        click=("minecraft:entity.allay.ambient_without_item", 1.0, "Lady Wispwell winks at you.")),
+        click=("minecraft:entity.allay.ambient_without_item", 1.0, "Lady Wispwell gives you a gracious nod.")),
     "wisp": S("Wisp", ["A little ghost who follows the music.", "Right-click for a twirl."],
         interaction=(0.6, 0.9), light=((0, 0, 0), 6), place="any", sound="wool",
         click=("minecraft:entity.allay.item_given", 1.2, "The wisp does a happy little twirl.")),
@@ -85,7 +85,7 @@ Friendly ghosts for your Halloween builds. Six pieces, all animated, all plain N
 | moonball_ghost_piano | Upright piano with a ghost pianist (2 blocks wide) |
 | moonball_floating_candelabra | Three moonfire candles floating on ghost mist (toggle light) |
 | moonball_ghost_lantern | A tiny ghost living in a lantern (toggle light) |
-| moonball_ghost_portrait | Portrait of Lady Wispwell, who winks (wall) |
+| moonball_ghost_portrait | Portrait of Lady Wispwell in flickering candlelight (wall) |
 | moonball_wisp | A little floating ghost pet that blinks |
 
 ## Install (Nexo)

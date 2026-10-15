@@ -39,23 +39,28 @@ def furn(iid, x, y, z, yaw, model=None):
         f'item:{{id:"minecraft:paper",count:1,components:{{"minecraft:item_model":"{NS}:{model}"}}}},'
         f'BukkitValues:{{"nexo:furniture":"{NS}_{iid}"}}}}')
 
+# Facing: the model's front points the way the entity looks (vanilla yaw: 0 south, 90 west,
+# 180 north, 270 east), same as Nexo's own placement. Checked in game Oct 14 (portraits).
 def furniture():
     place.append("kill @e[type=item_display,tag=moonball_show]")
-    for z in (-13, -10):                                   # ghost lanterns on the path plinths
-        furn("ghost_lantern", -3, 2, z, 90, "ghost_lantern_lit")
-        furn("ghost_lantern", 3, 2, z, 270, "ghost_lantern_lit")
-    furn("wisp", -2, 1, -2, 0)                             # greeter in the vestibule
+    for z in (-13, -10):                                   # ghost lanterns on the path plinths, facing the path
+        furn("ghost_lantern", -3, 2, z, 270, "ghost_lantern_lit")
+        furn("ghost_lantern", 3, 2, z, 90, "ghost_lantern_lit")
+    furn("wisp", -2, 1, -2, 180)                           # greeter in the vestibule, facing the door
     for x, z in ((0, 11), (-3, 15), (3, 15)):              # three couples, one on the medallion
-        furn("waltzing_ghosts", x, 1, z, 0)
-    furn("ghost_piano", -1, 2, 22, 0)                      # stage
+        furn("waltzing_ghosts", x, 1, z, 180)
+    furn("ghost_piano", -1, 2, 22, 180)                    # stage, keys toward the hall
     for x in (-4, 4):
-        furn("floating_candelabra", x, 2, 21, 0, "floating_candelabra_lit")
-    furn("wisp", 3, 2, 23, 0)
-    for z in (8, 16):                                      # portrait gallery on the post panels
-        furn("ghost_portrait", -5, 4, z, 90)
-        furn("ghost_portrait", 5, 4, z, 270)
-    furn("ghost_lantern", -5, 2, 12, 90, "ghost_lantern_lit")   # side tables
-    furn("ghost_lantern", 5, 2, 12, 270, "ghost_lantern_lit")
+        furn("floating_candelabra", x, 2, 21, 180, "floating_candelabra_lit")
+    furn("wisp", 3, 2, 23, 180)
+    for z in (8, 16):                                      # portrait gallery, faces into the room
+        furn("ghost_portrait", -5, 4, z, 270)
+        furn("ghost_portrait", 5, 4, z, 90)
+    furn("ghost_lantern", -5, 2, 12, 270, "ghost_lantern_lit")  # side tables
+    furn("ghost_lantern", 5, 2, 12, 90, "ghost_lantern_lit")
+    # piano hitbox (Nexo barriers 0,0,0 / -1,0,0 / 0,1,0 / -1,1,0 / 0,0,1 / -1,0,1 turned to yaw 180)
+    for x, y, z in ((0, 0, 0), (-1, 0, 0), (0, 1, 0), (-1, 1, 0), (0, 0, 1), (-1, 0, 1)):
+        place.append(f"setblock {OX - 1 - x} {OY + 2 + y} {OZ + 22 - z} minecraft:barrier")
     return place
 
 BALL = (OX - 6, OY - 1, OZ, 12, 22, 24)

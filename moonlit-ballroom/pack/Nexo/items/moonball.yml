@@ -62,7 +62,11 @@ moonball_ghost_piano:
       hitbox:
         barriers:
         - 0,0,0
-        - 1,0,0
+        - -1,0,0
+        - 0,1,0
+        - -1,1,0
+        - 0,0,1
+        - -1,0,1
       lights:
         toggleable: false
         lights:
@@ -132,7 +136,7 @@ moonball_ghost_portrait:
   itemname: <#c9b8f0>Portrait of Lady Wispwell
   lore:
   - <gray>She was the life of every ball.
-  - '<gray>Watch closely: she winks.'
+  - <gray>Candlelight dances across the canvas.
   - <#9fb3d9>Moonlit Ballroom
   material: PAPER
   Components:
@@ -157,7 +161,7 @@ moonball_ghost_portrait:
       - conditions: []
         actions:
         - '{source=BLOCKS volume=0.6 pitch=1.0} [sound] minecraft:entity.allay.ambient_without_item'
-        - '[actionbar] <#f2c97d>Lady Wispwell winks at you.'
+        - '[actionbar] <#f2c97d>Lady Wispwell gives you a gracious nod.'
 
 moonball_wisp:
   itemname: <#c9b8f0>Wisp

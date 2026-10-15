@@ -8,7 +8,7 @@ Friendly ghosts for your Halloween builds. Six pieces, all animated, all plain N
 | moonball_ghost_piano | Upright piano with a ghost pianist (2 blocks wide) |
 | moonball_floating_candelabra | Three moonfire candles floating on ghost mist (toggle light) |
 | moonball_ghost_lantern | A tiny ghost living in a lantern (toggle light) |
-| moonball_ghost_portrait | Portrait of Lady Wispwell, who winks (wall) |
+| moonball_ghost_portrait | Portrait of Lady Wispwell in flickering candlelight (wall) |
 | moonball_wisp | A little floating ghost pet that blinks |
 
 ## Install (Nexo)
