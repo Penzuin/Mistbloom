@@ -147,8 +147,7 @@ def window(im):
     Rr = hw * 1.35; cl = cx - hw + Rr
     a_ap = math.acos((cx - cl) / Rr)
     left = [(cl + Rr * math.cos(t), spring - Rr * math.sin(t)) for t in np.linspace(math.pi, a_ap, 40)]
-    Rr2 = hw * 1.42; cr = cx + hw - Rr2; a2 = math.acos((cx + 6 * S - cr) / Rr2)      # right arc a bit fuller: drawn by eye
-    right = [(cr + Rr2 * math.cos(t), spring - 8 * S - Rr2 * math.sin(t)) for t in np.linspace(a2, 0, 40)]
+    right = [(2 * cx - x, y) for x, y in reversed(left)]
     shape = [(cx - hw, bot)] + left + right + [(cx + hw, bot)]
     # moonlight beam onto the floor
     beam = [(cx - hw * 0.9, bot), (cx + hw * 0.9, bot), (cx + hw * 1.9, H), (cx - hw * 1.9, H)]
@@ -170,11 +169,10 @@ def window(im):
     sky.putalpha(ImageChops.multiply(sky.split()[3], mask))
     im.alpha_composite(sky)
     # mullions and frame
-    ink(d, wobble([(cx + 8 * S, spring - Rr * 0.97 + 34 * S), (cx + 3 * S, bot)], 1.6, 3), 5, alpha=255)
-    ink(d, wobble([(cx - hw + 4 * S, 514 * S), (cx + hw - 2 * S, 524 * S)], 1.6, 4), 4, alpha=255)
-    ink(d, wobble([(cx - hw + 6 * S, 650 * S), (cx + 6 * S, 646 * S)], 1.4, 5), 2.6, alpha=200)
-    ink(d, wobble([(cx + 6 * S, 655 * S), (cx + hw - 4 * S, 660 * S)], 1.4, 6), 2.6, alpha=200)
-    ink(d, wobble(shape, 1.4, 1), 6.5, alpha=255, seed=1)
+    ink(d, wobble([(cx + 2 * S, spring - Rr * 0.97 + 32 * S), (cx + 1 * S, bot)], 0.8, 3), 5, alpha=255)
+    ink(d, wobble([(cx - hw + 2 * S, 518 * S), (cx + hw - 2 * S, 521 * S)], 0.8, 4), 4, alpha=255)
+    ink(d, wobble([(cx - hw + 3 * S, 650 * S), (cx + hw - 3 * S, 652 * S)], 0.7, 5), 2.6, alpha=200)
+    ink(d, wobble(shape, 0.8, 1), 6.5, alpha=255, seed=1)
     inner = [(cx + (x - cx) * 0.93, y + 22 * S) for x, y in shape]
     ink(d, wobble(inner, 1.0, 2), 2.2, col=(242, 201, 125), alpha=170, seed=2)
     # sill
@@ -338,7 +336,7 @@ def ghost(im, cx, top, w, h, lean, sway, seed, who):
     else:
         fx -= 14 * S
         # open eyes glancing toward her (left), shines in the same corner, one a hair bigger
-        for k, (ex, ey, rr) in enumerate(((fx - w * 0.17, fy + 2 * S, 1.0), (fx + w * 0.13, fy + 5 * S, 0.9))):
+        for k, (ex, ey, rr) in enumerate(((fx - w * 0.17, fy + 2 * S, 1.0), (fx + w * 0.13, fy + 4 * S, 1.0))):
             e = ellipse_pts(ex, ey, 11 * S * rr, 15 * S * rr, 24)
             wash(im, e, INK, 255, edge=0, blur=0.6, tw=0)
             wash(im, ellipse_pts(ex - 4 * S * rr, ey - 6 * S * rr, 4 * S * rr, 4.5 * S * rr, 12), (255, 255, 255), 255, edge=0, blur=0.4, tw=0)
@@ -370,11 +368,6 @@ def flower(im, x, y, r, seed):
         lf += bez(tip, (x + r * 1.1 * math.cos(a + 0.45), y + r * 1.1 * math.sin(a + 0.45)), (x, y), (x, y), 12)
         wash(im, lf, (112, 160, 112), 255, edge=0.4, tw=0); ink(d, wobble(lf, 0.3, seed + k), 1.8, seed=seed + k)
         ink(d, [(x, y), ((x + tip[0]) / 2, (y + tip[1]) / 2)], 1.0, alpha=140)
-    # a small bud on a curved stem
-    bud_stem = bez((x - r * 0.6, y + r * 0.5), (x - r * 1.4, y + r * 0.6), (x - r * 1.7, y), (x - r * 1.9, y - r * 0.4), 12)
-    ink(d, bud_stem, 2.0, col=(88, 130, 88))
-    bud = ellipse_pts(x - r * 1.95, y - r * 0.62, r * 0.28, r * 0.38)
-    wash(im, bud, (186, 150, 232), 255, edge=0.4, tw=0); ink(d, wobble(bud, 0.2, seed + 9), 1.6, seed=seed + 9)
     angs = [-1.75, -0.45, 0.62, 1.95, 3.15]
     for k, a in enumerate(angs):
         pr = r * rr.uniform(0.52, 0.72)
@@ -579,10 +572,6 @@ def main(out):
     lw, lh, rw, rh = 2 * r * 0.95, 400 * S * 0.95, 2 * r, 400 * S
     _, shL0 = ghost_outline(lx, ltop, lw, lh, 0.30, -60 * S)
     _, shR0 = ghost_outline(rx, rtop, rw, rh, -0.26, 55 * S)
-    p = shL0(lx - r * 0.9, ltop + r * 1.75)
-    arm(dancers, p, (p[0] - 110 * S, p[1] - 40 * S), (p[0] - 115 * S, p[1] - 150 * S), 22 * S, 330)
-    # his hand on his hip: the arm starts and ends inside the body, only the elbow shows
-    q0, q1 = shR0(rx + r * 0.3, rtop + r * 1.75), shR0(rx + r * 0.35, rtop + r * 2.5)
     # joined hands: both arms start inside the bodies so no seam shows at the shoulder
     hp = ((lx + rx) / 2, ltop + r * 2.15)
     arm(dancers, shL0(lx + r * 0.45, ltop + r * 1.8), (hp[0] - 60 * S, hp[1] - 14 * S), (hp[0] - 6 * S, hp[1]), 22 * S, 300)
