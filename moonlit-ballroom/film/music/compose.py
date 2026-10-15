@@ -1,6 +1,6 @@
 """Moonlit Ballroom ad score, written as a BeepBox song (beepbox.co).
 
-79 s trailer, 3/4 waltz in A minor at 105 bpm (one bar = 1.714 s), 46 bars.
+72 s trailer (v2), 3/4 waltz in A minor at 105 bpm (one bar = 1.714 s), 42 bars.
 Built on the same original waltz theme the in-game showcase plays, so the ad
 and the ballroom sound like the same place.
 
@@ -8,8 +8,8 @@ and the ballroom sound like the same place.
   bars  3-10  gate, lantern ......... theme A, music box alone over the pad
   bars 11-15  doorway ............... bass and harp creep in, swell on E
   bars 16-31  waltz orbit, couple ... full waltz: music box, strings, pizz bass, harp
-  bars 32-39  stage, candelabra ..... B section, ghost choir "ooh" joins
-  bars 40-46  back out, goodnight ... strips back to the music box, last chime
+  bars 32-35  stage ................. B phrase, ghost choir "ooh" joins
+  bars 36-42  back out, goodnight ... strips back to the music box, last chime
 """
 import json
 
@@ -47,9 +47,13 @@ PLAN += [(None, "Am", "intro")] * 2
 PLAN += [(THEME[i], THEME_CH[i], "a_solo") for i in range(8)]
 PLAN += [(THEME[i], THEME_CH[i], "build") for i in (8, 9, 10, 11)] + [(B_MEL[7], "E", "build")]
 PLAN += [(THEME[i], THEME_CH[i], "waltz") for i in range(16)]
-PLAN += [(B_MEL[i], B_CH[i], "b") for i in range(8)]
+B_BARS = (4, 5, 6, 7)   # v2: second B phrase only (Dm G C E), the ad lost the candelabra shot
+B0 = len(PLAN)
+PLAN += [(B_MEL[i], B_CH[i], "b") for i in B_BARS]
+OUT = len(PLAN)          # first outro bar
 PLAN += [(THEME[i], THEME_CH[i], "outro") for i in (0, 1, 2, 3)] + [(THEME[14], "Am", "outro"), (None, "Am", "end"), (None, "Am", "end")]
-assert len(PLAN) == 46, len(PLAN)
+LAST = len(PLAN) - 1
+assert len(PLAN) == 42, len(PLAN)
 
 def note(pitches, start, length, v0, v1=None):
     v1 = v0 if v1 is None else v1
@@ -66,12 +70,12 @@ def melody(bar, sec, k):
         return []
     vol = {"a_solo": 70, "build": 78, "waltz": 92, "b": 96, "outro": 66}[sec]
     if sec == "outro":
-        vol = 66 - 6 * max(0, k - 39)
+        vol = 66 - 6 * max(0, k - OUT)
     out, t = [], 0
     for beats, n in mel:
         out.append(note([up(n)], t * TPB, beats * TPB, vol, vol - 20 if beats > 1 else vol))
         t += beats
-    if k == 43:  # last outro phrase: hold the final A
+    if k == OUT + 4:  # last outro phrase: hold the final A
         out = out[:-1] + [note([up("A4")], 2 * TPB, TPB, vol)]
     return out
 
@@ -80,7 +84,7 @@ def pad(bar, sec, k):
     v = {"intro": 55, "a_solo": 50, "build": 58, "waltz": 52, "b": 60, "outro": 45, "end": 40}[sec]
     if k == 0:
         return [note(ch, 0, BAR, 10, 55)]
-    if k == 45:
+    if k == LAST:
         return [note(["A3", "C4", "E4"], 0, BAR, 35, 0)]
     return [note(ch, 0, BAR, v)]
 
@@ -89,7 +93,7 @@ def bass(bar, sec, k):
         return []
     root = CHORD[PLAN[k][1]][0]
     v = {"build": 40 + 10 * (k - 10), "waltz": 90, "b": 90, "outro": 55}[sec]
-    if sec == "outro" and k >= 42:
+    if sec == "outro" and k >= OUT + 3:
         v = 40
     return [note([root], 0, TPB, min(v, 90))]
 
@@ -99,7 +103,7 @@ def harp(bar, sec, k):
         return []
     ch = CHORD[PLAN[k][1]][1][1:]
     v = {"build": 45, "waltz": 70, "b": 72, "outro": 40}[sec]
-    if sec == "outro" and k >= 42:
+    if sec == "outro" and k >= OUT + 3:
         return []
     return [note(ch, TPB, TPB, v), note(ch, 2 * TPB, TPB, v)]
 
@@ -108,15 +112,15 @@ def choir(bar, sec, k):
     if sec != "b":
         return []
     top = up(CHORD[PLAN[k][1]][1][-1], 0)
-    return [note([top, CHORD[PLAN[k][1]][1][0]], 0, BAR, 45 if k < 35 else 60, 40)]
+    return [note([top, CHORD[PLAN[k][1]][1][0]], 0, BAR, 50 if k < B0 + 2 else 60, 40)]
 
 SPARKLE = {0: [("E6", 2), ("B6", 1)], 1: [("A6", 0), ("E6", 2)], 9: [("E6", 2)], 14: [("G#6", 1), ("B6", 2)],
-           15: [("A6", 0)], 23: [("E6", 2)], 30: [("E6", 2)], 38: [("G#6", 2)], 44: [("E6", 1)], 45: [("A6", 0)]}
+           15: [("A6", 0)], 23: [("E6", 2)], 30: [("E6", 2)], OUT - 1: [("G#6", 2)], LAST - 1: [("E6", 1)], LAST: [("A6", 0)]}
 
 def chime(bar, sec, k):
     hits = sorted(SPARKLE.get(k, []), key=lambda h: h[1])
     ends = [b for _, b in hits[1:]] + [3]     # a chime rings until the next one (one channel can't overlap notes)
-    return [note([n], b * TPB, TPB * (e - b), 55 if k < 39 else 45) for (n, b), e in zip(hits, ends)]
+    return [note([n], b * TPB, TPB * (e - b), 55 if k < OUT else 45) for (n, b), e in zip(hits, ends)]
 
 # ---------- instruments (BeepBox presets, lightly tuned) ----------
 MUSIC_BOX = {"type": "Picked String", "volume": 100, "eqFilter": [{"type": "low-pass", "cutoffHz": 4756.83, "linearGain": 0.5}],
