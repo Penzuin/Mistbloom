@@ -193,8 +193,8 @@ def ghost_piano():
     m.box([1, 10, 1.5], [31, 12, 6], wood("ebony"), over={"up": keys()}, res=1) # keybed + keys
     m.box([2, 0, 2], [4, 10, 4], EBONY)                                         # front legs
     m.box([28, 0, 2], [30, 10, 4], EBONY)
-    m.box([13, 0.5, 5], [19, 1.5, 6], solid("gold", 1), res=2)                   # pedals
-    m.card([9.5, 12.3, 4.0], [22.5, 17.6, 4.0], SHEET, rot=("x", 22.5, [16, 12.3, 4.0]), res=2)  # sheet music, leaning back
+    m.box([8, 13, 3.4], [24, 13.75, 6], wood("ebony"), res=2)                        # music rest ledge above the keys
+    m.card([9.5, 13.75, 4.0], [22.5, 19.0, 4.0], SHEET, rot=("x", 22.5, [16, 13.75, 4.0]), res=2)  # sheet music, leaning back
     m.box([8, 0, -7], [24, 5, -1], panel("ebony", front=("north", "east", "west")))   # bench
     m.box([7.5, 5, -7.5], [24.5, 6.5, -0.5], velvet())                          # bench cushion
     m.card([7, 6, -4], [25, 24, -4], sprite(S.pianist), emit=12, res=2)          # the pianist
