@@ -1,0 +1,152 @@
+[
+ {
+  "name": "t_waltzing",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "waltzing",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_ghost",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "ghost",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_floating",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "floating",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_lady",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "lady",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "t_wisp",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "wisp",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF8E6",
+   "gradientColour2": "#C9B8F0",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#5B45B0"
+  }
+ },
+ {
+  "name": "s_ghosts",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "ghosts",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_pianist",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "pianist",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_candelabra",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "candelabra",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_lantern",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "lantern",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "s_wispwell",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "wispwell",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFF6D8",
+   "gradientColour2": "#F2C97D",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#C8903F",
+   "type": "small",
+   "row": 0
+  }
+ }
+]
