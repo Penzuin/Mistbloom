@@ -222,8 +222,8 @@ def yml_entry(iid, title, lore, kind, meta, dyeable):
           '  Components:', f'    item_model: {NS}:{SET}/{iid}', '  Mechanics:', '    furniture:']
     if kind == 'me':
         y += [f'      modelengine_id: mistbloom_{iid}']
-    else:
-        y += ['      properties:', '        display_transform: NONE']
+    # NONE on every piece so Nexo spawns them all at the block centre (ModelEngine models hang from that point too)
+    y += ['      properties:', '        display_transform: NONE']
     y += ['      restricted_rotation: VERY_STRICT']
     s = sound(iid)
     y += ['      block_sounds:'] + [f'        {k}_sound: block.{s}.{k}' for k in ('place', 'break', 'hit', 'step', 'fall')]

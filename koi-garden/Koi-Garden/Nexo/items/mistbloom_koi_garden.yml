@@ -11,6 +11,8 @@ koi_pond:
   Mechanics:
     furniture:
       modelengine_id: mistbloom_koi_pond
+      properties:
+        display_transform: NONE
       restricted_rotation: VERY_STRICT
       block_sounds:
         place_sound: block.stone.place
@@ -40,6 +42,8 @@ koi_school:
   Mechanics:
     furniture:
       modelengine_id: mistbloom_koi_school
+      properties:
+        display_transform: NONE
       restricted_rotation: VERY_STRICT
       block_sounds:
         place_sound: block.grass.place
@@ -66,6 +70,8 @@ koi_statue:
   Mechanics:
     furniture:
       modelengine_id: mistbloom_koi_statue
+      properties:
+        display_transform: NONE
       restricted_rotation: VERY_STRICT
       block_sounds:
         place_sound: block.stone.place
@@ -93,6 +99,8 @@ koi_bowl:
   Mechanics:
     furniture:
       modelengine_id: mistbloom_koi_bowl
+      properties:
+        display_transform: NONE
       restricted_rotation: VERY_STRICT
       block_sounds:
         place_sound: block.wood.place
@@ -119,6 +127,8 @@ koi_and_lily_pad:
   Mechanics:
     furniture:
       modelengine_id: mistbloom_koi_and_lily_pad
+      properties:
+        display_transform: NONE
       restricted_rotation: VERY_STRICT
       block_sounds:
         place_sound: block.grass.place
@@ -145,6 +155,8 @@ koi_lily_pads:
   Mechanics:
     furniture:
       modelengine_id: mistbloom_koi_lily_pads
+      properties:
+        display_transform: NONE
       restricted_rotation: VERY_STRICT
       block_sounds:
         place_sound: block.grass.place
@@ -171,6 +183,8 @@ koi_reeds:
   Mechanics:
     furniture:
       modelengine_id: mistbloom_koi_reeds
+      properties:
+        display_transform: NONE
       restricted_rotation: VERY_STRICT
       block_sounds:
         place_sound: block.grass.place
@@ -197,6 +211,8 @@ koi_streamer:
   Mechanics:
     furniture:
       modelengine_id: mistbloom_koi_streamer
+      properties:
+        display_transform: NONE
       restricted_rotation: VERY_STRICT
       block_sounds:
         place_sound: block.wood.place
