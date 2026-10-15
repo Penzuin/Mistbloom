@@ -5,7 +5,7 @@ moonball_waltzing_ghosts:
   itemname: <#c9b8f0>Waltzing Ghosts
   lore:
   - <gray>A friendly ghost couple who never
-  - <gray>stop waltzing. Right-click to say hi.
+  - <gray>stop waltzing.
   - <#9fb3d9>Moonlit Ballroom
   material: PAPER
   Components:
@@ -39,7 +39,7 @@ moonball_ghost_piano:
   itemname: <#c9b8f0>Ghost Pianist
   lore:
   - <gray>An upright piano with a cheerful
-  - <gray>ghost at the keys. Right-click to listen.
+  - <gray>ghost at the keys.
   - <#9fb3d9>Moonlit Ballroom
   material: PAPER
   Components:
@@ -162,7 +162,6 @@ moonball_wisp:
   itemname: <#c9b8f0>Wisp
   lore:
   - <gray>A little ghost who follows the music.
-  - <gray>Right-click for a twirl.
   - <#9fb3d9>Moonlit Ballroom
   material: PAPER
   Components:

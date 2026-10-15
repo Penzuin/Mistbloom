@@ -40,26 +40,31 @@ def gilt(side="top"):
         return img
     return f
 
-def parquet():
+def parquet(x0=None, z0=None):
     """Ballroom floor seen from above: rosewood/ebony herringbone, a gilt ring and a pale moon rune
-    circle round the edge; sides are a dark ebony skirting."""
+    circle round the edge; sides are a dark ebony skirting.
+    With x0/z0 (the box's from-corner) every box paints its own part of ONE floor centred on the
+    block (8, 8), so a floor built from several flush boxes reads as a single seamless piece."""
     def f(w, h, face, key):
         img = _blank(w, h)
         if face != "up":
             img[:, :] = T("ebony", 3)
             img[0, :] = T("gold", 2)
             return img
-        cx, cy = (w - 1) / 2, (h - 1) / 2
-        R = min(w, h) / 2
+        if x0 is None:
+            ox, oy, cx, cy, R = 0, 0, (w - 1) / 2, (h - 1) / 2, min(w, h) / 2
+        else:
+            ox, oy, cx, cy, R = x0, z0, 7.5, 7.5, 8           # world texel centres: block centre is 7.5..8.5
         for y in range(h):
             for x in range(w):
-                d = math.hypot(x - cx, y - cy) / R
-                hb = ((x + y) // 3 + (x - y) // 3) % 2
+                gx, gy = x + ox, y + oy                           # texel in floor (world) space
+                d = math.hypot(gx - cx, gy - cy) / R
+                hb = ((gx + gy + 30) // 3 + (gx - gy + 30) // 3) % 2
                 img[y, x] = T("rosewood", 2 if hb else 2.5)
                 if 0.80 < d < 0.86:
                     img[y, x] = T("gold", 1)
                 elif 0.88 < d < 0.97:
-                    a = math.atan2(y - cy, x - cx)
+                    a = math.atan2(gy - cy, gx - cx)
                     if int((a + math.pi) / (2 * math.pi) * 24) % 2 == 0:
                         img[y, x] = T("moonglass", 1)
                     else:
@@ -174,9 +179,11 @@ RING = art([
 # ------------------------------------------------------------------ pieces
 def waltzing_ghosts():
     m = Model("waltzing_ghosts")
-    floor = parquet()
-    m.box([-3, 0, 0], [19, 1, 16], floor)                                       # round-ish dance floor
-    m.box([0, 0, -3], [16, 0.9, 19], floor)                                     # (plus-section, no coplanar faces)
+    # round-ish dance floor: three flush boxes at one height, no overlap (an overlapping second slab
+    # set 0.1 lower used to show a sliver of its gold edge), painted as one continuous floor
+    m.box([-3, 0, 0], [19, 1, 16], parquet(-3, 0))
+    m.box([0, 0, -3], [16, 1, 0], parquet(0, -3), faces=("north", "east", "west", "up", "down"))
+    m.box([0, 0, 16], [16, 1, 19], parquet(0, 16), faces=("south", "east", "west", "up", "down"))
     m.card([-2, 1.15, -2], [18, 1.15, 18], sprite(S.wisp_ring), emit=10, res=2) # sparkle circle
     m.card([-3, 0.6, 8], [19, 28.6, 8], sprite(S.waltz), emit=12, res=2.25)     # the dancing couple
     return m
