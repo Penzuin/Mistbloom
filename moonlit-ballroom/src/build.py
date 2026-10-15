@@ -75,23 +75,27 @@ def nexo_yaml():
     return head + re.sub(rf"\n({NS}_)", r"\n\n\1", txt)
 
 
-README = """# Moonlit Ballroom (starter set) - Mistbloom Studios
+README = """Moonlit Ballroom (starter set) - Mistbloom Studios
+==================================================
 
 Friendly ghosts for your Halloween builds. Six pieces, all animated, all plain Nexo.
 
-| Item ID | What it is |
-|---|---|
-| moonball_waltzing_ghosts | A ghost couple waltzing on a little moonlit dance floor |
-| moonball_ghost_piano | Upright piano with a ghost pianist (2 blocks wide) |
-| moonball_floating_candelabra | Three moonfire candles floating on ghost mist (toggle light) |
-| moonball_ghost_lantern | A tiny ghost living in a lantern (toggle light) |
-| moonball_ghost_portrait | Portrait of Lady Wispwell in flickering candlelight (wall) |
-| moonball_wisp | A little floating ghost pet that blinks |
 
-## Install (Nexo)
-1. Copy `Nexo/items/moonball.yml` into `plugins/Nexo/items/`.
-2. Copy `Nexo/pack/assets/` into `plugins/Nexo/pack/assets/`.
-3. Run `/nexo reload all`, then `/nexo inventory` to grab the pieces.
+ITEMS
+-----
+moonball_waltzing_ghosts       A ghost couple waltzing on a little moonlit dance floor
+moonball_ghost_piano           Upright piano with a ghost pianist (2 blocks wide)
+moonball_floating_candelabra   Three moonfire candles floating on ghost mist (toggle light)
+moonball_ghost_lantern         A tiny ghost living in a lantern (toggle light)
+moonball_ghost_portrait        Portrait of Lady Wispwell in flickering candlelight (wall)
+moonball_wisp                  A little floating ghost pet that blinks
+
+
+INSTALL (Nexo)
+--------------
+1. Copy Nexo/items/moonball.yml into plugins/Nexo/items/
+2. Copy the Nexo/pack/assets/ folder into plugins/Nexo/pack/assets/
+3. Run /nexo reload all, then /nexo inventory to grab the pieces.
 
 Requires Minecraft 1.21.4 or newer. No ModelEngine or other add-ons.
 """
@@ -111,8 +115,8 @@ def package():
     shutil.copytree(os.path.join(STAGE, "assets"), f"{ROOT}/Nexo/pack/assets")
     os.makedirs(f"{ROOT}/Nexo/items")
     open(f"{ROOT}/Nexo/items/{NS}.yml", "w").write(nexo_yaml())
-    open(f"{ROOT}/README.md", "w").write(README)
-    open(f"{ROOT}/LICENSE.txt", "w").write(LICENSE)
+    open(f"{ROOT}/README.txt", "w", newline="\r\n").write(README)   # plain text, Windows line endings for Notepad
+    open(f"{ROOT}/LICENSE.txt", "w", newline="\r\n").write(LICENSE)
     names = {m.name for m in models}
     txt = open(f"{ROOT}/Nexo/items/{NS}.yml").read()
     yaml.safe_load(txt)
