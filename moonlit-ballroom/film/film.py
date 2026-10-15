@@ -37,12 +37,12 @@ shot("ball-07-portrait", (-4.7, 4.5, 8.5), [((-0.8, 4.3, 6.4), 5, "ease-in-out")
      "Slide along the west wall on Lady Wispwell's portrait")
 shot("ball-08-stage", (0.5, 2.9, 22.5), [((0.5, 2.6, 13.5), 7, "ease-out"), ((0.5, 3.0, 18.3), 1, "linear")],
      "Glide up the hall to the Ghost Pianist and the candelabras")
-shot("ball-09-moon", (0.5, 5.5, 24.5), [((-0.8, 2.8, 17.5), 6, "ease-in-out"), ((-0.8, 6.2, 19.8), 1, "linear")],
-     "Crane up behind the piano to the glowing moon window")
+shot("ball-09-candelabra", (-3.5, 2.9, 21.5), [((-4.2, 3.1, 19.4), 3, "ease-in"), ((-3.0, 3.2, 18.9), 3, "ease-out"), ((-1.6, 3.1, 19.8), 1, "linear")],
+     "Slow arc around a lit Floating Candelabra on the stage (product close-up)")
 shot("ball-10-back", (0.5, 7, 24), [((11, 4, 36), 8, "ease-in-out"), ((7, 15, 40), 1, "linear")],
      "Outside, rising past the moon window and the roof")
-shot("ball-11-farewell", (0.5, 9, 6), [((-9, 13, -22), 9, "ease-in"), ((-30, 30, -52), 1, "linear")],
-     "Pull away into the sky (end card goes here)")
+shot("ball-11-goodnight", (0.5, 2.6, 22.5), [((0.5, 4.2, 17.0), 9, "ease-in-out"), ((0.5, 3.0, 0.5), 1, "linear")],
+     "Dolly back down the hall past the dancers and out through the doorway (end card)")
 
 def yaml_out():
     L = ["scenes:"]
