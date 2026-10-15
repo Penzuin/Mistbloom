@@ -1,0 +1,58 @@
+{
+ "garden_bench": [
+  "garden",
+  "bench"
+ ],
+ "garden_chair": [
+  "garden",
+  "chair"
+ ],
+ "tea_table": [
+  "garden",
+  "tea table"
+ ],
+ "potting_table": [
+  "potting",
+  "table"
+ ],
+ "seed_cabinet": [
+  "seed",
+  "cabinet"
+ ],
+ "tool_rack": [
+  "garden",
+  "tool rack"
+ ],
+ "rose_trellis": [
+  "rose",
+  "trellis"
+ ],
+ "arbor_arch": [
+  "rose",
+  "arbor"
+ ],
+ "birdbath": [
+  "copper",
+  "birdbath"
+ ],
+ "flower_box": [
+  "flower",
+  "box"
+ ],
+ "wheelbarrow": [
+  "wheelbarrow",
+  "of blooms"
+ ],
+ "sundial": [
+  "sundial",
+  null
+ ],
+ "picnic_blanket": [
+  "picnic",
+  "blanket"
+ ],
+ "stake_lantern": [
+  "stake",
+  "lantern"
+ ]
+}

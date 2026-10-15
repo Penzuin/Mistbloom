@@ -1,0 +1,350 @@
+[
+ {
+  "name": "w_garden_big",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "garden",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFE6EC",
+   "gradientColour2": "#F2829E",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#A3304F"
+  }
+ },
+ {
+  "name": "w_bench_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "bench",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "w_chair_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "chair",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "w_tea_table_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "tea table",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "w_potting_big",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "potting",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFE6EC",
+   "gradientColour2": "#F2829E",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#A3304F"
+  }
+ },
+ {
+  "name": "w_table_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "table",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "w_seed_big",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "seed",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFE6EC",
+   "gradientColour2": "#F2829E",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#A3304F"
+  }
+ },
+ {
+  "name": "w_cabinet_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "cabinet",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "w_tool_rack_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "tool rack",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "w_rose_big",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "rose",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFE6EC",
+   "gradientColour2": "#F2829E",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#A3304F"
+  }
+ },
+ {
+  "name": "w_trellis_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "trellis",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "w_arbor_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "arbor",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "w_copper_big",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "copper",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFE6EC",
+   "gradientColour2": "#F2829E",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#A3304F"
+  }
+ },
+ {
+  "name": "w_birdbath_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "birdbath",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "w_flower_big",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "flower",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFE6EC",
+   "gradientColour2": "#F2829E",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#A3304F"
+  }
+ },
+ {
+  "name": "w_box_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "box",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "w_wheelbarrow_big",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "wheelbarrow",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFE6EC",
+   "gradientColour2": "#F2829E",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#A3304F"
+  }
+ },
+ {
+  "name": "w_of_blooms_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "of blooms",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "w_sundial_big",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "sundial",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFE6EC",
+   "gradientColour2": "#F2829E",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#A3304F"
+  }
+ },
+ {
+  "name": "w_picnic_big",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "picnic",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFE6EC",
+   "gradientColour2": "#F2829E",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#A3304F"
+  }
+ },
+ {
+  "name": "w_blanket_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "blanket",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ },
+ {
+  "name": "w_stake_big",
+  "w": 3200,
+  "dialogDefaults": true,
+  "text": "stake",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#FFE6EC",
+   "gradientColour2": "#F2829E",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#A3304F"
+  }
+ },
+ {
+  "name": "w_lantern_small",
+  "w": 7000,
+  "dialogDefaults": true,
+  "text": "lantern",
+  "args": {
+   "textureSource": "gradient",
+   "texture": "flat",
+   "gradientColour0": "#F4FFE9",
+   "gradientColour2": "#B3DE90",
+   "gradientColour2Enabled": true,
+   "gradientColour4": "#4C8A3C",
+   "type": "small",
+   "row": 0
+  }
+ }
+]
