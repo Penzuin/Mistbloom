@@ -14,7 +14,7 @@ CHIPS = {
     "witch_hat": ["Glowing moon pin", "Twinkling star charm", "Wide brim"],
     "candle_crown": ["5 flickering candles", "Amethyst studs"],
     "ghostlight_lantern": ["Glowing ghost", "Hangs from your hand"],
-    "grimoire": ["Glowing moon clasp", "Ribbon bookmark"],
+    "grimoire": ["Hangs from a belt", "Glowing moon clasp"],
     "wisp": ["Floats beside you", "No ModelEngine needed"],
     "moonlit_broom": ["Glowing lantern", "Ribbon bow"],
 }
@@ -117,10 +117,14 @@ def card(key):
     _, title, slot, lore, mk = BY[key]
     W, H = 1600, 900
     im = sky(W, H, seed=hash(key) % 100)
-    cam = BACK if slot == "BACKPACK" else FRONT
+    cam = BACK if key == "moonlit_broom" else FRONT
     big = fitted(on_player([key], cam, 15), 760, 820)
     shadowed(im, big, (60 + (780 - big.width) // 2, H - big.height - 40))
-    solo = mk().render(ppu=22 if slot != "BACKPACK" else 11, cam=(-0.6, 0.35, -1.0) if slot != "BACKPACK" else (0.6, 0.3, 1.0), frame=1)
+    sm = mk()
+    if key == "grimoire":
+        sm.elements = [e for e in sm.elements if e.get("name") != "belt"]   # just the book for the close-up
+    broom = key == "moonlit_broom"
+    solo = sm.render(ppu=11 if broom else 22, cam=(0.6, 0.3, 1.0) if broom else (-0.6, 0.35, -1.0), frame=1)
     solo.thumbnail((420, 380))
     shadowed(im, solo, (1150 - solo.width // 2, 440 + (380 - solo.height) // 2))
     d = ImageDraw.Draw(im)
@@ -146,7 +150,7 @@ def features():
     d.text((962, 210), "Witchy pieces players keep wearing after October.", font=font("Poppins-Medium.ttf", 26),
            fill=PETAL, anchor="lm")
     rows = [
-        ("Every slot covered", "2 hats, a back piece, 2 off-hand items and a balloon"),
+        ("Every slot covered", "2 hats, a broom, a belt grimoire, a lantern and a balloon"),
         ("HMCCosmetics ready", "menu, permissions and one config per plugin"),
         ("Nexo, ItemsAdder or Oraxen", "or no items plugin at all"),
         ("Animated", "flickering candles, glowing ghosts, twinkling charms"),
@@ -194,5 +198,8 @@ if __name__ == "__main__":
     if "gifs" in which:
         spin("witching-hour-outfit", OUTFIT, ppu=7)
         for key, t, s, l, mk in PIECES:
-            spin(key.replace("_", "-"), None, solo=mk(), ppu=26 if s != "BACKPACK" else 12, size=420)
+            sm = mk()
+            if key == "grimoire":
+                sm.elements = [e for e in sm.elements if e.get("name") != "belt"]
+            spin(key.replace("_", "-"), None, solo=sm, ppu=12 if key == "moonlit_broom" else 26, size=420)
     print("done")

@@ -388,48 +388,65 @@ COVER = ["gggggggggggg",
          "gggggggggggg"]
 
 
+def belt():
+    """Leather belt round the waist: only the outer ring of the top/bottom faces is drawn."""
+    def f(W, H, face, key):
+        img = _blank(W, H)
+        for y in range(H):
+            for x in range(W):
+                if face in ("up", "down") and 1 < x < W - 2 and 1 < y < H - 2:
+                    continue
+                t = face_tone(face, 2) + (1 if y == H - 1 else 0)
+                img[y, x] = T("leather", t)
+        if face == "north":                      # little brass buckle at the front
+            cx, cy = W // 2, H // 2
+            for x in range(cx - 2, cx + 2):
+                for y in range(max(0, cy - 1), min(H, cy + 2)):
+                    if x in (cx - 2, cx + 1) or y in (cy - 1, cy + 1):
+                        img[y, x] = T("brass", 1)
+        return img
+    return f
+
+
 def grimoire():
-    """Carried at your side: covers face left/right, spine faces forward, gripped at the top edge."""
-    m = Model("grimoire", "hand")
+    """Hangs from a belt on the front-left of the thigh, tilted on its strap. Back slot, so it
+    follows the body and not the arm. Authored in player pixels; the back slot sits 10 px lower."""
+    m = Model("grimoire", "back", scale=1.0)
+    Y = 10.0                                     # player y -> back-slot model y
+    hook = (3.0, -11.1 + Y, 1.6)
+    rot = ("z", 22.5, hook)
     cov = art(COVER, {"g": ("brass", 2), "s": ("brass", 1)}, back=fabric("cover", 2, seed=21, rim=False))
-    m.b((3.5, 0.6, 2.3), (4.0, 7.9, 7.7), cov, tpp=K)
-    m.b((6.0, 0.6, 2.3), (6.5, 7.9, 7.7), cov, tpp=K)
-    m.b((3.5, 0.6, 2.3), (6.5, 7.9, 2.9), fabric("cover", 2, seed=22), tpp=K)
-    nm(m, "cover_left", "cover_right", "spine")
+    x0, x1, y0, y1 = 1.2, 4.8, -16.4 + Y, -11.4 + Y
+    m.b((x0, y0, 1.0), (x1, y1, 1.35), cov, rot=rot, tpp=K)
+    m.b((x0, y0, 1.85), (x1, y1, 2.2), cov, rot=rot, tpp=K)
+    m.b((x0, y0, 1.0), (x0 + 0.4, y1, 2.2), fabric("cover", 2, seed=22), rot=rot, tpp=K)
+    nm(m, "cover_front", "cover_back", "spine")
 
     def pages(W, H, face, key):
         img = _blank(W, H)
-        for y in range(H):
-            for x in range(W):
+        for yy in range(H):
+            for xx in range(W):
                 t = face_tone(face, 1)
-                if face in ("south", "up", "down") and (x if face == "south" else y) % 2 == 1:
+                if face in ("east", "up", "down") and (xx if face == "east" else yy) % 2 == 1:
                     t += 1
-                img[y, x] = T("page", t)
+                img[yy, xx] = T("page", t)
         return img
-    m.b((4.0, 0.85, 2.9), (6.0, 7.65, 7.45), pages, tpp=K)
+    m.b((x0 + 0.4, y0 + 0.2, 1.35), (x1 - 0.15, y1 - 0.2, 1.85), pages, rot=rot, tpp=K)
     nm(m, "pages")
     c = metal("brass", 1)
-    for (y0, n) in ((7.1, "top"), (0.4, "bottom")):
-        m.b((3.35, y0 + 0.1, 7.0), (6.65, y0 + 0.9, 7.85), c, tpp=K)
-        nm(m, f"corner_{n}")
-    m.b((3.35, 3.5, 7.45), (6.65, 5.0, 8.05), fabric("band", 3, seed=25), tpp=K)
-    nm(m, "strap")
-    m.c((3.42, 2.9, 3.5), (3.42, 5.9, 6.5), moon_card(), emit=12, tpp=K)
-    m.c((6.58, 2.9, 3.5), (6.58, 5.9, 6.5), moon_card(), emit=12, tpp=K)
-    nm(m, "moon_clasp_left", "moon_clasp_right")
-
-    def ribbon(W, H, face, key):
-        img = _blank(W, H)
-        for y in range(H):
-            for x in range(W):
-                if y == H - 1 and x == W // 2:
-                    continue
-                img[y, x] = T("band", 2 + (1 if x == 0 else 0))
-        return img
-    m.c((5.0, -1.2, 5.2), (5.0, 0.9, 5.9), ribbon, tpp=K)
-    nm(m, "bookmark")
-    # gripped at the top edge, just behind the spine, inside the closed hand
-    m.hand = {"rotation": [90, 0, 0], "translation": [0, -2.4, -0.7], "scale": [0.45] * 3}
+    m.b((x1 - 0.7, y1 - 0.6, 0.9), (x1 + 0.1, y1 + 0.1, 2.3), c, rot=rot, tpp=K)
+    m.b((x1 - 0.7, y0 - 0.1, 0.9), (x1 + 0.1, y0 + 0.6, 2.3), c, rot=rot, tpp=K)
+    nm(m, "corner_top", "corner_bottom")
+    m.b((x1 - 0.2, (y0 + y1) / 2 - 0.55, 0.95), (x1 + 0.25, (y0 + y1) / 2 + 0.55, 2.25),
+        fabric("band", 3, seed=25), rot=rot, tpp=K)
+    nm(m, "clasp_strap")
+    mx, my = (x0 + x1) / 2 - 0.15, (y0 + y1) / 2
+    m.c((mx - 1.25, my - 1.25, 0.95), (mx + 1.25, my + 1.25, 0.95), moon_card(), emit=12, rot=rot, tpp=K)
+    nm(m, "moon_clasp")
+    # strap from the book up to the belt, and the belt itself
+    m.b((2.7, -11.5 + Y, 1.55), (3.3, -10.5 + Y, 2.0), metal("leather", 1), tpp=K)
+    m.b((0.6, -11.3 + Y, 2.55), (9.4, -10.5 + Y, 7.45), belt(), tpp=K)
+    nm(m, "belt_strap", "belt")
     return m
 
 
@@ -542,7 +559,7 @@ PIECES = [
     ("witch_hat", "Moonlit Witch Hat", "HELMET", "A tall witch hat with a glowing crescent pin.", witch_hat),
     ("candle_crown", "Candle Crown", "HELMET", "A brass circlet of dripping candles.", candle_crown),
     ("ghostlight_lantern", "Ghostlight Lantern", "OFFHAND", "A sleepy ghost glowing in a lantern.", ghostlight_lantern),
-    ("grimoire", "Moon Grimoire", "OFFHAND", "A spellbook with a glowing moon clasp.", grimoire),
+    ("grimoire", "Moon Grimoire", "BACKPACK", "A spellbook that hangs from your belt.", grimoire),
     ("wisp", "Wisp", "BALLOON", "A little ghost that floats beside you.", wisp),
     ("moonlit_broom", "Moonlit Broom", "BACKPACK", "A broom with a lantern hanging off the end.", moonlit_broom),
 ]

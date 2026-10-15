@@ -42,8 +42,8 @@ into your server's `plugins` folder. Let it merge with what's already there.
 - Each one has its own permission: `hmccosmetics.<id>`, so `hmccosmetics.witch_hat` for the
   hat. They work well as crate, rank or event rewards.
 - To give one straight to someone: `/cosmetic apply <id> <player>`
-- The two hats both use the helmet slot, and the lantern and grimoire both use the off-hand,
-  so players pick one of each.
+- The two hats both use the helmet slot, and the broom and the belt grimoire both use the
+  back slot, so players pick one of each.
 
 ## If something looks off
 
@@ -51,8 +51,10 @@ into your server's `plugins` folder. Let it merge with what's already there.
   `cosmetics/witching_hour.yml`. It's x, y, z in blocks and ships at `0.7,1.2,0.7`.
 - **A hat sits too high or too low:** open its `.bbmodel` in Blockbench, go to Display, pick
   Head and change the Y translation.
-- **The lantern or grimoire sits oddly in the hand:** same place, but pick Third Person Left
-  Hand. The lantern ships hanging from the fist; move it with the translation values.
+- **The lantern sits oddly in the hand:** same place, but pick Third Person Left Hand. It ships
+  with the handle in the fist; move it with the translation values.
+- **The grimoire:** it hangs from a belt on the left thigh using the back slot, so it moves with
+  the body, not the arm. Legs can brush through it a little mid-stride, like any hip cosmetic.
 - **Still stuck?** Message me with your server version, HMCCosmetics version, which items
   plugin you use and a screenshot, and I'll help you out.
 

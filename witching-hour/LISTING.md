@@ -27,7 +27,7 @@ October, and they still feel right at home when Halloween comes round.
 - **Moonlit Witch Hat** (hat) - a tall, wide-brimmed witch hat with a glowing crescent pin and a little star hanging off the bent tip.
 - **Candle Crown** (hat) - a brass circlet of five dripping candles with flickering flames.
 - **Ghostlight Lantern** (off-hand) - a sleepy little ghost glowing inside an iron lantern.
-- **Moon Grimoire** (off-hand) - a spellbook with brass corners, a glowing moon clasp and a ribbon bookmark.
+- **Moon Grimoire** (back) - a spellbook that hangs from a leather belt on your hip, with brass corners and a glowing moon clasp.
 - **Wisp** (balloon) - a soft, glowing ghost that floats beside you. No lead, and no ModelEngine needed.
 - **Moonlit Broom** (back) - a broom strapped across your back with a lantern hanging off the end.
 
