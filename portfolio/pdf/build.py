@@ -66,7 +66,7 @@ c.showPage()
 bg(c,2)
 c.setFillColor(GOLD); c.setFont('PopSB',10); c.drawString(60,470,'A B O U T')
 c.setFillColor(INK); c.setFont('Lora',28); c.drawString(60,430,'Hi, I\'m Zinguin.')
-para(c,'I run Mistbloom Studios, where I design and build 3D furniture, decor and wearable cosmetics for Minecraft servers. Every piece is modeled, textured and animated by hand in Blockbench, then packaged so it drops straight into a server running Nexo. My home style is cozy, night-sky fantasy: soft purples, warm lantern light and small details you notice up close.',60,300,400,115,size=11.5,color=MUTE)
+para(c,'I run Mistbloom Studios, where I design 3D furniture, decor and wearable cosmetics for Minecraft servers. Each piece comes as a Blockbench model, packaged so it drops straight into a server running Nexo. My home style is cozy, night-sky fantasy: soft purples, warm lantern light and small details you notice up close.',60,300,400,115,size=11.5,color=MUTE)
 items=[('Furniture and decor','Placeable 3D pieces with seats, storage and light toggles, plus animated pieces like candles, ghosts and koi.'),
 ('Cosmetics','Wings and other wearables for HMCCosmetics, each with its own permission.'),
 ('Animation','Looping idle animations through ModelEngine and animated textures, from swimming koi to flickering flames.'),
