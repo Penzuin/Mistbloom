@@ -56,20 +56,16 @@ c=canvas.Canvas('/mnt/user-data/outputs/Mistbloom-Portfolio.pdf',pagesize=(W,H),
 c.setTitle('Mistbloom Studios Portfolio'); c.setAuthor('Zinguin'); c.setCreator('Mistbloom Studios'); c.setProducer('Mistbloom Studios'); c.setSubject('Portfolio'); c.setKeywords('')
 # cover
 bg(c)
-mosaic=[stem for stem in ['koi-garden-01-pond','halloween-festival-05-potion-stall','moonlit-ballroom-ghost-pianist','frostlight-1-market-stall','night-wings-5-nightwyrm','rosewick-garden-08-arbor-arch']]
-cell=150
-for i,s in enumerate(mosaic):
-    rimg(c,img(files[s]),W/2-3*cell-12.5+i*(cell+5),40,cell,cell,8)
-logo=ImageReader('mistbloom-logo.png'); lw=420; c.drawImage(logo,(W-lw)/2,330,lw,lw*332/1200,mask='auto')
-c.setFillColor(GOLD); c.setFont('PopSB',11); c.drawCentredString(W/2,300,'P O R T F O L I O')
-c.setFillColor(INK); c.setFont('Lora',30); c.drawCentredString(W/2,255,'3D furniture, decor and cosmetics for Minecraft')
-c.setFillColor(MUTE); c.setFont('Pop',12); c.drawCentredString(W/2,228,'By Zinguin  ·  10 packs  ·  96 pieces  ·  9 armor sets  ·  37 animated')
+logo=ImageReader('mistbloom-logo.png'); lw=420; c.drawImage(logo,(W-lw)/2,270,lw,lw*332/1200,mask='auto')
+c.setFillColor(GOLD); c.setFont('PopSB',11); c.drawCentredString(W/2,232,'P O R T F O L I O')
+c.setFillColor(INK); c.setFont('Lora',30); c.drawCentredString(W/2,184,'3D furniture, decor and cosmetics for Minecraft')
+c.setFillColor(MUTE); c.setFont('Pop',12); c.drawCentredString(W/2,154,'By Zinguin  ·  10 packs  ·  96 pieces  ·  9 armor sets  ·  37 animated')
 c.showPage()
 # about
 bg(c,2)
 c.setFillColor(GOLD); c.setFont('PopSB',10); c.drawString(60,470,'A B O U T')
 c.setFillColor(INK); c.setFont('Lora',28); c.drawString(60,430,'Hi, I\'m Zinguin.')
-para(c,'I run Mistbloom Studios, where I make 3D furniture, decor, cosmetics and armor for Minecraft servers. Everything is packaged for Nexo, so it drops straight into a server. I work across a lot of styles, from koi ponds, gardens and bedrooms to Halloween and winter markets, wing cosmetics and fantasy armor sets.',60,300,400,115,size=11.5,color=MUTE)
+para(c,'I run Mistbloom Studios, where I make 3D furniture, decor, cosmetics and armor for Minecraft servers. Everything is packaged for Nexo, so it drops straight into a server.',60,300,400,115,size=11.5,color=MUTE)
 items=[('Furniture and decor','Placeable 3D pieces with seats, storage and light toggles, plus animated pieces like candles, ghosts and koi.'),
 ('Cosmetics and armor','Wings for HMCCosmetics, and full armor sets with 3D helmets that run on Nexo\'s custom armor.'),
 ('Animation','Looping animations and animated textures, from swimming koi and dancing ghosts to flickering flames.'),
@@ -79,13 +75,10 @@ for t,d in items:
     c.setFillColor(CARD); c.roundRect(520,y-78,380,72,8,fill=1,stroke=0)
     c.setFillColor(INK); c.setFont('PopSB',12); c.drawString(538,y-28,t)
     para(c,d,538,y-74,345,40,size=9.5,color=MUTE,lead=1.4); y-=86
-stats=[('10','packs'),('96','pieces'),('9','armor sets'),('37','animated')]
-for i,(n,l) in enumerate(stats):
-    x=60+i*105; c.setFillColor(GOLD); c.setFont('Lora',34); c.drawString(x,190,n); c.setFillColor(MUTE); c.setFont('Pop',10); c.drawString(x,172,l)
-c.setFillColor(MUTE); c.setFont('Pop',9.5); c.drawString(60,120,'Packs in this portfolio')
+c.setFillColor(MUTE); c.setFont('Pop',9.5); c.drawString(60,290,'Packs in this portfolio')
 c.setFont('PopM',10); c.setFillColor(INK)
 for i,(k,t,sub,d) in enumerate(PACKS):
-    c.drawString(60+(i%3)*150,98-(i//3)*18,t)
+    c.drawString(60+(i%3)*150,266-(i//3)*20,t)
 c.showPage()
 page=3
 # packs
