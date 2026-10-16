@@ -52,8 +52,8 @@ def grid(c,stems,x0,ytop,cols,cell,gap):
         r,k=divmod(i,cols); x=x0+k*(cell+gap); y=ytop-(r+1)*cell-r*gap
         rimg(c,img(files[s]),x,y,cell,cell,6)
         if files[s].endswith('.gif'): badge(c,x+cell-54,y+cell-17)
-c=canvas.Canvas('/mnt/user-data/outputs/Mistbloom-Portfolio.pdf',pagesize=(W,H))
-c.setTitle('Mistbloom Studios Portfolio'); c.setAuthor('Zinguin, Mistbloom Studios')
+c=canvas.Canvas('/mnt/user-data/outputs/Mistbloom-Portfolio.pdf',pagesize=(W,H),invariant=0)
+c.setTitle('Mistbloom Studios Portfolio'); c.setAuthor('Zinguin'); c.setCreator('Mistbloom Studios'); c.setProducer('Mistbloom Studios'); c.setSubject('Portfolio'); c.setKeywords('')
 # cover
 bg(c)
 mosaic=[stem for stem in ['koi-garden-01-pond','halloween-festival-05-potion-stall','moonlit-ballroom-ghost-pianist','frostlight-1-market-stall','night-wings-5-nightwyrm','rosewick-garden-08-arbor-arch']]
@@ -69,11 +69,11 @@ c.showPage()
 bg(c,2)
 c.setFillColor(GOLD); c.setFont('PopSB',10); c.drawString(60,470,'A B O U T')
 c.setFillColor(INK); c.setFont('Lora',28); c.drawString(60,430,'Hi, I\'m Zinguin.')
-para(c,'I run Mistbloom Studios, where I design 3D furniture, decor and wearable cosmetics for Minecraft servers. Each piece comes as a Blockbench model, packaged so it drops straight into a server running Nexo. My home style is cozy, night-sky fantasy: soft purples, warm lantern light and small details you notice up close.',60,300,400,115,size=11.5,color=MUTE)
+para(c,'I run Mistbloom Studios, where I make 3D furniture, decor, cosmetics and armor for Minecraft servers. Everything is packaged for Nexo, so it drops straight into a server. I work across a lot of styles, from koi ponds, gardens and bedrooms to Halloween and winter markets, wing cosmetics and fantasy armor sets.',60,300,400,115,size=11.5,color=MUTE)
 items=[('Furniture and decor','Placeable 3D pieces with seats, storage and light toggles, plus animated pieces like candles, ghosts and koi.'),
 ('Cosmetics and armor','Wings for HMCCosmetics, and full armor sets with 3D helmets that run on Nexo\'s custom armor.'),
-('Animation','Looping idle animations through ModelEngine and animated textures, from swimming koi to flickering flames.'),
-('Tools','Blockbench, Nexo, ModelEngine, HMCCosmetics.')]
+('Animation','Looping animations and animated textures, from swimming koi and dancing ghosts to flickering flames.'),
+('Tools','Blockbench, Nexo, HMCCosmetics.')]
 y=440
 for t,d in items:
     c.setFillColor(CARD); c.roundRect(520,y-78,380,72,8,fill=1,stroke=0)
