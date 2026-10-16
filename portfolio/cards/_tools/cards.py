@@ -24,7 +24,37 @@ if PACK == "frost":
         "festive_pine":    (P1.festive_pine, ("festive", "pine")),
         "lantern_post":    (lambda: P1.lantern_post(True), ("lantern", "post")),
         "snowman":         (P1.snowman, ("snowman", None)),
+        "gingerbread_house": (P2.gingerbread_house, ("gingerbread", "house")),
+        "brazier":         (lambda: P1.brazier(True), ("brazier", None)),
+        "market_sign":     (P1.market_sign, ("market", "sign")),
+        "gift_sled":       (P1.gift_sled, ("gift", "sled")),
+        "snow_globe":      (P2.snow_globe, ("snow", "globe")),
+        "plush_bear":      (P2.plush_bear, ("plush", "bear")),
+        "cider_barrel":    (P2.cider_barrel, ("cider", "barrel")),
+        "potted_pine":     (P2.potted_pine, ("potted", "pine")),
+        "market_bench":    (P1.market_bench, ("market", "bench")),
+        "bar_table":       (P1.bar_table, ("bar", "table")),
+        "gift_tower":      (P2.gift_tower, ("gift", "tower")),
+        "gift_pile":       (P2.gift_pile, ("gift", "pile")),
+        "gift_box":        (P2.gift_box, ("gift", "box")),
+        "gift_crates":     (P1.gift_crates, ("gift", "crates")),
+        "ornament_crate":  (P2.ornament_crate, ("ornament", "crate")),
+        "mini_snowman":    (P2.mini_snowman, ("mini", "snowman")),
+        "candy_cane":      (P2.candy_cane, ("candy", "cane")),
+        "cookie_plate":    (P2.cookie_plate, ("cookie", "plate")),
+        "mug_tray":        (P2.mug_tray, ("mug", "tray")),
+        "cocoa_mug":       (P2.cocoa_mug, ("cocoa", "mug")),
+        "table_lantern":   (lambda: P2.table_lantern(True), ("table", "lantern")),
+        "hanging_lantern": (lambda: P2.hanging_lantern(True), ("hanging", "lantern")),
+        "garland_lights":  (lambda: P1.garland_lights(True), ("garland", "lights")),
+        "bunting_flags":   (P2.bunting_flags, ("bunting", "flags")),
+        "wall_wreath":     (P2.wall_wreath, ("wall", "wreath")),
+        "ice_skates":      (P2.ice_skates, ("ice", "skates")),
+        "firewood_stack":  (P2.firewood_stack, ("firewood", "stack")),
+        "market_stool":    (P2.market_stool, ("market", "stool")),
+        "chalk_sign":      (lambda: P2.chalk_sign("COCOA"), ("chalk", "sign")),
     }
+    FLOATS = {"hanging_lantern", "garland_lights", "bunting_flags", "wall_wreath", "ice_skates"}
     PREFIX = "frostlight"
     TICKS = E.FRAMETIMES
 else:
@@ -35,7 +65,21 @@ else:
         "reading_armchair": (P1.reading_armchair, ("reading", "armchair")),
         "tall_bookshelf":  (P1.tall_bookshelf, ("tall", "bookshelf")),
         "floor_lamp":      (lambda: P1.floor_lamp(True), ("floor", "lamp")),
+        "cozy_sofa":       (P1.cozy_sofa, ("cozy", "sofa")),
+        "writing_desk":    (P1.writing_desk, ("writing", "desk")),
+        "tea_table":       (P1.tea_table, ("tea", "table")),
+        "moonbloom_pot":   (P1.moonbloom_pot, ("moonbloom", "pot")),
+        "nightstand":      (P1.nightstand, ("nightstand", None)),
+        "moon_pouf":       (P1.moon_pouf, ("moon", "pouf")),
+        "blanket_basket":  (P1.blanket_basket, ("blanket", "basket")),
+        "floor_cushions":  (P1.floor_cushions, ("floor", "cushions")),
+        "table_lantern":   (lambda: P1.table_lantern(True), ("elven", "lantern")),
+        "wall_sconce":     (lambda: P1.wall_sconce(True), ("wall", "sconce")),
+        "moon_clock":      (P1.moon_clock, ("moon", "clock")),
+        "star_mobile":     (P1.star_mobile, ("star", "mobile")),
+        "moon_rug":        (P1.moon_rug, ("moon", "rug")),
     }
+    FLOATS = {"wall_sconce", "moon_clock", "star_mobile"}
     PREFIX = "nightbloom-nook"
     TICKS = E.FRAMETIMES
 
@@ -82,7 +126,7 @@ def visible_points(m, c):
     return np.array(pts)
 
 
-def render_piece(m, frame, ppu):
+def render_piece(m, frame, ppu, shadow=True, canvas=None):
     c, fwd, right, up = basis(CAM)
     img = m.render(ppu=ppu, cam=CAM, frame=frame)
     pts = visible_points(m, c)
@@ -91,7 +135,7 @@ def render_piece(m, frame, ppu):
     floor = min(min(e["from"][1], e["to"][1]) for e in m.elements)
     L = np.array(LIGHT, float); L /= np.linalg.norm(L)
     quads = []
-    for i, e in enumerate(m.elements):
+    for i, e in enumerate(m.elements) if shadow else []:
         for f in e["faces"]:
             cs = corners(e, f)
             u1, v1, u2, v2 = m.uv[(i, f)]
@@ -111,6 +155,9 @@ def render_piece(m, frame, ppu):
     ox, oy = -min(0, allp[:, 0].min()) + 4, -min(0, allp[:, 1].min()) + 4
     Wc = int(max(allp[:, 0].max(), img.width) + ox + 4)
     Hc = int(max(allp[:, 1].max(), img.height) + oy + 4)
+    if canvas:                          # later animation frames reuse frame 0's canvas
+        ox, oy, Wc, Hc = canvas
+    m._canvas = (ox, oy, Wc, Hc)
     sh = Image.new("L", (Wc, Hc), 0)
     d = ImageDraw.Draw(sh)
     for q in quads:
@@ -120,12 +167,12 @@ def render_piece(m, frame, ppu):
     return out, sh
 
 
-def render(key, ppu):
+def render(key, ppu, first_only=False):
     m = PIECES[key][0]()
-    n = E.NFRAMES if m.is_animated() else 1
+    n = 1 if first_only or not m.is_animated() else E.NFRAMES
     frames, sh = [], None
     for f in range(n):
-        im, s = render_piece(m, f, ppu * SS)
+        im, s = render_piece(m, f, ppu * SS, shadow=(f == 0), canvas=getattr(m, "_canvas", None) if f else None)
         frames.append(im); sh = sh or s
     small = lambda im: im.resize((round(im.width / SS), round(im.height / SS)), Image.LANCZOS)
     return [small(f) for f in frames], small(sh)
@@ -153,7 +200,18 @@ def clean(img):
     return im.crop(im.getbbox())
 
 
+def _wait(p):
+    import time
+    for _ in range(1800):
+        if os.path.exists(p):
+            time.sleep(0.5); return
+        time.sleep(1)
+
+
 def title(top, small, top_h=132):
+    _wait(f"{TDIR}/t_{top}.png")
+    if small:
+        _wait(f"{TDIR}/s_{small}.png")
     t = clean(Image.open(f"{TDIR}/t_{top}.png"))
     t = t.resize((round(t.width * top_h / t.height), top_h), Image.LANCZOS)
     if t.width > 820:
@@ -182,7 +240,7 @@ _cache = {}
 
 def card(key, f=0):
     if key not in _cache:
-        fr, _ = render(key, 5)
+        fr, _ = render(key, 5, first_only=True)
         bb = fr[0].getbbox()
         ppu = 5 * min(BOX_W / (bb[2] - bb[0]), BOX_H / (bb[3] - bb[1]))
         _cache[key] = render(key, ppu)
@@ -190,8 +248,9 @@ def card(key, f=0):
     img = background()
     bb = frames[0].getbbox()
     x = round(S / 2 - (bb[0] + bb[2]) / 2)
-    y = round(BOX_BOTTOM - bb[3])
-    img.alpha_composite(shadow_layer(sh), (x, y))
+    y = round(BOX_BOTTOM - bb[3]) - (40 if key in FLOATS else 0)
+    if key not in FLOATS:
+        img.alpha_composite(shadow_layer(sh), (x, y))
     img.alpha_composite(frames[f % len(frames)], (x, y))
     t = title(*PIECES[key][1])
     img.alpha_composite(t, ((S - t.width) // 2, S - t.height - 46))
