@@ -10,7 +10,7 @@ from reportlab.lib.styles import ParagraphStyle
 sys.path.insert(0,'/home/claude/recard'); from keep import KEEP
 G='/usr/share/fonts/truetype/google-fonts/'
 pdfmetrics.registerFont(TTFont('Lora',G+'Lora-Variable.ttf'))
-pdfmetrics.registerFont(TTFont('Pop',G+'Poppins-Regular.ttf')); pdfmetrics.registerFont(TTFont('PopM',G+'Poppins-Medium.ttf')); pdfmetrics.registerFont(TTFont('PopSB',G+'Poppins-Bold.ttf'))
+pdfmetrics.registerFont(TTFont('Pop',G+'Poppins-Regular.ttf')); pdfmetrics.registerFont(TTFont('PopM',G+'Poppins-Medium.ttf')); pdfmetrics.registerFont(TTFont('PopSB',G+'Poppins-Bold.ttf')); pdfmetrics.registerFont(TTFont('PopB',G+'Poppins-Bold.ttf'))
 W,H=960,540
 BG,CARD,INK,MUTE,GOLD,LILAC=HexColor('#141A33'),HexColor('#1C2446'),HexColor('#F4EFE6'),HexColor('#B9B4CF'),HexColor('#F2C97D'),HexColor('#C9B8F0')
 OUT='/home/claude/recard/out/'; man=json.load(open(OUT+'manifest.json'))
@@ -113,4 +113,31 @@ for k,title,sub,desc in PACKS:
         gw=cols*cell+(cols-1)*gap; gh=rows*cell+(rows-1)*gap
         grid(c,chunk,(W-gw)/2,min(480,H/2+gh/2),cols,cell,gap)
         c.showPage()
+
+# ---- in motion
+mo=[m for m in json.load(open('motion.json')) if m['diff']>=0.4]
+NOTE={'Koi Pond':'Two koi circle under rippling water.','Swimming Koi':'Three koi swim in a slow circle.','Leaping Koi Statue':'The koi rocks on its splash, tail swishing.','Koi Bowl':'Two little koi swim round the bowl.','Koi Pond Table':'Koi swim across the table top.','Koi Windsock':'The koi windsocks flap in the wind.','Ghost Pianist':'The ghost plays while notes drift up.','Waltzing Ghosts':'Two ghosts waltz across the floor.','Candle Ring':'Every candle flame flickers.','Candle Cluster':'The candle flames flicker.','Candelabra':'Floats and flickers.','Wisp':'Bobs and glows.'}
+PK={k:t for k,t,_,_ in PACKS}
+per=3; chunks=[mo[i:i+per] for i in range(0,len(mo),per)]
+for ci,ch in enumerate(chunks):
+    bg(c,page); page+=1
+    c.setFillColor(GOLD); c.setFont('PopSB',10); c.drawString(48,500,'I N   M O T I O N' + ('' if ci==0 else '   ·   C O N T I N U E D'))
+    if ci==0:
+        c.setFillColor(MUTE); c.setFont('Pop',10); c.drawString(48,482,'Key frames from the animated pieces. In game, each one plays as a smooth looping animation. Lanterns, lamps and lights also flicker and glow.')
+    cell=118; gap=8; y=458
+    for m in ch:
+        yb=y-cell
+        c.setFillColor(INK); c.setFont('PopB',15); c.drawString(48,yb+cell-22,m['name'])
+        c.setFillColor(GOLD); c.setFont('PopB',8); c.drawString(48,yb+cell-38,PK[m['pack']].upper())
+        para(c,NOTE.get(m['name'],'Looping idle animation.'),48,yb+20,250,cell-62,size=10)
+        x0=312
+        for k,p in enumerate(m['frames']):
+            x=x0+k*(cell+gap); rimg(c,p,x,yb,cell,cell,6)
+            c.setFillColor(BG); c.setFillAlpha(0.75); c.roundRect(x+6,yb+6,22,14,6,fill=1,stroke=0); c.setFillAlpha(1)
+            c.setFillColor(GOLD); c.setFont('PopB',7.5); c.drawCentredString(x+17,yb+10,str(k+1))
+            if k<len(m['frames'])-1:
+                c.setStrokeColor(GOLD); c.setLineWidth(1.2); ax=x+cell+1; ay=yb+cell/2; c.line(ax,ay,ax+gap-2,ay)
+        y-=cell+24
+    c.showPage()
 c.save(); print('pages',page-1)
+
