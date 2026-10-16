@@ -16,21 +16,24 @@ BG,CARD,INK,MUTE,GOLD,LILAC=HexColor('#141A33'),HexColor('#1C2446'),HexColor('#F
 OUT='/home/claude/recard/out/'; man=json.load(open(OUT+'manifest.json'))
 files={stem:fn for (s,stem,n),(s2,fn,n2) in zip(KEEP,man)}
 names={stem:n for s,stem,n in KEEP}
+ARM=['warden','vigil','blackened','tide','sentinel','ranger','hound','smith','grove']
+for a in ARM: files['armory-'+a]='/home/claude/armory/cards/armory-'+a+'.jpg'
 PACKS=[('koi-garden','Koi Garden','Animated pond decor','A pond and garden set built around koi. Most pieces are animated: koi swim around the pond, the bowl and the tea table, and the windsock flaps in the wind.'),
 ('rosewick-garden','Rosewick Garden','Cottage garden furniture','Garden seating, a rose trellis and arbor, a birdbath, a flower wheelbarrow and a lantern with a flickering flame.'),
 ('cozy-bedroom','Cozy Bedroom','Bedroom furniture','A quilted bed, a bedside table and a wall shelf with plants and books.'),
 ('nightbloom-nook','Nightbloom Nook','Reading nook furniture','A tall bookshelf, a writing desk, a potted moonbloom, a nightstand and an animated moon clock.'),
 ('night-wings','Night Wings','Wearable wing cosmetics','Six wing cosmetics for HMCCosmetics: feather, duskbat, frost, fairy, dragon and petal wings.'),
+('mistbloom-armory','Mistbloom Armory','Wearable armor sets','Fantasy armor sets in a chunky, vanilla-sized style. Every set has a 3D helmet plus a chestpiece, leggings and boots, running on Nexo\'s component-based armor. Styles range from steel plate and chain mail to leathers, a forge apron and bark.'),
 ('halloween-festival','Halloween Festival','Halloween decor','A harvest market, a witch\'s corner, a graveyard and spooky critters. Jack-o\'-lanterns, lamps and candles flicker.'),
 ('witching-hour','Witching Hour','Animated witch decor','A candle ring, a ghost lantern and a floating wisp, all with moving flames and glow.'),
 ('moonlit-ballroom','Moonlit Ballroom','Animated ghost ballroom','A ghost pianist, waltzing ghosts, a ghost portrait, a floating candelabra, a spirit lantern and a little ghost.'),
 ('frostlight','Frostlight Market','Winter night market','A market stall, a cocoa cart, gifts and crates, benches, and glowing lanterns and garland lights.')]
-SECT={'koi-garden':'Everyday','rosewick-garden':'Everyday','cozy-bedroom':'Everyday','nightbloom-nook':'Everyday','night-wings':'Cosmetics','halloween-festival':'Holiday','witching-hour':'Holiday','moonlit-ballroom':'Holiday','frostlight':'Holiday'}
+SECT={'koi-garden':'Everyday','rosewick-garden':'Everyday','cozy-bedroom':'Everyday','nightbloom-nook':'Everyday','night-wings':'Cosmetics','mistbloom-armory':'Cosmetics','halloween-festival':'Holiday','witching-hour':'Holiday','moonlit-ballroom':'Holiday','frostlight':'Holiday'}
 cache={}
 def img(fn):
     if fn not in cache:
-        im=Image.open(OUT+fn); im.seek(0); im=im.convert('RGB')
-        p=f'/tmp/claude-0/pf_{fn}.jpg'; im.resize((540,540),Image.LANCZOS).save(p,quality=88); cache[fn]=p
+        im=Image.open(fn if fn.startswith('/') else OUT+fn); im.seek(0); im=im.convert('RGB')
+        p=f'/tmp/claude-0/pf_{os.path.basename(fn)}.jpg'; im.resize((540,540),Image.LANCZOS).save(p,quality=88); cache[fn]=p
     return cache[fn]
 def rimg(c,path,x,y,w,h,r=8):
     c.saveState(); p=c.beginPath(); p.roundRect(x,y,w,h,r); c.clipPath(p,stroke=0,fill=0); c.drawImage(path,x,y,w,h); c.restoreState()
@@ -60,7 +63,7 @@ for i,s in enumerate(mosaic):
 logo=ImageReader('mistbloom-logo.png'); lw=420; c.drawImage(logo,(W-lw)/2,330,lw,lw*332/1200,mask='auto')
 c.setFillColor(GOLD); c.setFont('PopSB',11); c.drawCentredString(W/2,300,'P O R T F O L I O')
 c.setFillColor(INK); c.setFont('Lora',30); c.drawCentredString(W/2,255,'3D furniture, decor and cosmetics for Minecraft')
-c.setFillColor(MUTE); c.setFont('Pop',12); c.drawCentredString(W/2,228,'By Zinguin  ·  9 packs  ·  96 pieces  ·  37 animated')
+c.setFillColor(MUTE); c.setFont('Pop',12); c.drawCentredString(W/2,228,'By Zinguin  ·  10 packs  ·  96 pieces  ·  9 armor sets  ·  37 animated')
 c.showPage()
 # about
 bg(c,2)
@@ -68,7 +71,7 @@ c.setFillColor(GOLD); c.setFont('PopSB',10); c.drawString(60,470,'A B O U T')
 c.setFillColor(INK); c.setFont('Lora',28); c.drawString(60,430,'Hi, I\'m Zinguin.')
 para(c,'I run Mistbloom Studios, where I design 3D furniture, decor and wearable cosmetics for Minecraft servers. Each piece comes as a Blockbench model, packaged so it drops straight into a server running Nexo. My home style is cozy, night-sky fantasy: soft purples, warm lantern light and small details you notice up close.',60,300,400,115,size=11.5,color=MUTE)
 items=[('Furniture and decor','Placeable 3D pieces with seats, storage and light toggles, plus animated pieces like candles, ghosts and koi.'),
-('Cosmetics','Wings and other wearables for HMCCosmetics, each with its own permission.'),
+('Cosmetics and armor','Wings for HMCCosmetics, and full armor sets with 3D helmets that run on Nexo\'s custom armor.'),
 ('Animation','Looping idle animations through ModelEngine and animated textures, from swimming koi to flickering flames.'),
 ('Tools','Blockbench, Nexo, ModelEngine, HMCCosmetics.')]
 y=440
@@ -76,9 +79,9 @@ for t,d in items:
     c.setFillColor(CARD); c.roundRect(520,y-78,380,72,8,fill=1,stroke=0)
     c.setFillColor(INK); c.setFont('PopSB',12); c.drawString(538,y-28,t)
     para(c,d,538,y-74,345,40,size=9.5,color=MUTE,lead=1.4); y-=86
-stats=[('9','packs'),('96','pieces'),('37','animated')]
+stats=[('10','packs'),('96','pieces'),('9','armor sets'),('37','animated')]
 for i,(n,l) in enumerate(stats):
-    x=60+i*135; c.setFillColor(GOLD); c.setFont('Lora',34); c.drawString(x,190,n); c.setFillColor(MUTE); c.setFont('Pop',10); c.drawString(x,172,l)
+    x=60+i*105; c.setFillColor(GOLD); c.setFont('Lora',34); c.drawString(x,190,n); c.setFillColor(MUTE); c.setFont('Pop',10); c.drawString(x,172,l)
 c.setFillColor(MUTE); c.setFont('Pop',9.5); c.drawString(60,120,'Packs in this portfolio')
 c.setFont('PopM',10); c.setFillColor(INK)
 for i,(k,t,sub,d) in enumerate(PACKS):
@@ -87,7 +90,7 @@ c.showPage()
 page=3
 # packs
 for k,title,sub,desc in PACKS:
-    stems=[s for s2,s,n in KEEP if s.startswith(k)]
+    stems=['armory-'+a for a in ARM] if k=='mistbloom-armory' else [s for s2,s,n in KEEP if s.startswith(k)]
     anim=sum(files[s].endswith('.gif') for s in stems)
     bg(c,page); page+=1
     cov=f'/home/claude/mb-portfolio/portfolio/behance/covers/{k}.jpg'
@@ -97,7 +100,7 @@ for k,title,sub,desc in PACKS:
     if tw>300: tw=300; th=t.height*tw/t.width
     tp=f'/tmp/claude-0/pt_{k}.png'; t.save(tp); c.drawImage(tp,48,182,tw,th,mask='auto')
     para(c,desc,48,90,300,82,size=10.5)
-    c.setFillColor(MUTE); c.setFont('Pop',9); c.drawString(48,62,f'{len(stems)} pieces' + (f'  ·  {anim} animated' if anim else '') + '  ·  Made for Nexo')
+    c.setFillColor(MUTE); c.setFont('Pop',9); c.drawString(48,62,(f'{len(stems)} sets  ·  {len(stems)*4} items' if k=='mistbloom-armory' else f'{len(stems)} pieces') + (f'  ·  {anim} animated' if anim else '') + '  ·  Made for Nexo')
     first=stems[:12]; cols=4; cell=128; gap=8
     rows=(len(first)+cols-1)//cols
     gh=rows*cell+(rows-1)*gap; ytop=H/2+gh/2
@@ -114,30 +117,5 @@ for k,title,sub,desc in PACKS:
         grid(c,chunk,(W-gw)/2,min(480,H/2+gh/2),cols,cell,gap)
         c.showPage()
 
-# ---- in motion
-mo=[m for m in json.load(open('motion.json')) if m['diff']>=0.4]
-NOTE={'Koi Pond':'Two koi circle under rippling water.','Swimming Koi':'Three koi swim in a slow circle.','Leaping Koi Statue':'The koi rocks on its splash, tail swishing.','Koi Bowl':'Two little koi swim round the bowl.','Koi Pond Table':'Koi swim across the table top.','Koi Windsock':'The koi windsocks flap in the wind.','Ghost Pianist':'The ghost plays while notes drift up.','Waltzing Ghosts':'Two ghosts waltz across the floor.','Candle Ring':'Every candle flame flickers.','Candle Cluster':'The candle flames flicker.','Candelabra':'Floats and flickers.','Wisp':'Bobs and glows.'}
-PK={k:t for k,t,_,_ in PACKS}
-per=3; chunks=[mo[i:i+per] for i in range(0,len(mo),per)]
-for ci,ch in enumerate(chunks):
-    bg(c,page); page+=1
-    c.setFillColor(GOLD); c.setFont('PopSB',10); c.drawString(48,500,'I N   M O T I O N' + ('' if ci==0 else '   ·   C O N T I N U E D'))
-    if ci==0:
-        c.setFillColor(MUTE); c.setFont('Pop',10); c.drawString(48,482,'Key frames from the animated pieces. In game, each one plays as a smooth looping animation. Lanterns, lamps and lights also flicker and glow.')
-    cell=118; gap=8; y=458
-    for m in ch:
-        yb=y-cell
-        c.setFillColor(INK); c.setFont('PopB',15); c.drawString(48,yb+cell-22,m['name'])
-        c.setFillColor(GOLD); c.setFont('PopB',8); c.drawString(48,yb+cell-38,PK[m['pack']].upper())
-        para(c,NOTE.get(m['name'],'Looping idle animation.'),48,yb+20,250,cell-62,size=10)
-        x0=312
-        for k,p in enumerate(m['frames']):
-            x=x0+k*(cell+gap); rimg(c,p,x,yb,cell,cell,6)
-            c.setFillColor(BG); c.setFillAlpha(0.75); c.roundRect(x+6,yb+6,22,14,6,fill=1,stroke=0); c.setFillAlpha(1)
-            c.setFillColor(GOLD); c.setFont('PopB',7.5); c.drawCentredString(x+17,yb+10,str(k+1))
-            if k<len(m['frames'])-1:
-                c.setStrokeColor(GOLD); c.setLineWidth(1.2); ax=x+cell+1; ay=yb+cell/2; c.line(ax,ay,ax+gap-2,ay)
-        y-=cell+24
-    c.showPage()
 c.save(); print('pages',page-1)
 
