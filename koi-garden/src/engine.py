@@ -51,6 +51,21 @@ TSTEPS = np.array([0, 1.0, 2.0, 4.0, 6.0])   # tone index -> ramp position
 PX = True          # vanilla-res house style (PACK_STANDARDS, Oct 19 2026)
 PXPAL = np.stack([colour(np.full(5, i), TSTEPS) for i in range(len(MATS))])  # (M,5,3)
 
+HUE = {
+    'teak':  ['#eaa56c', '#cb7d4b', '#a65b36', '#7c3c27', '#4e2219'],
+    'stone': ['#dcdad2', '#b8b6b0', '#93918f', '#6d6a72', '#47444f'],
+    'moss':  ['#bcd86c', '#8fba4b', '#66943b', '#47712f', '#2d4c25'],
+    'lily':  ['#c4e070', '#94c04c', '#6a983a', '#4a742e', '#2e5022'],
+    'brass': ['#fff1a2', '#f4c95c', '#d69c36', '#a26b23', '#6a4316'],
+    'water': ['#a0e4e2', '#62c0ca', '#3c94aa', '#2b6b88', '#1c4662'],
+    'clay':  ['#f2a878', '#d57a4e', '#ae5636', '#803826', '#52211a'],
+    'pink':  ['#ffd8e4', '#ffa8c4', '#f07ea2', '#c45682', '#8a3a60'],
+    'paper': ['#fffbec', '#f6ead0', '#e2d2ac', '#c4ac80', '#957c58'],
+    'reed':  ['#d8dc7a', '#b0b84e', '#848e34', '#5c6626', '#3a4218'],
+}
+for _m, _hx in HUE.items():
+    PXPAL[MI[_m]] = np.array([_hex(h) for h in _hx])
+
 def _despeck(t):
     """No single-dot shading: a lone pixel whose 4 neighbours agree takes their tone."""
     if t.shape[0] < 3 or t.shape[1] < 3: return t
@@ -255,6 +270,9 @@ class Model:
                         t4 = _despeck(t4)
                     if not e.plane and fc in ('north', 'south', 'east', 'west') and h >= 3:
                         t4[0] = np.maximum(0, t4[0] - 1); t4[-1] = np.minimum(4, t4[-1] + 1)
+                        if h >= 6 and not e.name.startswith('koi'):
+                            k = h - max(2, int(round(h * 0.4)))   # stepped light falloff toward the floor
+                            t4[k:-1] = np.minimum(4, t4[k:-1] + 1)
                         if w >= 3:      # light from the top left (house bevel, matches px.py)
                             t4[1:-1, 0] = np.maximum(0, t4[1:-1, 0] - 1); t4[1:-1, -1] = np.minimum(4, t4[1:-1, -1] + 1)
                     if not e.plane and fc == 'up' and h >= 3 and w >= 3:
@@ -646,6 +664,7 @@ def pxmat(mat, kind='plain', base=2, detail=None, block=4):
                 t = np.where(grain, base + 1, t)
                 if kind != 'log':
                     t = np.where(seam, base + 1, t)
+                    t = np.where((across % plank == 0) & ~grain, base - 1, t)   # lit top edge of each plank
                     joint = (along + row * 5) % 12 == 0
                     t = np.where(joint & ~seam, base + 1, t)
         elif kind == 'brick':
