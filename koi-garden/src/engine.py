@@ -29,6 +29,11 @@ ANCH = {
     'clay':   ['#e09a6e', '#c0714a', '#94502f', '#62321b'],
     'yellow': ['#ffe68a', '#f2c84a', '#c99a2a', '#8a6614'],
     'rope':   ['#e2c793', '#c3a066', '#977745', '#64492a'],
+    'lacquer':['#f07a5c', '#c8402c', '#922a22', '#5e1716'],
+    'ink':    ['#5a5060', '#3a323e', '#29222d', '#18131b'],
+    'bamboo': ['#e2d47a', '#c4b452', '#968838', '#635922'],
+    'walnut': ['#9c6a4c', '#764a34', '#553325', '#361f17'],
+    'ash':    ['#f6e2b8', '#e2c592', '#be9d6a', '#8a6c46'],
 }
 MATS = list(ANCH)
 MI = {m: i for i, m in enumerate(MATS)}
@@ -48,6 +53,7 @@ def colour(mat_idx, tone):
     return a * (1 - f) + b * f
 
 TSTEPS = np.array([0, 1.0, 2.0, 4.0, 6.0])   # tone index -> ramp position
+THEME = [None]     # material theme: None | lacquer | bamboo | twotone (Oct 19 2026 options)
 STYLE = ['house']  # texture style: house | lacquer | carved | wave (Mistbloom originals, Oct 19 2026)
 PX = True          # vanilla-res house style (PACK_STANDARDS, Oct 19 2026)
 PXPAL = np.stack([colour(np.full(5, i), TSTEPS) for i in range(len(MATS))])  # (M,5,3)
@@ -63,6 +69,11 @@ HUE = {
     'pink':  ['#ffd8e4', '#ffa8c4', '#f07ea2', '#c45682', '#8a3a60'],
     'paper': ['#fffbec', '#f6ead0', '#e2d2ac', '#c4ac80', '#957c58'],
     'reed':  ['#d8dc7a', '#b0b84e', '#848e34', '#5c6626', '#3a4218'],
+    'lacquer': ['#ff9c78', '#e8553c', '#b8342a', '#82221f', '#4e1416'],
+    'ink':     ['#7a6c7c', '#4c4252', '#342c3a', '#241e2a', '#16121c'],
+    'bamboo':  ['#f6eca4', '#dccf6c', '#b6a648', '#867a30', '#5a501e'],
+    'walnut':  ['#c08860', '#93603f', '#6c432d', '#4a2c20', '#2c1914'],
+    'ash':     ['#fff4d8', '#f4dcae', '#dcbe88', '#b8935e', '#80603c'],
 }
 for _m, _hx in HUE.items():
     PXPAL[MI[_m]] = np.array([_hex(h) for h in _hx])
@@ -674,6 +685,68 @@ def _style_wood(style, along, across, base, u, v):
         t = np.where((r == y) & (r > 0) & (r < P - 1), base + 1, t)
     return t
 
+def _seigaiha(u, v):
+    """wave-scale rings: rows of half circles, radius 4, offset every other row"""
+    R = 4
+    row = v // R
+    cx = (u + (row % 2) * R) // (2 * R) * (2 * R) + R - (row % 2) * R
+    cy = (row + 1) * R
+    d = np.hypot(u + 0.5 - cx, v + 0.5 - cy)
+    return (np.abs(d - 3.6) < 0.55) | (np.abs(d - 1.8) < 0.5)
+
+def _themed(theme, c, kind, base, u, v, ax, detail):
+    t = np.full((c.h, c.w), base, int)
+    vert = kind == 'woodv' or (ax != 1 and c.h > 2 * c.w)
+    big = c.h >= 6 and c.w >= 6
+    gold = np.zeros((c.h, c.w), bool)
+    if theme == 'lacquer':
+        # black lacquer posts and legs, vermilion lacquer slabs; a gold inlay line set 1 px in
+        # from the edge of every big face; a soft 2 px sheen band along the top of each face
+        mat = 'ink' if vert or kind == 'plain' and base <= 1 else 'lacquer'
+        if vert:
+            mat = 'ink'
+        t[:2] = base - 1
+        if big:
+            yy, xx = np.mgrid[0:c.h, 0:c.w]
+            gold = ((yy == 1) | (yy == c.h - 2)) & (xx >= 1) & (xx <= c.w - 2) | \
+                   ((xx == 1) | (xx == c.w - 2)) & (yy >= 1) & (yy <= c.h - 2)
+    elif theme == 'bamboo':
+        # stalks laid side by side: 3 px wide, lit left column, dark right column, a node ring
+        # every 8 px (dark row with a lit row under it), nodes staggered between stalks
+        mat = 'bamboo'
+        across, along = (u, v) if vert else (v, u)
+        k = across % 3
+        st = across // 3
+        t = np.where(k == 0, base - 1, np.where(k == 2, base + 1, base))
+        n = (along + st * 3) % 8
+        t = np.where(n == 0, base + 2, t)
+        t = np.where(n == 1, base - 1, t)
+    elif theme == 'twotone':
+        # dark walnut frame (posts, legs) with a corner glint; pale ash slabs with long boards
+        # and carved wave-scale (seigaiha) panels on big faces
+        if vert:
+            mat = 'walnut'
+            t[:, 0] = base - 1; t[:, -1] = base + 1
+        else:
+            mat = 'ash'
+            P = 8
+            across = v if ax != 1 else v
+            t = np.where(across % P == P - 1, base + 1, t)
+            t = np.where(across % P == 0, base - 1, t)
+            if big:
+                yy, xx = np.mgrid[0:c.h, 0:c.w]
+                inner = (yy >= 1) & (yy <= c.h - 2) & (xx >= 1) & (xx <= c.w - 2)
+                sg = _seigaiha(xx, yy) & inner
+                t = np.where(inner, base, t)
+                t = np.where(sg, base + 1, t)
+                t[0, :] = base - 1; t[:, 0] = base - 1
+    if detail is not None:
+        detail(t, u, v, c)
+    c.M[:] = MI[mat]
+    c.T[:] = TSTEPS[np.clip(t, 0, 4)]
+    if gold.any():
+        c.M[gold] = MI['brass']; c.T[gold] = TSTEPS[1]
+
 def _carved_tile(u, v, base, B):
     row = v // B
     uu = u + (row % 2) * (B // 2)
@@ -688,6 +761,8 @@ def pxmat(mat, kind='plain', base=2, detail=None, block=4):
     kind: plain | wood | woodv | log | stone | brick | cloth | straw | tile"""
     def p(c):
         u, v, ax = _wuv(c)
+        if THEME[0] and mat == 'teak' and kind in ('wood', 'woodv', 'log', 'plain'):
+            return _themed(THEME[0], c, kind, base, u, v, ax, detail)
         t = np.full((c.h, c.w), base, int)
         if kind in ('wood', 'woodv', 'log'):
             vert = kind == 'woodv' or (kind == 'wood' and ax != 1 and c.h > 2 * c.w)
