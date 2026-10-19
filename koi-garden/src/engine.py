@@ -255,6 +255,8 @@ class Model:
                         t4 = _despeck(t4)
                     if not e.plane and fc in ('north', 'south', 'east', 'west') and h >= 3:
                         t4[0] = np.maximum(0, t4[0] - 1); t4[-1] = np.minimum(4, t4[-1] + 1)
+                        if w >= 3:      # light from the top left (house bevel, matches px.py)
+                            t4[1:-1, 0] = np.maximum(0, t4[1:-1, 0] - 1); t4[1:-1, -1] = np.minimum(4, t4[1:-1, -1] + 1)
                     if not e.plane and fc == 'up' and h >= 3 and w >= 3:
                         # light from the top left: the two lit edges of a top face catch a highlight
                         t4[0] = np.maximum(0, t4[0] - 1); t4[:, 0] = np.maximum(0, t4[:, 0] - 1)
