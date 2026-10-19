@@ -103,6 +103,10 @@ def _vflip(p):
 WOOD = pxmat('teak', 'wood')
 WOODV = pxmat('teak', 'woodv')
 CAP = capped(WOODV, WOOD)
+# posts show a light end-grain square on top, like the reference Forest Cabin furniture
+ENDGRAIN = pxmat('teak', 'plain', base=1)
+POST = capped(WOODV, ENDGRAIN)
+RAIL = capped(WOOD, WOOD)
 
 def _moss_top(amount):
     """moss creeping over the top edge in deliberate 2px runs"""
@@ -188,16 +192,18 @@ def water(alpha=150, rip=True):
     return p
 
 def koi_bowl():
+    """Reworked (Oct 19): chunky stand with an inset apron under an overhanging top, ivy on a leg."""
     m = Model('koi_bowl', 'Koi Bowl on Teak Stand')
-    m.box('top', (1, 4, 1), (14, 2, 14), capped(WOOD, WOOD))
-    for i, (x, z) in enumerate(((2, 2), (11, 2), (2, 11), (11, 11))):
+    m.box('top', (1, 4, 1), (14, 2, 14), RAIL)
+    for i, (x, z) in enumerate(((1.5, 1.5), (11.5, 1.5), (1.5, 11.5), (11.5, 11.5))):
         m.box(('leg_back_left', 'leg_back_right', 'leg_front_left', 'leg_front_right')[i], (x, 0, z), (3, 4, 3), WOODV, skip=['up', 'down'])
+    m.box('apron', (2.5, 2.5, 2.5), (11, 1.5, 11), WOOD, skip=['up', 'down'])
     m.box('glass', (2.5, 6, 2.5), (11, 8, 11), glass(), res=2)
     m.box('pebbles', (3, 6, 3), (10, 1, 10), stone(kind='stone'), skip=['down'])
     m.box('water', (3, 7, 3), (10, 4.5, 10), water(70), res=2, skip=['down'])
     koi3d(m, 'koi_a', 'x', -1, 4.2, 6.5, 9.2, 6.5, 0.9, 0.8, 'kohaku', tail='v', dorsal=False, pect=False, rot=('y', 22.5, (7.5, 9.2, 6.5)), merged=True)
     koi3d(m, 'koi_b', 'z', 1, 12.4, 6, 7.8, 9.8, 0.8, 0.7, 'chagoi', tail='v', dorsal=False, pect=False, merged=True)
-    cross(m, 'weed', 11.3, 6.5, 4.3, 3, 4.5, arts.grass(every=1, minh=0.5), res=2)
+    m.plane('ivy', (11.5, 0, 14.55), 'z', (3, 5), arts.ivy(), res=2)
     m.meta = {'hitbox': ['0,0,0'], 'size': '1x1'}
     return m
 
@@ -220,15 +226,19 @@ def plaque_board():
     return front
 
 def koi_plaque():
+    """Reworked (Oct 19): a framed board. Thick rails top and bottom, stiles at the sides,
+    the board recessed behind them so the frame throws real shadow."""
     m = Model('koi_plaque', 'Twin Koi Wall Plaque')
-    m.box('board', (1, 2, 0), (14, 11, 1.5), plaque_board())
-    m.box('cap', (0, 13, 0), (16, 1.5, 2.5), CAP)
-    m.box('ledge', (0.5, 1, 0), (15, 1, 2.2), WOOD)
-    m.plane('rope', (4, 14.5, 0.8), 'z', (8, 3.5), arts.rope_v(), res=2)
+    m.box('board', (2, 2, 0.5), (12, 11, 1), plaque_board())
+    m.box('rail_top', (0, 13, 0), (16, 2.5, 2.5), RAIL)
+    m.box('rail_bottom', (0, 0, 0), (16, 2, 2.5), RAIL)
+    m.box('stile_l', (0, 2, 0), (2, 11, 2), WOODV)
+    m.box('stile_r', (14, 2, 0), (2, 11, 2), WOODV)
+    m.plane('rope', (4, 15.5, 0.8), 'z', (8, 2.5), arts.rope_v(), res=2)
     m.box('nail', (7.5, 17.5, 0.3), (1, 1, 1), solid('brass', 1.5))
-    koi3d(m, 'koi_a', 'x', -1, 2.6, 7.6, 9.6, 2.1, 1.15, 0.6, 'kohaku', dorsal=False, pect=False, rot=('z', 22.5, (7.5, 9.6, 2.1)))
-    koi3d(m, 'koi_b', 'x', 1, 13.4, 7.6, 5.4, 2.1, 1.15, 0.6, 'showa', dorsal=False, pect=False, rot=('z', 22.5, (8.5, 5.4, 2.1)))
-    cross(m, 'bud', 2.6, 2, 1.3, 5, 4, arts.bud(), res=2)
+    koi3d(m, 'koi_a', 'x', -1, 2.8, 7.4, 9.6, 1.7, 1.15, 0.6, 'kohaku', dorsal=False, pect=False, rot=('z', 22.5, (7.5, 9.6, 1.7)))
+    koi3d(m, 'koi_b', 'x', 1, 13.2, 7.4, 5.4, 1.7, 1.15, 0.6, 'showa', dorsal=False, pect=False, rot=('z', 22.5, (8.5, 5.4, 1.7)))
+    m.plane('ivy', (0.5, 4, 2.55), 'z', (3, 9), arts.ivy(), res=2)
     m.meta = {'hitbox': ['0,0,0'], 'size': 'wall, 1x1', 'wall': True}
     return m
 
@@ -259,15 +269,19 @@ def koi_pond():
     return m
 
 def koi_stepping_stone():
+    """Reworked (Oct 19): three chunky stepped stones (wide base, inset top), plain stone with
+    the bevel doing the shading, moss creeping over the edges, grass between them."""
     m = Model('koi_stepping_stone', 'Garden Stepping Stones')
-    r1 = ('y', 22.5, (7, 0, 7)); r2 = ('y', -22.5, (12.5, 0, 13))
-    m.box('stone_a', (1, 0, 2), (12, 1.4, 10), stone(course=8), rot=r1, skip=['down'])
-    m.box('stone_a_top', (2, 1.4, 3), (10, 0.8, 8), stone(course=8), rot=r1, skip=['down'])
-    m.box('stone_b', (10, 0, 11), (5.5, 1, 4.5), stone(course=8), rot=r2, skip=['down'])
-    m.box('stone_b_top', (10.75, 1, 11.75), (4, 0.5, 3), stone(course=8), rot=r2, skip=['down'])
-    m.box('pebble_a', (13, 0, 3.5), (1.5, 1, 1.5), solid('stone', 1.6), skip=['down'])
-    m.box('pebble_b', (2, 0, 13), (1.2, 0.8, 1.2), solid('stone', 2.2), skip=['down'])
-    cross(m, 'moss', 6, 0, 13.5, 5, 2.5, arts.grass(every=1, minh=0.4), res=2)
+    S = pxmat('stone', 'tile', block=8)
+    r1 = ('y', 22.5, (6, 0, 6)); r2 = ('y', -22.5, (12, 0, 12))
+    m.box('stone_a', (1, 0, 1), (10, 1.5, 9), S, rot=r1, skip=['down'])
+    m.box('stone_a_top', (2, 1.5, 2), (8, 1, 7), S, rot=r1, skip=['down'])
+    m.box('stone_b', (8.5, 0, 9.5), (6.5, 1.5, 5.5), S, rot=r2, skip=['down'])
+    m.box('stone_b_top', (9.5, 1.5, 10.5), (4.5, 0.75, 3.5), S, rot=r2, skip=['down'])
+    m.box('stone_c', (1.5, 0, 11.5), (4, 1, 3.5), S, skip=['down'])
+    m.box('stone_c_top', (2.25, 1, 12.25), (2.5, 0.5, 2), S, skip=['down'])
+    m.box('pebble', (12.5, 0, 3), (2, 1, 2), S, skip=['down'])
+    cross(m, 'moss', 7, 0, 12.5, 5, 2.5, arts.grass(every=1, minh=0.4), res=2)
     m.meta = {'hitbox': [], 'size': '1x1 (walk-through)'}
     return m
 
@@ -316,19 +330,23 @@ def koi_inlay_rail():
     return p
 
 def koi_bench():
+    """Reworked (Oct 19) in the reference sofa/bench build: tall back posts and front legs with
+    end-grain caps, armrests, a thick seat slab, a top rail over a recessed koi back panel,
+    a low stretcher between the front legs, and an ivy sprig."""
     m = Model('koi_bench', 'Koi Garden Bench')
-    for i, (x, z, h) in enumerate(((2, 9, 6), (27, 9, 6), (2, 2.5, 17), (27, 2.5, 17))):
-        m.box(('leg_front_left', 'leg_front_right', 'post_left', 'post_right')[i], (x, 0, z), (3, h, 3), WOODV, skip=['down'])
-    m.box('seat', (0, 6, 1.5), (32, 2, 12.5), WOOD)
-    m.box('apron', (5, 4, 10), (22, 2, 1.5), overlay(WOOD, wave(only=['south'])), skip=['up', 'down'])
-    m.box('cushion', (5.5, 8, 5.5), (21, 2, 7.5), fabric(), tint=True)
-    m.box('cap_l', (1.5, 17, 2), (4, 1.5, 4), CAP)
-    m.box('cap_r', (26.5, 17, 2), (4, 1.5, 4), CAP)
-    m.box('rail', (5, 14, 3), (22, 3, 2), overlay(WOOD, wave(only=['south', 'north'])))
-    m.box('back', (5, 8, 3.5), (22, 7, 1), koi_inlay_rail(), res=1, skip=['up', 'down'])
-    m.box('back_cush_l', (6, 8.5, 4.5), (10, 6, 2), fabric(), tint=True)
-    m.box('back_cush_r', (16, 8.5, 4.5), (10, 6, 2), fabric(), tint=True)
-    m.plane('ivy', (1.95, 0, 9), 'x', (3, 6), arts.ivy(), res=2)
+    m.box('post_left', (1, 0, 2), (3, 18, 3), POST, skip=['down'])
+    m.box('post_right', (28, 0, 2), (3, 18, 3), POST, skip=['down'])
+    m.box('leg_front_left', (1, 0, 11.5), (3, 11, 3), WOODV, skip=['down'])
+    m.box('leg_front_right', (28, 0, 11.5), (3, 11, 3), WOODV, skip=['down'])
+    m.box('seat', (0, 5.5, 2.5), (32, 2.5, 12.5), RAIL)
+    m.box('arm_left', (0.5, 10, 2.5), (4, 1.5, 12.5), RAIL)
+    m.box('arm_right', (27.5, 10, 2.5), (4, 1.5, 12.5), RAIL)
+    m.box('rail', (4, 15, 2), (24, 2.5, 3), RAIL)
+    m.box('back', (4, 8, 2.75), (24, 7, 1.5), koi_inlay_rail(), skip=['up', 'down'])
+    m.box('stretcher', (4, 1.5, 12), (24, 1.5, 2), WOOD, skip=['down'])
+    m.box('cushion', (4.5, 8, 5), (23, 2, 9), fabric(), tint=True, skip=['down'])
+    m.box('back_cushion', (5, 10, 4.5), (22, 5, 1.5), fabric(), tint=True)
+    m.plane('ivy', (1, 2, 14.55), 'z', (3, 9), arts.ivy(), res=2)
     m.meta = {'hitbox': ['0,0,0', '1,0,0'], 'seats': ['0,0,0', '1,0,0'], 'size': '2x1, dyeable cushions'}
     return m
 
@@ -365,16 +383,20 @@ def table_top():
     return p
 
 def koi_table():
+    """Reworked (Oct 19): overhanging thick top, chunky corner legs, an inset apron and two
+    side stretchers (reference coffee table build), tea cup and potted sprout on top."""
     m = Model('koi_table', 'Koi Pool Tea Table')
     m.box('top', (0, 6, 0), (16, 2, 16), {'up': table_top(), '*': WOOD})
-    for i, (x, z) in enumerate(((2, 2), (11, 2), (2, 11), (11, 11))):
-        m.box(('leg_back_left', 'leg_back_right', 'leg_front_left', 'leg_front_right')[i], (x, 1, z), (3, 5, 3), WOODV, skip=['up', 'down'])
-        m.box(('foot_back_left', 'foot_back_right', 'foot_front_left', 'foot_front_right')[i], (x - 0.5, 0, z - 0.5), (4, 1, 4), pxmat('teak', 'plain', base=3))
-    m.box('apron', (3, 4, 3), (10, 2, 10), overlay(WOOD, wave()), skip=['up'])
+    for i, (x, z) in enumerate(((1.5, 1.5), (11.5, 1.5), (1.5, 11.5), (11.5, 11.5))):
+        m.box(('leg_back_left', 'leg_back_right', 'leg_front_left', 'leg_front_right')[i], (x, 0, z), (3, 6, 3), WOODV, skip=['up'])
+    m.box('apron', (2.5, 4.5, 2.5), (11, 1.5, 11), WOOD, skip=['up', 'down'])
+    m.box('stretcher_left', (2, 1.5, 4.5), (2, 1.5, 7), WOOD)
+    m.box('stretcher_right', (12, 1.5, 4.5), (2, 1.5, 7), WOOD)
     m.box('pot', (0.5, 8, 0.5), (3, 2.5, 3), {'up': solid('moss', 2.6), '*': pxmat('clay', 'plain')}, skip=['down'])
     cross(m, 'sprout', 2, 10.5, 2, 4, 4.5, arts.sprout(), res=2)
     m.box('cup', (12.6, 8, 12.6), (2.4, 2, 2.4), {'up': lambda c: (c.fill('kwhite', 1.6), c.mask(np.ones((c.h, c.w), bool), tone=1.6),
                                                      _cup_top(c)), '*': _cup_side}, res=2, skip=['down'])
+    m.plane('ivy', (11.5, 0, 14.55), 'z', (3, 6), arts.ivy(), res=2)
     m.meta = {'hitbox': ['0,0,0'], 'size': '1x1'}
     return m
 
@@ -410,8 +432,8 @@ def koi_screen():
               ('r', 12, ('y', -22.5, (12, 2, 7.5)), 'sanke', 9, True))
     for n, x, rot, pat, y0, fy in panels:
         m.box(f'panel_{n}', (x, 2, 7), (8, 26, 1), screen_panel(pat, y0, flipy=fy, flipx=(n == 'r')), rot=rot)
-        m.box(f'foot_{n}', (x + 0.5, 0, 6), (7, 2, 3), pxmat('teak', 'wood', base=3), rot=rot, skip=['down'])
-        m.box(f'cap_{n}', (x - 0.25, 28, 6.75), (8.5, 1.5, 1.5), CAP, rot=rot)
+        m.box(f'foot_{n}', (x, 0, 5.5), (8, 2, 4), RAIL, rot=rot, skip=['down'])
+        m.box(f'cap_{n}', (x - 0.5, 28, 6.25), (9, 2, 2.5), RAIL, rot=rot)
     m.plane('ivy', (-3.5, 2, 8.05), 'z', (3, 10), arts.ivy(), res=2, rot=('y', 22.5, (4, 2, 7.5)))
     m.meta = {'hitbox': ['0,0,0', '0,1,0'], 'size': '1x2'}
     return m
