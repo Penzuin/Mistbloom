@@ -206,6 +206,28 @@ class Model:
                 assert pw <= 32 and ph <= 32, f'{self.name}/{e.name}/{fc}: face {pw}x{ph}px > 32'
         return n
 
+    # ---------------------------------------------------------- ambient occlusion
+    def _ao(self, e, fc, c):
+        """1 step darker where another part sits right on top of / overhangs this face (contact shadow)."""
+        boxes = [(np.minimum(o.f, o.t), np.maximum(o.f, o.t)) for o in self.els
+                 if o is not e and not o.plane and not o.rot]
+        if not boxes:
+            return 0
+        X, Y, Z = c.P
+        n = {'north': (0, 0, -1), 'south': (0, 0, 1), 'east': (1, 0, 0), 'west': (-1, 0, 0), 'up': (0, 1, 0)}[fc]
+        tests = []
+        if fc == 'up':          # something standing on this top face, next to this pixel
+            for dx, dz in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                tests.append((X + dx * 0.9, Y + 0.5, Z + dz * 0.9))
+        else:                   # something overhanging just above this pixel, in front of the face
+            tests.append((X + n[0] * 0.5, Y + 1.0, Z + n[2] * 0.5))
+            tests.append((X + n[0] * 0.5, Y + 0.5, Z + n[2] * 0.5))
+        occ = np.zeros(X.shape, bool)
+        for qx, qy, qz in tests:
+            for lo, hi in boxes:
+                occ |= (qx > lo[0]) & (qx < hi[0]) & (qy > lo[1]) & (qy < hi[1]) & (qz > lo[2]) & (qz < hi[2])
+        return occ.astype(int)
+
     # ---------------------------------------------------------- bake
     def bake(self):
         rects = []  # (el, face, img)
@@ -227,11 +249,17 @@ class Model:
                 if getattr(e, 'turned', False) and fc in ('up', 'down'):
                     c.M[:] = c.M[::-1, ::-1].copy(); c.T[:] = c.T[::-1, ::-1].copy(); c.A[:] = c.A[::-1, ::-1].copy()
                 if PX:
-                    t4 = np.abs(c.T[..., None] - TSTEPS).argmin(-1)
+                    T = c.T if not e.plane else 2.0 + (c.T - 2.0) * 1.4   # cards: a bit more tone range
+                    t4 = np.abs(T[..., None] - TSTEPS).argmin(-1)
                     if not e.plane and not e.name.startswith('koi'):
                         t4 = _despeck(t4)
                     if not e.plane and fc in ('north', 'south', 'east', 'west') and h >= 3:
                         t4[0] = np.maximum(0, t4[0] - 1); t4[-1] = np.minimum(4, t4[-1] + 1)
+                    if not e.plane and fc == 'up' and h >= 3 and w >= 3:
+                        # light from the top left: the two lit edges of a top face catch a highlight
+                        t4[0] = np.maximum(0, t4[0] - 1); t4[:, 0] = np.maximum(0, t4[:, 0] - 1)
+                    if not e.plane and not e.rot and fc != 'down':
+                        t4 = np.minimum(4, t4 + self._ao(e, fc, c))
                     if fc == 'down' and not e.plane:
                         t4 = np.minimum(4, t4 + 1)
                     rgbv = PXPAL[np.clip(c.M, 0, None), t4]
@@ -620,14 +648,17 @@ def pxmat(mat, kind='plain', base=2, detail=None):
             t = np.where(mortar, base + 2, t)
         elif kind == 'stone':
             g = _grid(lambda a, b: _hh(a // 2, b // 2), u, v)
-            t = np.where(g % 5 == 0, base - 1, np.where(g % 5 == 1, base + 1, base))
+            t = np.where(g % 4 == 0, base - 1, np.where(g % 4 == 1, base + 1, base))
             crack = _grid(lambda a, b: _hh(a, b, 3), u, v) % 23 == 0
             t = np.where(crack, base + 2, t)
         elif kind == 'tile':                      # cut stone slabs: 4x4 blocks with a joint line
             joint = (u % 4 == 3) | (v % 4 == 3)
             g = _grid(lambda a, b: _hh(a // 4, b // 4, 9), u, v)
-            t = np.where(g % 3 == 0, base - 1, base)
-            t = np.where(joint, base + 1, t)
+            g2 = _grid(lambda a, b: _hh(a // 2, b // 2, 4), u, v)
+            t = np.where(g % 3 == 0, base - 1, np.where(g % 3 == 1, base + 1, base))
+            t = np.where((g2 % 7 == 0) & ~joint, t + 1, t)              # 2x2 weathered patches
+            t = np.where(joint, base + 2, t)
+            t = np.where(((u % 4 == 0) | (v % 4 == 0)) & ~joint, np.maximum(t - 1, 0), t)   # lit edge of each slab
         elif kind == 'cloth':
             t = np.where((u % 4 == 0) & (v % 2 == 0), base + 1, t)
         elif kind == 'straw':

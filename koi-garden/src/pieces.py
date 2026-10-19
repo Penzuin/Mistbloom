@@ -129,7 +129,7 @@ def stone(course=4, moss=0.0, kind='tile'):
 def fabric(mat='grey', stitch=True):
     """tufted cushion tiles, each lit top-left and shadowed bottom-right (no pillow shading)"""
     def d(t, u, v, c):
-        if c.face == 'up':
+        if c.face != 'down':
             tu, tv = u % 5, v % 5
             t[(tu == 4) | (tv == 4)] = 3
             t[((tu == 0) | (tv == 0)) & (tu < 4) & (tv < 4)] = 1
