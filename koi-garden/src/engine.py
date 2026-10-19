@@ -48,6 +48,7 @@ def colour(mat_idx, tone):
     return a * (1 - f) + b * f
 
 TSTEPS = np.array([0, 1.0, 2.0, 4.0, 6.0])   # tone index -> ramp position
+STYLE = ['house']  # texture style: house | lacquer | carved | wave (Mistbloom originals, Oct 19 2026)
 PX = True          # vanilla-res house style (PACK_STANDARDS, Oct 19 2026)
 PXPAL = np.stack([colour(np.full(5, i), TSTEPS) for i in range(len(MATS))])  # (M,5,3)
 
@@ -636,6 +637,52 @@ def _wuv(c):
 def _grid(f, u, v):
     return np.array([[f(a, b) for a, b in zip(ra, rb)] for ra, rb in zip(u, v)])
 
+def _style_wood(style, along, across, base, u, v):
+    """Mistbloom's own plank styles. All clean: long runs, no lone dots, no random patches."""
+    t = np.full(along.shape, base, int)
+    if style == 'lacquer':
+        # wide lacquered boards: lit top row, flat body, dark seam, and a 2 px diagonal sheen
+        # streak running across the whole piece in world space (one or two per face)
+        P = 5
+        t = np.where(across % P == 0, base - 1, t)
+        t = np.where(across % P == P - 1, base + 1, t)
+        sheen = ((u + v) % 22 < 2) & (across % P != P - 1)
+        t = np.where(sheen, base - 2 + (across % P == 0), t)
+    elif style == 'carved':
+        # every board is its own bevelled tile: lit top and left edge, dark bottom and right edge,
+        # boards 16 long and staggered, like routed panels
+        P = 4; L = 16
+        row = across // P
+        a = (along + (row % 2) * 8) % L
+        r = across % P
+        t = np.where((r == 0) | (a == 0), base - 1, t)
+        t = np.where((r == P - 1) | (a == L - 1), base + 1, t)
+    elif style == 'glint':
+        # Mistbloom glint: wide clean boards (lit top row, dark seam, flat body). The corner glint
+        # on every face is added at the end of pxmat.
+        P = 8
+        t = np.where(across % P == 0, base - 1, t)
+        t = np.where(across % P == P - 1, base + 1, t)
+    elif style == 'wave':
+        # koi-pond grain: one smooth wave line through each board, seam below, lit top row
+        P = 5
+        row = across // P
+        r = across % P
+        t = np.where(r == 0, base - 1, t)
+        t = np.where(r == P - 1, base + 1, t)
+        y = 2 + np.round(np.sin((along + row * 5) * 2 * np.pi / 16)).astype(int)
+        t = np.where((r == y) & (r > 0) & (r < P - 1), base + 1, t)
+    return t
+
+def _carved_tile(u, v, base, B):
+    row = v // B
+    uu = u + (row % 2) * (B // 2)
+    a, b = uu % B, v % B
+    t = np.full(u.shape, base, int)
+    t = np.where((b == 0) | (a == 0), base - 1, t)
+    t = np.where((b == B - 1) | (a == B - 1), base + 1, t)
+    return t
+
 def pxmat(mat, kind='plain', base=2, detail=None, block=4):
     """Vanilla-style material drawn in world space, 5 discrete tones (0 light .. 4 deep).
     kind: plain | wood | woodv | log | stone | brick | cloth | straw | tile"""
@@ -649,6 +696,8 @@ def pxmat(mat, kind='plain', base=2, detail=None, block=4):
                 cx, cz = (u.min() + u.max()) / 2, (v.min() + v.max()) / 2
                 r = np.maximum(abs(u - cx), abs(v - cz)).astype(int)
                 t = np.where(r % 2 == 0, base - 1, base); t[r == r.max()] = base + 1
+            elif STYLE[0] != 'house':
+                t = _style_wood(STYLE[0], along, across, base, u, v)
             else:
                 # clean planks: a lit top edge and a dark seam on every plank, long planks with a joint
                 # every 16 texels (staggered by 8 on alternate rows). No short grain dashes: they read as spots.
@@ -674,6 +723,11 @@ def pxmat(mat, kind='plain', base=2, detail=None, block=4):
             t = np.where(g % 4 == 0, base - 1, np.where(g % 4 == 1, base + 1, base))
             crack = _grid(lambda a, b: _hh(a, b, 3), u, v) % 23 == 0
             t = np.where(crack, base + 2, t)
+        elif kind == 'tile' and STYLE[0] == 'glint':
+            B = 8; row = v // B; uu = u + (row % 2) * 4
+            t = np.where((v % B == B - 1) | (uu % B == B - 1), base + 1, t)
+        elif kind == 'tile' and STYLE[0] == 'carved':
+            t = _carved_tile(u, v, base, block)
         elif kind == 'tile':                      # cut stone slabs: even blocks, lit top-left edge, dark joint
             B = block
             row = v // B
@@ -686,6 +740,11 @@ def pxmat(mat, kind='plain', base=2, detail=None, block=4):
             t = np.where((u % 4 == 0) & (v % 2 == 0), base + 1, t)
         elif kind == 'straw':
             t = np.where((u * 3 + v) % 5 == 0, base + 1, np.where((u + v * 2) % 7 == 0, base - 1, base))
+        if STYLE[0] == 'glint' and kind != 'log' and c.h >= 3 and c.w >= 3:
+            # signature corner glint: a bright L in the top-left corner, a deep L in the bottom-right
+            k = 3 if min(c.h, c.w) >= 6 else 2
+            t[0, :k] = base - 2; t[:k, 0] = base - 2
+            t[-1, -k:] = base + 2; t[-k:, -1] = base + 2
         if detail is not None:
             detail(t, u, v, c)
         c.M[:] = MI[mat]
