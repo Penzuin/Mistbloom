@@ -2,8 +2,8 @@
 brass for tiny accents, classic koi (kohaku / sanke / showa / chagoi / magoi)."""
 import math
 import numpy as np
-from engine import (Model, Koi, MI, solid, wood, endgrain, capped, stone, fabric, overlay,
-                    panel, wave, tail_card, fin_card, pect_card)
+from engine import (Model, Koi, MI, solid, wood, endgrain, capped, overlay,
+                    panel, wave, tail_card, fin_card, pect_card, pxmat)
 import arts
 
 # ------------------------------------------------------------- helpers
@@ -33,7 +33,7 @@ def transpose(p):
     return q
 
 def koi3d(m, name, axis, head, nose, L, cy, cw, hh, hw, pattern, rot=None,
-          tail='v', dorsal=True, pect=True, res=2):
+          tail='v', dorsal=True, pect=True, res=2, merged=False):
     """head/body cubes + tail/dorsal/pectoral cards; every part shares the koi's rotation."""
     k = Koi(axis, head, nose, L, cy, cw, hh, hw, pattern)
     along = lambda t: nose - head * t * L
@@ -42,7 +42,13 @@ def koi3d(m, name, axis, head, nose, L, cy, cw, hh, hw, pattern, rot=None,
         return min(a, b), max(a, b)
     a0, a1 = span(0.0, 0.28)
     b0, b1 = span(0.25, 0.92)
-    if axis == 'x':
+    if merged:
+        b0, b1 = span(0.0, 0.92)
+        if axis == 'x':
+            m.cube(f'{name}_body', (b0, cy - hh, cw - hw), (b1, cy + hh, cw + hw), k.painter('all'), res=res, rot=rot)
+        else:
+            m.cube(f'{name}_body', (cw - hw, cy - hh, b0), (cw + hw, cy + hh, b1), k.painter('all'), res=res, rot=rot)
+    elif axis == 'x':
         m.cube(f'{name}_head', (a0, cy - hh * 0.85, cw - hw * 0.85), (a1, cy + hh * 0.85, cw + hw * 0.85), k.painter('head'), res=res, rot=rot)
         m.cube(f'{name}_body', (b0, cy - hh, cw - hw), (b1, cy + hh, cw + hw), k.painter('body'), res=res, rot=rot)
     else:
@@ -93,8 +99,42 @@ def _vflip(p):
         c.M[:] = c.M[::-1]; c.T[:] = c.T[::-1]; c.A[:] = c.A[::-1]
     return q
 
-WOOD = wood('teak')
-CAP = capped(wood('teak'), endgrain('teak'))
+# ---------------------------------------------- vanilla-res materials (PACK_STANDARDS, Oct 19 2026)
+WOOD = pxmat('teak', 'wood')
+WOODV = pxmat('teak', 'woodv')
+CAP = capped(WOODV, pxmat('teak', 'log'))
+
+def _moss_top(amount):
+    """moss creeping over the top edge in deliberate 2px runs"""
+    def d(t, u, v, c):
+        if amount <= 0 or c.face == 'down':
+            return
+        if c.face == 'up':
+            m = ((u // 2 + v // 2) % 5 == 0) & ((u + 2 * v) % 9 < 4)
+        else:
+            depth = np.where((u // 2) % 3 == 0, 2, 1) * (amount > 0.3)
+            m = (np.arange(c.h)[:, None] < depth)
+        c._moss = m
+    return d
+
+def stone(course=4, moss=0.0, kind='tile'):
+    base = pxmat('stone', kind, detail=_moss_top(moss))
+    def p(c):
+        c._moss = None
+        base(c)
+        if c._moss is not None:
+            c.M[c._moss] = MI['moss']; c.T[c._moss] = 2.0 if c.face == 'up' else 1.0
+    return p
+
+def fabric(mat='grey', stitch=True):
+    """tufted cushion tiles, each lit top-left and shadowed bottom-right (no pillow shading)"""
+    def d(t, u, v, c):
+        if c.face == 'up':
+            tu, tv = u % 5, v % 5
+            t[(tu == 4) | (tv == 4)] = 3
+            t[((tu == 0) | (tv == 0)) & (tu < 4) & (tv < 4)] = 1
+            t[(tu == 2) & (tv == 2)] = 3          # button
+    return pxmat(mat, 'plain', base=2, detail=d)
 
 # ================================================================= pieces
 def koi_statue():
@@ -115,7 +155,7 @@ def koi_lilypad():
     m.plane('pad', (0.5, 0.15, 0.5), 'y', (12, 12), arts.lilypad(0.6), res=2)
     m.plane('pad_small', (10, 0.25, 1.5), 'y', (5.5, 5.5), arts.lilypad(2.4), res=2)
     m.box('pod', (4.6, 0.15, 4.6), (2, 1.4, 2), {'up': solid('yellow', 1.4), '*': solid('lily', 1.6)}, res=2, skip=['down'])
-    cross(m, 'lotus', 5.6, 0.4, 5.6, 6, 5, arts.petal_fan(), res=2)
+    cross(m, 'lotus', 5.6, 0.4, 5.6, 8, 6, arts.petal_fan(), res=2)
     m.plane('lotus_ring', (2.6, 0.6, 2.6), 'y', (6, 6), arts.petal_ring(), res=2)
     koi3d(m, 'koi', 'x', -1, 1.5, 11, 1.85, 12.5, 1.4, 1.7, 'sanke', rot=('y', 22.5, (8, 1.85, 12.5)))
     m.meta = {'hitbox': [], 'size': '1x1 (walk-through)'}
@@ -149,14 +189,14 @@ def water(alpha=150, rip=True):
 
 def koi_bowl():
     m = Model('koi_bowl', 'Koi Bowl on Teak Stand')
-    m.box('top', (1, 4, 1), (14, 1.5, 14), CAP)
+    m.box('top', (1, 4, 1), (14, 2, 14), capped(WOOD, WOOD))
     for i, (x, z) in enumerate(((2, 2), (11, 2), (2, 11), (11, 11))):
-        m.box(('leg_back_left', 'leg_back_right', 'leg_front_left', 'leg_front_right')[i], (x, 0, z), (3, 4, 3), WOOD, skip=['up', 'down'])
-    m.box('glass', (2.5, 5.5, 2.5), (11, 8, 11), glass(), res=2)
-    m.box('pebbles', (3, 5.5, 3), (10, 1, 10), stone(course=1), skip=['down'])
-    m.box('water', (3, 6.5, 3), (10, 5, 10), water(70), res=2, skip=['down'])
-    koi3d(m, 'koi_a', 'x', -1, 4.2, 6.5, 9.2, 6.5, 0.9, 0.8, 'kohaku', tail='v', dorsal=False, pect=False, rot=('y', 22.5, (7.5, 9.2, 6.5)))
-    koi3d(m, 'koi_b', 'z', 1, 12.4, 6, 7.8, 9.8, 0.8, 0.7, 'chagoi', tail='v', dorsal=False, pect=False)
+        m.box(('leg_back_left', 'leg_back_right', 'leg_front_left', 'leg_front_right')[i], (x, 0, z), (3, 4, 3), WOODV, skip=['up', 'down'])
+    m.box('glass', (2.5, 6, 2.5), (11, 8, 11), glass(), res=2)
+    m.box('pebbles', (3, 6, 3), (10, 1, 10), stone(kind='stone'), skip=['down'])
+    m.box('water', (3, 7, 3), (10, 4.5, 10), water(70), res=2, skip=['down'])
+    koi3d(m, 'koi_a', 'x', -1, 4.2, 6.5, 9.2, 6.5, 0.9, 0.8, 'kohaku', tail='v', dorsal=False, pect=False, rot=('y', 22.5, (7.5, 9.2, 6.5)), merged=True)
+    koi3d(m, 'koi_b', 'z', 1, 12.4, 6, 7.8, 9.8, 0.8, 0.7, 'chagoi', tail='v', dorsal=False, pect=False, merged=True)
     cross(m, 'weed', 11.3, 6.5, 4.3, 3, 4.5, arts.grass(every=1, minh=0.5), res=2)
     m.meta = {'hitbox': ['0,0,0'], 'size': '1x1'}
     return m
@@ -188,7 +228,7 @@ def koi_plaque():
     m.box('nail', (7.5, 17.5, 0.3), (1, 1, 1), solid('brass', 1.5))
     koi3d(m, 'koi_a', 'x', -1, 2.6, 7.6, 9.6, 2.1, 1.15, 0.6, 'kohaku', dorsal=False, pect=False, rot=('z', 22.5, (7.5, 9.6, 2.1)))
     koi3d(m, 'koi_b', 'x', 1, 13.4, 7.6, 5.4, 2.1, 1.15, 0.6, 'showa', dorsal=False, pect=False, rot=('z', 22.5, (8.5, 5.4, 2.1)))
-    cross(m, 'bud', 2.6, 2, 1.3, 2.6, 3.5, arts.petal_fan(), res=2)
+    cross(m, 'bud', 2.6, 2, 1.3, 5, 4, arts.bud(), res=2)
     m.meta = {'hitbox': ['0,0,0'], 'size': 'wall, 1x1', 'wall': True}
     return m
 
@@ -210,11 +250,10 @@ def koi_pond():
     m.box('rim_w', (0, 0, 3), (3, 5, 26), rim, skip=['down'])
     m.box('rim_e', (29, 0, 3), (3, 5, 26), rim, skip=['down'])
     m.box('water', (3, 0, 3), (26, 3.5, 26), pond_water(), skip=['down', 'north', 'south', 'east', 'west'])
-    koi3d(m, 'koi_a', 'x', 1, 23, 12, 3.4, 11, 1.2, 1.7, 'kohaku', tail='h', dorsal=False, pect=False, rot=('y', 22.5, (17, 3.4, 11)))
-    koi3d(m, 'koi_b', 'z', -1, 8, 11, 3.3, 9, 1.1, 1.5, 'showa', tail='h', dorsal=False, pect=False, rot=('y', -22.5, (9, 3.3, 14)))
+    koi3d(m, 'koi_a', 'x', 1, 23, 12, 3.4, 11, 1.2, 1.7, 'kohaku', tail='h', dorsal=False, pect=False, rot=('y', 22.5, (17, 3.4, 11)), merged=True)
+    koi3d(m, 'koi_b', 'z', -1, 8, 11, 3.3, 9, 1.1, 1.5, 'showa', tail='h', dorsal=False, pect=False, rot=('y', -22.5, (9, 3.3, 14)), merged=True)
     m.plane('pad_a', (17, 3.6, 18), 'y', (8, 8), arts.lilypad(2.2), res=2)
-    m.plane('pad_b', (22, 3.65, 5), 'y', (5, 5), arts.lilypad(4.0), res=2)
-    cross(m, 'lotus', 21, 3.7, 22, 5, 4.5, arts.petal_fan(), res=2)
+    cross(m, 'lotus', 21, 3.7, 22, 8, 6, arts.petal_fan(), res=2)
     cross(m, 'reeds', 5.2, 3.5, 26.5, 6, 14, arts.reeds(), res=2)
     m.meta = {'hitbox': ['0,0,0', '1,0,0', '0,0,1', '1,0,1'], 'size': '2x2'}
     return m
@@ -240,10 +279,10 @@ def koi_lilypads():
     m.plane('pad_d', (11, 0.15, 1), 'y', (4, 4), arts.lilypad(1.5), res=2)
     m.plane('pad_curl', (9.5, 0.4, 11), 'y', (5, 5), arts.lilypad(3.6), res=2, rot=('x', 22.5, (12, 0.4, 13.5)))
     m.box('pod', (4.5, 0.1, 5), (2, 1.3, 2), {'up': solid('yellow', 1.4), '*': solid('lily', 1.6)}, res=2, skip=['down'])
-    cross(m, 'lotus', 5.5, 0.3, 6, 6, 5, arts.petal_fan(), res=2)
+    cross(m, 'lotus', 5.5, 0.3, 6, 8, 6, arts.petal_fan(), res=2)
     m.plane('lotus_ring', (2.5, 0.55, 3), 'y', (6, 6), arts.petal_ring(), res=2)
     m.box('stem', (11.4, 0.2, 9.9), (0.8, 3.2, 0.8), solid('lily', 2.2), res=2, skip=['down'])
-    cross(m, 'bud', 11.8, 3.2, 10.3, 2.8, 3.6, arts.petal_fan(), res=2)
+    cross(m, 'bud', 11.8, 3.2, 10.3, 5, 4, arts.bud(), res=2)
     m.meta = {'hitbox': [], 'size': '1x1 (walk-through)'}
     return m
 
@@ -279,9 +318,9 @@ def koi_inlay_rail():
 def koi_bench():
     m = Model('koi_bench', 'Koi Garden Bench')
     for i, (x, z, h) in enumerate(((2, 9, 6), (27, 9, 6), (2, 2.5, 17), (27, 2.5, 17))):
-        m.box(('leg_front_left', 'leg_front_right', 'post_left', 'post_right')[i], (x, 0, z), (3, h, 3), WOOD, skip=['down'])
+        m.box(('leg_front_left', 'leg_front_right', 'post_left', 'post_right')[i], (x, 0, z), (3, h, 3), WOODV, skip=['down'])
     m.box('seat', (0, 6, 1.5), (32, 2, 12.5), WOOD)
-    m.box('apron', (5, 4, 10.5), (22, 2, 1.5), overlay(WOOD, wave(only=['south'])), skip=['up', 'down'])
+    m.box('apron', (5, 4, 10), (22, 2, 1.5), overlay(WOOD, wave(only=['south'])), skip=['up', 'down'])
     m.box('cushion', (5.5, 8, 5.5), (21, 2, 7.5), fabric(), tint=True)
     m.box('cap_l', (1.5, 17, 2), (4, 1.5, 4), CAP)
     m.box('cap_r', (26.5, 17, 2), (4, 1.5, 4), CAP)
@@ -294,35 +333,47 @@ def koi_bench():
     return m
 
 def table_top():
+    """16 px top: a square koi pool with a brass rim. Two little koi swim one lap per loop."""
+    KOI = {'kohaku': ['kwhite', 'korange', 'kwhite', 'korange'], 'showa': ['korange', 'kblack', 'kblack', 'kwhite']}
     def p(c):
-        wood('teak', plank=4)(c)
-        if c.face == 'up':
-            yy, xx = np.mgrid[0:c.h, 0:c.w] + 0.5
-            cx, cy = c.w / 2, c.h / 2
-            r = np.hypot(xx - cx, yy - cy)
-            R = c.w * 0.40
-            pool = r < R
-            c.M[pool] = MI['water']; c.T[pool] = 2.4
-            ring = np.abs(r - R) < 0.7
-            c.M[ring] = MI['brass']; c.T[ring] = 1.3
-            if arts.FRAME[0] is not None:
-                arts.ripples(c, [(cx - 6, cy + 5, 3), (cx + 7, cy - 4, 2.5)], tone=1.3)
-            rr = R * 0.52
-            # while baking the animated strip the two koi swim one lap round the pool per loop
-            ph = 0.0 if arts.FRAME[0] is None else -2 * math.pi * arts.FRAME[0][0] / arts.FRAME[0][1]
-            arts.koi_field(c, arts.arc(cx, cy, rr, 0.2 + ph, 0.2 + 2.4 + ph), 2.5, 'kohaku')
-            arts.koi_field(c, arts.arc(cx, cy, rr, 0.2 + math.pi + ph, 0.2 + math.pi + 2.4 + ph), 2.5, 'showa')
+        pxmat('teak', 'wood')(c)
+        if c.face != 'up':
+            return
+        x0, x1 = 3, 12                                    # pool 10x10 inside the rim
+        c.M[x0 - 1:x1 + 2, x0 - 1:x1 + 2] = MI['brass']; c.T[x0 - 1:x1 + 2, x0 - 1:x1 + 2] = 2.0
+        c.T[x0 - 1, x0 - 1:x1 + 2] = 1.0; c.T[x0 - 1:x1 + 2, x0 - 1] = 1.0   # rim lit from the top left
+        c.M[x0:x1 + 1, x0:x1 + 1] = MI['water']; c.T[x0:x1 + 1, x0:x1 + 1] = 2.0
+        c.T[x0, x0:x1 + 1] = 4.0; c.T[x0:x1 + 1, x0] = 4.0                   # rim shadow on the water
+        f = 0 if arts.FRAME[0] is None else arts.FRAME[0][0]
+        n = 1 if arts.FRAME[0] is None else arts.FRAME[0][1]
+        # ripple dashes drifting with the frames (2px runs)
+        for k, (rx, ry) in enumerate(((5, 10), (9, 5))):
+            xx = x0 + (rx - x0 + (f * 4 // max(n, 1)) + k * 3) % (x1 - x0 - 1)
+            c.set(xx, ry, tone=1.0); c.set(xx + 1, ry, tone=1.0)
+        # the two koi follow a square lap round the pool, a half lap apart
+        lap = [(x, x0 + 1) for x in range(x0 + 1, x1 - 2)] + [(x1 - 2, y) for y in range(x0 + 1, x1 - 2)] + \
+              [(x, x1 - 2) for x in range(x1 - 2, x0 + 1, -1)] + [(x0 + 1, y) for y in range(x1 - 2, x0 + 1, -1)]
+        L = len(lap)
+        for j, pat in enumerate(('kohaku', 'showa')):
+            i0 = (j * L // 2 + f * L // max(n, 1)) % L
+            for s_, col in enumerate(KOI[pat]):           # nose first, 4 px long, 2 px wide
+                x, y = lap[(i0 - s_) % L]
+                dx, dy = lap[(i0 - s_ + 1) % L][0] - x, lap[(i0 - s_ + 1) % L][1] - y
+                ox, oy = (0, 1) if dx else (1, 0)
+                for q in (0, 1):
+                    c.set(x + ox * q, y + oy * q, mat=col, tone=2.0)
     return p
 
 def koi_table():
     m = Model('koi_table', 'Koi Pool Tea Table')
-    m.box('top', (0, 6, 0), (16, 1.5, 16), {'up': table_top(), '*': WOOD}, res=2)
+    m.box('top', (0, 6, 0), (16, 2, 16), {'up': table_top(), '*': WOOD})
     for i, (x, z) in enumerate(((2, 2), (11, 2), (2, 11), (11, 11))):
-        m.box(('leg_back_left', 'leg_back_right', 'leg_front_left', 'leg_front_right')[i], (x, 0, z), (3, 6, 3), WOOD, skip=['up', 'down'])
-    m.box('apron', (2.5, 4.5, 2.5), (11, 1.5, 11), overlay(WOOD, wave()), skip=['up'])
-    m.box('pot', (0.5, 7.5, 0.5), (3, 2.5, 3), {'up': solid('moss', 2.6), '*': overlay(solid('clay', 2), panel(0))}, skip=['down'])
-    cross(m, 'sprout', 2, 9.5, 2, 4, 4.5, arts.sprout(), res=2)
-    m.box('cup', (12.6, 7.5, 12.6), (2.4, 2, 2.4), {'up': lambda c: (c.fill('kwhite', 1.6), c.mask(np.ones((c.h, c.w), bool), tone=1.6),
+        m.box(('leg_back_left', 'leg_back_right', 'leg_front_left', 'leg_front_right')[i], (x, 1, z), (3, 5, 3), WOODV, skip=['up', 'down'])
+        m.box(('foot_back_left', 'foot_back_right', 'foot_front_left', 'foot_front_right')[i], (x - 0.5, 0, z - 0.5), (4, 1, 4), pxmat('teak', 'plain', base=3))
+    m.box('apron', (3, 4, 3), (10, 2, 10), overlay(WOOD, wave()), skip=['up'])
+    m.box('pot', (0.5, 8, 0.5), (3, 2.5, 3), {'up': solid('moss', 2.6), '*': pxmat('clay', 'plain')}, skip=['down'])
+    cross(m, 'sprout', 2, 10.5, 2, 4, 4.5, arts.sprout(), res=2)
+    m.box('cup', (12.6, 8, 12.6), (2.4, 2, 2.4), {'up': lambda c: (c.fill('kwhite', 1.6), c.mask(np.ones((c.h, c.w), bool), tone=1.6),
                                                      _cup_top(c)), '*': _cup_side}, res=2, skip=['down'])
     m.meta = {'hitbox': ['0,0,0'], 'size': '1x1'}
     return m
@@ -359,7 +410,7 @@ def koi_screen():
               ('r', 12, ('y', -22.5, (12, 2, 7.5)), 'sanke', 9, True))
     for n, x, rot, pat, y0, fy in panels:
         m.box(f'panel_{n}', (x, 2, 7), (8, 26, 1), screen_panel(pat, y0, flipy=fy, flipx=(n == 'r')), rot=rot)
-        m.box(f'foot_{n}', (x + 0.5, 0, 6), (7, 2, 3), WOOD, rot=rot, skip=['down'])
+        m.box(f'foot_{n}', (x + 0.5, 0, 6), (7, 2, 3), pxmat('teak', 'wood', base=3), rot=rot, skip=['down'])
         m.box(f'cap_{n}', (x - 0.25, 28, 6.75), (8.5, 1.5, 1.5), CAP, rot=rot)
     m.plane('ivy', (-3.5, 2, 8.05), 'z', (3, 10), arts.ivy(), res=2, rot=('y', 22.5, (4, 2, 7.5)))
     m.meta = {'hitbox': ['0,0,0', '0,1,0'], 'size': '1x2'}
@@ -367,14 +418,15 @@ def koi_screen():
 
 def koi_streamer():
     m = Model('koi_streamer', 'Koi Streamer Pole')
-    m.box('base', (4, 0, 4), (8, 3, 8), stone(course=3, moss=0.5), skip=['down'])
-    m.box('pole', (7, 3, 7), (2, 27, 2), WOOD, skip=['down'])
+    m.box('base', (3, 0, 3), (10, 2, 10), stone(moss=0.5), skip=['down'])
+    m.box('base_top', (5, 2, 5), (6, 2, 6), stone(), skip=['down'])
+    m.box('pole', (7, 4, 7), (2, 26, 2), WOODV, skip=['down'])
     m.box('cap', (6.5, 30, 6.5), (3, 1.2, 3), CAP)
     m.box('ball', (7.25, 31.2, 7.25), (1.5, 0.75, 1.5), solid('brass', 1.4), res=2)
     m.plane('cloth', (9, 27.6, 8), 'z', (9, 2.2), arts.ribbon(), res=2, rot=('z', -22.5, (9, 28.7, 8)))
     koi3d(m, 'koi_big', 'x', -1, 9, 13, 24, 8, 1.9, 1.9, 'magoi', dorsal=False, pect=False, rot=('z', -22.5, (9, 24, 8)))
     koi3d(m, 'koi_small', 'x', -1, 9, 10, 17, 8, 1.5, 1.5, 'kohaku', dorsal=False, pect=False, rot=('z', -22.5, (9, 17, 8)))
-    cross(m, 'moss', 5, 3, 11, 3.5, 2.5, arts.grass(), res=2)
+    cross(m, 'moss', 4, 2, 11.5, 3.5, 2.5, arts.grass(), res=2)
     m.meta = {'hitbox': ['0,0,0', '0,1,0'], 'size': '1x2'}
     return m
 

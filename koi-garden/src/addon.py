@@ -9,7 +9,7 @@ import numpy as np
 from PIL import Image
 import arts, pieces, sprites, me
 from engine import Model
-from pieces import koi3d, cross, WOOD, CAP, stone, solid
+from pieces import koi3d, cross, WOOD, WOODV, CAP, stone, solid
 from build import dump, HAND
 
 NS, SET = 'mistbloom', 'koi_garden_animated'
@@ -45,8 +45,8 @@ def koi_pair():
     """Two koi circling just under the surface - sits in the Koi Pond (animated)."""
     m = Model('mistbloom_koi_pair', 'Swimming Koi Pair')
     r, L = 5, 10
-    koi3d(m, 'koi_a', 'x', -1, 8 - 0.55 * L, L, 3.3, 8 + r, 1.2, 1.7, 'kohaku', tail='h', dorsal=False, pect=False)
-    koi3d(m, 'koi_b', 'x', 1, 8 + 0.55 * L, L, 3.2, 8 - r, 1.1, 1.5, 'showa', tail='h', dorsal=False, pect=False)
+    koi3d(m, 'koi_a', 'x', -1, 8 - 0.55 * L, L, 3.3, 8 + r, 1.2, 1.7, 'kohaku', tail='h', dorsal=False, pect=False, merged=True)
+    koi3d(m, 'koi_b', 'x', 1, 8 + 0.55 * L, L, 3.2, 8 - r, 1.1, 1.5, 'showa', tail='h', dorsal=False, pect=False, merged=True)
     rig = me.Rig(m.name, m, length=12.0)
     rig.bone('school', (0, 0, 0))
     rig.bone('base', (0, 0, 0))
@@ -62,8 +62,8 @@ def koi_bowl_swim():
     """A kohaku and a little orange koi circling inside the Koi Bowl (animated)."""
     m = Model('mistbloom_koi_bowl_swim', 'Bowl Koi')
     r = 2.0
-    koi3d(m, 'koi_a', 'x', -1, 8 - 0.55 * 6, 6, 9.4, 8 + r, 0.85, 0.75, 'kohaku', dorsal=False, pect=False)
-    koi3d(m, 'koi_b', 'x', 1, 8 + 0.55 * 5, 5, 8.2, 8 - r, 0.75, 0.65, 'chagoi', dorsal=False, pect=False)
+    koi3d(m, 'koi_a', 'x', -1, 8 - 0.55 * 6, 6, 9.4, 8 + r, 0.85, 0.75, 'kohaku', dorsal=False, pect=False, merged=True)
+    koi3d(m, 'koi_b', 'x', 1, 8 + 0.55 * 5, 5, 8.2, 8 - r, 0.75, 0.65, 'chagoi', dorsal=False, pect=False, merged=True)
     rig = me.Rig(m.name, m, length=8.0)
     rig.bone('school', (0, 0, 0)); rig.bone('base', (0, 0, 0))
     rig.bone('koi_a', (0, 9.4, r), 'school'); rig.bone('koi_a_tail', (0.31 * 6, 9.4, r), 'koi_a')
@@ -92,11 +92,12 @@ def koi_leap():
 def koi_streamer_wind():
     """The whole streamer pole, koi windsocks flapping in gusts. A stand-alone animated version."""
     m = Model('mistbloom_koi_streamer_wind', 'Koi Streamer (windy)')
-    m.box('base', (4, 0, 4), (8, 3, 8), stone(course=3, moss=0.5), skip=['down'])
-    m.box('pole', (7, 3, 7), (2, 27, 2), WOOD, skip=['down'])
+    m.box('base', (3, 0, 3), (10, 2, 10), stone(moss=0.5), skip=['down'])
+    m.box('base_top', (5, 2, 5), (6, 2, 6), stone(), skip=['down'])
+    m.box('pole', (7, 4, 7), (2, 26, 2), WOODV, skip=['down'])
     m.box('cap', (6.5, 30, 6.5), (3, 1.2, 3), CAP)
     m.box('ball', (7.25, 31.2, 7.25), (1.5, 0.75, 1.5), solid('brass', 1.4), res=2)
-    cross(m, 'moss', 5, 3, 11, 3.5, 2.5, arts.grass(), res=2)
+    cross(m, 'moss', 4, 2, 11.5, 3.5, 2.5, arts.grass(), res=2)
     m.plane('cloth', (9, 27.6, 8), 'z', (9, 2.2), arts.ribbon(), res=2)    # flies above the koi
     koi3d(m, 'koi_big', 'x', -1, 9, 13, 24, 8, 1.9, 1.9, 'magoi', dorsal=False, pect=False)
     koi3d(m, 'koi_small', 'x', -1, 9, 10, 17, 8, 1.5, 1.5, 'kohaku', dorsal=False, pect=False)
@@ -123,7 +124,7 @@ def koi_school():
     r, L = 10, 12
     pats = (('koi_a', 'kohaku', 4.0), ('koi_b', 'showa', 2.6), ('koi_c', 'sanke', 5.2))
     for name, pat, cy in pats:
-        koi3d(m, name, 'x', -1, 8 - 0.55 * L, L, cy, 8 + r, 1.3, 1.6, pat)
+        koi3d(m, name, 'x', -1, 8 - 0.55 * L, L, cy, 8 + r, 1.3, 1.6, pat, pect=False)
     rig = me.Rig(m.name, m, length=15.0)
     rig.bone('base', (0, 0, 0))
     for i, (name, pat, cy) in enumerate(pats):

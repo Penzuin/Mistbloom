@@ -270,3 +270,43 @@ def koi_sprite(c, x0, y0, pattern, rot=0, flipx=False, flipy=False):
             tone = 1.5 if ch == 'f' else 1.8
             if filled and (x == filled[0] or x == filled[-1]) and ch != 'f': tone += 0.5
             c.set(x0 + x, y0 + y, mat=mats[ch], tone=tone)
+
+
+# ---------------------------------------------- pixel drawings (vanilla-res house style)
+def rows_art(rows, pal):
+    """Card or face painter from a pixel drawing. '.' is clear. pal: char -> (mat, tone 0..4).
+    Back faces mirror so the card reads right from both sides."""
+    STEP = (0, 1.0, 2.0, 4.0, 6.0)
+    def p(c):
+        ah, aw = len(rows), len(rows[0])
+        mir = c.face in ('north', 'west', 'down')
+        for y in range(c.h):
+            for x in range(c.w):
+                ax = int(x * aw / c.w)
+                ch = rows[int(y * ah / c.h)][aw - 1 - ax if mir else ax]
+                if ch != '.':
+                    m, t = pal[ch]
+                    c.set(x, y, mat=m, tone=STEP[t])
+    return p
+
+LOTUS = [
+    "...PP...",
+    ".P.LP.P.",
+    ".PLLPPD.",
+    "PLLLPPDD",
+    ".PPPPPD.",
+    "..gGGg..",
+]
+LOTUS_PAL = {"P": ("pink", 2), "L": ("pink", 1), "D": ("pink", 3), "g": ("lily", 2), "G": ("lily", 3)}
+
+def petal_fan(mat='pink'):
+    return rows_art(LOTUS, LOTUS_PAL)
+
+BUD = [
+    "..P..",
+    ".LPD.",
+    ".LPD.",
+    "..g..",
+]
+def bud():
+    return rows_art(BUD, LOTUS_PAL)

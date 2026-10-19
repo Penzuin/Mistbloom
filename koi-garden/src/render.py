@@ -27,16 +27,20 @@ def render(model, yaw=35, pitch=28, scale=12, ss=2, centre=None, pad=10):
     for e in model.els:
         for fc in e.faces():
             pts = [_rot(face_point(fc, e.f, e.t, u, v), e.rot) for u, v in ((0, 0), (1, 0), (1, 1), (0, 1))]
+            nrm = {'north': (0, 0, -1), 'south': (0, 0, 1), 'east': (1, 0, 0), 'west': (-1, 0, 0), 'up': (0, 1, 0), 'down': (0, -1, 0)}[fc]
+            nrm = np.array(_rot(nrm, (e.rot[0], e.rot[1], (0, 0, 0))) if e.rot else nrm)
+            if nrm @ cdir <= 1e-6:
+                continue                      # back-face culled, like the game
             P = np.array(pts) - np.array(centre or (8, 8, 8))
             sx = P @ right * s; sy = -(P @ up) * s; d = P @ cdir
-            quads.append((sx, sy, d, e.uv[fc]))
+            quads.append((sx, sy, d, e.uv[fc], 1.0 if e.plane else {'up': 1.0, 'down': 0.5, 'north': 0.8, 'south': 0.8}.get(fc, 0.6)))
     allx = np.concatenate([q[0] for q in quads]); ally = np.concatenate([q[1] for q in quads])
     ox, oy = -allx.min() + pad * ss, -ally.min() + pad * ss
     W = int(allx.max() - allx.min() + 2 * pad * ss) + 1
     H = int(ally.max() - ally.min() + 2 * pad * ss) + 1
     img = np.zeros((H, W, 4)); zb = np.full((H, W), -1e9)
     trans = []
-    for sx, sy, d, uv in quads:
+    for sx, sy, d, uv, fac in quads:
         sx = sx + ox; sy = sy + oy
         uvp = [(0, 0), (1, 0), (1, 1), (0, 1)]
         for tri in ((0, 1, 2), (0, 2, 3)):
@@ -59,7 +63,7 @@ def render(model, yaw=35, pitch=28, scale=12, ss=2, centre=None, pad=10):
             u0, v0, u1, v1 = uv
             px = np.clip((u0 + fu * (u1 - u0)).astype(int), u0, u1 - 1)
             py = np.clip((v0 + fv * (v1 - v0)).astype(int), v0, v1 - 1)
-            col = tex[py, px]
+            col = tex[py, px].copy(); col[..., :3] *= fac
             al = col[..., 3]
             sub = (slice(y0, y1 + 1), slice(x0, x1 + 1))
             opaque = m & (al >= 250) & (z > zb[sub])

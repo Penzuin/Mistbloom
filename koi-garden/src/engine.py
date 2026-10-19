@@ -47,6 +47,18 @@ def colour(mat_idx, tone):
     b = _A[mat_idx, i0 + 1]
     return a * (1 - f) + b * f
 
+TSTEPS = np.array([0, 1.0, 2.0, 4.0, 6.0])   # tone index -> ramp position
+PX = True          # vanilla-res house style (PACK_STANDARDS, Oct 19 2026)
+PXPAL = np.stack([colour(np.full(5, i), TSTEPS) for i in range(len(MATS))])  # (M,5,3)
+
+def _despeck(t):
+    """No single-dot shading: a lone pixel whose 4 neighbours agree takes their tone."""
+    if t.shape[0] < 3 or t.shape[1] < 3: return t
+    c = t[1:-1, 1:-1]; n, s_, w_, e_ = t[:-2, 1:-1], t[2:, 1:-1], t[1:-1, :-2], t[1:-1, 2:]
+    lone = (n == s_) & (n == w_) & (n == e_) & (c != n)
+    c[lone] = n[lone]
+    return t
+
 def rgb(mat, tone=2):
     return tuple(int(v) for v in colour(np.array(MI[mat]), np.array(float(tone))))
 
@@ -162,6 +174,7 @@ class Model:
         self.meta = {}
 
     def cube(self, name, f, t, paint, **k):
+        if PX: k['res'] = 1
         e = El(self.name, name, f, t, paint, **k); self.els.append(e); return e
 
     def box(self, name, origin, size, paint, **k):
@@ -170,6 +183,7 @@ class Model:
 
     def plane(self, name, origin, axis, size, paint, res=1, rot=None, tint=False):
         """Zero-thickness card. size=(a,b): z-plane (x,y); y-plane (x,z); x-plane (z,y)."""
+        if PX: res = 1
         a, b = size; x, y, z = origin
         t = {'z': (x + a, y + b, z), 'y': (x + a, y, z + b), 'x': (x, y + b, z + a)}[axis]
         e = El(self.name, name, origin, t, paint, res=res, rot=rot, tint=tint,
@@ -179,7 +193,7 @@ class Model:
     # ---------------------------------------------------------- checks
     def check(self):
         n = len(self.els)
-        assert n <= 19, f'{self.name}: {n} elements (max 19)'
+        assert n <= 14, f'{self.name}: {n} elements (max 14)'
         for e in self.els:
             for c in e.f + e.t:
                 assert -16 <= c <= 32, f'{self.name}/{e.name}: coord {c} out of -16..32'
@@ -212,9 +226,19 @@ class Model:
                 p(c)
                 if getattr(e, 'turned', False) and fc in ('up', 'down'):
                     c.M[:] = c.M[::-1, ::-1].copy(); c.T[:] = c.T[::-1, ::-1].copy(); c.A[:] = c.A[::-1, ::-1].copy()
-                if e.shade:
-                    c.T += SHADE[fc]
-                rgbv = colour(np.clip(c.M, 0, None), c.T)
+                if PX:
+                    t4 = np.abs(c.T[..., None] - TSTEPS).argmin(-1)
+                    if not e.plane and not e.name.startswith('koi'):
+                        t4 = _despeck(t4)
+                    if not e.plane and fc in ('north', 'south', 'east', 'west') and h >= 3:
+                        t4[0] = np.maximum(0, t4[0] - 1); t4[-1] = np.minimum(4, t4[-1] + 1)
+                    if fc == 'down' and not e.plane:
+                        t4 = np.minimum(4, t4 + 1)
+                    rgbv = PXPAL[np.clip(c.M, 0, None), t4]
+                else:
+                    if e.shade:
+                        c.T += SHADE[fc]
+                    rgbv = colour(np.clip(c.M, 0, None), c.T)
                 img = np.zeros((h, w, 4), np.uint8)
                 img[..., :3] = np.clip(rgbv, 0, 255)
                 img[..., 3] = np.where(c.M < 0, 0, c.A)
@@ -484,12 +508,12 @@ class Koi:
                 T[((xx + (yy // 2) % 2 * 2) % 4 == 0) & (yy % 2 == 0)] += 0.35
             c.M[:] = M; c.T[:] = T
             # eyes on the head sides
-            if part == 'head' and self.eye and c.face in (('north', 'south') if self.axis == 'x' else ('east', 'west')):
-                m = (abs(t - 0.1) < 0.045) & (abs(yv - 0.25) < 0.3)
+            if part in ('head', 'all') and self.eye and c.face in (('north', 'south') if self.axis == 'x' else ('east', 'west')):
+                m = (abs(t - 0.11) < max(0.045, 0.55 / self.length)) & (abs(yv - 0.3) < 0.35)
                 c.mask(m, mat='kblack', tone=4.5)
-            if part == 'head' and c.face in (('east', 'west') if self.axis == 'x' else ('north', 'south')):
+            if part in ('head', 'all') and c.face in (('east', 'west') if self.axis == 'x' else ('north', 'south')):
                 # mouth on the nose face
-                m = (abs(yv + 0.2) < 0.22) & (abs(wv) < 0.45)
+                m = (abs(yv + 0.2) < 0.22) & (abs(wv) < 0.45) & (t < 0.3)
                 c.mask(m, mat='korange' if pat['base'] != 'korange' else 'kwhite', tone=3.5)
         return p
 
@@ -543,4 +567,73 @@ def pect_card(mat):
         m &= (abs(v - 0.5) > 0.3)
         c.M[m] = MI[mat]; c.T[m] = 1.8
         c.T[m & (xx % 2 == 0)] += 0.4
+    return p
+
+
+# ======================================================= vanilla-res materials (px.py port)
+def _hh(*v):
+    return zlib.crc32(np.array(v, np.int64).tobytes()) & 0xffff
+
+def _wuv(c):
+    """integer world-pixel coords (u along the face, v down the face) and the face axis"""
+    X, Y, Z = c.P
+    if c.face in ('up', 'down'):
+        u, v, ax = X, Z, 1
+    elif c.face in ('east', 'west'):
+        u, v, ax = Z, -Y, 0
+    else:
+        u, v, ax = X, -Y, 2
+    return np.floor(u + 1e-6).astype(int), np.floor(v + 1e-6).astype(int), ax
+
+def _grid(f, u, v):
+    return np.array([[f(a, b) for a, b in zip(ra, rb)] for ra, rb in zip(u, v)])
+
+def pxmat(mat, kind='plain', base=2, detail=None):
+    """Vanilla-style material drawn in world space, 5 discrete tones (0 light .. 4 deep).
+    kind: plain | wood | woodv | log | stone | brick | cloth | straw | tile"""
+    def p(c):
+        u, v, ax = _wuv(c)
+        t = np.full((c.h, c.w), base, int)
+        if kind in ('wood', 'woodv', 'log'):
+            vert = kind == 'woodv' or (kind == 'wood' and ax != 1 and c.h > 2 * c.w)
+            along, across = (v, u) if (vert or kind == 'log') else (u, v)
+            if kind == 'log' and ax == 1:
+                cx, cz = (u.min() + u.max()) / 2, (v.min() + v.max()) / 2
+                r = np.maximum(abs(u - cx), abs(v - cz)).astype(int)
+                t = np.where(r % 2 == 0, base - 1, base); t[r == r.max()] = base + 1
+            else:
+                plank = 4
+                seam = (across % plank) == plank - 1
+                g = _grid(lambda a, b: _hh(a // 3, b // plank, 7), along, across)
+                streak = (g % 7 == 0) | ((g % 11 == 3) & (across % plank == 1))
+                t = np.where(streak, base + 1, t)
+                t = np.where((g % 13 == 5) & ~seam, base - 1, t)
+                if kind != 'log':
+                    t = np.where(seam, base + 1, t)
+                    joint = (along + (across // plank) * 5) % 12 == 0
+                    t = np.where(joint & ~seam, base + 1, t)
+        elif kind == 'brick':
+            row = v // 3
+            mortar = (v % 3 == 2) | ((u + (row % 2) * 3) % 6 == 5)
+            g = _grid(lambda a, b: _hh(a // 6, b // 3), u, v)
+            t = np.where(g % 3 == 0, base - 1, np.where(g % 3 == 1, base + 1, base))
+            t = np.where(mortar, base + 2, t)
+        elif kind == 'stone':
+            g = _grid(lambda a, b: _hh(a // 2, b // 2), u, v)
+            t = np.where(g % 5 == 0, base - 1, np.where(g % 5 == 1, base + 1, base))
+            crack = _grid(lambda a, b: _hh(a, b, 3), u, v) % 23 == 0
+            t = np.where(crack, base + 2, t)
+        elif kind == 'tile':                      # cut stone slabs: 4x4 blocks with a joint line
+            joint = (u % 4 == 3) | (v % 4 == 3)
+            g = _grid(lambda a, b: _hh(a // 4, b // 4, 9), u, v)
+            t = np.where(g % 3 == 0, base - 1, base)
+            t = np.where(joint, base + 1, t)
+        elif kind == 'cloth':
+            t = np.where((u % 4 == 0) & (v % 2 == 0), base + 1, t)
+        elif kind == 'straw':
+            t = np.where((u * 3 + v) % 5 == 0, base + 1, np.where((u + v * 2) % 7 == 0, base - 1, base))
+        if detail is not None:
+            detail(t, u, v, c)
+        c.M[:] = MI[mat]
+        c.T[:] = TSTEPS[np.clip(t, 0, 4)]
     return p
