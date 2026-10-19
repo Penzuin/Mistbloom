@@ -52,11 +52,10 @@ def lilypad(notch_dir=0.0, rim=True):
         m = (r < 0.48) & ~((da < 0.32) & (r > 0.03))
         c.M[m] = MI['lily']; c.T[m] = 2.0
         # veins every 45 deg, half-step darker
-        vein = m & ((np.abs(((a - notch_dir) % (np.pi / 4)) - np.pi / 8) > np.pi / 8 - 0.09)) & (r > 0.08)
-        c.T[vein] = 2.6
+        # no veins or pixel rim: at 16 px per block both alias into scattered dots on the round edge.
+        # One clean light disc in the middle, darker outer band.
         if rim:
-            c.T[m & (r > 0.40)] = 1.3
-        c.T[m & (r < 0.06)] = 2.8
+            c.T[m & (r < 0.30)] = 1.4
     return p
 
 def petal_fan(mat='pink'):

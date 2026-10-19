@@ -650,23 +650,19 @@ def pxmat(mat, kind='plain', base=2, detail=None, block=4):
                 r = np.maximum(abs(u - cx), abs(v - cz)).astype(int)
                 t = np.where(r % 2 == 0, base - 1, base); t[r == r.max()] = base + 1
             else:
-                # tidy planks: a dark seam under each plank, staggered butt joints, and one or two
-                # long grain lines per plank segment. No random blotches.
+                # clean planks: a lit top edge and a dark seam on every plank, long planks with a joint
+                # every 16 texels (staggered by 8 on alternate rows). No short grain dashes: they read as spots.
                 plank = 4
                 seam = (across % plank) == plank - 1
                 row = across // plank
-                seg = (along + row * 5) // 12                       # plank segment between joints
-                g = _grid(lambda a_, b_: _hh(a_, b_, 7), seg, row)
-                line_row = row * plank + 1 + (g % 2)                # which texel row the grain runs on
-                start = (g // 3) % 6; length = 4 + (g // 17) % 4
-                pos = (along + row * 5) % 12
-                grain = (across == line_row) & (pos >= start) & (pos < start + length)
-                t = np.where(grain, base + 1, t)
                 if kind != 'log':
                     t = np.where(seam, base + 1, t)
-                    t = np.where((across % plank == 0) & ~grain, base - 1, t)   # lit top edge of each plank
-                    joint = (along + row * 5) % 12 == 0
-                    t = np.where(joint & ~seam, base + 1, t)
+                    t = np.where(across % plank == 0, base - 1, t)          # lit top edge of each plank
+                    if (across.max() - across.min()) >= plank and (along.max() - along.min()) >= 12:
+                        joint = (along + (row % 2) * 8) % 16 == 0
+                        t = np.where(joint & ~seam, base + 1, t)
+                else:
+                    t = np.where(seam, base + 1, t)
         elif kind == 'brick':
             row = v // 3
             mortar = (v % 3 == 2) | ((u + (row % 2) * 3) % 6 == 5)
@@ -684,9 +680,7 @@ def pxmat(mat, kind='plain', base=2, detail=None, block=4):
             uu = u + (row % 2) * (B // 2)                          # running bond, like stone bricks
             joint = (uu % B == B - 1) | (v % B == B - 1)
             lit = (v % B == 0) & ~joint                            # lit top edge of each block only
-            g = _grid(lambda a_, b_: _hh(a_ // B, b_ // B, 9), uu, v)
-            t = np.where(g % 4 == 0, base + 1, base)              # the odd darker block, whole block at once
-            t = np.where(lit, t - 1, t)
+            t = np.where(lit, base - 1, base)                     # every block one tone; no odd blocks
             t = np.where(joint, base + 1, t)
         elif kind == 'cloth':
             t = np.where((u % 4 == 0) & (v % 2 == 0), base + 1, t)

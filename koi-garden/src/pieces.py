@@ -102,7 +102,7 @@ def _vflip(p):
 # ---------------------------------------------- vanilla-res materials (PACK_STANDARDS, Oct 19 2026)
 WOOD = pxmat('teak', 'wood')
 WOODV = pxmat('teak', 'woodv')
-CAP = capped(WOODV, pxmat('teak', 'log'))
+CAP = capped(WOODV, WOOD)
 
 def _moss_top(amount):
     """moss creeping over the top edge in deliberate 2px runs"""
