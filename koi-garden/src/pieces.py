@@ -118,7 +118,7 @@ def _moss_top(amount):
     return d
 
 def stone(course=4, moss=0.0, kind='tile'):
-    base = pxmat('stone', kind, detail=_moss_top(moss))
+    base = pxmat('stone', kind, detail=_moss_top(moss), block=8 if course >= 6 else 4)
     def p(c):
         c._moss = None
         base(c)
@@ -203,7 +203,7 @@ def koi_bowl():
 
 def plaque_board():
     def front(c):
-        arts_wood = wood('teak', plank=3)
+        arts_wood = pxmat('teak', 'wood')
         arts_wood(c)
         if c.face == 'south':
             panel(1)(c)
@@ -309,7 +309,7 @@ def koi_reeds():
 
 def koi_inlay_rail():
     def p(c):
-        wood('teak', plank=2)(c)
+        pxmat('teak', 'wood')(c)
         if c.face == 'north':  # back face: twin koi inlay chasing each other
             arts.koi_sprite(c, 3, 0, 'kohaku', rot=1)                 # nose left
             arts.koi_sprite(c, c.w - 15, 1, 'showa', rot=3)          # nose right
@@ -400,7 +400,7 @@ def screen_panel(pattern, y0, flipy=False, flipx=False):
             fr = (xx == 0) | (xx == c.w - 1) | (yy == 0) | (yy == c.h - 1)
             c.M[fr] = MI['teak']; c.T[fr] = 2.2
         else:
-            wood('teak', plank=1)(c)
+            pxmat('teak', 'woodv')(c)
     return p
 
 def koi_screen():

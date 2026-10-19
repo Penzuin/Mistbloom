@@ -616,7 +616,7 @@ def _wuv(c):
 def _grid(f, u, v):
     return np.array([[f(a, b) for a, b in zip(ra, rb)] for ra, rb in zip(u, v)])
 
-def pxmat(mat, kind='plain', base=2, detail=None):
+def pxmat(mat, kind='plain', base=2, detail=None, block=4):
     """Vanilla-style material drawn in world space, 5 discrete tones (0 light .. 4 deep).
     kind: plain | wood | woodv | log | stone | brick | cloth | straw | tile"""
     def p(c):
@@ -630,15 +630,21 @@ def pxmat(mat, kind='plain', base=2, detail=None):
                 r = np.maximum(abs(u - cx), abs(v - cz)).astype(int)
                 t = np.where(r % 2 == 0, base - 1, base); t[r == r.max()] = base + 1
             else:
+                # tidy planks: a dark seam under each plank, staggered butt joints, and one or two
+                # long grain lines per plank segment. No random blotches.
                 plank = 4
                 seam = (across % plank) == plank - 1
-                g = _grid(lambda a, b: _hh(a // 3, b // plank, 7), along, across)
-                streak = (g % 7 == 0) | ((g % 11 == 3) & (across % plank == 1))
-                t = np.where(streak, base + 1, t)
-                t = np.where((g % 13 == 5) & ~seam, base - 1, t)
+                row = across // plank
+                seg = (along + row * 5) // 12                       # plank segment between joints
+                g = _grid(lambda a_, b_: _hh(a_, b_, 7), seg, row)
+                line_row = row * plank + 1 + (g % 2)                # which texel row the grain runs on
+                start = (g // 3) % 6; length = 4 + (g // 17) % 4
+                pos = (along + row * 5) % 12
+                grain = (across == line_row) & (pos >= start) & (pos < start + length)
+                t = np.where(grain, base + 1, t)
                 if kind != 'log':
                     t = np.where(seam, base + 1, t)
-                    joint = (along + (across // plank) * 5) % 12 == 0
+                    joint = (along + row * 5) % 12 == 0
                     t = np.where(joint & ~seam, base + 1, t)
         elif kind == 'brick':
             row = v // 3
@@ -651,14 +657,16 @@ def pxmat(mat, kind='plain', base=2, detail=None):
             t = np.where(g % 4 == 0, base - 1, np.where(g % 4 == 1, base + 1, base))
             crack = _grid(lambda a, b: _hh(a, b, 3), u, v) % 23 == 0
             t = np.where(crack, base + 2, t)
-        elif kind == 'tile':                      # cut stone slabs: 4x4 blocks with a joint line
-            joint = (u % 4 == 3) | (v % 4 == 3)
-            g = _grid(lambda a, b: _hh(a // 4, b // 4, 9), u, v)
-            g2 = _grid(lambda a, b: _hh(a // 2, b // 2, 4), u, v)
-            t = np.where(g % 3 == 0, base - 1, np.where(g % 3 == 1, base + 1, base))
-            t = np.where((g2 % 7 == 0) & ~joint, t + 1, t)              # 2x2 weathered patches
-            t = np.where(joint, base + 2, t)
-            t = np.where(((u % 4 == 0) | (v % 4 == 0)) & ~joint, np.maximum(t - 1, 0), t)   # lit edge of each slab
+        elif kind == 'tile':                      # cut stone slabs: even blocks, lit top-left edge, dark joint
+            B = block
+            row = v // B
+            uu = u + (row % 2) * (B // 2)                          # running bond, like stone bricks
+            joint = (uu % B == B - 1) | (v % B == B - 1)
+            lit = (v % B == 0) & ~joint                            # lit top edge of each block only
+            g = _grid(lambda a_, b_: _hh(a_ // B, b_ // B, 9), uu, v)
+            t = np.where(g % 4 == 0, base + 1, base)              # the odd darker block, whole block at once
+            t = np.where(lit, t - 1, t)
+            t = np.where(joint, base + 1, t)
         elif kind == 'cloth':
             t = np.where((u % 4 == 0) & (v % 2 == 0), base + 1, t)
         elif kind == 'straw':
