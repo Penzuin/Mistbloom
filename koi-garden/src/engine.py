@@ -54,7 +54,7 @@ def colour(mat_idx, tone):
 
 TSTEPS = np.array([0, 1.0, 2.0, 4.0, 6.0])   # tone index -> ramp position
 THEME = [None]     # material theme: None | lacquer | bamboo | twotone (Oct 19 2026 options)
-STYLE = ['house']  # texture style: house | lacquer | carved | wave (Mistbloom originals, Oct 19 2026)
+STYLE = ['styled']  # texture style: house | lacquer | carved | wave (Mistbloom originals, Oct 19 2026)
 PX = True          # vanilla-res house style (PACK_STANDARDS, Oct 19 2026)
 PXPAL = np.stack([colour(np.full(5, i), TSTEPS) for i in range(len(MATS))])  # (M,5,3)
 
@@ -668,6 +668,18 @@ def _style_wood(style, along, across, base, u, v):
         r = across % P
         t = np.where((r == 0) | (a == 0), base - 1, t)
         t = np.where((r == P - 1) | (a == L - 1), base + 1, t)
+    elif style == 'styled':
+        # regular teak with styling: boards 5 px (lit top row, body, dark seam), bevelled board
+        # ends (dark joint with a lit column after it), staggered every 16
+        P = 5; L = 16
+        row = across // P
+        r = across % P
+        a = (along + (row % 2) * 8) % L
+        t = np.where(r == 0, base - 1, t)
+        t = np.where(r == P - 1, base + 1, t)
+        if (along.max() - along.min()) >= 12 and (across.max() - across.min()) >= P:
+            t = np.where((a == 0) & (r != P - 1), base + 1, t)
+            t = np.where((a == 1) & (r != P - 1) & (r != 0), base - 1, t)
     elif style == 'glint':
         # Mistbloom glint: wide clean boards (lit top row, dark seam, flat body). The corner glint
         # on every face is added at the end of pxmat.
@@ -815,6 +827,24 @@ def pxmat(mat, kind='plain', base=2, detail=None, block=4):
             t = np.where((u % 4 == 0) & (v % 2 == 0), base + 1, t)
         elif kind == 'straw':
             t = np.where((u * 3 + v) % 5 == 0, base + 1, np.where((u + v * 2) % 7 == 0, base - 1, base))
+        if STYLE[0] == 'styled' and kind in ('wood', 'woodv') and c.face not in ('up', 'down'):
+            vert_f = kind == 'woodv' or (ax != 1 and c.h > 2 * c.w)
+            yy, xx = np.mgrid[0:c.h, 0:c.w]
+            if vert_f and 3 <= c.w <= 4 and c.h >= 5:
+                # fluted post: a carved groove down the middle, lit on its left edge
+                g = c.w // 2
+                t[1:-1, g] = base + 2
+                t[1:-1, g - 1] = np.minimum(t[1:-1, g - 1], base - 1)
+            elif c.h >= 7 and c.w >= 10:
+                # carved inset panel on big side faces: recess line 2 px in, lit on its bottom/right
+                # inner edge, so it reads cut into the wood (light from the top left)
+                y0, y1, x0, x1 = 2, c.h - 3, 2, c.w - 3
+                box = (yy >= y0) & (yy <= y1) & (xx >= x0) & (xx <= x1)
+                edge = box & ((yy == y0) | (yy == y1) | (xx == x0) | (xx == x1))
+                t[edge & ((yy == y0) | (xx == x0))] = base + 2
+                t[edge & ((yy == y1) | (xx == x1)) & ~((yy == y0) | (xx == x0))] = base - 1
+                inner = box & ~edge
+                t[inner] = np.where(t[inner] == base - 1, base, t[inner])
         if STYLE[0] == 'glint' and kind != 'log' and c.h >= 3 and c.w >= 3:
             # signature corner glint: a bright L in the top-left corner, a deep L in the bottom-right
             k = 3 if min(c.h, c.w) >= 6 else 2
