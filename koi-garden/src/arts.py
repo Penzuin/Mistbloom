@@ -309,3 +309,179 @@ BUD = [
 ]
 def bud():
     return rows_art(BUD, LOTUS_PAL)
+
+
+# ================================================ detailed foliage (Oct 19 2026 redraw)
+# Everything below is hand-placed pixel art at 16 px per block: 5-tone ramps, outlines as
+# continuous lines, highlights on the top-left, no lone noise pixels.
+STEP = (0, 1.0, 2.0, 4.0, 6.0)
+
+def _put(c, x, y, mat, ti):
+    c.set(x, y, mat=mat, tone=STEP[max(0, min(4, ti))])
+
+PAD12 = [
+    "...OOOOOO...",
+    ".OOLLLLLLOO.",
+    ".OLLPPPPPPO.",
+    "OLPVPPPPPVPO",
+    "OLPPVPPPVPPO",
+    "OLPPPVCOOOOO",
+    "OLPPPCC.....",
+    "OPPPPVCOOOOO",
+    "OPPPVPPPVPPO",
+    ".OPVPPPPPVO.",
+    ".OOPPPPPPOO.",
+    "...OOOOOO...",
+]
+PAD8 = [
+    "..OOOO..",
+    ".OLLLLO.",
+    "OLVPPVPO",
+    "OLPCOOOO",
+    "OPPC....",
+    "OPVPOOOO",
+    ".OPPPVO.",
+    "..OOOO..",
+]
+PAD6 = [
+    ".OOOO.",
+    "OLLLPO",
+    "OLPPPO",
+    "OLPCOO",
+    "OPPPO.",
+    ".OOOO.",
+]
+PAD_PAL = {"O": 3, "L": 1, "P": 2, "V": 3, "C": 4}
+
+def lilypad(notch_dir=0.0, rim=True):
+    """hand-drawn pad (12, 8 or 6 px): dark outline, lit top-left inner edge, diagonal veins,
+    a V notch to the stem. notch_dir picks the quarter turn so pads don't all face one way."""
+    def p(c):
+        art = PAD12 if c.w >= 11 else PAD8 if c.w >= 7 else PAD6
+        g = np.array([list(r) for r in art])
+        # only mirror across the top-left/bottom-right diagonal, so the light stays top-left;
+        # notch_dir picks notch-right or notch-down
+        if int(round(notch_dir / (np.pi / 2))) % 2:
+            g = g.T
+        n = g.shape[0]
+        for y in range(c.h):
+            for x in range(c.w):
+                ch = g[min(n - 1, y * n // c.h), min(n - 1, x * n // c.w)]
+                if ch != '.':
+                    _put(c, x, y, 'lily', PAD_PAL[ch])
+    return p
+
+LOTUS = [
+    "....LP....",
+    "..P.WLP.P.",
+    ".PL.WLPD.D",
+    ".LWLLPPDPD",
+    "LWLLYYPPDD",
+    ".LLPYYPPD.",
+    "..PPPPPD..",
+    "...gGGg...",
+]
+LOTUS_PAL = {"W": ("pink", 0), "L": ("pink", 1), "P": ("pink", 2), "D": ("pink", 3),
+             "Y": ("yellow", 1), "g": ("lily", 2), "G": ("lily", 3)}
+
+def petal_fan(mat='pink'):
+    return rows_art(LOTUS, LOTUS_PAL)
+
+BUD = [
+    "..L..",
+    ".LPD.",
+    ".WPD.",
+    ".LPD.",
+    "..PD.",
+    "..g..",
+]
+def bud():
+    return rows_art(BUD, LOTUS_PAL)
+
+def petal_ring(mat='pink', n=8):
+    """top view of the open lotus: 8 pointed petals, pale tips, yellow seed head"""
+    def p(c):
+        W, H = c.w, c.h
+        cx, cy = (W - 1) / 2, (H - 1) / 2
+        yy, xx = np.mgrid[0:H, 0:W]
+        dx, dy = xx - cx, yy - cy
+        r = np.hypot(dx, dy); a = np.arctan2(dy, dx)
+        k = (a % (2 * np.pi / n)) / (2 * np.pi / n) - 0.5
+        R = min(W, H) / 2
+        m = (r < R) & (np.abs(k) < 0.42 * (1 - r / R) + 0.12)
+        c.M[m] = MI[mat]; c.T[m] = STEP[2]
+        c.T[m & (r > R * 0.6)] = STEP[1]
+        c.T[m & ((dx + dy) > 0) & (r > R * 0.3)] = STEP[3]
+        ctr = r < R * 0.32
+        c.M[ctr] = MI['yellow']; c.T[ctr] = STEP[1]
+    return p
+
+def grass(mat='moss', every=1, minh=0.35):
+    """tidy tuft: blades of set heights, every other blade bends at the tip, dark base, lit tips"""
+    HS = (1.0, 0.6, 0.85, 0.45, 0.95, 0.7, 0.55, 0.9)
+    def p(c):
+        for x in range(0, c.w, max(1, every)):
+            n = max(1, int(round(HS[x % len(HS)] * c.h)))
+            bend = 1 if x % 2 else -1
+            for i in range(n):
+                f = i / max(n - 1, 1)
+                xx = x + (bend if (i == n - 1 and n >= 3) else 0)
+                ti = 3 if f < 0.34 else 2 if f < 0.7 else 1
+                _put(c, xx, c.h - 1 - i, mat, ti)
+    return p
+
+def reeds(heads=True, flower=None):
+    """cattails / iris: 1 px stalks lit on the tips, long reed blades leaning out from the base,
+    cattail heads 2 px wide (lit left column), or iris flowers"""
+    def p(c):
+        W, H = c.w, c.h
+        stalks = [(1, 1.0), (3, 0.78), (W - 3, 0.9), (W - 2, 0.62)] if W >= 6 else [(1, 1.0), (W - 2, 0.8)]
+        # blades first (behind): lean outwards, reed colour
+        for x0, lean, hf in ((0, -1, 0.55), (W // 2, 1, 0.7), (W - 1, 1, 0.45), (2, -1, 0.4)):
+            n = int(hf * H)
+            for i in range(n):
+                f = i / max(n - 1, 1)
+                x = int(round(x0 + lean * 2 * f * f))
+                _put(c, x, H - 1 - i, 'reed', 3 if f < 0.4 else 2 if f < 0.8 else 1)
+        for k, (x, hf) in enumerate(stalks):
+            n = int(hf * H)
+            top = H - n
+            for i in range(n):
+                f = i / max(n - 1, 1)
+                _put(c, x, H - 1 - i, 'moss', 3 if f < 0.5 else 2)
+            if heads and k % 2 == 0 and n > 8:
+                for j in range(1, 6):
+                    _put(c, x, top + j, 'cattail', 1)
+                    _put(c, x + 1, top + j, 'cattail', 2 if j < 5 else 3)
+                _put(c, x, top + 1, 'cattail', 0)
+            elif flower and k % 2 == 0:
+                fy = top
+                for dx, dy, ti in ((0, 0, 1), (-1, 1, 2), (1, 1, 2), (0, 1, 0), (0, 2, 3), (-1, 2, 3), (1, 2, 3)):
+                    _put(c, x + dx, fy + dy, flower, ti)
+    return p
+
+def ivy():
+    """vine with paired leaves: dark stem wandering down the card, 2x2 leaves lit top-left"""
+    def p(c):
+        W, H = c.w, c.h
+        cx = W // 2
+        for y in range(H):
+            x = cx + (1 if (y // 4) % 2 and W >= 4 else 0)
+            _put(c, x, y, 'moss', 4)
+            if y % 3 == 1:
+                s = -1 if (y // 3) % 2 else 1
+                lx = x + s
+                for ddx, ddy, ti in ((0, 0, 2), (s, 0, 1 if s < 0 else 2), (0, -1, 1), (s, -1, 1 if s < 0 else 2), (s, 1, 3)):
+                    _put(c, lx + ddx, y + ddy, 'moss', ti)
+    return p
+
+SPROUT = [
+    "W...L",
+    "LL.LD",
+    ".LGD.",
+    "..G..",
+    "..G..",
+    "..G..",
+]
+def sprout():
+    return rows_art(SPROUT, {"W": ("moss", 0), "L": ("moss", 1), "D": ("moss", 3), "G": ("moss", 3)})

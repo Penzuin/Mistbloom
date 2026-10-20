@@ -157,10 +157,10 @@ def koi_statue():
 def koi_lilypad():
     m = Model('koi_lilypad', 'Koi & Lily Pad')
     m.plane('pad', (0.5, 0.15, 0.5), 'y', (12, 12), arts.lilypad(0.6), res=2)
-    m.plane('pad_small', (10, 0.25, 1.5), 'y', (5.5, 5.5), arts.lilypad(2.4), res=2)
+    m.plane('pad_small', (10, 0.25, 1), 'y', (6, 6), arts.lilypad(2.4), res=2)
     m.box('pod', (4.6, 0.15, 4.6), (2, 1.4, 2), {'up': solid('yellow', 1.4), '*': solid('lily', 1.6)}, res=2, skip=['down'])
-    cross(m, 'lotus', 5.6, 0.4, 5.6, 8, 6, arts.petal_fan(), res=2)
-    m.plane('lotus_ring', (2.6, 0.6, 2.6), 'y', (6, 6), arts.petal_ring(), res=2)
+    cross(m, 'lotus', 5.6, 0.4, 5.6, 10, 8, arts.petal_fan(), res=2)
+    m.plane('lotus_ring', (2.1, 0.6, 2.1), 'y', (7, 7), arts.petal_ring(), res=2)
     koi3d(m, 'koi', 'x', -1, 1.5, 11, 1.85, 12.5, 1.4, 1.7, 'sanke', rot=('y', 22.5, (8, 1.85, 12.5)))
     m.meta = {'hitbox': [], 'size': '1x1 (walk-through)'}
     return m
@@ -203,7 +203,7 @@ def koi_bowl():
     m.box('water', (3, 7, 3), (10, 4.5, 10), water(70), res=2, skip=['down'])
     koi3d(m, 'koi_a', 'x', -1, 4.2, 6.5, 9.2, 6.5, 0.9, 0.8, 'kohaku', tail='v', dorsal=False, pect=False, rot=('y', 22.5, (7.5, 9.2, 6.5)), merged=True)
     koi3d(m, 'koi_b', 'z', 1, 12.4, 6, 7.8, 9.8, 0.8, 0.7, 'chagoi', tail='v', dorsal=False, pect=False, merged=True)
-    m.plane('ivy', (11.5, 0, 14.55), 'z', (3, 5), arts.ivy(), res=2)
+    m.plane('ivy', (10.5, 0, 14.55), 'z', (5, 6), arts.ivy(), res=2)
     m.meta = {'hitbox': ['0,0,0'], 'size': '1x1'}
     return m
 
@@ -238,7 +238,7 @@ def koi_plaque():
     m.box('nail', (7.5, 17.5, 0.3), (1, 1, 1), solid('brass', 1.5))
     koi3d(m, 'koi_a', 'x', -1, 2.8, 7.4, 9.6, 1.7, 1.15, 0.6, 'kohaku', dorsal=False, pect=False, rot=('z', 22.5, (7.5, 9.6, 1.7)))
     koi3d(m, 'koi_b', 'x', 1, 13.2, 7.4, 5.4, 1.7, 1.15, 0.6, 'showa', dorsal=False, pect=False, rot=('z', 22.5, (8.5, 5.4, 1.7)))
-    m.plane('ivy', (0.5, 4, 2.55), 'z', (3, 9), arts.ivy(), res=2)
+    m.plane('ivy', (0, 3, 2.55), 'z', (5, 10), arts.ivy(), res=2)
     m.meta = {'hitbox': ['0,0,0'], 'size': 'wall, 1x1', 'wall': True}
     return m
 
@@ -263,7 +263,7 @@ def koi_pond():
     koi3d(m, 'koi_a', 'x', 1, 23, 12, 3.4, 11, 1.2, 1.7, 'kohaku', tail='h', dorsal=False, pect=False, rot=('y', 22.5, (17, 3.4, 11)), merged=True)
     koi3d(m, 'koi_b', 'z', -1, 8, 11, 3.3, 9, 1.1, 1.5, 'showa', tail='h', dorsal=False, pect=False, rot=('y', -22.5, (9, 3.3, 14)), merged=True)
     m.plane('pad_a', (17, 3.6, 18), 'y', (8, 8), arts.lilypad(2.2), res=2)
-    cross(m, 'lotus', 21, 3.7, 22, 8, 6, arts.petal_fan(), res=2)
+    cross(m, 'lotus', 21, 3.7, 22, 10, 8, arts.petal_fan(), res=2)
     cross(m, 'reeds', 5.2, 3.5, 26.5, 6, 14, arts.reeds(), res=2)
     m.meta = {'hitbox': ['0,0,0', '1,0,0', '0,0,1', '1,0,1'], 'size': '2x2'}
     return m
@@ -287,16 +287,16 @@ def koi_stepping_stone():
 
 def koi_lilypads():
     m = Model('koi_lilypads', 'Lily Pad Cluster')
-    m.plane('pad_a', (0.5, 0.1, 1), 'y', (10, 10), arts.lilypad(0.4), res=2)
-    m.plane('pad_b', (8, 0.2, 7), 'y', (7.5, 7.5), arts.lilypad(2.8), res=2)
-    m.plane('pad_c', (1.5, 0.3, 10), 'y', (5.5, 5.5), arts.lilypad(5.0), res=2)
-    m.plane('pad_d', (11, 0.15, 1), 'y', (4, 4), arts.lilypad(1.5), res=2)
-    m.plane('pad_curl', (9.5, 0.4, 11), 'y', (5, 5), arts.lilypad(3.6), res=2, rot=('x', 22.5, (12, 0.4, 13.5)))
+    m.plane('pad_a', (-0.5, 0.1, 0), 'y', (12, 12), arts.lilypad(0.4), res=2)
+    m.plane('pad_b', (8, 0.2, 7), 'y', (8, 8), arts.lilypad(2.8), res=2)
+    m.plane('pad_c', (0.5, 0.3, 9.5), 'y', (6, 6), arts.lilypad(5.0), res=2)
+    m.plane('pad_d', (10.5, 0.15, 0.5), 'y', (6, 6), arts.lilypad(1.5), res=2)
+    m.plane('pad_curl', (9.5, 0.4, 10.5), 'y', (6, 6), arts.lilypad(3.6), res=2, rot=('x', 22.5, (12, 0.4, 13.5)))
     m.box('pod', (4.5, 0.1, 5), (2, 1.3, 2), {'up': solid('yellow', 1.4), '*': solid('lily', 1.6)}, res=2, skip=['down'])
-    cross(m, 'lotus', 5.5, 0.3, 6, 8, 6, arts.petal_fan(), res=2)
-    m.plane('lotus_ring', (2.5, 0.55, 3), 'y', (6, 6), arts.petal_ring(), res=2)
+    cross(m, 'lotus', 5.5, 0.3, 6, 10, 8, arts.petal_fan(), res=2)
+    m.plane('lotus_ring', (2, 0.55, 2.5), 'y', (7, 7), arts.petal_ring(), res=2)
     m.box('stem', (11.4, 0.2, 9.9), (0.8, 3.2, 0.8), solid('lily', 2.2), res=2, skip=['down'])
-    cross(m, 'bud', 11.8, 3.2, 10.3, 5, 4, arts.bud(), res=2)
+    cross(m, 'bud', 11.8, 3.2, 10.3, 5, 6, arts.bud(), res=2)
     m.meta = {'hitbox': [], 'size': '1x1 (walk-through)'}
     return m
 
@@ -317,7 +317,7 @@ def koi_reeds():
     cross(m, 'cattails', 6.5, 1.5, 7, 8, 22, arts.reeds(), res=1)
     cross(m, 'iris', 10.5, 1.5, 10, 6, 15, arts.reeds(heads=False, flower='yellow'), res=1)
     cross(m, 'grass', 6.5, 1.5, 12, 5, 10, arts.grass(every=1), res=1)
-    m.plane('pad', (0.5, 0.1, 9.5), 'y', (6, 6), arts.lilypad(0.9), res=2)
+    m.plane('pad', (0, 0.1, 9), 'y', (6, 6), arts.lilypad(0.9), res=2)
     m.meta = {'hitbox': [], 'size': '1x1, 1.5 tall (walk-through)'}
     return m
 
@@ -346,7 +346,7 @@ def koi_bench():
     m.box('stretcher', (4, 1.5, 12), (24, 1.5, 2), WOOD, skip=['down'])
     m.box('cushion', (4.5, 8, 5), (23, 2, 9), fabric(), tint=True, skip=['down'])
     m.box('back_cushion', (5, 10, 4.5), (22, 5, 1.5), fabric(), tint=True)
-    m.plane('ivy', (1, 2, 14.55), 'z', (3, 9), arts.ivy(), res=2)
+    m.plane('ivy', (0, 1, 14.55), 'z', (5, 10), arts.ivy(), res=2)
     m.meta = {'hitbox': ['0,0,0', '1,0,0'], 'seats': ['0,0,0', '1,0,0'], 'size': '2x1, dyeable cushions'}
     return m
 
@@ -393,10 +393,10 @@ def koi_table():
     m.box('stretcher_left', (2, 1.5, 4.5), (2, 1.5, 7), WOOD)
     m.box('stretcher_right', (12, 1.5, 4.5), (2, 1.5, 7), WOOD)
     m.box('pot', (0.5, 8, 0.5), (3, 2.5, 3), {'up': solid('moss', 2.6), '*': pxmat('clay', 'plain')}, skip=['down'])
-    cross(m, 'sprout', 2, 10.5, 2, 4, 4.5, arts.sprout(), res=2)
+    cross(m, 'sprout', 2, 10.5, 2, 5, 6, arts.sprout(), res=2)
     m.box('cup', (12.6, 8, 12.6), (2.4, 2, 2.4), {'up': lambda c: (c.fill('kwhite', 1.6), c.mask(np.ones((c.h, c.w), bool), tone=1.6),
                                                      _cup_top(c)), '*': _cup_side}, res=2, skip=['down'])
-    m.plane('ivy', (11.5, 0, 14.55), 'z', (3, 6), arts.ivy(), res=2)
+    m.plane('ivy', (10.5, 0, 14.55), 'z', (5, 7), arts.ivy(), res=2)
     m.meta = {'hitbox': ['0,0,0'], 'size': '1x1'}
     return m
 
@@ -434,7 +434,7 @@ def koi_screen():
         m.box(f'panel_{n}', (x, 2, 7), (8, 26, 1), screen_panel(pat, y0, flipy=fy, flipx=(n == 'r')), rot=rot)
         m.box(f'foot_{n}', (x, 0, 5.5), (8, 2, 4), RAIL, rot=rot, skip=['down'])
         m.box(f'cap_{n}', (x - 0.5, 28, 6.25), (9, 2, 2.5), RAIL, rot=rot)
-    m.plane('ivy', (-3.5, 2, 8.05), 'z', (3, 10), arts.ivy(), res=2, rot=('y', 22.5, (4, 2, 7.5)))
+    m.plane('ivy', (-4, 2, 8.05), 'z', (5, 12), arts.ivy(), res=2, rot=('y', 22.5, (4, 2, 7.5)))
     m.meta = {'hitbox': ['0,0,0', '0,1,0'], 'size': '1x2'}
     return m
 
