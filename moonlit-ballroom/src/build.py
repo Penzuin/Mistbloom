@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 import pieces as P
 from engine import NS, Model, NFRAMES, FRAMETIMES, wood
 
-VERSION = "1.1"
+VERSION = "1.0"
 NAMEC, TAGC, GOLDC = "#c9b8f0", "#9fb3d9", "#f2c97d"
 
 

@@ -79,22 +79,25 @@ def solid(ramp, tone=2, bevel=True):
     return f
 
 def wood(ramp="ebony", plank=3, base=2):
-    """Soft streak wood (Mistbloom house style, Oct 19 2026, see claude/brand/WOOD_STYLE.md):
-    2 px tall painted streaks about 9 px long, each one half-step above, at or below the base,
-    staggered per band; pale sanded tops. No seams, joints or grain dashes."""
+    """Lightly textured planks: half-step bands, staggered joints, grain streaks. No outlines."""
     def f(w, h, face, key):
         rng = random.Random(key)
         img = _blank(w, h)
         horiz = w >= h
         L, Tn = (w, h) if horiz else (h, w)
-        b = base - 1 if face == "up" else base
-        offs = [rng.randrange(13) for _ in range(Tn // 2 + 1)]
+        off = rng.randrange(7)
         for t in range(Tn):
-            band = t // 2
+            pi = t // plank
+            b = base + [0, 1, 0, 1][(pi + off) % 4] * 0.5
+            joint = (5 + pi * 9 + off) % 13
             for l in range(L):
-                seg = (l + offs[band]) // 9
-                k = random.Random(f"{key}|{band}|{seg}").randrange(6)
-                tone = b + (-1, 0, 0, 1, 0, 0)[k]
+                tone = b
+                if t % plank == plank - 1 and plank > 1:
+                    tone += 0.5
+                if (l + pi * 5 + off) % 11 in (2, 3, 4, 5, 6) and t % plank == 0:
+                    tone -= 0.5
+                if L > 9 and l % 13 == joint:
+                    tone += 0.5
                 x, y = (l, t) if horiz else (t, l)
                 img[y, x] = T(ramp, tone)
         if face == "down":
