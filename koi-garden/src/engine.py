@@ -34,6 +34,8 @@ ANCH = {
     'bamboo': ['#e2d47a', '#c4b452', '#968838', '#635922'],
     'walnut': ['#9c6a4c', '#764a34', '#553325', '#361f17'],
     'ash':    ['#f6e2b8', '#e2c592', '#be9d6a', '#8a6c46'],
+    'woodtop':['#d69e78', '#c08660', '#a46f4c', '#7c5238'],
+    'woodside':['#bb6c46', '#94523a', '#7c4235', '#4e2a25'],
 }
 MATS = list(ANCH)
 MI = {m: i for i, m in enumerate(MATS)}
@@ -74,6 +76,10 @@ HUE = {
     'bamboo':  ['#f6eca4', '#dccf6c', '#b6a648', '#867a30', '#5a501e'],
     'walnut':  ['#c08860', '#93603f', '#6c432d', '#4a2c20', '#2c1914'],
     'ash':     ['#fff4d8', '#f4dcae', '#dcbe88', '#b8935e', '#80603c'],
+    # sampled from the reference Forest Cabin furniture: close-together tones, pale sanded tops,
+    # reddish sides
+    'woodtop':  ['#d69e78', '#ca926c', '#c08660', '#b47a58', '#a46f4c'],
+    'woodside': ['#bb6c46', '#ab603e', '#94523a', '#7c4235', '#613630'],
 }
 for _m, _hx in HUE.items():
     PXPAL[MI[_m]] = np.array([_hex(h) for h in _hx])
@@ -759,6 +765,39 @@ def _themed(theme, c, kind, base, u, v, ax, detail):
     if gold.any():
         c.M[gold] = MI['brass']; c.T[gold] = TSTEPS[1]
 
+SOFT = ('soft', 'softseam', 'rings', 'bold')
+
+def _streaks(along, across, seed=0, L=9):
+    """painterly wood: 2 px tall streaks of varying length, each a tone above, at or below the base"""
+    band = across // 2
+    off = np.vectorize(lambda b: _hh(b, seed, 1) % 13)(band)
+    seg = (along + off) // L
+    h = np.vectorize(lambda b, s_: _hh(b, s_, seed) % 6)(band, seg)
+    return np.choose(h, [-1, 0, 0, 1, 0, 0])
+
+def _soft_wood(style, c, kind, base, u, v, ax, detail):
+    top = ax == 1
+    vert = kind == 'woodv' or (not top and c.h > 2 * c.w)
+    along, across = (v, u) if vert else (u, v)
+    mat = 'woodtop' if top else 'woodside'
+    if style == 'bold':
+        mat = 'teak'
+    b = 2
+    t = b + _streaks(along, across)
+    if style in ('softseam', 'rings', 'bold') and not vert:
+        t = np.where(across % 6 == 5, b + 2, t)          # soft board seam (two steps, 1 px)
+        t = np.where(across % 6 == 0, np.minimum(t, b - 1), t)
+    if top and (kind == 'plain' or style == 'rings') and min(c.h, c.w) >= 3:
+        # end grain / sanded slab: rectangular growth rings from the face centre
+        cx, cy = (c.w - 1) / 2, (c.h - 1) / 2
+        yy, xx = np.mgrid[0:c.h, 0:c.w]
+        r = np.maximum(np.abs(xx - cx), np.abs(yy - cy)).astype(int)
+        t = np.where(r % 3 == 0, b + 1, np.where(r % 3 == 1, b - 1, b))
+    if detail is not None:
+        detail(t, u, v, c)
+    c.M[:] = MI[mat]
+    c.T[:] = TSTEPS[np.clip(t, 0, 4)]
+
 def _carved_tile(u, v, base, B):
     row = v // B
     uu = u + (row % 2) * (B // 2)
@@ -773,6 +812,8 @@ def pxmat(mat, kind='plain', base=2, detail=None, block=4):
     kind: plain | wood | woodv | log | stone | brick | cloth | straw | tile"""
     def p(c):
         u, v, ax = _wuv(c)
+        if STYLE[0] in SOFT and mat == 'teak' and kind in ('wood', 'woodv', 'log', 'plain'):
+            return _soft_wood(STYLE[0], c, kind, base, u, v, ax, detail)
         if THEME[0] and mat == 'teak' and kind in ('wood', 'woodv', 'log', 'plain'):
             return _themed(THEME[0], c, kind, base, u, v, ax, detail)
         t = np.full((c.h, c.w), base, int)
