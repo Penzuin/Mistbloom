@@ -272,7 +272,7 @@ def koi_stepping_stone():
     """Reworked (Oct 19): three chunky stepped stones (wide base, inset top), plain stone with
     the bevel doing the shading, moss creeping over the edges, grass between them."""
     m = Model('koi_stepping_stone', 'Garden Stepping Stones')
-    S = pxmat('stone', 'tile', block=8)
+    S = {'up': pxmat('stone', 'plain'), '*': pxmat('stone', 'tile', block=8)}
     r1 = ('y', 22.5, (6, 0, 6)); r2 = ('y', -22.5, (12, 0, 12))
     m.box('stone_a', (1, 0, 1), (10, 1.5, 9), S, rot=r1, skip=['down'])
     m.box('stone_a_top', (2, 1.5, 2), (8, 1, 7), S, rot=r1, skip=['down'])

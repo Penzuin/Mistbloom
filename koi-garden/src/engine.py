@@ -10,8 +10,8 @@ from PIL import Image
 # ---------------------------------------------------------------- palette
 # 4 anchors per ramp (hi, base, shade, outline) -> continuous 7-step tone 0..6
 ANCH = {
-    'teak':   ['#cf9566', '#a8683f', '#7c4729', '#502a17'],
-    'stone':  ['#cfccc2', '#a9a69c', '#83817a', '#5a5853'],
+    'teak':   ['#bb6c46', '#94523a', '#7c4235', '#4e2a25'],   # soft wood sides (Oct 19 2026)
+    'stone':  ['#d6d4cc', '#b0aea8', '#9a9893', '#6f6d6b'],
     'moss':   ['#97c45e', '#6c9c3f', '#4b752b', '#2f4d1a'],
     'lily':   ['#b3d462', '#82ad3c', '#5b8429', '#3a5719'],
     'cream':  ['#fbf1dc', '#e6d6b4', '#c8b18a', '#93805c'],
@@ -61,8 +61,8 @@ PX = True          # vanilla-res house style (PACK_STANDARDS, Oct 19 2026)
 PXPAL = np.stack([colour(np.full(5, i), TSTEPS) for i in range(len(MATS))])  # (M,5,3)
 
 HUE = {
-    'teak':  ['#eaa56c', '#cb7d4b', '#a65b36', '#7c3c27', '#4e2219'],
-    'stone': ['#dcdad2', '#b8b6b0', '#93918f', '#6d6a72', '#47444f'],
+    'teak':  ['#bb6c46', '#ab603e', '#94523a', '#7c4235', '#613630'],
+    'stone': ['#d6d4cc', '#c4c2bb', '#b0aea8', '#9a9893', '#7f7d7b'],   # soft, close tones
     'moss':  ['#bcd86c', '#8fba4b', '#66943b', '#47712f', '#2d4c25'],
     'lily':  ['#c4e070', '#94c04c', '#6a983a', '#4a742e', '#2e5022'],
     'brass': ['#fff1a2', '#f4c95c', '#d69c36', '#a26b23', '#6a4316'],
@@ -798,6 +798,23 @@ def _soft_wood(style, c, kind, base, u, v, ax, detail):
     c.M[:] = MI[mat]
     c.T[:] = TSTEPS[np.clip(t, 0, 4)]
 
+def _soft_stone(c, kind, base, u, v, ax, detail, block):
+    """soft cut stone to match the soft wood: close tones, blocks in running bond with a lit top
+    row and a joint line, and the same 2 px painted streaks inside each block"""
+    b = 2
+    B = 8 if block >= 8 else 6
+    H = 4
+    row = v // H
+    uu = u + (row % 2) * (B // 2)
+    t = b + _streaks(uu, v, seed=5, L=7)
+    if kind != 'plain':
+        t = np.where(v % H == 0, np.minimum(t, b - 1), t)
+        t = np.where((v % H == H - 1) | (uu % B == B - 1), b + 2, t)
+    if detail is not None:
+        detail(t, u, v, c)
+    c.M[:] = MI['stone']
+    c.T[:] = TSTEPS[np.clip(t, 0, 4)]
+
 def _carved_tile(u, v, base, B):
     row = v // B
     uu = u + (row % 2) * (B // 2)
@@ -812,6 +829,8 @@ def pxmat(mat, kind='plain', base=2, detail=None, block=4):
     kind: plain | wood | woodv | log | stone | brick | cloth | straw | tile"""
     def p(c):
         u, v, ax = _wuv(c)
+        if STYLE[0] == 'soft' and mat == 'stone' and kind in ('tile', 'stone', 'plain'):
+            return _soft_stone(c, kind, base, u, v, ax, detail, block)
         if STYLE[0] in SOFT and mat == 'teak' and kind in ('wood', 'woodv', 'log', 'plain'):
             return _soft_wood(STYLE[0], c, kind, base, u, v, ax, detail)
         if THEME[0] and mat == 'teak' and kind in ('wood', 'woodv', 'log', 'plain'):
