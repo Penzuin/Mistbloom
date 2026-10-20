@@ -203,7 +203,7 @@ def koi_bowl():
     m.box('water', (3, 7, 3), (10, 4.5, 10), water(70), res=2, skip=['down'])
     koi3d(m, 'koi_a', 'x', -1, 4.2, 6.5, 9.2, 6.5, 0.9, 0.8, 'kohaku', tail='v', dorsal=False, pect=False, rot=('y', 22.5, (7.5, 9.2, 6.5)), merged=True)
     koi3d(m, 'koi_b', 'z', 1, 12.4, 6, 7.8, 9.8, 0.8, 0.7, 'chagoi', tail='v', dorsal=False, pect=False, merged=True)
-    m.plane('ivy', (10.5, 0, 14.55), 'z', (5, 6), arts.ivy(), res=2)
+    m.plane('ivy', (10.5, 0, 14.9), 'z', (5, 6), arts.ivy(), res=2)
     m.meta = {'hitbox': ['0,0,0'], 'size': '1x1'}
     return m
 
@@ -238,7 +238,7 @@ def koi_plaque():
     m.box('nail', (7.5, 17.5, 0.3), (1, 1, 1), solid('brass', 1.5))
     koi3d(m, 'koi_a', 'x', -1, 2.8, 7.4, 9.6, 1.7, 1.15, 0.6, 'kohaku', dorsal=False, pect=False, rot=('z', 22.5, (7.5, 9.6, 1.7)))
     koi3d(m, 'koi_b', 'x', 1, 13.2, 7.4, 5.4, 1.7, 1.15, 0.6, 'showa', dorsal=False, pect=False, rot=('z', 22.5, (8.5, 5.4, 1.7)))
-    m.plane('ivy', (0, 3, 2.55), 'z', (5, 10), arts.ivy(), res=2)
+    m.plane('ivy', (0, 3, 2.9), 'z', (5, 10), arts.ivy(), res=2)
     m.meta = {'hitbox': ['0,0,0'], 'size': 'wall, 1x1', 'wall': True}
     return m
 
@@ -346,7 +346,7 @@ def koi_bench():
     m.box('stretcher', (4, 1.5, 12), (24, 1.5, 2), WOOD, skip=['down'])
     m.box('cushion', (4.5, 8, 5), (23, 2, 9), fabric(), tint=True, skip=['down'])
     m.box('back_cushion', (5, 10, 4.5), (22, 5, 1.5), fabric(), tint=True)
-    m.plane('ivy', (0, 1, 14.55), 'z', (5, 10), arts.ivy(), res=2)
+    m.plane('ivy', (0, 1, 14.9), 'z', (5, 10), arts.ivy(), res=2)
     m.meta = {'hitbox': ['0,0,0', '1,0,0'], 'seats': ['0,0,0', '1,0,0'], 'size': '2x1, dyeable cushions'}
     return m
 
@@ -396,7 +396,7 @@ def koi_table():
     cross(m, 'sprout', 2, 10.5, 2, 5, 6, arts.sprout(), res=2)
     m.box('cup', (12.6, 8, 12.6), (2.4, 2, 2.4), {'up': lambda c: (c.fill('kwhite', 1.6), c.mask(np.ones((c.h, c.w), bool), tone=1.6),
                                                      _cup_top(c)), '*': _cup_side}, res=2, skip=['down'])
-    m.plane('ivy', (10.5, 0, 14.55), 'z', (5, 7), arts.ivy(), res=2)
+    m.plane('ivy', (10.5, 0, 14.9), 'z', (5, 7), arts.ivy(), res=2)
     m.meta = {'hitbox': ['0,0,0'], 'size': '1x1'}
     return m
 
@@ -434,7 +434,7 @@ def koi_screen():
         m.box(f'panel_{n}', (x, 2, 7), (8, 26, 1), screen_panel(pat, y0, flipy=fy, flipx=(n == 'r')), rot=rot)
         m.box(f'foot_{n}', (x, 0, 5.5), (8, 2, 4), RAIL, rot=rot, skip=['down'])
         m.box(f'cap_{n}', (x - 0.5, 28, 6.25), (9, 2, 2.5), RAIL, rot=rot)
-    m.plane('ivy', (-4, 2, 8.05), 'z', (5, 12), arts.ivy(), res=2, rot=('y', 22.5, (4, 2, 7.5)))
+    m.plane('ivy', (-4, 2, 8.4), 'z', (5, 12), arts.ivy(), res=2, rot=('y', 22.5, (4, 2, 7.5)))
     m.meta = {'hitbox': ['0,0,0', '0,1,0'], 'size': '1x2'}
     return m
 
