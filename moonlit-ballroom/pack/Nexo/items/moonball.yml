@@ -1,4 +1,4 @@
-# Moonlit Ballroom v1.0 by Mistbloom Studios - Nexo
+# Moonlit Ballroom v1.1 by Mistbloom Studios - Nexo
 # Minecraft 1.21.4+.
 
 moonball_waltzing_ghosts:
@@ -78,7 +78,7 @@ moonball_floating_candelabra:
   itemname: <#c9b8f0>Floating Candelabra
   lore:
   - <gray>Three moonfire candles held up
-  - <gray>by a curl of ghost mist.
+  - <gray>by a little ghost hand.
   - <gray>Right-click to light or snuff.
   - <#9fb3d9>Moonlit Ballroom
   material: PAPER
@@ -124,7 +124,7 @@ moonball_ghost_lantern:
         fall_sound: block.lantern.fall
       hitbox:
         interactions:
-        - 0,0,0 0.5,0.9
+        - 0,0,0 0.6,1.1
       lights:
         toggleable: true
         toggled_item_model: moonball:ghost_lantern_lit
@@ -156,7 +156,7 @@ moonball_ghost_portrait:
         roof: false
       hitbox:
         interactions:
-        - 0,0,0 1,1.6
+        - 0,0,0 1,1.9
       clickActions:
       - conditions: []
         actions:
