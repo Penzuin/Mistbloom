@@ -53,7 +53,7 @@ def garden_bench():
     m.box('back', (4, 8, 2.75), (24, 7, 1.5), A.lattice_face(), skip=['up', 'down'])
     m.box('stretcher', (4, 1.5, 12), (24, 1.5, 2), WOOD, skip=['down'])
     m.box('cushion', (4.5, 8, 5), (23, 2, 9), fabric(), tint=True, skip=['down'])
-    m.plane('roses', (0, 2, 14.55), 'z', (5, 9), A.rose_vine(1.4, 1))
+    m.plane('roses', (0, 2, 14.9), 'z', (5, 9), A.rose_vine(1.4, 1))
     return shift(m, dx=-8)
 
 def garden_chair():
@@ -67,7 +67,7 @@ def garden_chair():
     m.box('back', (4, 10, 2.75), (8, 6.5, 1.5), A.lattice_face(), skip=['up', 'down'])
     m.box('stretcher', (4, 1.5, 12.5), (8, 1.5, 2), WOOD, skip=['down'])
     m.box('cushion', (2, 8, 4.5), (12, 2, 10), fabric(), tint=True, skip=['down'])
-    m.plane('roses', (11.5, 0.5, 15.55), 'z', (5, 7), A.rose_vine(1.4, 2))
+    m.plane('roses', (11.5, 0.5, 15.4), 'z', (5, 7), A.rose_vine(1.4, 2))
     return m
 
 def tea_table():
@@ -121,7 +121,7 @@ def seed_cabinet():
     m.box('top', (0, 19, 2), (16, 2, 14), RAIL)
     m.box('pot', (6, 21, 7), (4, 3, 4), pot(), skip=['down'])
     cross(m, 'lavender', 8, 24, 9, 5, 8, A.lavender())
-    m.plane('roses', (-0.05, 3, 4), 'x', (8, 12), A.rose_vine(1.2, 3))
+    m.plane('roses', (0.1, 3, 4), 'x', (8, 12), A.rose_vine(1.2, 3))
     return m
 
 def tool_rack():
@@ -133,13 +133,13 @@ def tool_rack():
     m.box('crate', (3.5, 0, 5.5), (9, 5, 7), {'up': A.soil_top(), '*': WOOD}, skip=['down'])
     r = ('z', -22.5, (5.5, 10, 10))
     m.box('rake_handle', (5, 3, 9.5), (1, 13, 1), A.handle(), rot=r)
-    m.plane('rake_head', (2.5, 15.5, 10.05), 'z', (7, 3), A.rake_head(), rot=r)
+    m.plane('rake_head', (2.5, 15.5, 10.9), 'z', (7, 3), A.rake_head(), rot=r)
     s = ('z', 22.5, (10.5, 10, 10))
     m.box('spade_handle', (10, 7, 9.5), (1, 9, 1), A.handle(), rot=s)
     m.box('spade_grip', (9, 15, 9.5), (3, 1, 1), WOOD, rot=s)
     m.box('spade_blade', (9.25, 3, 9.25), (2.5, 4, 1.5), A.iron(2), rot=s)
-    m.plane('shears', (5, 5.5, 9.65), 'z', (6, 5), A.shears())
-    m.plane('roses', (12.5, 3, 9.55), 'z', (5, 10), A.rose_vine(1.3, 4))
+    m.plane('shears', (5, 5.5, 9.9), 'z', (6, 5), A.shears())
+    m.plane('roses', (12.5, 3, 9.9), 'z', (5, 10), A.rose_vine(1.3, 4))
     return m
 
 def rose_trellis():
@@ -149,8 +149,8 @@ def rose_trellis():
     m.box('post_right', (13, 5, 7), (2, 24, 2), WOODV, skip=['down', 'up'])
     m.box('cap', (0, 29, 6.5), (16, 1.5, 3), RAIL)
     m.plane('lattice', (3, 5, 8), 'z', (10, 24), A.lattice_card())
-    m.plane('roses_front', (1, 5, 9.2), 'z', (14, 24), A.rose_vine(1.0, 0))
-    m.plane('roses_back', (1, 5, 6.8), 'z', (14, 24), A.rose_vine(1.0, 3))
+    m.plane('roses_front', (1, 5, 9.4), 'z', (14, 24), A.rose_vine(1.0, 0))
+    m.plane('roses_back', (1, 5, 6.6), 'z', (14, 24), A.rose_vine(1.0, 3))
     m.box('rose_a', (4, 20, 9.3), (2.5, 2.5, 1.2), _rose_box)
     m.box('rose_b', (9.5, 12, 9.3), (2.5, 2.5, 1.2), _rose_box)
     return m
@@ -171,9 +171,9 @@ def arbor_arch():
         m.box(f'rafter_{k}', (x, 32.5, 0), (2, 1.5, 16), RAIL)
     m.plane('lattice_left', (2.25, 2, 4.5), 'x', (7, 26), A.lattice_card())
     m.plane('lattice_right', (29.75, 2, 4.5), 'x', (7, 26), A.lattice_card())
-    m.plane('roses_left', (3.7, 4, 3), 'x', (10, 26), A.rose_vine(1.1, 1))
-    m.plane('roses_right', (28.3, 4, 3), 'x', (10, 26), A.rose_vine(1.1, 2))
-    m.plane('garland', (0, 25, 14.7), 'z', (32, 8), A.rose_vine(1.3, 0, horizontal=True))
+    m.plane('roses_left', (3.9, 4, 3), 'x', (10, 26), A.rose_vine(1.1, 1))
+    m.plane('roses_right', (28.1, 4, 3), 'x', (10, 26), A.rose_vine(1.1, 2))
+    m.plane('garland', (0, 25, 14.9), 'z', (32, 8), A.rose_vine(1.3, 0, horizontal=True))
     return shift(m, dx=-8, dy=-16)
 
 def birdbath():
@@ -198,7 +198,7 @@ def flower_box():
     cross(m, 'roses', 3.5, 8, 8, 7, 9, A.rose_bush())
     cross(m, 'lavender', 8.5, 8, 7, 5, 10, A.lavender())
     cross(m, 'daisies', 12.5, 8, 9, 6, 8, A.daisy())
-    m.plane('front_roses', (1, 1.5, 12.05), 'z', (14, 6), A.rose_vine(1.6, 2))
+    m.plane('front_roses', (1, 1.5, 12.4), 'z', (14, 6), A.rose_vine(1.6, 2))
     return m
 
 def wheelbarrow():
@@ -226,7 +226,7 @@ def sundial():
     m.box('cap', (3.5, 12.5, 3.5), (9, 1.5, 9), STONE)
     m.box('dial', (4, 14, 4), (8, 0.75, 8), A.dial_top(), skip=['down'])
     m.plane('gnomon', (8, 14.75, 5), 'x', (5, 4), rows_art(GNOMON, {"c": ("copper", 1)}))
-    m.plane('ivy', (4.5, 3.5, 11.05), 'z', (5, 8), ivy())
+    m.plane('ivy', (4.5, 3.5, 11.4), 'z', (5, 8), ivy())
     cross(m, 'grass', 3, 2, 13, 4, 3, grass())
     return m
 
@@ -259,7 +259,7 @@ def stake_lantern(lit=False):
     m.box('roof', (5, 23.5, 5), (6, 1.5, 6), A.copper())
     m.box('roof_top', (6, 25, 6), (4, 1.5, 4), A.copper())
     m.box('finial', (7.5, 26.5, 7.5), (1, 1.5, 1), A.copper(1))
-    m.plane('roses', (5.5, 2, 9.05), 'z', (5, 10), A.rose_vine(1.3, 5))
+    m.plane('roses', (5.5, 2, 9.4), 'z', (5, 10), A.rose_vine(1.3, 5))
     return m
 
 def _lantern_glass(lit):
