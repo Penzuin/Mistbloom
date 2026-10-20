@@ -330,3 +330,87 @@ def wheel():
             hub = r < 1
             c.M[hub] = MI['iron']; c.T[hub] = STEP[2]
     return p
+
+
+# ================================================== extra texturing (Oct 19 2026, "add more texturing")
+ROSE_CARVE = [
+    ".DDDD.",
+    "D.LL.D",
+    "DL.DLD",
+    "DLD.LD",
+    "D.LL.D",
+    ".DDDD.",
+    "..D...",
+    ".DLD..",
+]
+
+def carved(base, faces=('south', 'north', 'east', 'west'), min_size=9):
+    """wrap a face painter: a carved rose medallion (dark recess, lit edge) centred on big faces"""
+    def p(c):
+        base(c)
+        if c.face not in faces or c.w < min_size or c.h < min_size:
+            return
+        h, w = len(ROSE_CARVE), len(ROSE_CARVE[0])
+        art = ROSE_CARVE if c.h >= h + 1 else ROSE_CARVE[:6]
+        h = len(art)
+        if c.h < h or c.w < w:
+            return
+        x0, y0 = (c.w - w) // 2, (c.h - h) // 2
+        for y, row in enumerate(art):
+            for x, ch in enumerate(row):
+                if ch == 'D':
+                    c.T[y0 + y, x0 + x] = STEP[4]
+                elif ch == 'L':
+                    c.T[y0 + y, x0 + x] = STEP[1]
+    return p
+
+def patina(base=2):
+    """copper with verdigris running down from the top edge in 2 px wide drips of set lengths"""
+    LENS = (3, 1, 4, 2, 0)
+    def p(c):
+        copper(base)(c)
+        if c.face in ('down',):
+            return
+        if c.face == 'up':
+            yy, xx = np.mgrid[0:c.h, 0:c.w]
+            m = ((xx // 2 + yy // 2) % 4 == 0) & ((xx + yy) % 2 == 0)
+            m |= ((xx // 2 + yy // 2) % 4 == 0) & ((xx + yy) % 2 == 1)
+            m &= ((xx == 0) | (yy == 0) | (xx == c.w - 1) | (yy == c.h - 1))
+            c.M[m] = MI['verdi']; c.T[m] = STEP[2]
+            return
+        for x in range(c.w):
+            n = min(c.h, LENS[(x // 2) % len(LENS)])
+            if n:
+                c.M[:n, x] = MI['verdi']; c.T[:n, x] = STEP[1]; c.T[n - 1, x] = STEP[2]
+    return p
+
+def mossy(base):
+    """stone with moss creeping over the top edge in 2 px runs (sides) and corner clusters (top)"""
+    DEP = (2, 1, 0, 1, 2, 0)
+    def p(c):
+        base(c)
+        if c.face == 'down':
+            return
+        if c.face == 'up':
+            yy, xx = np.mgrid[0:c.h, 0:c.w]
+            edge = (xx <= 1) | (yy <= 1) | (xx >= c.w - 2) | (yy >= c.h - 2)
+            m = edge & (((xx // 2) + (yy // 2)) % 3 == 0)
+            c.M[m] = MI['moss']; c.T[m] = STEP[2]
+            return
+        for x in range(c.w):
+            n = min(c.h, DEP[(x // 2) % len(DEP)])
+            if n:
+                c.M[:n, x] = MI['moss']; c.T[:n, x] = STEP[1 if n == 1 else 2]; c.T[0, x] = STEP[1]
+    return p
+
+def soil_top(flowers=None):
+    """dark soil with even furrows and little 2 px pebbles"""
+    def p(c):
+        c.fill('soil', STEP[2])
+        if c.face == 'up':
+            yy, xx = np.mgrid[0:c.h, 0:c.w]
+            c.T[((xx + 2 * yy) % 5 == 0)] = STEP[3]
+            c.T[((xx + 2 * yy) % 5 == 1)] = STEP[1]
+            peb = ((xx % 7 == 2) | (xx % 7 == 3)) & (yy % 5 == 1) & (((xx // 7) + yy // 5) % 2 == 0)
+            c.M[peb] = MI['stone']; c.T[peb] = STEP[1]
+    return p

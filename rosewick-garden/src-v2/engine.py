@@ -798,6 +798,7 @@ def _soft_wood(style, c, kind, base, u, v, ax, detail, wood='teak'):
     vert = kind == 'woodv' or (not top and c.h > 2 * c.w)
     along, across = (v, u) if vert else (u, v)
     mat = ('birchtop' if top else 'birchside') if wood == 'birch' else ('woodtop' if top else 'woodside')
+    birch_boards = wood == 'birch' and top and min(c.h, c.w) >= 8 and kind != 'plain'
     if style == 'bold':
         mat = 'teak'
     b = 2
@@ -805,6 +806,10 @@ def _soft_wood(style, c, kind, base, u, v, ax, detail, wood='teak'):
     if style in ('softseam', 'rings', 'bold') and not vert:
         t = np.where(across % 6 == 5, b + 2, t)          # soft board seam (two steps, 1 px)
         t = np.where(across % 6 == 0, np.minimum(t, b - 1), t)
+    if birch_boards:
+        # Rosewick birch: soft 1 px board lines on wide tops (every 5 px), lit row after each
+        t = np.where(across % 5 == 4, b + 1, t)
+        t = np.where(across % 5 == 0, np.minimum(t, b - 1), t)
     if top and (kind == 'plain' or style == 'rings') and min(c.h, c.w) >= 3:
         # end grain / sanded slab: rectangular growth rings from the face centre
         cx, cy = (c.w - 1) / 2, (c.h - 1) / 2

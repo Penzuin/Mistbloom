@@ -16,6 +16,9 @@ STONE = pxmat('stone', 'tile', block=4)
 STONE_BIG = pxmat('stone', 'tile', block=8)
 CLAY = pxmat('clay', 'plain')
 
+GNOMON = ["c....", "cc...", "ccc..", "cccc."]
+HANDLE = ["..hhh..", ".h...h.", "h.....h"]
+
 def pot(): return {'up': A.soil_top(), '*': CLAY}
 
 def fabric(mat='grey'):
@@ -71,17 +74,21 @@ def garden_chair():
     return m
 
 def tea_table():
+    """reshaped: round stepped top on a turned pedestal (bulb and collar), crossed feet,
+    teapot with a spout, a cup and a vase of roses"""
     m = Model('tea_table', 'Garden Tea Table')
     m.box('top_a', (0.5, 13, 2), (15, 1.5, 12), RAIL)
     m.box('top_b', (2, 13.25, 0.5), (12, 1, 15), RAIL)
-    m.box('column', (6.5, 2, 6.5), (3, 11, 3), WOODV, skip=['up', 'down'])
+    m.box('collar', (5.5, 11.5, 5.5), (5, 1.5, 5), RAIL)
+    m.box('column', (6.75, 4, 6.75), (2.5, 7.5, 2.5), WOODV, skip=['up', 'down'])
+    m.box('bulb', (5.75, 2, 5.75), (4.5, 3, 4.5), RAIL)
     m.box('foot_a', (2, 0, 6.5), (12, 2, 3), RAIL)
     m.box('foot_b', (6.75, 0, 2), (2.5, 1.75, 12), RAIL)
     m.box('teapot', (5, 14.5, 6), (4, 3.5, 4), {'up': solid('kwhite', 1.0), '*': _teapot_side}, skip=['down'])
     m.box('teapot_lid', (5.75, 18, 6.75), (2.5, 1, 2.5), solid('rose', 2.0), skip=['down'])
+    m.box('spout', (9, 15.5, 7.5), (2, 1, 1), solid('kwhite', 1.0), rot=('z', 22.5, (9, 16, 8)))
     m.box('cup', (10.5, 14.5, 10), (2, 1.5, 2), {'up': _tea_top, '*': solid('kwhite', 1.0)}, skip=['down'])
-    m.box('cake', (2.5, 14.5, 9.5), (3, 2, 3), {'up': solid('pink', 1.0), '*': _cake_side}, skip=['down'])
-    m.box('vase', (2.5, 14.5, 3), (2, 2.5, 2), {'up': A.soil_top(), '*': A.copper()}, skip=['down'])
+    m.box('vase', (2.5, 14.5, 3), (2, 2.5, 2), {'up': A.soil_top(), '*': A.patina()}, skip=['down'])
     cross(m, 'flowers', 3.5, 17, 4, 7, 9, A.rose_bush())
     return m
 
@@ -104,7 +111,7 @@ def potting_table():
     m.box('leg_front_right', (12.5, 0, 11.5), (2.5, 12, 2.5), WOODV, skip=['down', 'up'])
     m.box('top', (0, 12, 1.5), (16, 2, 13.5), RAIL)
     m.box('shelf', (1.5, 3, 2.5), (13, 1.5, 11), RAIL)
-    m.box('back', (3.5, 14, 2.25), (9, 6, 1), WOOD, skip=['down'])
+    m.box('back', (3.5, 14, 2.25), (9, 6, 1), A.carved(WOOD, faces=('south',), min_size=6), skip=['down'])
     m.box('upper_shelf', (1, 20, 1), (14, 1.5, 4.5), RAIL)
     m.box('pot', (8.5, 14, 7), (3.5, 3, 3.5), pot(), skip=['down'])
     cross(m, 'sprout', 10.25, 17, 8.75, 6, 8, A.daisy())
@@ -113,38 +120,43 @@ def potting_table():
     return m
 
 def seed_cabinet():
+    """reshaped: raised on four short legs under a base frame, frame-and-panel body with carved
+    rose sides, a drawer front, a crown with an overhang, lavender on top"""
     m = Model('seed_cabinet', 'Seed Cabinet')
-    m.box('plinth', (0.5, 0, 2.5), (15, 2, 13), RAIL)
-    m.box('body', (1, 2, 3), (14, 17, 12), {'south': A.drawers(3, 3), '*': WOOD})
-    m.box('stile_left', (0.5, 2, 13.5), (2, 17, 2), WOODV)
-    m.box('stile_right', (13.5, 2, 13.5), (2, 17, 2), WOODV)
-    m.box('top', (0, 19, 2), (16, 2, 14), RAIL)
-    m.box('pot', (6, 21, 7), (4, 3, 4), pot(), skip=['down'])
-    cross(m, 'lavender', 8, 24, 9, 5, 8, A.lavender())
-    m.plane('roses', (0.1, 3, 4), 'x', (8, 12), A.rose_vine(1.2, 3))
+    for i, (x, z) in enumerate(((1, 3), (13, 3), (1, 13), (13, 13))):
+        m.box(('leg_back_left', 'leg_back_right', 'leg_front_left', 'leg_front_right')[i], (x, 0, z), (2, 2.5, 2), WOODV, skip=['up'])
+    m.box('base', (0.5, 2.5, 2.5), (15, 1.5, 13), RAIL)
+    m.box('body', (1, 4, 3), (14, 15, 12), {'south': A.drawers(3, 3), '*': A.carved(WOOD, faces=('east', 'west'))})
+    m.box('stile_left', (0.5, 4, 13.5), (2, 15, 2), WOODV)
+    m.box('stile_right', (13.5, 4, 13.5), (2, 15, 2), WOODV)
+    m.box('top', (0, 19, 2), (16, 1.5, 14), RAIL)
+    m.box('crown', (1, 20.5, 3), (14, 1, 12), RAIL)
+    m.box('pot', (6, 21.5, 7), (4, 3, 4), pot(), skip=['down'])
+    cross(m, 'lavender', 8, 24.5, 9, 5, 7, A.lavender())
     return m
 
 def tool_rack():
+    """reshaped: a clear rake (long handle, wide head with tines), a spade with a T grip,
+    and a copper watering can on the crate"""
     m = Model('tool_rack', 'Garden Tool Rack')
     m.box('post_left', (1, 0, 7), (2.5, 21, 2.5), POST, skip=['down'])
     m.box('post_right', (12.5, 0, 7), (2.5, 21, 2.5), POST, skip=['down'])
     m.box('top_bar', (0, 17, 6.5), (16, 2, 3.5), RAIL)
-    m.box('peg_bar', (3.5, 11, 8), (9, 1.5, 1.5), WOOD)
-    m.box('crate', (3.5, 0, 5.5), (9, 5, 7), {'up': A.soil_top(), '*': WOOD}, skip=['down'])
-    r = ('z', -22.5, (5.5, 10, 10))
-    m.box('rake_handle', (5, 3, 9.5), (1, 13, 1), A.handle(), rot=r)
-    m.plane('rake_head', (2.5, 15.5, 10.9), 'z', (7, 3), A.rake_head(), rot=r)
-    s = ('z', 22.5, (10.5, 10, 10))
-    m.box('spade_handle', (10, 7, 9.5), (1, 9, 1), A.handle(), rot=s)
-    m.box('spade_grip', (9, 15, 9.5), (3, 1, 1), WOOD, rot=s)
-    m.box('spade_blade', (9.25, 3, 9.25), (2.5, 4, 1.5), A.iron(2), rot=s)
-    m.plane('shears', (5, 5.5, 9.9), 'z', (6, 5), A.shears())
-    m.plane('roses', (12.5, 3, 9.9), 'z', (5, 10), A.rose_vine(1.3, 4))
+    m.box('peg_bar', (3.5, 12, 8), (9, 1.5, 1.5), WOOD)
+    m.box('crate', (3.5, 0, 5.5), (9, 5, 7), A.carved(WOOD, faces=('south',), min_size=7), skip=['down'])
+    m.box('rake_handle', (5, 4, 9.75), (1, 13, 1), A.handle())
+    m.box('rake_head', (3, 15.5, 9.5), (5, 1.25, 1.5), A.iron(2))
+    m.plane('rake_tines', (3, 13.5, 10.9), 'z', (5, 2), rows_art(["I.I.I", "I.I.I"], {"I": ("iron", 2)}))
+    m.box('spade_handle', (10, 6, 9.75), (1, 10, 1), A.handle())
+    m.box('spade_grip', (9, 16, 9.75), (3, 1, 1), WOOD)
+    m.box('spade_blade', (9.25, 3, 9.5), (2.5, 3.5, 1.5), A.iron(1))
+    m.box('can', (4.5, 5, 7), (4, 3.5, 3), A.patina())
+    m.box('can_spout', (8.5, 6.5, 8), (3, 1, 1), A.copper(), rot=('z', 22.5, (8.5, 7, 8.5)))
     return m
 
 def rose_trellis():
     m = Model('rose_trellis', 'Rose Trellis')
-    m.box('planter', (0.5, 0, 5), (15, 5, 6), {'up': A.soil_top(), '*': WOOD}, skip=['down'])
+    m.box('planter', (0.5, 0, 5), (15, 5, 6), {'up': A.soil_top(), '*': A.carved(WOOD, faces=('south', 'north'), min_size=5)}, skip=['down'])
     m.box('post_left', (1, 5, 7), (2, 24, 2), WOODV, skip=['down', 'up'])
     m.box('post_right', (13, 5, 7), (2, 24, 2), WOODV, skip=['down', 'up'])
     m.box('cap', (0, 29, 6.5), (16, 1.5, 3), RAIL)
@@ -177,22 +189,25 @@ def arbor_arch():
     return shift(m, dx=-8, dy=-16)
 
 def birdbath():
+    """reshaped: stepped stone base with moss, a column with a collar, a two-tier copper bowl
+    with patina, and the bluebird on the rim"""
     m = Model('birdbath', 'Copper Birdbath')
-    m.box('base', (2, 0, 2), (12, 2, 12), STONE, skip=['down'])
-    m.box('base_top', (3, 2, 3), (10, 1.5, 10), STONE, skip=['down'])
-    m.box('column', (5.5, 3.5, 5.5), (5, 8, 5), STONE, skip=['down', 'up'])
-    m.box('collar', (4.5, 11.5, 4.5), (7, 1.5, 7), STONE)
-    m.box('basin', (1.5, 13, 1.5), (13, 2.5, 13), {'up': A.basin_top(), '*': A.copper()})
-    m.box('bird_body', (12, 15.5, 5), (2.5, 2.5, 4), A.bird_body(), skip=['down'])
-    m.box('bird_head', (12.25, 17.5, 8.5), (2, 2, 2), solid('bird', 2.0), skip=['down'])
-    m.box('bird_beak', (12.75, 18, 10.5), (1, 0.75, 1), solid('yellow', 1.0))
-    m.plane('bird_tail', (13.25, 16.5, 2.75), 'x', (2.5, 2), rows_art(["bbb", "b.b"], {"b": ("bird", 3)}))
+    m.box('base', (2, 0, 2), (12, 2, 12), A.mossy(STONE), skip=['down'])
+    m.box('base_top', (3.5, 2, 3.5), (9, 1.5, 9), STONE, skip=['down'])
+    m.box('column', (6, 3.5, 6), (4, 7.5, 4), STONE, skip=['down', 'up'])
+    m.box('collar', (5, 11, 5), (6, 1.5, 6), STONE)
+    m.box('bowl', (3.5, 12.5, 3.5), (9, 1.5, 9), A.patina(2))
+    m.box('basin', (1.5, 14, 1.5), (13, 2, 13), {'up': A.basin_top(), '*': A.patina(2)})
+    m.box('bird_body', (12, 16, 5), (2.5, 2.5, 4), A.bird_body(), skip=['down'])
+    m.box('bird_head', (12.25, 18, 8.5), (2, 2, 2), solid('bird', 2.0), skip=['down'])
+    m.box('bird_beak', (12.75, 18.5, 10.5), (1, 0.75, 1), solid('yellow', 1.0))
+    m.plane('bird_tail', (13.25, 17, 2.75), 'x', (2.5, 2), rows_art(["bbb", "b.b"], {"b": ("bird", 3)}))
     cross(m, 'grass', 4, 2, 13, 5, 4, grass())
     return m
 
 def flower_box():
     m = Model('flower_box', 'Flower Box')
-    m.box('box', (0, 1, 4), (16, 7, 8), {'up': A.soil_top(), '*': WOOD})
+    m.box('box', (0, 1, 4), (16, 7, 8), {'up': A.soil_top(), '*': A.carved(WOOD, faces=('east', 'west'), min_size=7)})
     m.box('foot_left', (1, 0, 4.5), (2, 1, 7), WOOD, skip=['up'])
     m.box('foot_right', (13, 0, 4.5), (2, 1, 7), WOOD, skip=['up'])
     cross(m, 'roses', 3.5, 8, 8, 7, 9, A.rose_bush())
@@ -202,35 +217,36 @@ def flower_box():
     return m
 
 def wheelbarrow():
+    """reshaped: a tub with a sloped front board, handles running back to the legs, a big
+    crossed wheel under the nose, sunflowers and roses"""
     m = Model('wheelbarrow', 'Wheelbarrow of Blooms')
-    m.box('tub', (3, 5, 1), (10, 6, 11), {'up': A.soil_top(), '*': WOOD})
+    m.box('tub', (3, 5, 1), (10, 5, 9), {'up': A.soil_top(), '*': A.carved(WOOD, faces=('east', 'west'), min_size=5)})
+    m.box('nose', (3, 6, 9.5), (10, 4, 2.5), WOOD, rot=('x', 22.5, (8, 6, 9.5)))
     m.box('leg_left', (3.5, 0, 1.5), (1.5, 5, 1.5), WOODV, skip=['up'])
     m.box('leg_right', (11, 0, 1.5), (1.5, 5, 1.5), WOODV, skip=['up'])
-    m.box('handle_left', (3.5, 7, -3), (1.5, 1.5, 4), WOOD)
-    m.box('handle_right', (11, 7, -3), (1.5, 1.5, 4), WOOD)
-    m.box('wheel_a', (7, 0, 12), (2, 7, 5), A.wheel())
-    m.box('wheel_b', (7.25, 1, 11), (1.5, 5, 7), A.wheel())
-    m.box('bracket_left', (5.75, 3, 9), (1.25, 1.5, 6.5), WOOD)
-    m.box('bracket_right', (9, 3, 9), (1.25, 1.5, 6.5), WOOD)
-    cross(m, 'sunflowers', 5.5, 11, 4, 7, 13, A.sunflower())
-    cross(m, 'roses', 9.5, 11, 8, 7, 9, A.rose_bush())
+    m.box('handle_left', (3.5, 6.5, -3), (1.5, 1.5, 4), WOOD)
+    m.box('handle_right', (11, 6.5, -3), (1.5, 1.5, 4), WOOD)
+    m.box('wheel_a', (7, 0, 9.5), (2, 7, 5), A.wheel())
+    m.box('wheel_b', (7.25, 1, 8.5), (1.5, 5, 7), A.wheel())
+    m.box('axle', (5.5, 2.75, 11.25), (5, 1.5, 1.5), A.iron(2))
+    cross(m, 'sunflowers', 5.5, 10, 4, 7, 13, A.sunflower())
+    cross(m, 'roses', 9.5, 10, 7, 7, 9, A.rose_bush())
     return m
 
-GNOMON = ["c....", "cc...", "ccc..", "cccc."]
-
 def sundial():
+    """reshaped: mossy stepped base, a column with a middle band, a wide cap, a copper dial
+    with patina and a gnomon, ivy up the column"""
     m = Model('sundial', 'Sundial')
-    m.box('base', (1, 0, 1), (14, 2, 14), STONE_BIG, skip=['down'])
+    m.box('base', (1, 0, 1), (14, 2, 14), A.mossy(STONE_BIG), skip=['down'])
     m.box('plinth', (3, 2, 3), (10, 1.5, 10), STONE, skip=['down'])
-    m.box('column', (5, 3.5, 5), (6, 9, 6), STONE, skip=['down', 'up'])
+    m.box('column', (5.5, 3.5, 5.5), (5, 9, 5), STONE, skip=['down', 'up'])
+    m.box('band', (4.75, 7, 4.75), (6.5, 1.5, 6.5), STONE)
     m.box('cap', (3.5, 12.5, 3.5), (9, 1.5, 9), STONE)
-    m.box('dial', (4, 14, 4), (8, 0.75, 8), A.dial_top(), skip=['down'])
+    m.box('dial', (4, 14, 4), (8, 0.75, 8), {'up': A.dial_top(), '*': A.patina()}, skip=['down'])
     m.plane('gnomon', (8, 14.75, 5), 'x', (5, 4), rows_art(GNOMON, {"c": ("copper", 1)}))
     m.plane('ivy', (4.5, 3.5, 11.4), 'z', (5, 8), ivy())
     cross(m, 'grass', 3, 2, 13, 4, 3, grass())
     return m
-
-HANDLE = ["..hhh..", ".h...h.", "h.....h"]
 
 def picnic_blanket():
     m = Model('picnic_blanket', 'Picnic Blanket')
@@ -251,12 +267,12 @@ def _sandwich_side(c):
 def stake_lantern(lit=False):
     m = Model('stake_lantern_lit' if lit else 'stake_lantern', 'Stake Lantern')
     m.box('stake', (7, 0, 7), (2, 16, 2), WOODV, skip=['down'])
-    m.box('base', (5.5, 16, 5.5), (5, 1.5, 5), A.copper())
+    m.box('base', (5.5, 16, 5.5), (5, 1.5, 5), A.patina())
     m.box('candle', (7.25, 17.5, 7.25), (1.5, 2.5, 1.5), solid('cream', 1.0))
     if lit:
         m.box('flame', (7.5, 20, 7.5), (1, 1.5, 1), A.flame(), emit=15)
     m.box('glass', (6, 17.5, 6), (4, 6, 4), _lantern_glass(lit), emit=10 if lit else 0)
-    m.box('roof', (5, 23.5, 5), (6, 1.5, 6), A.copper())
+    m.box('roof', (5, 23.5, 5), (6, 1.5, 6), A.patina())
     m.box('roof_top', (6, 25, 6), (4, 1.5, 4), A.copper())
     m.box('finial', (7.5, 26.5, 7.5), (1, 1.5, 1), A.copper(1))
     m.plane('roses', (5.5, 2, 9.4), 'z', (5, 10), A.rose_vine(1.3, 5))

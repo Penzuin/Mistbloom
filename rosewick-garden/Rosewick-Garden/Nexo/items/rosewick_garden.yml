@@ -149,7 +149,7 @@ rosewick_tool_rack:
   itemname: "<#e6cd8c>Garden Tool Rack"
   material: PAPER
   lore:
-    - "<!i><gray>Rake, spade and shears, always to hand."
+    - "<!i><gray>Rake, spade and watering can, always to hand."
     - "<!i><#8fb06a>Rosewick Garden"
   Components:
     item_model: rosewick:tool_rack
