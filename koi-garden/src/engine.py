@@ -56,7 +56,7 @@ def colour(mat_idx, tone):
 
 TSTEPS = np.array([0, 1.0, 2.0, 4.0, 6.0])   # tone index -> ramp position
 THEME = [None]     # material theme: None | lacquer | bamboo | twotone (Oct 19 2026 options)
-STYLE = ['styled']  # texture style: house | lacquer | carved | wave (Mistbloom originals, Oct 19 2026)
+STYLE = ['soft']  # texture style: house | lacquer | carved | wave (Mistbloom originals, Oct 19 2026)
 PX = True          # vanilla-res house style (PACK_STANDARDS, Oct 19 2026)
 PXPAL = np.stack([colour(np.full(5, i), TSTEPS) for i in range(len(MATS))])  # (M,5,3)
 
