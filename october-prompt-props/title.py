@@ -58,7 +58,7 @@ SHOT = """async (w) => {
   const r = p.renderer
   const oldSize = new THREE.Vector2(); r.getSize(oldSize)
   const h = Math.round(w * 0.5)
-  p.camera.aspect = w / h; p.camera.updateProjectionMatrix()
+  p.camera.aspect = w / h; p.camera.zoom = 7; p.camera.updateProjectionMatrix()
   r.setPixelRatio(1); r.setSize(w, h, false)
   r.setClearColor(0x000000, 0)
   const vis = []
