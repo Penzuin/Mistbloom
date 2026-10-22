@@ -1,0 +1,4 @@
+[{"name":"t_tiny","text":"tiny",
+  "args":{"gradientColour0":"#e6fffb","gradientColour4":"#38a09e","gradientColour1":"#9ee4dc","gradientColour1Enabled":true,"customBorder":true,"customBorderColour":"#14141e"}},
+ {"name":"t_cottage","text":"cottage",
+  "args":{"gradientColour0":"#fff4c8","gradientColour4":"#d6a84a","gradientColour1":"#f0cc6c","gradientColour1Enabled":true,"customBorder":true,"customBorderColour":"#14141e"}}]
